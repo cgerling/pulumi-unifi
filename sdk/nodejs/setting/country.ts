@@ -4,18 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
-/**
- * The `unifi.setting.Country` resource allows you to configure the country settings for your UniFi network.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as unifi from "@pulumiverse/unifi";
- *
- * const example = new unifi.setting.Country("example", {code: "US"});
- * ```
- */
 export class Country extends pulumi.CustomResource {
     /**
      * Get an existing Country resource's state with the given name, ID, and optional extra
@@ -94,15 +82,15 @@ export interface CountryState {
     /**
      * The country code to set for the UniFi site. The country code must be a valid ISO 3166-1 alpha-2 code.
      */
-    code?: pulumi.Input<string>;
+    code?: pulumi.Input<string | undefined>;
     /**
      * The numeric representation in ISO 3166-1 of the country code.
      */
-    codeNumeric?: pulumi.Input<number>;
+    codeNumeric?: pulumi.Input<number | undefined>;
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
 }
 
 /**
@@ -116,5 +104,5 @@ export interface CountryArgs {
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
 }

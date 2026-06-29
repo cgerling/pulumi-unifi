@@ -4,70 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * The `unifi.Network` resource manages networks in your UniFi environment, including WAN, LAN, and VLAN networks. This resource enables you to:
- *
- * * Create and manage different types of networks (corporate, guest, WAN, VLAN-only)
- * * Configure network addressing and DHCP settings
- * * Set up IPv6 networking features
- * * Manage DHCP relay and DNS settings
- * * Configure network groups and VLANs
- *
- * Common use cases include:
- * * Setting up corporate and guest networks with different security policies
- * * Configuring WAN connectivity with various authentication methods
- * * Creating VLANs for network segmentation
- * * Managing DHCP and DNS services for network clients
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as unifi from "@pulumiverse/unifi";
- *
- * const config = new pulumi.Config();
- * const vlanId = config.getNumber("vlanId") || 10;
- * const vlan = new unifi.Network("vlan", {
- *     name: "wifi-vlan",
- *     purpose: "corporate",
- *     subnet: "10.0.0.1/24",
- *     vlanId: vlanId,
- *     dhcpStart: "10.0.0.6",
- *     dhcpStop: "10.0.0.254",
- *     dhcpEnabled: true,
- * });
- * const wan = new unifi.Network("wan", {
- *     name: "wan",
- *     purpose: "wan",
- *     wanNetworkgroup: "WAN",
- *     wanType: "pppoe",
- *     wanIp: "192.168.1.1",
- *     wanEgressQos: 1,
- *     wanUsername: "username",
- *     xWanPassword: "password",
- * });
- * ```
- *
- * ## Import
- *
- * import from provider configured site
- *
- * ```sh
- * $ pulumi import unifi:index/network:Network mynetwork 5dc28e5e9106d105bdc87217
- * ```
- *
- * import from another site
- *
- * ```sh
- * $ pulumi import unifi:index/network:Network mynetwork bfa2l6i7:5dc28e5e9106d105bdc87217
- * ```
- *
- * import network by name
- *
- * ```sh
- * $ pulumi import unifi:index/network:Network mynetwork name=LAN
- * ```
- */
 export class Network extends pulumi.CustomResource {
     /**
      * Get an existing Network resource's state with the given name, ID, and optional extra
@@ -329,6 +265,7 @@ export class Network extends pulumi.CustomResource {
      * * `guest` - Isolated network for guest access with limited permissions
      * * `wan` - External network connection (WAN uplink)
      * * `vlan-only` - VLAN network without DHCP services
+     * * `vpn-client` - Site-to-site VPN client connection (see the `vpnType` and `wireguard_client_*` arguments to configure a WireGuard VPN client)
      */
     declare public readonly purpose: pulumi.Output<string>;
     /**
@@ -340,12 +277,32 @@ export class Network extends pulumi.CustomResource {
      */
     declare public readonly subnet: pulumi.Output<string | undefined>;
     /**
+     * The list of destination subnets (CIDR notation) routed through the VPN client tunnel when `vpnClientDefaultRoute` is false. Values are canonicalized to their network address (e.g. `10.0.0.1/16` becomes `10.0.0.0/16`). Only applicable when `purpose` is 'vpn-client'.
+     */
+    declare public readonly uidVpnCustomRoutings: pulumi.Output<string[] | undefined>;
+    /**
+     * Whether clients on THIS network are allowed to request UPnP/NAT-PMP port mappings. Per-network opt-in that complements the gateway-global UPnP toggle (`unifi_setting_usg.upnp_enabled`): UPnP must be enabled globally AND on a given network for that network's devices to self-map WAN ports. Leave false on untrusted networks (IoT, Guest, …) so a compromised device cannot open inbound holes in the firewall; enable only on networks whose devices you trust to manage their own port mappings.
+     */
+    declare public readonly upnpLanEnabled: pulumi.Output<boolean>;
+    /**
      * The VLAN ID for this network. Valid range is 0-4096. Common uses:
      * * 1-4094: Standard VLAN range for network segmentation
      * * 0: Untagged/native VLAN
      * * >4094: Reserved for special purposes
      */
     declare public readonly vlanId: pulumi.Output<number | undefined>;
+    /**
+     * When true, route all of the gateway's internet traffic through the VPN client tunnel. When false (default), only the destinations in `uidVpnCustomRouting` are routed through the tunnel. Only applicable when `purpose` is 'vpn-client'.
+     */
+    declare public readonly vpnClientDefaultRoute: pulumi.Output<boolean | undefined>;
+    /**
+     * When true, use DNS servers advertised by the VPN peer for traffic on the tunnel. Only applicable when `purpose` is 'vpn-client'.
+     */
+    declare public readonly vpnClientPullDns: pulumi.Output<boolean | undefined>;
+    /**
+     * The VPN type for a `vpn-client` network. Currently `wireguard-client` is supported, which connects the gateway to a remote WireGuard server. Only applicable when `purpose` is 'vpn-client'. A `wireguard-client` network also requires `subnet` (the tunnel interface address, e.g. `10.0.0.2/32`) and `dhcpDns` (interface DNS); the controller rejects the create without them.
+     */
+    declare public readonly vpnType: pulumi.Output<string | undefined>;
     /**
      * The IPv6 prefix size to request from ISP. Must be between 48 and 64.
      * Only applicable when `wanTypeV6` is 'dhcpv6'.
@@ -434,12 +391,48 @@ export class Network extends pulumi.CustomResource {
      */
     declare public readonly wanUsername: pulumi.Output<string | undefined>;
     /**
+     * How the WireGuard VPN client peer is configured. Currently only `manual` is supported, configuring the peer with the individual `wireguard_client_*` arguments. Only applicable when `vpnType` is 'wireguard-client'.
+     */
+    declare public readonly wireguardClientMode: pulumi.Output<string | undefined>;
+    /**
+     * The remote WireGuard server's endpoint host or IP address that the gateway dials. Only applicable when `vpnType` is 'wireguard-client'.
+     */
+    declare public readonly wireguardClientPeerIp: pulumi.Output<string | undefined>;
+    /**
+     * The remote WireGuard server's listen port (e.g. 51820). Only applicable when `vpnType` is 'wireguard-client'.
+     */
+    declare public readonly wireguardClientPeerPort: pulumi.Output<number | undefined>;
+    /**
+     * The remote WireGuard server's public key (the peer the gateway connects to). Only applicable when `vpnType` is 'wireguard-client'.
+     */
+    declare public readonly wireguardClientPeerPublicKey: pulumi.Output<string | undefined>;
+    /**
+     * An optional WireGuard pre-shared key (PSK) for an additional layer of symmetric-key security with the peer. Keep this value secret. The controller may not return this value on read, so it is computed to avoid spurious drift. Only applicable when `vpnType` is 'wireguard-client'.
+     */
+    declare public readonly wireguardClientPresharedKey: pulumi.Output<string>;
+    /**
+     * Whether a WireGuard pre-shared key is used with the peer. Only applicable when `vpnType` is 'wireguard-client'.
+     */
+    declare public readonly wireguardClientPresharedKeyEnabled: pulumi.Output<boolean | undefined>;
+    /**
+     * The WAN interface the WireGuard tunnel egresses from. One of `wan` or `wan2`. Only applicable when `vpnType` is 'wireguard-client'.
+     */
+    declare public readonly wireguardInterface: pulumi.Output<string | undefined>;
+    /**
+     * The gateway's own WireGuard public key for this VPN client. The controller does not return it, so the provider derives it from the private key (Curve25519). Add this key as a peer on the remote WireGuard server. Only set when `vpnType` is 'wireguard-client'.
+     */
+    declare public /*out*/ readonly wireguardPublicKey: pulumi.Output<string>;
+    /**
      * Password for WAN authentication.
      * * Required for PPPoE connections
      * * May be needed for some ISP configurations
      * * Must be kept secret
      */
     declare public readonly xWanPassword: pulumi.Output<string | undefined>;
+    /**
+     * The gateway's own WireGuard private key for this VPN client. If omitted, a key pair is generated for you and the public key is exposed via `wireguardPublicKey`. Keep this value secret. Only applicable when `vpnType` is 'wireguard-client'.
+     */
+    declare public readonly xWireguardPrivateKey: pulumi.Output<string>;
 
     /**
      * Create a Network resource with the given unique name, arguments, and options.
@@ -490,7 +483,12 @@ export class Network extends pulumi.CustomResource {
             resourceInputs["purpose"] = state?.purpose;
             resourceInputs["site"] = state?.site;
             resourceInputs["subnet"] = state?.subnet;
+            resourceInputs["uidVpnCustomRoutings"] = state?.uidVpnCustomRoutings;
+            resourceInputs["upnpLanEnabled"] = state?.upnpLanEnabled;
             resourceInputs["vlanId"] = state?.vlanId;
+            resourceInputs["vpnClientDefaultRoute"] = state?.vpnClientDefaultRoute;
+            resourceInputs["vpnClientPullDns"] = state?.vpnClientPullDns;
+            resourceInputs["vpnType"] = state?.vpnType;
             resourceInputs["wanDhcpV6PdSize"] = state?.wanDhcpV6PdSize;
             resourceInputs["wanDns"] = state?.wanDns;
             resourceInputs["wanEgressQos"] = state?.wanEgressQos;
@@ -504,7 +502,16 @@ export class Network extends pulumi.CustomResource {
             resourceInputs["wanType"] = state?.wanType;
             resourceInputs["wanTypeV6"] = state?.wanTypeV6;
             resourceInputs["wanUsername"] = state?.wanUsername;
+            resourceInputs["wireguardClientMode"] = state?.wireguardClientMode;
+            resourceInputs["wireguardClientPeerIp"] = state?.wireguardClientPeerIp;
+            resourceInputs["wireguardClientPeerPort"] = state?.wireguardClientPeerPort;
+            resourceInputs["wireguardClientPeerPublicKey"] = state?.wireguardClientPeerPublicKey;
+            resourceInputs["wireguardClientPresharedKey"] = state?.wireguardClientPresharedKey;
+            resourceInputs["wireguardClientPresharedKeyEnabled"] = state?.wireguardClientPresharedKeyEnabled;
+            resourceInputs["wireguardInterface"] = state?.wireguardInterface;
+            resourceInputs["wireguardPublicKey"] = state?.wireguardPublicKey;
             resourceInputs["xWanPassword"] = state?.xWanPassword;
+            resourceInputs["xWireguardPrivateKey"] = state?.xWireguardPrivateKey;
         } else {
             const args = argsOrState as NetworkArgs | undefined;
             if (args?.purpose === undefined && !opts.urn) {
@@ -546,7 +553,12 @@ export class Network extends pulumi.CustomResource {
             resourceInputs["purpose"] = args?.purpose;
             resourceInputs["site"] = args?.site;
             resourceInputs["subnet"] = args?.subnet;
+            resourceInputs["uidVpnCustomRoutings"] = args?.uidVpnCustomRoutings;
+            resourceInputs["upnpLanEnabled"] = args?.upnpLanEnabled;
             resourceInputs["vlanId"] = args?.vlanId;
+            resourceInputs["vpnClientDefaultRoute"] = args?.vpnClientDefaultRoute;
+            resourceInputs["vpnClientPullDns"] = args?.vpnClientPullDns;
+            resourceInputs["vpnType"] = args?.vpnType;
             resourceInputs["wanDhcpV6PdSize"] = args?.wanDhcpV6PdSize;
             resourceInputs["wanDns"] = args?.wanDns;
             resourceInputs["wanEgressQos"] = args?.wanEgressQos;
@@ -560,9 +572,20 @@ export class Network extends pulumi.CustomResource {
             resourceInputs["wanType"] = args?.wanType;
             resourceInputs["wanTypeV6"] = args?.wanTypeV6;
             resourceInputs["wanUsername"] = args?.wanUsername;
+            resourceInputs["wireguardClientMode"] = args?.wireguardClientMode;
+            resourceInputs["wireguardClientPeerIp"] = args?.wireguardClientPeerIp;
+            resourceInputs["wireguardClientPeerPort"] = args?.wireguardClientPeerPort;
+            resourceInputs["wireguardClientPeerPublicKey"] = args?.wireguardClientPeerPublicKey;
+            resourceInputs["wireguardClientPresharedKey"] = args?.wireguardClientPresharedKey ? pulumi.secret(args.wireguardClientPresharedKey) : undefined;
+            resourceInputs["wireguardClientPresharedKeyEnabled"] = args?.wireguardClientPresharedKeyEnabled;
+            resourceInputs["wireguardInterface"] = args?.wireguardInterface;
             resourceInputs["xWanPassword"] = args?.xWanPassword;
+            resourceInputs["xWireguardPrivateKey"] = args?.xWireguardPrivateKey ? pulumi.secret(args.xWireguardPrivateKey) : undefined;
+            resourceInputs["wireguardPublicKey"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
+        const secretOpts = { additionalSecretOutputs: ["wireguardClientPresharedKey", "xWireguardPrivateKey"] };
+        opts = pulumi.mergeOptions(opts, secretOpts);
         super(Network.__pulumiType, name, resourceInputs, opts);
     }
 }
@@ -578,14 +601,14 @@ export interface NetworkState {
      * * Use internal DNS servers for corporate networks
      * Maximum 4 servers can be specified.
      */
-    dhcpDns?: pulumi.Input<pulumi.Input<string>[]>;
+    dhcpDns?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * Controls whether DHCP server is enabled for this network. When enabled:
      * * The network will automatically assign IP addresses to clients
      * * DHCP options (DNS, lease time) will be provided to clients
      * * Static IP assignments can still be made outside the DHCP range
      */
-    dhcpEnabled?: pulumi.Input<boolean>;
+    dhcpEnabled?: pulumi.Input<boolean | undefined>;
     /**
      * The DHCP lease time in seconds. Common values:
      * * 86400 (1 day) - Default, suitable for most networks
@@ -593,49 +616,49 @@ export interface NetworkState {
      * * 604800 (1 week) - For stable networks with static clients
      * * 2592000 (30 days) - For very stable networks
      */
-    dhcpLease?: pulumi.Input<number>;
+    dhcpLease?: pulumi.Input<number | undefined>;
     /**
      * Enables DHCP relay for this network. When enabled:
      * * DHCP requests are forwarded to an external DHCP server
      * * Local DHCP server is disabled
      * * Useful for centralized DHCP management
      */
-    dhcpRelayEnabled?: pulumi.Input<boolean>;
+    dhcpRelayEnabled?: pulumi.Input<boolean | undefined>;
     /**
      * The starting IPv4 address of the DHCP range. Examples:
      * * For subnet 192.168.1.0/24, typical start: '192.168.1.100'
      * * For subnet 10.0.0.0/24, typical start: '10.0.0.100'
      * Ensure this address is within the network's subnet.
      */
-    dhcpStart?: pulumi.Input<string>;
+    dhcpStart?: pulumi.Input<string | undefined>;
     /**
      * The ending IPv4 address of the DHCP range. Examples:
      * * For subnet 192.168.1.0/24, typical stop: '192.168.1.254'
      * * For subnet 10.0.0.0/24, typical stop: '10.0.0.254'
      * Must be greater than dhcpStart and within the network's subnet.
      */
-    dhcpStop?: pulumi.Input<string>;
+    dhcpStop?: pulumi.Input<string | undefined>;
     /**
      * List of IPv6 DNS server addresses for DHCPv6 clients. Examples:
      * * Use ['2001:4860:4860::8888', '2001:4860:4860::8844'] for Google DNS
      * * Use ['2606:4700:4700::1111', '2606:4700:4700::1001'] for Cloudflare DNS
      * Only used when dhcpV6DnsAuto is false. Maximum of 4 addresses are allowed.
      */
-    dhcpV6Dns?: pulumi.Input<pulumi.Input<string>[]>;
+    dhcpV6Dns?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * Controls DNS server source for DHCPv6 clients:
      * * true - Use upstream DNS servers (recommended)
      * * false - Use manually specified servers from dhcpV6Dns
      * Default is true for easier management.
      */
-    dhcpV6DnsAuto?: pulumi.Input<boolean>;
+    dhcpV6DnsAuto?: pulumi.Input<boolean | undefined>;
     /**
      * Enables stateful DHCPv6 for IPv6 address assignment. When enabled:
      * * Provides IPv6 addresses to clients
      * * Works alongside SLAAC if configured
      * * Allows for more controlled IPv6 addressing
      */
-    dhcpV6Enabled?: pulumi.Input<boolean>;
+    dhcpV6Enabled?: pulumi.Input<boolean | undefined>;
     /**
      * The DHCPv6 lease time in seconds. Common values:
      * * 86400 (1 day) - Default setting
@@ -643,38 +666,38 @@ export interface NetworkState {
      * * 604800 (1 week) - For stable networks
      * Typically longer than IPv4 DHCP leases.
      */
-    dhcpV6Lease?: pulumi.Input<number>;
+    dhcpV6Lease?: pulumi.Input<number | undefined>;
     /**
      * The starting IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
      * Must be a valid IPv6 address within your allocated IPv6 subnet.
      */
-    dhcpV6Start?: pulumi.Input<string>;
+    dhcpV6Start?: pulumi.Input<string | undefined>;
     /**
      * The ending IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
      * Must be after dhcpV6Start in the IPv6 address space.
      */
-    dhcpV6Stop?: pulumi.Input<string>;
+    dhcpV6Stop?: pulumi.Input<string | undefined>;
     /**
      * Enables DHCP boot options for PXE boot or network boot configurations. When enabled:
      * * Allows network devices to boot from a TFTP server
      * * Requires dhcpdBootServer and dhcpdBootFilename to be set
      * * Commonly used for diskless workstations or network installations
      */
-    dhcpdBootEnabled?: pulumi.Input<boolean>;
+    dhcpdBootEnabled?: pulumi.Input<boolean | undefined>;
     /**
      * The boot filename to be loaded from the TFTP server. Examples:
      * * 'pxelinux.0' - Standard PXE boot loader
      * * 'undionly.kpxe' - iPXE boot loader
      * * Custom paths for specific boot images
      */
-    dhcpdBootFilename?: pulumi.Input<string>;
+    dhcpdBootFilename?: pulumi.Input<string | undefined>;
     /**
      * The IPv4 address of the TFTP server for network boot. This setting:
      * * Is required when dhcpdBootEnabled is true
      * * Should be a reliable, always-on server
      * * Must be accessible to all clients that need to boot
      */
-    dhcpdBootServer?: pulumi.Input<string>;
+    dhcpdBootServer?: pulumi.Input<string | undefined>;
     /**
      * The domain name for this network. Examples:
      * * 'corp.example.com' - For corporate networks
@@ -682,7 +705,7 @@ export interface NetworkState {
      * * 'iot.example.com' - For IoT networks
      * Used for internal DNS resolution and DHCP options.
      */
-    domainName?: pulumi.Input<string>;
+    domainName?: pulumi.Input<string | undefined>;
     /**
      * Controls whether this network is active. When disabled:
      * * Network will not be available to clients
@@ -690,7 +713,7 @@ export interface NetworkState {
      * * Existing clients will be disconnected
      * Useful for temporary network maintenance or security measures.
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
      * Enables IGMP (Internet Group Management Protocol) snooping. When enabled:
      * * Optimizes multicast traffic flow
@@ -698,14 +721,14 @@ export interface NetworkState {
      * * Improves performance for multicast applications (e.g., IPTV)
      * Recommended for networks with multicast traffic.
      */
-    igmpSnooping?: pulumi.Input<boolean>;
+    igmpSnooping?: pulumi.Input<boolean | undefined>;
     /**
      * Controls internet access for this network. When disabled:
      * * Clients cannot access external networks
      * * Internal network access remains available
      * * Useful for creating isolated or secure networks
      */
-    internetAccessEnabled?: pulumi.Input<boolean>;
+    internetAccessEnabled?: pulumi.Input<boolean | undefined>;
     /**
      * Specifies the IPv6 connection type. Must be one of:
      * * `none` - IPv6 disabled (default)
@@ -714,47 +737,47 @@ export interface NetworkState {
      *
      * Choose based on your IPv6 deployment strategy and ISP capabilities.
      */
-    ipv6InterfaceType?: pulumi.Input<string>;
+    ipv6InterfaceType?: pulumi.Input<string | undefined>;
     /**
      * The WAN interface to use for IPv6 Prefix Delegation. Options:
      * * `wan` - Primary WAN interface
      * * `wan2` - Secondary WAN interface
      * Only applicable when `ipv6InterfaceType` is 'pd'.
      */
-    ipv6PdInterface?: pulumi.Input<string>;
+    ipv6PdInterface?: pulumi.Input<string | undefined>;
     /**
      * The IPv6 Prefix ID for Prefix Delegation. Used to:
      * * Differentiate multiple delegated prefixes
      * * Create unique subnets from the delegated prefix
      * Typically a hexadecimal value (e.g., '0', '1', 'a1').
      */
-    ipv6PdPrefixid?: pulumi.Input<string>;
+    ipv6PdPrefixid?: pulumi.Input<string | undefined>;
     /**
      * The starting IPv6 address for Prefix Delegation range.
      * Only used when `ipv6InterfaceType` is 'pd'.
      * Must be within the delegated prefix range.
      */
-    ipv6PdStart?: pulumi.Input<string>;
+    ipv6PdStart?: pulumi.Input<string | undefined>;
     /**
      * The ending IPv6 address for Prefix Delegation range.
      * Only used when `ipv6InterfaceType` is 'pd'.
      * Must be after `ipv6PdStart` within the delegated prefix.
      */
-    ipv6PdStop?: pulumi.Input<string>;
+    ipv6PdStop?: pulumi.Input<string | undefined>;
     /**
      * Enables IPv6 Router Advertisements (RA). When enabled:
      * * Announces IPv6 prefix information to clients
      * * Enables SLAAC address configuration
      * * Required for most IPv6 deployments
      */
-    ipv6RaEnable?: pulumi.Input<boolean>;
+    ipv6RaEnable?: pulumi.Input<boolean | undefined>;
     /**
      * The preferred lifetime (in seconds) for IPv6 addresses in Router Advertisements.
      * * Must be less than or equal to `ipv6RaValidLifetime`
      * * Default: 14400 (4 hours)
      * * After this time, addresses become deprecated but still usable
      */
-    ipv6RaPreferredLifetime?: pulumi.Input<number>;
+    ipv6RaPreferredLifetime?: pulumi.Input<number | undefined>;
     /**
      * Sets the priority for IPv6 Router Advertisements. Options:
      * * `high` - Preferred for primary networks
@@ -762,77 +785,98 @@ export interface NetworkState {
      * * `low` - For backup or secondary networks
      * Affects router selection when multiple IPv6 routers exist.
      */
-    ipv6RaPriority?: pulumi.Input<string>;
+    ipv6RaPriority?: pulumi.Input<string | undefined>;
     /**
      * The valid lifetime (in seconds) for IPv6 addresses in Router Advertisements.
      * * Must be greater than or equal to `ipv6RaPreferredLifetime`
      * * Default: 86400 (24 hours)
      * * After this time, addresses become invalid
      */
-    ipv6RaValidLifetime?: pulumi.Input<number>;
+    ipv6RaValidLifetime?: pulumi.Input<number | undefined>;
     /**
      * The static IPv6 subnet in CIDR notation (e.g., '2001:db8::/64') when using static IPv6.
      * Only applicable when `ipv6InterfaceType` is 'static'.
      * Must be a valid IPv6 subnet allocated to your organization.
      */
-    ipv6StaticSubnet?: pulumi.Input<string>;
+    ipv6StaticSubnet?: pulumi.Input<string | undefined>;
     /**
      * Enables Multicast DNS (mDNS/Bonjour/Avahi) on the network. When enabled:
      * * Allows device discovery (e.g., printers, Chromecasts)
      * * Supports zero-configuration networking
      * * Available on Controller version 7 and later
      */
-    multicastDns?: pulumi.Input<boolean>;
+    multicastDns?: pulumi.Input<boolean | undefined>;
     /**
      * The name of the network. This should be a descriptive name that helps identify the network's purpose, such as 'Corporate-Main', 'Guest-Network', or 'IoT-VLAN'.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * The network group for this network. Default is 'LAN'. For WAN networks, use 'WAN' or 'WAN2'. Network groups help organize and apply policies to multiple networks.
      */
-    networkGroup?: pulumi.Input<string>;
+    networkGroup?: pulumi.Input<string | undefined>;
     /**
      * Enables network isolation. When enabled:
      * * Prevents communication between clients on this network
      * * Each client can only communicate with the gateway
      * * Commonly used for guest networks or IoT devices
      */
-    networkIsolationEnabled?: pulumi.Input<boolean>;
+    networkIsolationEnabled?: pulumi.Input<boolean | undefined>;
     /**
      * The purpose/type of the network. Must be one of:
      * * `corporate` - Standard network for corporate use with full access
      * * `guest` - Isolated network for guest access with limited permissions
      * * `wan` - External network connection (WAN uplink)
      * * `vlan-only` - VLAN network without DHCP services
+     * * `vpn-client` - Site-to-site VPN client connection (see the `vpnType` and `wireguard_client_*` arguments to configure a WireGuard VPN client)
      */
-    purpose?: pulumi.Input<string>;
+    purpose?: pulumi.Input<string | undefined>;
     /**
      * The name of the site to associate the network with.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
     /**
      * The IPv4 subnet for this network in CIDR notation (e.g., '192.168.1.0/24'). This defines the network's address space and determines the range of IP addresses available for DHCP.
      */
-    subnet?: pulumi.Input<string>;
+    subnet?: pulumi.Input<string | undefined>;
+    /**
+     * The list of destination subnets (CIDR notation) routed through the VPN client tunnel when `vpnClientDefaultRoute` is false. Values are canonicalized to their network address (e.g. `10.0.0.1/16` becomes `10.0.0.0/16`). Only applicable when `purpose` is 'vpn-client'.
+     */
+    uidVpnCustomRoutings?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * Whether clients on THIS network are allowed to request UPnP/NAT-PMP port mappings. Per-network opt-in that complements the gateway-global UPnP toggle (`unifi_setting_usg.upnp_enabled`): UPnP must be enabled globally AND on a given network for that network's devices to self-map WAN ports. Leave false on untrusted networks (IoT, Guest, …) so a compromised device cannot open inbound holes in the firewall; enable only on networks whose devices you trust to manage their own port mappings.
+     */
+    upnpLanEnabled?: pulumi.Input<boolean | undefined>;
     /**
      * The VLAN ID for this network. Valid range is 0-4096. Common uses:
      * * 1-4094: Standard VLAN range for network segmentation
      * * 0: Untagged/native VLAN
      * * >4094: Reserved for special purposes
      */
-    vlanId?: pulumi.Input<number>;
+    vlanId?: pulumi.Input<number | undefined>;
+    /**
+     * When true, route all of the gateway's internet traffic through the VPN client tunnel. When false (default), only the destinations in `uidVpnCustomRouting` are routed through the tunnel. Only applicable when `purpose` is 'vpn-client'.
+     */
+    vpnClientDefaultRoute?: pulumi.Input<boolean | undefined>;
+    /**
+     * When true, use DNS servers advertised by the VPN peer for traffic on the tunnel. Only applicable when `purpose` is 'vpn-client'.
+     */
+    vpnClientPullDns?: pulumi.Input<boolean | undefined>;
+    /**
+     * The VPN type for a `vpn-client` network. Currently `wireguard-client` is supported, which connects the gateway to a remote WireGuard server. Only applicable when `purpose` is 'vpn-client'. A `wireguard-client` network also requires `subnet` (the tunnel interface address, e.g. `10.0.0.2/32`) and `dhcpDns` (interface DNS); the controller rejects the create without them.
+     */
+    vpnType?: pulumi.Input<string | undefined>;
     /**
      * The IPv6 prefix size to request from ISP. Must be between 48 and 64.
      * Only applicable when `wanTypeV6` is 'dhcpv6'.
      */
-    wanDhcpV6PdSize?: pulumi.Input<number>;
+    wanDhcpV6PdSize?: pulumi.Input<number | undefined>;
     /**
      * List of IPv4 DNS servers for WAN interface. Examples:
      * * ISP provided DNS servers
      * * Public DNS services (e.g., 8.8.8.8, 1.1.1.1)
      * * Maximum 4 servers can be specified
      */
-    wanDns?: pulumi.Input<pulumi.Input<string>[]>;
+    wanDns?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * Quality of Service (QoS) priority for WAN egress traffic (0-7).
      * * 0 (default) - Best effort
@@ -840,37 +884,37 @@ export interface NetworkState {
      * * 5-7 - Highest priority, use sparingly
      * Higher values get preferential treatment.
      */
-    wanEgressQos?: pulumi.Input<number>;
+    wanEgressQos?: pulumi.Input<number | undefined>;
     /**
      * The IPv4 gateway address for WAN interface.
      * Required when `wanType` is 'static'.
      * Typically the ISP's router IP address.
      */
-    wanGateway?: pulumi.Input<string>;
+    wanGateway?: pulumi.Input<string | undefined>;
     /**
      * The IPv6 gateway address for WAN interface.
      * Required when `wanTypeV6` is 'static'.
      * Typically the ISP's router IPv6 address.
      */
-    wanGatewayV6?: pulumi.Input<string>;
+    wanGatewayV6?: pulumi.Input<string | undefined>;
     /**
      * The static IPv4 address for WAN interface.
      * Required when `wanType` is 'static'.
      * Must be a valid public IP address assigned by your ISP.
      */
-    wanIp?: pulumi.Input<string>;
+    wanIp?: pulumi.Input<string | undefined>;
     /**
      * The static IPv6 address for WAN interface.
      * Required when `wanTypeV6` is 'static'.
      * Must be a valid public IPv6 address assigned by your ISP.
      */
-    wanIpv6?: pulumi.Input<string>;
+    wanIpv6?: pulumi.Input<string | undefined>;
     /**
      * The IPv4 netmask for WAN interface (e.g., '255.255.255.0').
      * Required when `wanType` is 'static'.
      * Must match the subnet mask provided by your ISP.
      */
-    wanNetmask?: pulumi.Input<string>;
+    wanNetmask?: pulumi.Input<string | undefined>;
     /**
      * The WAN interface group assignment. Options:
      * * `WAN` - Primary WAN interface
@@ -878,12 +922,12 @@ export interface NetworkState {
      * * `WAN_LTE_FAILOVER` - LTE backup connection
      * Used for dual WAN and failover configurations.
      */
-    wanNetworkgroup?: pulumi.Input<string>;
+    wanNetworkgroup?: pulumi.Input<string | undefined>;
     /**
      * The IPv6 prefix length for WAN interface. Must be between 1 and 128.
      * Only applicable when `wanTypeV6` is 'static'.
      */
-    wanPrefixlen?: pulumi.Input<number>;
+    wanPrefixlen?: pulumi.Input<number | undefined>;
     /**
      * The IPv4 WAN connection type. Options:
      * * `disabled` - WAN interface disabled
@@ -892,7 +936,7 @@ export interface NetworkState {
      * * `pppoe` - PPPoE connection (common for DSL)
      * Choose based on your ISP's requirements.
      */
-    wanType?: pulumi.Input<string>;
+    wanType?: pulumi.Input<string | undefined>;
     /**
      * The IPv6 WAN connection type. Options:
      * * `disabled` - IPv6 disabled
@@ -900,21 +944,57 @@ export interface NetworkState {
      * * `dhcpv6` - Dynamic IPv6 from ISP
      * Choose based on your ISP's requirements.
      */
-    wanTypeV6?: pulumi.Input<string>;
+    wanTypeV6?: pulumi.Input<string | undefined>;
     /**
      * Username for WAN authentication.
      * * Required for PPPoE connections
      * * May be needed for some ISP configurations
      * * Cannot contain spaces or special characters
      */
-    wanUsername?: pulumi.Input<string>;
+    wanUsername?: pulumi.Input<string | undefined>;
+    /**
+     * How the WireGuard VPN client peer is configured. Currently only `manual` is supported, configuring the peer with the individual `wireguard_client_*` arguments. Only applicable when `vpnType` is 'wireguard-client'.
+     */
+    wireguardClientMode?: pulumi.Input<string | undefined>;
+    /**
+     * The remote WireGuard server's endpoint host or IP address that the gateway dials. Only applicable when `vpnType` is 'wireguard-client'.
+     */
+    wireguardClientPeerIp?: pulumi.Input<string | undefined>;
+    /**
+     * The remote WireGuard server's listen port (e.g. 51820). Only applicable when `vpnType` is 'wireguard-client'.
+     */
+    wireguardClientPeerPort?: pulumi.Input<number | undefined>;
+    /**
+     * The remote WireGuard server's public key (the peer the gateway connects to). Only applicable when `vpnType` is 'wireguard-client'.
+     */
+    wireguardClientPeerPublicKey?: pulumi.Input<string | undefined>;
+    /**
+     * An optional WireGuard pre-shared key (PSK) for an additional layer of symmetric-key security with the peer. Keep this value secret. The controller may not return this value on read, so it is computed to avoid spurious drift. Only applicable when `vpnType` is 'wireguard-client'.
+     */
+    wireguardClientPresharedKey?: pulumi.Input<string | undefined>;
+    /**
+     * Whether a WireGuard pre-shared key is used with the peer. Only applicable when `vpnType` is 'wireguard-client'.
+     */
+    wireguardClientPresharedKeyEnabled?: pulumi.Input<boolean | undefined>;
+    /**
+     * The WAN interface the WireGuard tunnel egresses from. One of `wan` or `wan2`. Only applicable when `vpnType` is 'wireguard-client'.
+     */
+    wireguardInterface?: pulumi.Input<string | undefined>;
+    /**
+     * The gateway's own WireGuard public key for this VPN client. The controller does not return it, so the provider derives it from the private key (Curve25519). Add this key as a peer on the remote WireGuard server. Only set when `vpnType` is 'wireguard-client'.
+     */
+    wireguardPublicKey?: pulumi.Input<string | undefined>;
     /**
      * Password for WAN authentication.
      * * Required for PPPoE connections
      * * May be needed for some ISP configurations
      * * Must be kept secret
      */
-    xWanPassword?: pulumi.Input<string>;
+    xWanPassword?: pulumi.Input<string | undefined>;
+    /**
+     * The gateway's own WireGuard private key for this VPN client. If omitted, a key pair is generated for you and the public key is exposed via `wireguardPublicKey`. Keep this value secret. Only applicable when `vpnType` is 'wireguard-client'.
+     */
+    xWireguardPrivateKey?: pulumi.Input<string | undefined>;
 }
 
 /**
@@ -928,14 +1008,14 @@ export interface NetworkArgs {
      * * Use internal DNS servers for corporate networks
      * Maximum 4 servers can be specified.
      */
-    dhcpDns?: pulumi.Input<pulumi.Input<string>[]>;
+    dhcpDns?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * Controls whether DHCP server is enabled for this network. When enabled:
      * * The network will automatically assign IP addresses to clients
      * * DHCP options (DNS, lease time) will be provided to clients
      * * Static IP assignments can still be made outside the DHCP range
      */
-    dhcpEnabled?: pulumi.Input<boolean>;
+    dhcpEnabled?: pulumi.Input<boolean | undefined>;
     /**
      * The DHCP lease time in seconds. Common values:
      * * 86400 (1 day) - Default, suitable for most networks
@@ -943,49 +1023,49 @@ export interface NetworkArgs {
      * * 604800 (1 week) - For stable networks with static clients
      * * 2592000 (30 days) - For very stable networks
      */
-    dhcpLease?: pulumi.Input<number>;
+    dhcpLease?: pulumi.Input<number | undefined>;
     /**
      * Enables DHCP relay for this network. When enabled:
      * * DHCP requests are forwarded to an external DHCP server
      * * Local DHCP server is disabled
      * * Useful for centralized DHCP management
      */
-    dhcpRelayEnabled?: pulumi.Input<boolean>;
+    dhcpRelayEnabled?: pulumi.Input<boolean | undefined>;
     /**
      * The starting IPv4 address of the DHCP range. Examples:
      * * For subnet 192.168.1.0/24, typical start: '192.168.1.100'
      * * For subnet 10.0.0.0/24, typical start: '10.0.0.100'
      * Ensure this address is within the network's subnet.
      */
-    dhcpStart?: pulumi.Input<string>;
+    dhcpStart?: pulumi.Input<string | undefined>;
     /**
      * The ending IPv4 address of the DHCP range. Examples:
      * * For subnet 192.168.1.0/24, typical stop: '192.168.1.254'
      * * For subnet 10.0.0.0/24, typical stop: '10.0.0.254'
      * Must be greater than dhcpStart and within the network's subnet.
      */
-    dhcpStop?: pulumi.Input<string>;
+    dhcpStop?: pulumi.Input<string | undefined>;
     /**
      * List of IPv6 DNS server addresses for DHCPv6 clients. Examples:
      * * Use ['2001:4860:4860::8888', '2001:4860:4860::8844'] for Google DNS
      * * Use ['2606:4700:4700::1111', '2606:4700:4700::1001'] for Cloudflare DNS
      * Only used when dhcpV6DnsAuto is false. Maximum of 4 addresses are allowed.
      */
-    dhcpV6Dns?: pulumi.Input<pulumi.Input<string>[]>;
+    dhcpV6Dns?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * Controls DNS server source for DHCPv6 clients:
      * * true - Use upstream DNS servers (recommended)
      * * false - Use manually specified servers from dhcpV6Dns
      * Default is true for easier management.
      */
-    dhcpV6DnsAuto?: pulumi.Input<boolean>;
+    dhcpV6DnsAuto?: pulumi.Input<boolean | undefined>;
     /**
      * Enables stateful DHCPv6 for IPv6 address assignment. When enabled:
      * * Provides IPv6 addresses to clients
      * * Works alongside SLAAC if configured
      * * Allows for more controlled IPv6 addressing
      */
-    dhcpV6Enabled?: pulumi.Input<boolean>;
+    dhcpV6Enabled?: pulumi.Input<boolean | undefined>;
     /**
      * The DHCPv6 lease time in seconds. Common values:
      * * 86400 (1 day) - Default setting
@@ -993,38 +1073,38 @@ export interface NetworkArgs {
      * * 604800 (1 week) - For stable networks
      * Typically longer than IPv4 DHCP leases.
      */
-    dhcpV6Lease?: pulumi.Input<number>;
+    dhcpV6Lease?: pulumi.Input<number | undefined>;
     /**
      * The starting IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
      * Must be a valid IPv6 address within your allocated IPv6 subnet.
      */
-    dhcpV6Start?: pulumi.Input<string>;
+    dhcpV6Start?: pulumi.Input<string | undefined>;
     /**
      * The ending IPv6 address for the DHCPv6 range. Used in static DHCPv6 configuration.
      * Must be after dhcpV6Start in the IPv6 address space.
      */
-    dhcpV6Stop?: pulumi.Input<string>;
+    dhcpV6Stop?: pulumi.Input<string | undefined>;
     /**
      * Enables DHCP boot options for PXE boot or network boot configurations. When enabled:
      * * Allows network devices to boot from a TFTP server
      * * Requires dhcpdBootServer and dhcpdBootFilename to be set
      * * Commonly used for diskless workstations or network installations
      */
-    dhcpdBootEnabled?: pulumi.Input<boolean>;
+    dhcpdBootEnabled?: pulumi.Input<boolean | undefined>;
     /**
      * The boot filename to be loaded from the TFTP server. Examples:
      * * 'pxelinux.0' - Standard PXE boot loader
      * * 'undionly.kpxe' - iPXE boot loader
      * * Custom paths for specific boot images
      */
-    dhcpdBootFilename?: pulumi.Input<string>;
+    dhcpdBootFilename?: pulumi.Input<string | undefined>;
     /**
      * The IPv4 address of the TFTP server for network boot. This setting:
      * * Is required when dhcpdBootEnabled is true
      * * Should be a reliable, always-on server
      * * Must be accessible to all clients that need to boot
      */
-    dhcpdBootServer?: pulumi.Input<string>;
+    dhcpdBootServer?: pulumi.Input<string | undefined>;
     /**
      * The domain name for this network. Examples:
      * * 'corp.example.com' - For corporate networks
@@ -1032,7 +1112,7 @@ export interface NetworkArgs {
      * * 'iot.example.com' - For IoT networks
      * Used for internal DNS resolution and DHCP options.
      */
-    domainName?: pulumi.Input<string>;
+    domainName?: pulumi.Input<string | undefined>;
     /**
      * Controls whether this network is active. When disabled:
      * * Network will not be available to clients
@@ -1040,7 +1120,7 @@ export interface NetworkArgs {
      * * Existing clients will be disconnected
      * Useful for temporary network maintenance or security measures.
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
      * Enables IGMP (Internet Group Management Protocol) snooping. When enabled:
      * * Optimizes multicast traffic flow
@@ -1048,14 +1128,14 @@ export interface NetworkArgs {
      * * Improves performance for multicast applications (e.g., IPTV)
      * Recommended for networks with multicast traffic.
      */
-    igmpSnooping?: pulumi.Input<boolean>;
+    igmpSnooping?: pulumi.Input<boolean | undefined>;
     /**
      * Controls internet access for this network. When disabled:
      * * Clients cannot access external networks
      * * Internal network access remains available
      * * Useful for creating isolated or secure networks
      */
-    internetAccessEnabled?: pulumi.Input<boolean>;
+    internetAccessEnabled?: pulumi.Input<boolean | undefined>;
     /**
      * Specifies the IPv6 connection type. Must be one of:
      * * `none` - IPv6 disabled (default)
@@ -1064,47 +1144,47 @@ export interface NetworkArgs {
      *
      * Choose based on your IPv6 deployment strategy and ISP capabilities.
      */
-    ipv6InterfaceType?: pulumi.Input<string>;
+    ipv6InterfaceType?: pulumi.Input<string | undefined>;
     /**
      * The WAN interface to use for IPv6 Prefix Delegation. Options:
      * * `wan` - Primary WAN interface
      * * `wan2` - Secondary WAN interface
      * Only applicable when `ipv6InterfaceType` is 'pd'.
      */
-    ipv6PdInterface?: pulumi.Input<string>;
+    ipv6PdInterface?: pulumi.Input<string | undefined>;
     /**
      * The IPv6 Prefix ID for Prefix Delegation. Used to:
      * * Differentiate multiple delegated prefixes
      * * Create unique subnets from the delegated prefix
      * Typically a hexadecimal value (e.g., '0', '1', 'a1').
      */
-    ipv6PdPrefixid?: pulumi.Input<string>;
+    ipv6PdPrefixid?: pulumi.Input<string | undefined>;
     /**
      * The starting IPv6 address for Prefix Delegation range.
      * Only used when `ipv6InterfaceType` is 'pd'.
      * Must be within the delegated prefix range.
      */
-    ipv6PdStart?: pulumi.Input<string>;
+    ipv6PdStart?: pulumi.Input<string | undefined>;
     /**
      * The ending IPv6 address for Prefix Delegation range.
      * Only used when `ipv6InterfaceType` is 'pd'.
      * Must be after `ipv6PdStart` within the delegated prefix.
      */
-    ipv6PdStop?: pulumi.Input<string>;
+    ipv6PdStop?: pulumi.Input<string | undefined>;
     /**
      * Enables IPv6 Router Advertisements (RA). When enabled:
      * * Announces IPv6 prefix information to clients
      * * Enables SLAAC address configuration
      * * Required for most IPv6 deployments
      */
-    ipv6RaEnable?: pulumi.Input<boolean>;
+    ipv6RaEnable?: pulumi.Input<boolean | undefined>;
     /**
      * The preferred lifetime (in seconds) for IPv6 addresses in Router Advertisements.
      * * Must be less than or equal to `ipv6RaValidLifetime`
      * * Default: 14400 (4 hours)
      * * After this time, addresses become deprecated but still usable
      */
-    ipv6RaPreferredLifetime?: pulumi.Input<number>;
+    ipv6RaPreferredLifetime?: pulumi.Input<number | undefined>;
     /**
      * Sets the priority for IPv6 Router Advertisements. Options:
      * * `high` - Preferred for primary networks
@@ -1112,77 +1192,98 @@ export interface NetworkArgs {
      * * `low` - For backup or secondary networks
      * Affects router selection when multiple IPv6 routers exist.
      */
-    ipv6RaPriority?: pulumi.Input<string>;
+    ipv6RaPriority?: pulumi.Input<string | undefined>;
     /**
      * The valid lifetime (in seconds) for IPv6 addresses in Router Advertisements.
      * * Must be greater than or equal to `ipv6RaPreferredLifetime`
      * * Default: 86400 (24 hours)
      * * After this time, addresses become invalid
      */
-    ipv6RaValidLifetime?: pulumi.Input<number>;
+    ipv6RaValidLifetime?: pulumi.Input<number | undefined>;
     /**
      * The static IPv6 subnet in CIDR notation (e.g., '2001:db8::/64') when using static IPv6.
      * Only applicable when `ipv6InterfaceType` is 'static'.
      * Must be a valid IPv6 subnet allocated to your organization.
      */
-    ipv6StaticSubnet?: pulumi.Input<string>;
+    ipv6StaticSubnet?: pulumi.Input<string | undefined>;
     /**
      * Enables Multicast DNS (mDNS/Bonjour/Avahi) on the network. When enabled:
      * * Allows device discovery (e.g., printers, Chromecasts)
      * * Supports zero-configuration networking
      * * Available on Controller version 7 and later
      */
-    multicastDns?: pulumi.Input<boolean>;
+    multicastDns?: pulumi.Input<boolean | undefined>;
     /**
      * The name of the network. This should be a descriptive name that helps identify the network's purpose, such as 'Corporate-Main', 'Guest-Network', or 'IoT-VLAN'.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * The network group for this network. Default is 'LAN'. For WAN networks, use 'WAN' or 'WAN2'. Network groups help organize and apply policies to multiple networks.
      */
-    networkGroup?: pulumi.Input<string>;
+    networkGroup?: pulumi.Input<string | undefined>;
     /**
      * Enables network isolation. When enabled:
      * * Prevents communication between clients on this network
      * * Each client can only communicate with the gateway
      * * Commonly used for guest networks or IoT devices
      */
-    networkIsolationEnabled?: pulumi.Input<boolean>;
+    networkIsolationEnabled?: pulumi.Input<boolean | undefined>;
     /**
      * The purpose/type of the network. Must be one of:
      * * `corporate` - Standard network for corporate use with full access
      * * `guest` - Isolated network for guest access with limited permissions
      * * `wan` - External network connection (WAN uplink)
      * * `vlan-only` - VLAN network without DHCP services
+     * * `vpn-client` - Site-to-site VPN client connection (see the `vpnType` and `wireguard_client_*` arguments to configure a WireGuard VPN client)
      */
     purpose: pulumi.Input<string>;
     /**
      * The name of the site to associate the network with.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
     /**
      * The IPv4 subnet for this network in CIDR notation (e.g., '192.168.1.0/24'). This defines the network's address space and determines the range of IP addresses available for DHCP.
      */
-    subnet?: pulumi.Input<string>;
+    subnet?: pulumi.Input<string | undefined>;
+    /**
+     * The list of destination subnets (CIDR notation) routed through the VPN client tunnel when `vpnClientDefaultRoute` is false. Values are canonicalized to their network address (e.g. `10.0.0.1/16` becomes `10.0.0.0/16`). Only applicable when `purpose` is 'vpn-client'.
+     */
+    uidVpnCustomRoutings?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    /**
+     * Whether clients on THIS network are allowed to request UPnP/NAT-PMP port mappings. Per-network opt-in that complements the gateway-global UPnP toggle (`unifi_setting_usg.upnp_enabled`): UPnP must be enabled globally AND on a given network for that network's devices to self-map WAN ports. Leave false on untrusted networks (IoT, Guest, …) so a compromised device cannot open inbound holes in the firewall; enable only on networks whose devices you trust to manage their own port mappings.
+     */
+    upnpLanEnabled?: pulumi.Input<boolean | undefined>;
     /**
      * The VLAN ID for this network. Valid range is 0-4096. Common uses:
      * * 1-4094: Standard VLAN range for network segmentation
      * * 0: Untagged/native VLAN
      * * >4094: Reserved for special purposes
      */
-    vlanId?: pulumi.Input<number>;
+    vlanId?: pulumi.Input<number | undefined>;
+    /**
+     * When true, route all of the gateway's internet traffic through the VPN client tunnel. When false (default), only the destinations in `uidVpnCustomRouting` are routed through the tunnel. Only applicable when `purpose` is 'vpn-client'.
+     */
+    vpnClientDefaultRoute?: pulumi.Input<boolean | undefined>;
+    /**
+     * When true, use DNS servers advertised by the VPN peer for traffic on the tunnel. Only applicable when `purpose` is 'vpn-client'.
+     */
+    vpnClientPullDns?: pulumi.Input<boolean | undefined>;
+    /**
+     * The VPN type for a `vpn-client` network. Currently `wireguard-client` is supported, which connects the gateway to a remote WireGuard server. Only applicable when `purpose` is 'vpn-client'. A `wireguard-client` network also requires `subnet` (the tunnel interface address, e.g. `10.0.0.2/32`) and `dhcpDns` (interface DNS); the controller rejects the create without them.
+     */
+    vpnType?: pulumi.Input<string | undefined>;
     /**
      * The IPv6 prefix size to request from ISP. Must be between 48 and 64.
      * Only applicable when `wanTypeV6` is 'dhcpv6'.
      */
-    wanDhcpV6PdSize?: pulumi.Input<number>;
+    wanDhcpV6PdSize?: pulumi.Input<number | undefined>;
     /**
      * List of IPv4 DNS servers for WAN interface. Examples:
      * * ISP provided DNS servers
      * * Public DNS services (e.g., 8.8.8.8, 1.1.1.1)
      * * Maximum 4 servers can be specified
      */
-    wanDns?: pulumi.Input<pulumi.Input<string>[]>;
+    wanDns?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * Quality of Service (QoS) priority for WAN egress traffic (0-7).
      * * 0 (default) - Best effort
@@ -1190,37 +1291,37 @@ export interface NetworkArgs {
      * * 5-7 - Highest priority, use sparingly
      * Higher values get preferential treatment.
      */
-    wanEgressQos?: pulumi.Input<number>;
+    wanEgressQos?: pulumi.Input<number | undefined>;
     /**
      * The IPv4 gateway address for WAN interface.
      * Required when `wanType` is 'static'.
      * Typically the ISP's router IP address.
      */
-    wanGateway?: pulumi.Input<string>;
+    wanGateway?: pulumi.Input<string | undefined>;
     /**
      * The IPv6 gateway address for WAN interface.
      * Required when `wanTypeV6` is 'static'.
      * Typically the ISP's router IPv6 address.
      */
-    wanGatewayV6?: pulumi.Input<string>;
+    wanGatewayV6?: pulumi.Input<string | undefined>;
     /**
      * The static IPv4 address for WAN interface.
      * Required when `wanType` is 'static'.
      * Must be a valid public IP address assigned by your ISP.
      */
-    wanIp?: pulumi.Input<string>;
+    wanIp?: pulumi.Input<string | undefined>;
     /**
      * The static IPv6 address for WAN interface.
      * Required when `wanTypeV6` is 'static'.
      * Must be a valid public IPv6 address assigned by your ISP.
      */
-    wanIpv6?: pulumi.Input<string>;
+    wanIpv6?: pulumi.Input<string | undefined>;
     /**
      * The IPv4 netmask for WAN interface (e.g., '255.255.255.0').
      * Required when `wanType` is 'static'.
      * Must match the subnet mask provided by your ISP.
      */
-    wanNetmask?: pulumi.Input<string>;
+    wanNetmask?: pulumi.Input<string | undefined>;
     /**
      * The WAN interface group assignment. Options:
      * * `WAN` - Primary WAN interface
@@ -1228,12 +1329,12 @@ export interface NetworkArgs {
      * * `WAN_LTE_FAILOVER` - LTE backup connection
      * Used for dual WAN and failover configurations.
      */
-    wanNetworkgroup?: pulumi.Input<string>;
+    wanNetworkgroup?: pulumi.Input<string | undefined>;
     /**
      * The IPv6 prefix length for WAN interface. Must be between 1 and 128.
      * Only applicable when `wanTypeV6` is 'static'.
      */
-    wanPrefixlen?: pulumi.Input<number>;
+    wanPrefixlen?: pulumi.Input<number | undefined>;
     /**
      * The IPv4 WAN connection type. Options:
      * * `disabled` - WAN interface disabled
@@ -1242,7 +1343,7 @@ export interface NetworkArgs {
      * * `pppoe` - PPPoE connection (common for DSL)
      * Choose based on your ISP's requirements.
      */
-    wanType?: pulumi.Input<string>;
+    wanType?: pulumi.Input<string | undefined>;
     /**
      * The IPv6 WAN connection type. Options:
      * * `disabled` - IPv6 disabled
@@ -1250,19 +1351,51 @@ export interface NetworkArgs {
      * * `dhcpv6` - Dynamic IPv6 from ISP
      * Choose based on your ISP's requirements.
      */
-    wanTypeV6?: pulumi.Input<string>;
+    wanTypeV6?: pulumi.Input<string | undefined>;
     /**
      * Username for WAN authentication.
      * * Required for PPPoE connections
      * * May be needed for some ISP configurations
      * * Cannot contain spaces or special characters
      */
-    wanUsername?: pulumi.Input<string>;
+    wanUsername?: pulumi.Input<string | undefined>;
+    /**
+     * How the WireGuard VPN client peer is configured. Currently only `manual` is supported, configuring the peer with the individual `wireguard_client_*` arguments. Only applicable when `vpnType` is 'wireguard-client'.
+     */
+    wireguardClientMode?: pulumi.Input<string | undefined>;
+    /**
+     * The remote WireGuard server's endpoint host or IP address that the gateway dials. Only applicable when `vpnType` is 'wireguard-client'.
+     */
+    wireguardClientPeerIp?: pulumi.Input<string | undefined>;
+    /**
+     * The remote WireGuard server's listen port (e.g. 51820). Only applicable when `vpnType` is 'wireguard-client'.
+     */
+    wireguardClientPeerPort?: pulumi.Input<number | undefined>;
+    /**
+     * The remote WireGuard server's public key (the peer the gateway connects to). Only applicable when `vpnType` is 'wireguard-client'.
+     */
+    wireguardClientPeerPublicKey?: pulumi.Input<string | undefined>;
+    /**
+     * An optional WireGuard pre-shared key (PSK) for an additional layer of symmetric-key security with the peer. Keep this value secret. The controller may not return this value on read, so it is computed to avoid spurious drift. Only applicable when `vpnType` is 'wireguard-client'.
+     */
+    wireguardClientPresharedKey?: pulumi.Input<string | undefined>;
+    /**
+     * Whether a WireGuard pre-shared key is used with the peer. Only applicable when `vpnType` is 'wireguard-client'.
+     */
+    wireguardClientPresharedKeyEnabled?: pulumi.Input<boolean | undefined>;
+    /**
+     * The WAN interface the WireGuard tunnel egresses from. One of `wan` or `wan2`. Only applicable when `vpnType` is 'wireguard-client'.
+     */
+    wireguardInterface?: pulumi.Input<string | undefined>;
     /**
      * Password for WAN authentication.
      * * Required for PPPoE connections
      * * May be needed for some ISP configurations
      * * Must be kept secret
      */
-    xWanPassword?: pulumi.Input<string>;
+    xWanPassword?: pulumi.Input<string | undefined>;
+    /**
+     * The gateway's own WireGuard private key for this VPN client. If omitted, a key pair is generated for you and the public key is exposed via `wireguardPublicKey`. Keep this value secret. Only applicable when `vpnType` is 'wireguard-client'.
+     */
+    xWireguardPrivateKey?: pulumi.Input<string | undefined>;
 }

@@ -6,52 +6,6 @@ import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 import * as utilities from "../utilities";
 
-/**
- * The `unifi.setting.Ips` resource allows you to configure the Intrusion Prevention System (IPS) settings for your UniFi network. IPS provides network threat protection by monitoring, detecting, and preventing malicious traffic based on configured rules and policies. Requires controller version 7.4 or later
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as unifi from "@pulumiverse/unifi";
- *
- * const test = new unifi.Network("test", {
- *     name: "My Network",
- *     purpose: "corporate",
- *     subnet: "192.168.1.0/24",
- *     vlanId: 10,
- * });
- * const example = new unifi.setting.Ips("example", {
- *     ipsMode: "ips",
- *     enabledNetworks: [test.id],
- *     advancedFilteringPreference: "manual",
- *     enabledCategories: [
- *         "emerging-dos",
- *         "emerging-exploit",
- *         "emerging-malware",
- *     ],
- *     adBlockedNetworks: [test.id],
- *     honeypots: [{
- *         ipAddress: "192.168.1.10",
- *         networkId: test.id,
- *     }],
- *     dnsFilters: [{
- *         name: "Work Filter",
- *         filter: "work",
- *         description: "Block non-work related sites",
- *         allowedSites: [
- *             "example.com",
- *             "company.com",
- *         ],
- *         blockedSites: [
- *             "gaming.example.com",
- *             "social.example.com",
- *         ],
- *         blockedTld: ["xyz"],
- *     }],
- * });
- * ```
- */
 export class Ips extends pulumi.CustomResource {
     /**
      * Get an existing Ips resource's state with the given name, ID, and optional extra
@@ -81,19 +35,11 @@ export class Ips extends pulumi.CustomResource {
     }
 
     /**
-     * List of network IDs to enable ad blocking for. If any networks are configured, ad blocking will be automatically enabled. Each entry should be a valid network ID from your UniFi configuration. Leave empty to disable ad blocking.
-     */
-    declare public readonly adBlockedNetworks: pulumi.Output<string[]>;
-    /**
      * The advanced filtering preference for IPS. Valid values are:
      *   * `disabled` - Advanced filtering is disabled
      *   * `manual` - Advanced filtering is enabled and manually configured
      */
     declare public readonly advancedFilteringPreference: pulumi.Output<string>;
-    /**
-     * DNS filters configuration. If any filters are configured, DNS filtering will be automatically enabled. Each filter can be applied to a specific network and provides content filtering capabilities.
-     */
-    declare public readonly dnsFilters: pulumi.Output<outputs.setting.IpsDnsFilter[]>;
     /**
      * List of enabled IPS threat categories. Each entry enables detection and prevention for a specific type of threat. The list of valid categories includes common threats like malware, exploits, scanning, and policy violations. See the validator for the complete list of available categories.
      */
@@ -144,9 +90,7 @@ export class Ips extends pulumi.CustomResource {
         opts = opts || {};
         if (opts.id) {
             const state = argsOrState as IpsState | undefined;
-            resourceInputs["adBlockedNetworks"] = state?.adBlockedNetworks;
             resourceInputs["advancedFilteringPreference"] = state?.advancedFilteringPreference;
-            resourceInputs["dnsFilters"] = state?.dnsFilters;
             resourceInputs["enabledCategories"] = state?.enabledCategories;
             resourceInputs["enabledNetworks"] = state?.enabledNetworks;
             resourceInputs["honeypots"] = state?.honeypots;
@@ -157,9 +101,7 @@ export class Ips extends pulumi.CustomResource {
             resourceInputs["suppression"] = state?.suppression;
         } else {
             const args = argsOrState as IpsArgs | undefined;
-            resourceInputs["adBlockedNetworks"] = args?.adBlockedNetworks;
             resourceInputs["advancedFilteringPreference"] = args?.advancedFilteringPreference;
-            resourceInputs["dnsFilters"] = args?.dnsFilters;
             resourceInputs["enabledCategories"] = args?.enabledCategories;
             resourceInputs["enabledNetworks"] = args?.enabledNetworks;
             resourceInputs["honeypots"] = args?.honeypots;
@@ -179,31 +121,23 @@ export class Ips extends pulumi.CustomResource {
  */
 export interface IpsState {
     /**
-     * List of network IDs to enable ad blocking for. If any networks are configured, ad blocking will be automatically enabled. Each entry should be a valid network ID from your UniFi configuration. Leave empty to disable ad blocking.
-     */
-    adBlockedNetworks?: pulumi.Input<pulumi.Input<string>[]>;
-    /**
      * The advanced filtering preference for IPS. Valid values are:
      *   * `disabled` - Advanced filtering is disabled
      *   * `manual` - Advanced filtering is enabled and manually configured
      */
-    advancedFilteringPreference?: pulumi.Input<string>;
-    /**
-     * DNS filters configuration. If any filters are configured, DNS filtering will be automatically enabled. Each filter can be applied to a specific network and provides content filtering capabilities.
-     */
-    dnsFilters?: pulumi.Input<pulumi.Input<inputs.setting.IpsDnsFilter>[]>;
+    advancedFilteringPreference?: pulumi.Input<string | undefined>;
     /**
      * List of enabled IPS threat categories. Each entry enables detection and prevention for a specific type of threat. The list of valid categories includes common threats like malware, exploits, scanning, and policy violations. See the validator for the complete list of available categories.
      */
-    enabledCategories?: pulumi.Input<pulumi.Input<string>[]>;
+    enabledCategories?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * List of network IDs to enable IPS protection for. Each entry should be a valid network ID from your UniFi configuration. IPS will only monitor and protect traffic on these networks.
      */
-    enabledNetworks?: pulumi.Input<pulumi.Input<string>[]>;
+    enabledNetworks?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * Honeypots configuration. Honeypots are decoy systems designed to detect, deflect, or study hacking attempts. They appear as legitimate parts of the network but are isolated and monitored.
      */
-    honeypots?: pulumi.Input<pulumi.Input<inputs.setting.IpsHoneypot>[]>;
+    honeypots?: pulumi.Input<pulumi.Input<inputs.setting.IpsHoneypot>[] | undefined>;
     /**
      * The IPS operation mode. Valid values are:
      *   * `ids` - Intrusion Detection System mode (detect and log threats only)
@@ -211,23 +145,23 @@ export interface IpsState {
      *   * `ipsInline` - Inline Intrusion Prevention System mode (more aggressive blocking)
      *   * `disabled` - IPS functionality is completely disabled
      */
-    ipsMode?: pulumi.Input<string>;
+    ipsMode?: pulumi.Input<string | undefined>;
     /**
      * Whether memory optimization is enabled for IPS. When set to `true`, the system will use less memory at the cost of potentially reduced detection capabilities. Useful for devices with limited resources. Defaults to `false`. Requires controller version 9.0 or later.
      */
-    memoryOptimized?: pulumi.Input<boolean>;
+    memoryOptimized?: pulumi.Input<boolean | undefined>;
     /**
      * Whether to restrict BitTorrent and other peer-to-peer file sharing traffic. When set to `true`, the system will block P2P traffic across the network. Defaults to `false`.
      */
-    restrictTorrents?: pulumi.Input<boolean>;
+    restrictTorrents?: pulumi.Input<boolean | undefined>;
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
     /**
      * Suppression configuration for IPS. This allows you to customize which alerts are suppressed or tracked, and define whitelisted traffic that should never trigger IPS alerts.
      */
-    suppression?: pulumi.Input<inputs.setting.IpsSuppression>;
+    suppression?: pulumi.Input<inputs.setting.IpsSuppression | undefined>;
 }
 
 /**
@@ -235,31 +169,23 @@ export interface IpsState {
  */
 export interface IpsArgs {
     /**
-     * List of network IDs to enable ad blocking for. If any networks are configured, ad blocking will be automatically enabled. Each entry should be a valid network ID from your UniFi configuration. Leave empty to disable ad blocking.
-     */
-    adBlockedNetworks?: pulumi.Input<pulumi.Input<string>[]>;
-    /**
      * The advanced filtering preference for IPS. Valid values are:
      *   * `disabled` - Advanced filtering is disabled
      *   * `manual` - Advanced filtering is enabled and manually configured
      */
-    advancedFilteringPreference?: pulumi.Input<string>;
-    /**
-     * DNS filters configuration. If any filters are configured, DNS filtering will be automatically enabled. Each filter can be applied to a specific network and provides content filtering capabilities.
-     */
-    dnsFilters?: pulumi.Input<pulumi.Input<inputs.setting.IpsDnsFilter>[]>;
+    advancedFilteringPreference?: pulumi.Input<string | undefined>;
     /**
      * List of enabled IPS threat categories. Each entry enables detection and prevention for a specific type of threat. The list of valid categories includes common threats like malware, exploits, scanning, and policy violations. See the validator for the complete list of available categories.
      */
-    enabledCategories?: pulumi.Input<pulumi.Input<string>[]>;
+    enabledCategories?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * List of network IDs to enable IPS protection for. Each entry should be a valid network ID from your UniFi configuration. IPS will only monitor and protect traffic on these networks.
      */
-    enabledNetworks?: pulumi.Input<pulumi.Input<string>[]>;
+    enabledNetworks?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * Honeypots configuration. Honeypots are decoy systems designed to detect, deflect, or study hacking attempts. They appear as legitimate parts of the network but are isolated and monitored.
      */
-    honeypots?: pulumi.Input<pulumi.Input<inputs.setting.IpsHoneypot>[]>;
+    honeypots?: pulumi.Input<pulumi.Input<inputs.setting.IpsHoneypot>[] | undefined>;
     /**
      * The IPS operation mode. Valid values are:
      *   * `ids` - Intrusion Detection System mode (detect and log threats only)
@@ -267,21 +193,21 @@ export interface IpsArgs {
      *   * `ipsInline` - Inline Intrusion Prevention System mode (more aggressive blocking)
      *   * `disabled` - IPS functionality is completely disabled
      */
-    ipsMode?: pulumi.Input<string>;
+    ipsMode?: pulumi.Input<string | undefined>;
     /**
      * Whether memory optimization is enabled for IPS. When set to `true`, the system will use less memory at the cost of potentially reduced detection capabilities. Useful for devices with limited resources. Defaults to `false`. Requires controller version 9.0 or later.
      */
-    memoryOptimized?: pulumi.Input<boolean>;
+    memoryOptimized?: pulumi.Input<boolean | undefined>;
     /**
      * Whether to restrict BitTorrent and other peer-to-peer file sharing traffic. When set to `true`, the system will block P2P traffic across the network. Defaults to `false`.
      */
-    restrictTorrents?: pulumi.Input<boolean>;
+    restrictTorrents?: pulumi.Input<boolean | undefined>;
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
     /**
      * Suppression configuration for IPS. This allows you to customize which alerts are suppressed or tracked, and define whitelisted traffic that should never trigger IPS alerts.
      */
-    suppression?: pulumi.Input<inputs.setting.IpsSuppression>;
+    suppression?: pulumi.Input<inputs.setting.IpsSuppression | undefined>;
 }

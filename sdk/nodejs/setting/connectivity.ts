@@ -4,9 +4,9 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
-export class Teleport extends pulumi.CustomResource {
+export class Connectivity extends pulumi.CustomResource {
     /**
-     * Get an existing Teleport resource's state with the given name, ID, and optional extra
+     * Get an existing Connectivity resource's state with the given name, ID, and optional extra
      * properties used to qualify the lookup.
      *
      * @param name The _unique_ name of the resulting resource.
@@ -14,99 +14,85 @@ export class Teleport extends pulumi.CustomResource {
      * @param state Any extra arguments used during the lookup.
      * @param opts Optional settings to control the behavior of the CustomResource.
      */
-    public static get(name: string, id: pulumi.Input<pulumi.ID>, state?: TeleportState, opts?: pulumi.CustomResourceOptions): Teleport {
-        return new Teleport(name, <any>state, { ...opts, id: id });
+    public static get(name: string, id: pulumi.Input<pulumi.ID>, state?: ConnectivityState, opts?: pulumi.CustomResourceOptions): Connectivity {
+        return new Connectivity(name, <any>state, { ...opts, id: id });
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'unifi:setting/teleport:Teleport';
+    public static readonly __pulumiType = 'unifi:setting/connectivity:Connectivity';
 
     /**
-     * Returns true if the given object is an instance of Teleport.  This is designed to work even
+     * Returns true if the given object is an instance of Connectivity.  This is designed to work even
      * when multiple copies of the Pulumi SDK have been loaded into the same process.
      */
-    public static isInstance(obj: any): obj is Teleport {
+    public static isInstance(obj: any): obj is Connectivity {
         if (obj === undefined || obj === null) {
             return false;
         }
-        return obj['__pulumiType'] === Teleport.__pulumiType;
+        return obj['__pulumiType'] === Connectivity.__pulumiType;
     }
 
     /**
-     * Whether Teleport is enabled.
+     * Whether wireless meshing is enabled for the site.
      */
     declare public readonly enabled: pulumi.Output<boolean>;
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
     declare public readonly site: pulumi.Output<string>;
-    /**
-     * The subnet CIDR for Teleport (e.g., `192.168.1.0/24`). Can be empty but must be set explicitly.
-     */
-    declare public readonly subnet: pulumi.Output<string>;
 
     /**
-     * Create a Teleport resource with the given unique name, arguments, and options.
+     * Create a Connectivity resource with the given unique name, arguments, and options.
      *
      * @param name The _unique_ name of the resource.
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args: TeleportArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: TeleportArgs | TeleportState, opts?: pulumi.CustomResourceOptions) {
+    constructor(name: string, args: ConnectivityArgs, opts?: pulumi.CustomResourceOptions)
+    constructor(name: string, argsOrState?: ConnectivityArgs | ConnectivityState, opts?: pulumi.CustomResourceOptions) {
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (opts.id) {
-            const state = argsOrState as TeleportState | undefined;
+            const state = argsOrState as ConnectivityState | undefined;
             resourceInputs["enabled"] = state?.enabled;
             resourceInputs["site"] = state?.site;
-            resourceInputs["subnet"] = state?.subnet;
         } else {
-            const args = argsOrState as TeleportArgs | undefined;
+            const args = argsOrState as ConnectivityArgs | undefined;
             if (args?.enabled === undefined && !opts.urn) {
                 throw new Error("Missing required property 'enabled'");
             }
             resourceInputs["enabled"] = args?.enabled;
             resourceInputs["site"] = args?.site;
-            resourceInputs["subnet"] = args?.subnet;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-        super(Teleport.__pulumiType, name, resourceInputs, opts);
+        super(Connectivity.__pulumiType, name, resourceInputs, opts);
     }
 }
 
 /**
- * Input properties used for looking up and filtering Teleport resources.
+ * Input properties used for looking up and filtering Connectivity resources.
  */
-export interface TeleportState {
+export interface ConnectivityState {
     /**
-     * Whether Teleport is enabled.
+     * Whether wireless meshing is enabled for the site.
      */
     enabled?: pulumi.Input<boolean | undefined>;
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
     site?: pulumi.Input<string | undefined>;
-    /**
-     * The subnet CIDR for Teleport (e.g., `192.168.1.0/24`). Can be empty but must be set explicitly.
-     */
-    subnet?: pulumi.Input<string | undefined>;
 }
 
 /**
- * The set of arguments for constructing a Teleport resource.
+ * The set of arguments for constructing a Connectivity resource.
  */
-export interface TeleportArgs {
+export interface ConnectivityArgs {
     /**
-     * Whether Teleport is enabled.
+     * Whether wireless meshing is enabled for the site.
      */
     enabled: pulumi.Input<boolean>;
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
     site?: pulumi.Input<string | undefined>;
-    /**
-     * The subnet CIDR for Teleport (e.g., `192.168.1.0/24`). Can be empty but must be set explicitly.
-     */
-    subnet?: pulumi.Input<string | undefined>;
 }

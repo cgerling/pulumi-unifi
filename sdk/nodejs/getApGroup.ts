@@ -4,18 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * `unifi.getApGroup` data source can be used to retrieve the ID for an AP group by name.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as unifi from "@pulumiverse/unifi";
- *
- * const _default = unifi.getApGroup({});
- * ```
- */
 export function getApGroup(args?: GetApGroupArgs, opts?: pulumi.InvokeOptions): Promise<GetApGroupResult> {
     args = args || {};
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
@@ -29,13 +17,7 @@ export function getApGroup(args?: GetApGroupArgs, opts?: pulumi.InvokeOptions): 
  * A collection of arguments for invoking getApGroup.
  */
 export interface GetApGroupArgs {
-    /**
-     * The name of the AP group to look up, leave blank to look up the default AP group.
-     */
     name?: string;
-    /**
-     * The name of the site the AP group is associated with.
-     */
     site?: string;
 }
 
@@ -43,31 +25,10 @@ export interface GetApGroupArgs {
  * A collection of values returned by getApGroup.
  */
 export interface GetApGroupResult {
-    /**
-     * The ID of this AP group.
-     */
     readonly id: string;
-    /**
-     * The name of the AP group to look up, leave blank to look up the default AP group.
-     */
     readonly name?: string;
-    /**
-     * The name of the site the AP group is associated with.
-     */
     readonly site: string;
 }
-/**
- * `unifi.getApGroup` data source can be used to retrieve the ID for an AP group by name.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as unifi from "@pulumiverse/unifi";
- *
- * const _default = unifi.getApGroup({});
- * ```
- */
 export function getApGroupOutput(args?: GetApGroupOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetApGroupResult> {
     args = args || {};
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
@@ -81,12 +42,6 @@ export function getApGroupOutput(args?: GetApGroupOutputArgs, opts?: pulumi.Invo
  * A collection of arguments for invoking getApGroup.
  */
 export interface GetApGroupOutputArgs {
-    /**
-     * The name of the AP group to look up, leave blank to look up the default AP group.
-     */
-    name?: pulumi.Input<string>;
-    /**
-     * The name of the site the AP group is associated with.
-     */
-    site?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
+    site?: pulumi.Input<string | undefined>;
 }

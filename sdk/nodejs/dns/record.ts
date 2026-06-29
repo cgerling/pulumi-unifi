@@ -4,33 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
-/**
- * The `unifi.dns.Record` resource manages DNS records in the UniFi controller's DNS server.
- *
- * This resource allows you to configure various types of DNS records for local name resolution. Common use cases include:
- *   * Creating A records for local servers and devices
- *   * Setting up CNAME aliases for internal services
- *   * Configuring MX records for local mail servers
- *   * Adding TXT records for service verification
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as unifi from "@pulumiverse/unifi";
- *
- * const aRecord = new unifi.dns.Record("a_record", {
- *     name: "example.mydomain.com",
- *     type: "A",
- *     value: "192.168.1.190",
- * });
- * const cnameRecord = new unifi.dns.Record("cname_record", {
- *     name: "example.mydomain.com",
- *     type: "CNAME",
- *     value: "example.com",
- * });
- * ```
- */
 export class Record extends pulumi.CustomResource {
     /**
      * Get an existing Record resource's state with the given name, ID, and optional extra
@@ -162,27 +135,27 @@ export interface RecordState {
     /**
      * Whether the DNS record is active. Defaults to true. Set to false to temporarily disable resolution without removing the record.
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
      * DNS record name.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * The port number for SRV records. Valid values are between 1 and 65535. Only used with SRV records.
      */
-    port?: pulumi.Input<number>;
+    port?: pulumi.Input<number | undefined>;
     /**
      * Priority value for MX and SRV records. Lower values indicate higher priority. Required for MX and SRV records, ignored for other types.
      */
-    priority?: pulumi.Input<number>;
+    priority?: pulumi.Input<number | undefined>;
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
     /**
      * Time To Live (TTL) in seconds, determines how long DNS resolvers should cache this record. Set to 0 for automatic TTL. Common values: 300 (5 minutes), 3600 (1 hour), 86400 (1 day).
      */
-    ttl?: pulumi.Input<number>;
+    ttl?: pulumi.Input<number | undefined>;
     /**
      * The type of DNS record. Valid values are:
      *   * `A` - Maps a hostname to IPv4 address
@@ -195,7 +168,7 @@ export interface RecordState {
      *   * `SRV` - Specifies location of services (hostname and port)
      *   * `TXT` - Holds descriptive text
      */
-    type?: pulumi.Input<string>;
+    type?: pulumi.Input<string | undefined>;
     /**
      * The content of the DNS record. The expected value depends on the record type:
      *   * For A records: IPv4 address (e.g., '192.168.1.10')
@@ -204,11 +177,11 @@ export interface RecordState {
      *   * For MX records: Mail server hostname
      *   * For TXT records: Text content (e.g., 'v=spf1 include:_spf.example.com ~all')
      */
-    value?: pulumi.Input<string>;
+    value?: pulumi.Input<string | undefined>;
     /**
      * A relative weight for SRV records with the same priority. Higher values get proportionally more traffic. Only used with SRV records.
      */
-    weight?: pulumi.Input<number>;
+    weight?: pulumi.Input<number | undefined>;
 }
 
 /**
@@ -218,27 +191,27 @@ export interface RecordArgs {
     /**
      * Whether the DNS record is active. Defaults to true. Set to false to temporarily disable resolution without removing the record.
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
      * DNS record name.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * The port number for SRV records. Valid values are between 1 and 65535. Only used with SRV records.
      */
-    port?: pulumi.Input<number>;
+    port?: pulumi.Input<number | undefined>;
     /**
      * Priority value for MX and SRV records. Lower values indicate higher priority. Required for MX and SRV records, ignored for other types.
      */
-    priority?: pulumi.Input<number>;
+    priority?: pulumi.Input<number | undefined>;
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
     /**
      * Time To Live (TTL) in seconds, determines how long DNS resolvers should cache this record. Set to 0 for automatic TTL. Common values: 300 (5 minutes), 3600 (1 hour), 86400 (1 day).
      */
-    ttl?: pulumi.Input<number>;
+    ttl?: pulumi.Input<number | undefined>;
     /**
      * The type of DNS record. Valid values are:
      *   * `A` - Maps a hostname to IPv4 address
@@ -264,5 +237,5 @@ export interface RecordArgs {
     /**
      * A relative weight for SRV records with the same priority. Higher values get proportionally more traffic. Only used with SRV records.
      */
-    weight?: pulumi.Input<number>;
+    weight?: pulumi.Input<number | undefined>;
 }

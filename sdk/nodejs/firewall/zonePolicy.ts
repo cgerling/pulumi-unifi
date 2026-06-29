@@ -6,87 +6,6 @@ import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 import * as utilities from "../utilities";
 
-/**
- * The `unifi.firewall.ZonePolicy` resource manages firewall policies between zones in the UniFi controller. This resource allows you to create, update, and delete policies that define allowed or blocked traffic between zones.
- *
- * !> This is experimental feature, that requires UniFi OS 9.0.0 or later and Zone Based Firewall feature enabled. Check [official documentation](https://help.ui.com/hc/en-us/articles/28223082254743-Migrating-to-Zone-Based-Firewalls-in-UniFi) how to migate to Zone-Based firewalls.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as unifi from "@pulumiverse/unifi";
- *
- * const network = new unifi.Network("network", {
- *     name: "my-network",
- *     purpose: "corporate",
- *     subnet: "10.0.10.0/24",
- *     vlanId: 400,
- * });
- * const src = new unifi.firewall.Zone("src", {
- *     name: "my-source-zone",
- *     networks: [network.id],
- * });
- * const dst = new unifi.firewall.Zone("dst", {name: "my-destination-zone"});
- * // Allow TCP/UDP traffic from any ip and port other than 192.168.1.1 and 443 in `src` zone to `dst` zone
- * const policy = new unifi.firewall.ZonePolicy("policy", {
- *     name: "my-zone-policy",
- *     action: "ALLOW",
- *     protocol: "tcp_udp",
- *     source: {
- *         zoneId: src.id,
- *         ips: ["192.168.1.1"],
- *         port: 443,
- *         matchOppositeIps: true,
- *         matchOppositePorts: true,
- *     },
- *     destination: {
- *         zoneId: dst.id,
- *     },
- *     schedule: {
- *         mode: "EVERY_DAY",
- *         timeAllDay: false,
- *         timeFrom: "08:00",
- *         timeTo: "17:00",
- *     },
- * });
- * const web_ports = new unifi.firewall.Group("web-ports", {
- *     name: "web-apps",
- *     type: "port-group",
- *     members: [
- *         "80",
- *         "443",
- *     ],
- * });
- * // Block TCP/UDP traffic from any ip and port in `src` zone to `dst` zone ports 80 and 443 defined in port group
- * const policy2 = new unifi.firewall.ZonePolicy("policy2", {
- *     name: "my-policy-2",
- *     action: "BLOCK",
- *     protocol: "tcp_udp",
- *     source: {
- *         zoneId: src.id,
- *     },
- *     destination: {
- *         zoneId: dst.id,
- *         portGroupId: web_ports.id,
- *     },
- * });
- * ```
- *
- * ## Import
- *
- * import from provider configured site
- *
- * ```sh
- * $ pulumi import unifi:firewall/zonePolicy:ZonePolicy mynetwork 5dc28e5e9106d105bdc87217
- * ```
- *
- * import from another site
- *
- * ```sh
- * $ pulumi import unifi:firewall/zonePolicy:ZonePolicy mynetwork zone:5dc28e5e9106d105bdc87217
- * ```
- */
 export class ZonePolicy extends pulumi.CustomResource {
     /**
      * Get an existing ZonePolicy resource's state with the given name, ID, and optional extra
@@ -144,9 +63,9 @@ export class ZonePolicy extends pulumi.CustomResource {
      */
     declare public readonly enabled: pulumi.Output<boolean>;
     /**
-     * Priority index for the policy.
+     * Priority index for the policy. This value is assigned by the UniFi controller and cannot be set directly. To control policy ordering, use the `unifiFirewallZonePolicyOrder` resource (planned for future release).
      */
-    declare public readonly index: pulumi.Output<number>;
+    declare public /*out*/ readonly index: pulumi.Output<number>;
     /**
      * Optionally match on only IPv4 or IPv6. Valid values are `BOTH`, `IPV4`, or `IPV6`.
      */
@@ -232,7 +151,6 @@ export class ZonePolicy extends pulumi.CustomResource {
             resourceInputs["description"] = args?.description;
             resourceInputs["destination"] = args?.destination;
             resourceInputs["enabled"] = args?.enabled;
-            resourceInputs["index"] = args?.index;
             resourceInputs["ipVersion"] = args?.ipVersion;
             resourceInputs["logging"] = args?.logging;
             resourceInputs["matchIpSecType"] = args?.matchIpSecType;
@@ -242,6 +160,7 @@ export class ZonePolicy extends pulumi.CustomResource {
             resourceInputs["schedule"] = args?.schedule;
             resourceInputs["site"] = args?.site;
             resourceInputs["source"] = args?.source;
+            resourceInputs["index"] = undefined /*out*/;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
         super(ZonePolicy.__pulumiType, name, resourceInputs, opts);
@@ -255,71 +174,71 @@ export interface ZonePolicyState {
     /**
      * Determines which action to take on matching traffic. Must be one of `BLOCK`, `ALLOW`, or `REJECT`.
      */
-    action?: pulumi.Input<string>;
+    action?: pulumi.Input<string | undefined>;
     /**
      * Creates a built-in policy for the opposite Zone Pair to automatically allow the return traffic. If disabled, return traffic must be manually allowed
      */
-    autoAllowReturnTraffic?: pulumi.Input<boolean>;
+    autoAllowReturnTraffic?: pulumi.Input<boolean | undefined>;
     /**
      * Optionally match on a firewall connection state such as traffic associated with an already existing connection. Valid values are `ALL`, `RESPOND_ONLY`, or `CUSTOM`.
      */
-    connectionStateType?: pulumi.Input<string>;
+    connectionStateType?: pulumi.Input<string | undefined>;
     /**
      * Connection states to match when `connectionStateType` is `CUSTOM`. Valid values include `ESTABLISHED`, `NEW`, `RELATED`, and `INVALID`.
      */
-    connectionStates?: pulumi.Input<pulumi.Input<string>[]>;
+    connectionStates?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * Description of the firewall zone policy.
      */
-    description?: pulumi.Input<string>;
+    description?: pulumi.Input<string | undefined>;
     /**
      * The zone matching the destination of the traffic. Optionally match on a specific destination inside the zone.
      */
-    destination?: pulumi.Input<inputs.firewall.ZonePolicyDestination>;
+    destination?: pulumi.Input<inputs.firewall.ZonePolicyDestination | undefined>;
     /**
      * Enable the policy
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
-     * Priority index for the policy.
+     * Priority index for the policy. This value is assigned by the UniFi controller and cannot be set directly. To control policy ordering, use the `unifiFirewallZonePolicyOrder` resource (planned for future release).
      */
-    index?: pulumi.Input<number>;
+    index?: pulumi.Input<number | undefined>;
     /**
      * Optionally match on only IPv4 or IPv6. Valid values are `BOTH`, `IPV4`, or `IPV6`.
      */
-    ipVersion?: pulumi.Input<string>;
+    ipVersion?: pulumi.Input<string | undefined>;
     /**
      * Enable to generate syslog entries when traffic is matched.
      */
-    logging?: pulumi.Input<boolean>;
+    logging?: pulumi.Input<boolean | undefined>;
     /**
      * Optionally match on traffic encrypted by IPsec. This is typically used for Ipsec Policy-Based VPNs. Valid values are `MATCH_IP_SEC` or `MATCH_NON_IP_SEC`.
      */
-    matchIpSecType?: pulumi.Input<string>;
+    matchIpSecType?: pulumi.Input<string | undefined>;
     /**
      * Whether to match the opposite protocol.
      */
-    matchOppositeProtocol?: pulumi.Input<boolean>;
+    matchOppositeProtocol?: pulumi.Input<boolean | undefined>;
     /**
      * The name of the firewall zone policy.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * Optionally match a specific protocol. Valid values include: `all`, `tcpUdp`, `tcp`, `udp`, etc.
      */
-    protocol?: pulumi.Input<string>;
+    protocol?: pulumi.Input<string | undefined>;
     /**
      * Enforce this policy at specific times.
      */
-    schedule?: pulumi.Input<inputs.firewall.ZonePolicySchedule>;
+    schedule?: pulumi.Input<inputs.firewall.ZonePolicySchedule | undefined>;
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
     /**
      * The zone matching the source of the traffic. Optionally match on a specific source inside the zone.
      */
-    source?: pulumi.Input<inputs.firewall.ZonePolicySource>;
+    source?: pulumi.Input<inputs.firewall.ZonePolicySource | undefined>;
 }
 
 /**
@@ -333,19 +252,19 @@ export interface ZonePolicyArgs {
     /**
      * Creates a built-in policy for the opposite Zone Pair to automatically allow the return traffic. If disabled, return traffic must be manually allowed
      */
-    autoAllowReturnTraffic?: pulumi.Input<boolean>;
+    autoAllowReturnTraffic?: pulumi.Input<boolean | undefined>;
     /**
      * Optionally match on a firewall connection state such as traffic associated with an already existing connection. Valid values are `ALL`, `RESPOND_ONLY`, or `CUSTOM`.
      */
-    connectionStateType?: pulumi.Input<string>;
+    connectionStateType?: pulumi.Input<string | undefined>;
     /**
      * Connection states to match when `connectionStateType` is `CUSTOM`. Valid values include `ESTABLISHED`, `NEW`, `RELATED`, and `INVALID`.
      */
-    connectionStates?: pulumi.Input<pulumi.Input<string>[]>;
+    connectionStates?: pulumi.Input<pulumi.Input<string>[] | undefined>;
     /**
      * Description of the firewall zone policy.
      */
-    description?: pulumi.Input<string>;
+    description?: pulumi.Input<string | undefined>;
     /**
      * The zone matching the destination of the traffic. Optionally match on a specific destination inside the zone.
      */
@@ -353,43 +272,39 @@ export interface ZonePolicyArgs {
     /**
      * Enable the policy
      */
-    enabled?: pulumi.Input<boolean>;
-    /**
-     * Priority index for the policy.
-     */
-    index?: pulumi.Input<number>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
      * Optionally match on only IPv4 or IPv6. Valid values are `BOTH`, `IPV4`, or `IPV6`.
      */
-    ipVersion?: pulumi.Input<string>;
+    ipVersion?: pulumi.Input<string | undefined>;
     /**
      * Enable to generate syslog entries when traffic is matched.
      */
-    logging?: pulumi.Input<boolean>;
+    logging?: pulumi.Input<boolean | undefined>;
     /**
      * Optionally match on traffic encrypted by IPsec. This is typically used for Ipsec Policy-Based VPNs. Valid values are `MATCH_IP_SEC` or `MATCH_NON_IP_SEC`.
      */
-    matchIpSecType?: pulumi.Input<string>;
+    matchIpSecType?: pulumi.Input<string | undefined>;
     /**
      * Whether to match the opposite protocol.
      */
-    matchOppositeProtocol?: pulumi.Input<boolean>;
+    matchOppositeProtocol?: pulumi.Input<boolean | undefined>;
     /**
      * The name of the firewall zone policy.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
     /**
      * Optionally match a specific protocol. Valid values include: `all`, `tcpUdp`, `tcp`, `udp`, etc.
      */
-    protocol?: pulumi.Input<string>;
+    protocol?: pulumi.Input<string | undefined>;
     /**
      * Enforce this policy at specific times.
      */
-    schedule?: pulumi.Input<inputs.firewall.ZonePolicySchedule>;
+    schedule?: pulumi.Input<inputs.firewall.ZonePolicySchedule | undefined>;
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
     /**
      * The zone matching the source of the traffic. Optionally match on a specific source inside the zone.
      */

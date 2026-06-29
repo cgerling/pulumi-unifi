@@ -5,6 +5,25 @@ import * as pulumi from "@pulumi/pulumi";
 import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 
+export interface DeviceEtherLighting {
+    /**
+     * LED animation: `steady` or `breath`.
+     */
+    behavior: string;
+    /**
+     * LED brightness, 1-100.
+     */
+    brightness: number;
+    /**
+     * `etherlighting` (colored per-port LEDs) or `standard` (plain status LEDs).
+     */
+    ledMode: string;
+    /**
+     * Color scheme: `network` (color by VLAN/network) or `speed` (color by link speed).
+     */
+    mode: string;
+}
+
 export interface DevicePortOverride {
     /**
      * The number of ports to include in a link aggregation group (LAG). Valid range: 2-8 ports. Used when:
@@ -59,6 +78,37 @@ export interface DevicePortOverride {
      * The ID of a pre-configured port profile to apply to this port. Port profiles define settings like VLANs, PoE, and other port-specific configurations.
      */
     portProfileId?: string;
+}
+
+export interface DeviceRadio {
+    /**
+     * The channel for this radio (band-specific), or `auto` to let the controller choose.
+     */
+    channel: string;
+    /**
+     * Channel width in MHz for this radio (e.g. 20, 40, 80, 160, 320).
+     */
+    ht: number;
+    /**
+     * Minimum RSSI in dBm (negative) below which clients are disconnected, when `minRssiEnabled` is true.
+     */
+    minRssi: number;
+    /**
+     * Whether the minimum-RSSI client-disconnect threshold is enabled on this radio. Applied together with `minRssi`.
+     */
+    minRssiEnabled: boolean;
+    /**
+     * The radio band this block configures: `ng` (2.4GHz), `na` (5GHz), or `6e` (6GHz).
+     */
+    name: string;
+    /**
+     * Custom transmit power in dBm, used when `txPowerMode = "custom"`; otherwise leave unset.
+     */
+    txPower: string;
+    /**
+     * Transmit-power mode: `auto`, `low`, `medium`, `high`, `custom`, or `disabled`. `disabled` turns the radio off (e.g. to suppress an unused 2.4GHz band on an in-wall AP).
+     */
+    txPowerMode: string;
 }
 
 export interface RadiusProfileAcctServer {
@@ -297,6 +347,28 @@ export namespace firewall {
 }
 
 export namespace setting {
+    export interface EtherLightingNetworkOverride {
+        /**
+         * LED color as a 6-digit RGB hex string without `#` (e.g. `ff6c14`).
+         */
+        colorHex: string;
+        /**
+         * ID of the network/VLAN this color applies to (e.g. `unifi_network.iot.id`).
+         */
+        networkId: string;
+    }
+
+    export interface EtherLightingSpeedOverride {
+        /**
+         * LED color as a 6-digit RGB hex string without `#` (e.g. `ffc107`).
+         */
+        colorHex: string;
+        /**
+         * Link-speed class this color applies to.
+         */
+        speed: string;
+    }
+
     export interface GuestAccessAuthorize {
         /**
          * Authorize.net login ID for authentication.
@@ -433,6 +505,9 @@ export namespace setting {
         bgImageTile: boolean;
         /**
          * Type of portal background. Valid values are:
+         * * `color` - Solid color background
+         * * `image` - (not yet supported!) Custom image background
+         * * `gallery` - Image from Unsplash gallery
          */
         bgType: string;
         /**
@@ -610,40 +685,6 @@ export namespace setting {
          * WeChat Shop ID for payments.
          */
         shopId: string;
-    }
-
-    export interface IpsDnsFilter {
-        /**
-         * List of allowed sites for this DNS filter. These domains will always be accessible regardless of other filtering rules. Each entry should be a valid domain name (e.g., `example.com`).
-         */
-        allowedSites?: string[];
-        /**
-         * List of blocked sites for this DNS filter. These domains will be blocked regardless of other filtering rules. Each entry should be a valid domain name (e.g., `example.com`).
-         */
-        blockedSites?: string[];
-        /**
-         * List of blocked top-level domains (TLDs) for this DNS filter. All domains with these TLDs will be blocked. Each entry should be a valid TLD without the dot prefix (e.g., `xyz`, `info`).
-         */
-        blockedTlds?: string[];
-        /**
-         * Description of the DNS filter. This is used for documentation purposes only and does not affect functionality.
-         */
-        description: string;
-        /**
-         * Filter type that determines the predefined filtering level. Valid values are:
-         *   * `none` - No predefined filtering
-         *   * `work` - Work-appropriate filtering that blocks adult content
-         *   * `family` - Family-friendly filtering that blocks adult content and other inappropriate sites
-         */
-        filter: string;
-        /**
-         * Name of the DNS filter. This is used to identify the filter in the UniFi interface.
-         */
-        name: string;
-        /**
-         * Network ID this filter applies to. This should be a valid network ID from your UniFi configuration.
-         */
-        networkId: string;
     }
 
     export interface IpsHoneypot {

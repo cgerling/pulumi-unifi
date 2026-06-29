@@ -4,26 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
-/**
- * The `unifi.setting.Ntp` resource allows you to configure Network Time Protocol (NTP) server settings for your UniFi network.
- *
- * NTP servers provide time synchronization for your network devices. This resource supports both automatic and manual NTP configuration modes.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as unifi from "@pulumiverse/unifi";
- *
- * const example = new unifi.setting.Ntp("example", {
- *     mode: "manual",
- *     ntpServer1: "time.cloudflare.com",
- *     ntpServer2: "pool.ntp.org",
- *     ntpServer3: "time.google.com",
- *     ntpServer4: "0.pool.ntp.org",
- * });
- * ```
- */
 export class Ntp extends pulumi.CustomResource {
     /**
      * Get an existing Ntp resource's state with the given name, ID, and optional extra
@@ -54,6 +34,10 @@ export class Ntp extends pulumi.CustomResource {
 
     /**
      * NTP server configuration mode. Valid values are:
+     * * `auto` - Use NTP servers configured on the controller
+     * * `manual` - Use custom NTP servers specified in this resource
+     *
+     * When set to `auto`, all NTP server fields will be cleared. When set to `manual`, at least one NTP server must be specified.
      */
     declare public readonly mode: pulumi.Output<string>;
     /**
@@ -116,28 +100,32 @@ export class Ntp extends pulumi.CustomResource {
 export interface NtpState {
     /**
      * NTP server configuration mode. Valid values are:
+     * * `auto` - Use NTP servers configured on the controller
+     * * `manual` - Use custom NTP servers specified in this resource
+     *
+     * When set to `auto`, all NTP server fields will be cleared. When set to `manual`, at least one NTP server must be specified.
      */
-    mode?: pulumi.Input<string>;
+    mode?: pulumi.Input<string | undefined>;
     /**
      * Primary NTP server hostname or IP address. Must be a valid hostname (e.g., `pool.ntp.org`) or IPv4 address. Only applicable when `mode` is set to `manual`.
      */
-    ntpServer1?: pulumi.Input<string>;
+    ntpServer1?: pulumi.Input<string | undefined>;
     /**
      * Secondary NTP server hostname or IP address. Must be a valid hostname (e.g., `time.google.com`) or IPv4 address. Only applicable when `mode` is set to `manual`.
      */
-    ntpServer2?: pulumi.Input<string>;
+    ntpServer2?: pulumi.Input<string | undefined>;
     /**
      * Tertiary NTP server hostname or IP address. Must be a valid hostname or IPv4 address. Only applicable when `mode` is set to `manual`.
      */
-    ntpServer3?: pulumi.Input<string>;
+    ntpServer3?: pulumi.Input<string | undefined>;
     /**
      * Quaternary NTP server hostname or IP address. Must be a valid hostname or IPv4 address. Only applicable when `mode` is set to `manual`.
      */
-    ntpServer4?: pulumi.Input<string>;
+    ntpServer4?: pulumi.Input<string | undefined>;
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
 }
 
 /**
@@ -146,26 +134,30 @@ export interface NtpState {
 export interface NtpArgs {
     /**
      * NTP server configuration mode. Valid values are:
+     * * `auto` - Use NTP servers configured on the controller
+     * * `manual` - Use custom NTP servers specified in this resource
+     *
+     * When set to `auto`, all NTP server fields will be cleared. When set to `manual`, at least one NTP server must be specified.
      */
-    mode?: pulumi.Input<string>;
+    mode?: pulumi.Input<string | undefined>;
     /**
      * Primary NTP server hostname or IP address. Must be a valid hostname (e.g., `pool.ntp.org`) or IPv4 address. Only applicable when `mode` is set to `manual`.
      */
-    ntpServer1?: pulumi.Input<string>;
+    ntpServer1?: pulumi.Input<string | undefined>;
     /**
      * Secondary NTP server hostname or IP address. Must be a valid hostname (e.g., `time.google.com`) or IPv4 address. Only applicable when `mode` is set to `manual`.
      */
-    ntpServer2?: pulumi.Input<string>;
+    ntpServer2?: pulumi.Input<string | undefined>;
     /**
      * Tertiary NTP server hostname or IP address. Must be a valid hostname or IPv4 address. Only applicable when `mode` is set to `manual`.
      */
-    ntpServer3?: pulumi.Input<string>;
+    ntpServer3?: pulumi.Input<string | undefined>;
     /**
      * Quaternary NTP server hostname or IP address. Must be a valid hostname or IPv4 address. Only applicable when `mode` is set to `manual`.
      */
-    ntpServer4?: pulumi.Input<string>;
+    ntpServer4?: pulumi.Input<string | undefined>;
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
 }

@@ -4,23 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
-/**
- * The `unifi.setting.AutoSpeedtest` resource manages the automatic speedtest settings in the UniFi controller.Automatic speedtests can be scheduled to run at regular intervals to monitor the network performance.
- *
- * **NOTE:** Automatic speedtests where not verified and tested on all UniFi controller versions due to limitations of controller used in acceptance testing.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as unifi from "@pulumiverse/unifi";
- *
- * const example = new unifi.setting.AutoSpeedtest("example", {
- *     enabled: true,
- *     cron: "0 0 * * *",
- * });
- * ```
- */
 export class AutoSpeedtest extends pulumi.CustomResource {
     /**
      * Get an existing AutoSpeedtest resource's state with the given name, ID, and optional extra
@@ -99,15 +82,15 @@ export interface AutoSpeedtestState {
     /**
      * Cron expression defining the schedule for automatic speedtests.
      */
-    cron?: pulumi.Input<string>;
+    cron?: pulumi.Input<string | undefined>;
     /**
      * Whether the automatic speedtest is enabled.
      */
-    enabled?: pulumi.Input<boolean>;
+    enabled?: pulumi.Input<boolean | undefined>;
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
 }
 
 /**
@@ -117,7 +100,7 @@ export interface AutoSpeedtestArgs {
     /**
      * Cron expression defining the schedule for automatic speedtests.
      */
-    cron?: pulumi.Input<string>;
+    cron?: pulumi.Input<string | undefined>;
     /**
      * Whether the automatic speedtest is enabled.
      */
@@ -125,5 +108,5 @@ export interface AutoSpeedtestArgs {
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string>;
+    site?: pulumi.Input<string | undefined>;
 }

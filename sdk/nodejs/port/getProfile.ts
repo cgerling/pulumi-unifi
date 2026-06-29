@@ -4,18 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
-/**
- * `unifi.port.Profile` data source can be used to retrieve port profile configurations from your UniFi network. Port profiles define settings and behaviors for switch ports, including VLANs, PoE settings, and other port-specific configurations. This data source is particularly useful when you need to reference existing port profiles in switch port configurations.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as unifi from "@pulumiverse/unifi";
- *
- * const all = unifi.port.getProfile({});
- * ```
- */
 export function getProfile(args?: GetProfileArgs, opts?: pulumi.InvokeOptions): Promise<GetProfileResult> {
     args = args || {};
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
@@ -29,13 +17,7 @@ export function getProfile(args?: GetProfileArgs, opts?: pulumi.InvokeOptions): 
  * A collection of arguments for invoking getProfile.
  */
 export interface GetProfileArgs {
-    /**
-     * The name of the port profile to look up. This is the friendly name assigned to the profile in the UniFi controller. Defaults to "All" if not specified, which is the default port profile in UniFi. Defaults to `All`.
-     */
     name?: string;
-    /**
-     * The name of the UniFi site where the port profile is configured. If not specified, the default site will be used.
-     */
     site?: string;
 }
 
@@ -43,31 +25,10 @@ export interface GetProfileArgs {
  * A collection of values returned by getProfile.
  */
 export interface GetProfileResult {
-    /**
-     * The unique identifier of the port profile. This is automatically assigned by UniFi and can be used to reference this port profile in other resources.
-     */
     readonly id: string;
-    /**
-     * The name of the port profile to look up. This is the friendly name assigned to the profile in the UniFi controller. Defaults to "All" if not specified, which is the default port profile in UniFi. Defaults to `All`.
-     */
     readonly name?: string;
-    /**
-     * The name of the UniFi site where the port profile is configured. If not specified, the default site will be used.
-     */
     readonly site: string;
 }
-/**
- * `unifi.port.Profile` data source can be used to retrieve port profile configurations from your UniFi network. Port profiles define settings and behaviors for switch ports, including VLANs, PoE settings, and other port-specific configurations. This data source is particularly useful when you need to reference existing port profiles in switch port configurations.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as unifi from "@pulumiverse/unifi";
- *
- * const all = unifi.port.getProfile({});
- * ```
- */
 export function getProfileOutput(args?: GetProfileOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetProfileResult> {
     args = args || {};
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
@@ -81,12 +42,6 @@ export function getProfileOutput(args?: GetProfileOutputArgs, opts?: pulumi.Invo
  * A collection of arguments for invoking getProfile.
  */
 export interface GetProfileOutputArgs {
-    /**
-     * The name of the port profile to look up. This is the friendly name assigned to the profile in the UniFi controller. Defaults to "All" if not specified, which is the default port profile in UniFi. Defaults to `All`.
-     */
-    name?: pulumi.Input<string>;
-    /**
-     * The name of the UniFi site where the port profile is configured. If not specified, the default site will be used.
-     */
-    site?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
+    site?: pulumi.Input<string | undefined>;
 }

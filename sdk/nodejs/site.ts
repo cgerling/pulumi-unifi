@@ -4,45 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * The `unifi.Site` resource manages UniFi sites, which are logical groupings of UniFi devices and their configurations.
- *
- * Sites in UniFi are used to:
- *   * Organize network devices and settings for different physical locations
- *   * Isolate configurations between different networks or customers
- *   * Apply different policies and configurations to different groups of devices
- *
- * Each site maintains its own:
- *   * Network configurations
- *   * Wireless networks (WLANs)
- *   * Security policies
- *   * Device configurations
- *
- * A UniFi controller can manage multiple sites, making it ideal for multi-tenant or distributed network deployments.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as unifi from "@pulumiverse/unifi";
- *
- * const mysite = new unifi.Site("mysite", {description: "mysite"});
- * ```
- *
- * ## Import
- *
- * import using the API/UI ID
- *
- * ```sh
- * $ pulumi import unifi:index/site:Site mysite 5fe6261995fe130013456a36
- * ```
- *
- * import using the name (short ID)
- *
- * ```sh
- * $ pulumi import unifi:index/site:Site mysite vq98kwez
- * ```
- */
 export class Site extends pulumi.CustomResource {
     /**
      * Get an existing Site resource's state with the given name, ID, and optional extra
@@ -115,11 +76,11 @@ export interface SiteState {
     /**
      * A human-readable description of the site (e.g., 'Main Office', 'Remote Branch', 'Client A Network'). This is used as the display name in the UniFi controller interface.
      */
-    description?: pulumi.Input<string>;
+    description?: pulumi.Input<string | undefined>;
     /**
      * The site's internal name in the UniFi system. This is automatically generated based on the description and is used in API calls and configurations. It's typically a lowercase, hyphenated version of the description.
      */
-    name?: pulumi.Input<string>;
+    name?: pulumi.Input<string | undefined>;
 }
 
 /**

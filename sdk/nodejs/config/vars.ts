@@ -19,12 +19,12 @@ Object.defineProperty(exports, "allowInsecure", {
 });
 
 /**
- * API Key for the user accessing the API. Can be specified with the `UNIFI_API_KEY` environment variable. Controller version 9.0.108 or later is required.
+ * API Key for the user accessing the API. Can be specified with the `UNIFI_API_KEY` environment variable.
  */
 export declare const apiKey: string | undefined;
 Object.defineProperty(exports, "apiKey", {
     get() {
-        return __config.get("apiKey");
+        return __config.get("apiKey") ?? utilities.getEnv("UNIFI_API_KEY");
     },
     enumerable: true,
 });
@@ -41,12 +41,12 @@ Object.defineProperty(exports, "apiUrl", {
 });
 
 /**
- * Password for the user accessing the API. Can be specified with the `UNIFI_PASSWORD` environment variable.
+ * Maximum number of additional attempts the provider makes when the controller returns a transient response (network/connection errors, HTTP 5xx or 429 status codes, or an HTML body instead of JSON, which can happen under parallel load). Only idempotent requests (`GET`, `HEAD`, `PUT`, `DELETE`, `OPTIONS`) are retried. Defaults to `0`, which disables retries and preserves the default behavior. Can be specified with the `UNIFI_MAX_RETRIES` environment variable.
  */
-export declare const password: string | undefined;
-Object.defineProperty(exports, "password", {
+export declare const httpMaxRetries: number | undefined;
+Object.defineProperty(exports, "httpMaxRetries", {
     get() {
-        return __config.get("password") ?? utilities.getEnv("UNIFI_PASSWORD");
+        return __config.getObject<number>("httpMaxRetries");
     },
     enumerable: true,
 });
@@ -58,17 +58,6 @@ export declare const site: string | undefined;
 Object.defineProperty(exports, "site", {
     get() {
         return __config.get("site") ?? utilities.getEnv("UNIFI_SITE");
-    },
-    enumerable: true,
-});
-
-/**
- * Local user name for the Unifi controller API. Can be specified with the `UNIFI_USERNAME` environment variable.
- */
-export declare const username: string | undefined;
-Object.defineProperty(exports, "username", {
-    get() {
-        return __config.get("username") ?? utilities.getEnv("UNIFI_USERNAME");
     },
     enumerable: true,
 });
