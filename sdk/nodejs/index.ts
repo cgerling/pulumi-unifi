@@ -70,6 +70,7 @@ utilities.lazyLoad(exports, ["Wlan"], () => require("./wlan"));
 
 
 // Export sub-modules:
+import * as ap from "./ap";
 import * as config from "./config";
 import * as dns from "./dns";
 import * as firewall from "./firewall";
@@ -79,6 +80,7 @@ import * as setting from "./setting";
 import * as types from "./types";
 
 export {
+    ap,
     config,
     dns,
     firewall,

@@ -11,7 +11,7 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
-// `getApGroup` data source can be used to retrieve the ID for an AP group by name.
+// The `ap.Group` data source can be used to retrieve the ID for an AP group by name.
 //
 // ## Example Usage
 //
@@ -21,13 +21,13 @@ import (
 // import (
 //
 //	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/ap"
 //
 // )
 //
 //	func main() {
 //		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := unifi.GetApGroup(ctx, &unifi.GetApGroupArgs{}, nil)
+//			_, err := ap.LookupGroup(ctx, &ap.LookupGroupArgs{}, nil)
 //			if err != nil {
 //				return err
 //			}
@@ -36,6 +36,8 @@ import (
 //	}
 //
 // ```
+//
+// Deprecated: unifi.index/getapgroup.getApGroup has been deprecated in favor of unifi.ap/getgroup.getGroup
 func GetApGroup(ctx *pulumi.Context, args *GetApGroupArgs, opts ...pulumi.InvokeOption) (*GetApGroupResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv GetApGroupResult
@@ -50,17 +52,17 @@ func GetApGroup(ctx *pulumi.Context, args *GetApGroupArgs, opts ...pulumi.Invoke
 type GetApGroupArgs struct {
 	// The name of the AP group to look up, leave blank to look up the default AP group.
 	Name *string `pulumi:"name"`
-	// The name of the site the AP group is associated with.
+	// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
 	Site *string `pulumi:"site"`
 }
 
 // A collection of values returned by getApGroup.
 type GetApGroupResult struct {
-	// The ID of this AP group.
+	// The unique identifier of this resource.
 	Id string `pulumi:"id"`
 	// The name of the AP group to look up, leave blank to look up the default AP group.
 	Name *string `pulumi:"name"`
-	// The name of the site the AP group is associated with.
+	// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
 	Site string `pulumi:"site"`
 }
 
@@ -77,7 +79,7 @@ func GetApGroupOutput(ctx *pulumi.Context, args GetApGroupOutputArgs, opts ...pu
 type GetApGroupOutputArgs struct {
 	// The name of the AP group to look up, leave blank to look up the default AP group.
 	Name pulumi.StringPtrInput `pulumi:"name"`
-	// The name of the site the AP group is associated with.
+	// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
 	Site pulumi.StringPtrInput `pulumi:"site"`
 }
 
@@ -100,7 +102,7 @@ func (o GetApGroupResultOutput) ToGetApGroupResultOutputWithContext(ctx context.
 	return o
 }
 
-// The ID of this AP group.
+// The unique identifier of this resource.
 func (o GetApGroupResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v GetApGroupResult) string { return v.Id }).(pulumi.StringOutput)
 }
@@ -110,7 +112,7 @@ func (o GetApGroupResultOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v GetApGroupResult) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-// The name of the site the AP group is associated with.
+// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
 func (o GetApGroupResultOutput) Site() pulumi.StringOutput {
 	return o.ApplyT(func(v GetApGroupResult) string { return v.Site }).(pulumi.StringOutput)
 }

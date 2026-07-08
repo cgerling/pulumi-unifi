@@ -21,6 +21,8 @@ __all__ = [
     'get_ap_group_output',
 ]
 
+warnings.warn("""unifi.index/getapgroup.getApGroup has been deprecated in favor of unifi.ap/getgroup.getGroup""", DeprecationWarning)
+
 @pulumi.output_type
 class GetApGroupResult:
     """
@@ -41,7 +43,7 @@ class GetApGroupResult:
     @pulumi.getter
     def id(self) -> _builtins.str:
         """
-        The ID of this AP group.
+        The unique identifier of this resource.
         """
         return pulumi.get(self, "id")
 
@@ -57,7 +59,7 @@ class GetApGroupResult:
     @pulumi.getter
     def site(self) -> _builtins.str:
         """
-        The name of the site the AP group is associated with.
+        The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
@@ -77,7 +79,7 @@ def get_ap_group(name: Optional[_builtins.str] = None,
                  site: Optional[_builtins.str] = None,
                  opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetApGroupResult:
     """
-    `get_ap_group` data source can be used to retrieve the ID for an AP group by name.
+    The `ap.Group` data source can be used to retrieve the ID for an AP group by name.
 
     ## Example Usage
 
@@ -85,13 +87,14 @@ def get_ap_group(name: Optional[_builtins.str] = None,
     import pulumi
     import pulumi_unifi as unifi
 
-    default = unifi.get_ap_group()
+    default = unifi.ap.get_group()
     ```
 
 
     :param _builtins.str name: The name of the AP group to look up, leave blank to look up the default AP group.
-    :param _builtins.str site: The name of the site the AP group is associated with.
+    :param _builtins.str site: The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
     """
+    pulumi.log.warn("""get_ap_group is deprecated: unifi.index/getapgroup.getApGroup has been deprecated in favor of unifi.ap/getgroup.getGroup""")
     __args__ = dict()
     __args__['name'] = name
     __args__['site'] = site
@@ -102,11 +105,11 @@ def get_ap_group(name: Optional[_builtins.str] = None,
         id=pulumi.get(__ret__, 'id'),
         name=pulumi.get(__ret__, 'name'),
         site=pulumi.get(__ret__, 'site'))
-def get_ap_group_output(name: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
-                        site: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
+def get_ap_group_output(name: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
+                        site: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
                         opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetApGroupResult]:
     """
-    `get_ap_group` data source can be used to retrieve the ID for an AP group by name.
+    The `ap.Group` data source can be used to retrieve the ID for an AP group by name.
 
     ## Example Usage
 
@@ -114,13 +117,14 @@ def get_ap_group_output(name: Optional[pulumi.Input[Optional[_builtins.str]]] = 
     import pulumi
     import pulumi_unifi as unifi
 
-    default = unifi.get_ap_group()
+    default = unifi.ap.get_group()
     ```
 
 
     :param _builtins.str name: The name of the AP group to look up, leave blank to look up the default AP group.
-    :param _builtins.str site: The name of the site the AP group is associated with.
+    :param _builtins.str site: The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
     """
+    pulumi.log.warn("""get_ap_group is deprecated: unifi.index/getapgroup.getApGroup has been deprecated in favor of unifi.ap/getgroup.getGroup""")
     __args__ = dict()
     __args__['name'] = name
     __args__['site'] = site

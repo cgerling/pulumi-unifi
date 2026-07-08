@@ -24,6 +24,8 @@ from . import outputs
 
 # Make subpackages available:
 if typing.TYPE_CHECKING:
+    import pulumiverse_unifi.ap as __ap
+    ap = __ap
     import pulumiverse_unifi.config as __config
     config = __config
     import pulumiverse_unifi.dns as __dns
@@ -37,6 +39,7 @@ if typing.TYPE_CHECKING:
     import pulumiverse_unifi.setting as __setting
     setting = __setting
 else:
+    ap = _utilities.lazy_import('pulumiverse_unifi.ap')
     config = _utilities.lazy_import('pulumiverse_unifi.config')
     dns = _utilities.lazy_import('pulumiverse_unifi.dns')
     firewall = _utilities.lazy_import('pulumiverse_unifi.firewall')
@@ -47,6 +50,14 @@ else:
 _utilities.register(
     resource_modules="""
 [
+ {
+  "pkg": "unifi",
+  "mod": "ap/group",
+  "fqn": "pulumiverse_unifi.ap",
+  "classes": {
+   "unifi:ap/group:Group": "Group"
+  }
+ },
  {
   "pkg": "unifi",
   "mod": "dns/record",
@@ -85,6 +96,14 @@ _utilities.register(
   "fqn": "pulumiverse_unifi.firewall",
   "classes": {
    "unifi:firewall/zonePolicy:ZonePolicy": "ZonePolicy"
+  }
+ },
+ {
+  "pkg": "unifi",
+  "mod": "firewall/zonePolicyOrder",
+  "fqn": "pulumiverse_unifi.firewall",
+  "classes": {
+   "unifi:firewall/zonePolicyOrder:ZonePolicyOrder": "ZonePolicyOrder"
   }
  },
  {
@@ -201,6 +220,14 @@ _utilities.register(
  },
  {
   "pkg": "unifi",
+  "mod": "setting/connectivity",
+  "fqn": "pulumiverse_unifi.setting",
+  "classes": {
+   "unifi:setting/connectivity:Connectivity": "Connectivity"
+  }
+ },
+ {
+  "pkg": "unifi",
   "mod": "setting/country",
   "fqn": "pulumiverse_unifi.setting",
   "classes": {
@@ -213,6 +240,22 @@ _utilities.register(
   "fqn": "pulumiverse_unifi.setting",
   "classes": {
    "unifi:setting/dpi:Dpi": "Dpi"
+  }
+ },
+ {
+  "pkg": "unifi",
+  "mod": "setting/etherLighting",
+  "fqn": "pulumiverse_unifi.setting",
+  "classes": {
+   "unifi:setting/etherLighting:EtherLighting": "EtherLighting"
+  }
+ },
+ {
+  "pkg": "unifi",
+  "mod": "setting/globalSwitch",
+  "fqn": "pulumiverse_unifi.setting",
+  "classes": {
+   "unifi:setting/globalSwitch:GlobalSwitch": "GlobalSwitch"
   }
  },
  {
