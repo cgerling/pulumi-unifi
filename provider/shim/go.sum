@@ -9,8 +9,8 @@ github.com/apparentlymart/go-textseg/v15 v15.0.0/go.mod h1:K8XmNZdhEBkdlyDdvbmms
 github.com/biter777/countries v1.7.5 h1:MJ+n3+rSxWQdqVJU8eBy9RqcdH6ePPn4PJHocVWUa+Q=
 github.com/biter777/countries v1.7.5/go.mod h1:1HSpZ526mYqKJcpT5Ti1kcGQ0L0SrXWIaptUWjFfv2E=
 github.com/bmatcuk/doublestar v1.1.1/go.mod h1:UD6OnuiIn0yFxxA2le/rnRU1G4RaI4UvFv1sNto9p6w=
-github.com/cgerling/terraform-provider-unifi v1.1.1-0.20260719163139-b22c4229097c h1:v5AIY8mb22n3M4Mq26ooXsMcLPfi4i0OMyZNyF5y4lk=
-github.com/cgerling/terraform-provider-unifi v1.1.1-0.20260719163139-b22c4229097c/go.mod h1:a7vJ4IwnvdJ1iIu0YFTa0nORMzMrRICJG7hdcoBVE94=
+github.com/cgerling/terraform-provider-unifi v1.1.1-0.20260719201025-6d4d7ca23be4 h1:eGgSp38I8KC/NFWDOPAba/ISUi1Id5uvRF6UTB47bxA=
+github.com/cgerling/terraform-provider-unifi v1.1.1-0.20260719201025-6d4d7ca23be4/go.mod h1:a7vJ4IwnvdJ1iIu0YFTa0nORMzMrRICJG7hdcoBVE94=
 github.com/creack/pty v1.1.9/go.mod h1:oKZEueFk5CKHvIhNR5MUki03XCEU+Q6VDXinZuGJ33E=
 github.com/davecgh/go-spew v1.1.0/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
 github.com/davecgh/go-spew v1.1.1/go.mod h1:J7Y8YcW2NihsgmVo/mv3lAwl/skON4iLHjSsI+c5H38=
