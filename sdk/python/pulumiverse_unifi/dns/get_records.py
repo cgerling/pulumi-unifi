@@ -49,17 +49,11 @@ class GetRecordsResult:
     @_builtins.property
     @pulumi.getter
     def results(self) -> Sequence['outputs.GetRecordsResultResult']:
-        """
-        The list of DNS records.
-        """
         return pulumi.get(self, "results")
 
     @_builtins.property
     @pulumi.getter
     def site(self) -> _builtins.str:
-        """
-        The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
-        """
         return pulumi.get(self, "site")
 
 
@@ -77,19 +71,7 @@ class AwaitableGetRecordsResult(GetRecordsResult):
 def get_records(site: Optional[_builtins.str] = None,
                 opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetRecordsResult:
     """
-    Retrieves information about a all DNS records.
-
-    ## Example Usage
-
-    ```python
-    import pulumi
-    import pulumi_unifi as unifi
-
-    default = unifi.dns.get_records()
-    ```
-
-
-    :param _builtins.str site: The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
+    Use this data source to access information about an existing resource.
     """
     __args__ = dict()
     __args__['site'] = site
@@ -100,22 +82,10 @@ def get_records(site: Optional[_builtins.str] = None,
         id=pulumi.get(__ret__, 'id'),
         results=pulumi.get(__ret__, 'results'),
         site=pulumi.get(__ret__, 'site'))
-def get_records_output(site: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
+def get_records_output(site: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
                        opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetRecordsResult]:
     """
-    Retrieves information about a all DNS records.
-
-    ## Example Usage
-
-    ```python
-    import pulumi
-    import pulumi_unifi as unifi
-
-    default = unifi.dns.get_records()
-    ```
-
-
-    :param _builtins.str site: The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
+    Use this data source to access information about an existing resource.
     """
     __args__ = dict()
     __args__['site'] = site

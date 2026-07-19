@@ -11,68 +11,14 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
-// The `iam.Group` resource manages client groups in the UniFi controller, which allow you to apply common settings and restrictions to multiple network clients.
-//
-// User groups are primarily used for:
-//   - Implementing Quality of Service (QoS) policies
-//   - Setting bandwidth limits for different types of users
-//   - Organizing clients into logical groups (e.g., Staff, Guests, IoT devices)
-//
-// Key features include:
-//   - Download rate limiting
-//   - Upload rate limiting
-//   - Group-based policy application
-//
-// User groups are particularly useful in:
-//   - Educational environments (different policies for staff and students)
-//   - Guest networks (limiting guest bandwidth)
-//   - Shared office spaces (managing different tenant groups)
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/iam"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := iam.NewGroup(ctx, "wifi", &iam.GroupArgs{
-//				Name:           pulumi.String("wifi"),
-//				QosRateMaxDown: pulumi.Int(2000),
-//				QosRateMaxUp:   pulumi.Int(10),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
-// ```
-//
-// ## Import
-//
-// The `pulumi import` command can be used, for example:
-//
-// import using the ID
-//
-// ```sh
-// $ pulumi import unifi:iam/group:Group wifi 5fe6261995fe130013456a36
-// ```
 type Group struct {
 	pulumi.CustomResourceState
 
 	// A descriptive name for the user group (e.g., 'Staff', 'Guests', 'IoT Devices'). This name will be displayed in the UniFi controller interface and used when assigning clients to the group.
 	Name pulumi.StringOutput `pulumi:"name"`
-	// The maximum allowed download speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed. Defaults to `-1`.
+	// The maximum allowed download speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed.
 	QosRateMaxDown pulumi.IntPtrOutput `pulumi:"qosRateMaxDown"`
-	// The maximum allowed upload speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed. Defaults to `-1`.
+	// The maximum allowed upload speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed.
 	QosRateMaxUp pulumi.IntPtrOutput `pulumi:"qosRateMaxUp"`
 	// The name of the UniFi site where this user group should be created. If not specified, the default site will be used.
 	Site pulumi.StringOutput `pulumi:"site"`
@@ -110,9 +56,9 @@ func GetGroup(ctx *pulumi.Context,
 type groupState struct {
 	// A descriptive name for the user group (e.g., 'Staff', 'Guests', 'IoT Devices'). This name will be displayed in the UniFi controller interface and used when assigning clients to the group.
 	Name *string `pulumi:"name"`
-	// The maximum allowed download speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed. Defaults to `-1`.
+	// The maximum allowed download speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed.
 	QosRateMaxDown *int `pulumi:"qosRateMaxDown"`
-	// The maximum allowed upload speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed. Defaults to `-1`.
+	// The maximum allowed upload speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed.
 	QosRateMaxUp *int `pulumi:"qosRateMaxUp"`
 	// The name of the UniFi site where this user group should be created. If not specified, the default site will be used.
 	Site *string `pulumi:"site"`
@@ -121,9 +67,9 @@ type groupState struct {
 type GroupState struct {
 	// A descriptive name for the user group (e.g., 'Staff', 'Guests', 'IoT Devices'). This name will be displayed in the UniFi controller interface and used when assigning clients to the group.
 	Name pulumi.StringPtrInput
-	// The maximum allowed download speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed. Defaults to `-1`.
+	// The maximum allowed download speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed.
 	QosRateMaxDown pulumi.IntPtrInput
-	// The maximum allowed upload speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed. Defaults to `-1`.
+	// The maximum allowed upload speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed.
 	QosRateMaxUp pulumi.IntPtrInput
 	// The name of the UniFi site where this user group should be created. If not specified, the default site will be used.
 	Site pulumi.StringPtrInput
@@ -136,9 +82,9 @@ func (GroupState) ElementType() reflect.Type {
 type groupArgs struct {
 	// A descriptive name for the user group (e.g., 'Staff', 'Guests', 'IoT Devices'). This name will be displayed in the UniFi controller interface and used when assigning clients to the group.
 	Name *string `pulumi:"name"`
-	// The maximum allowed download speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed. Defaults to `-1`.
+	// The maximum allowed download speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed.
 	QosRateMaxDown *int `pulumi:"qosRateMaxDown"`
-	// The maximum allowed upload speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed. Defaults to `-1`.
+	// The maximum allowed upload speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed.
 	QosRateMaxUp *int `pulumi:"qosRateMaxUp"`
 	// The name of the UniFi site where this user group should be created. If not specified, the default site will be used.
 	Site *string `pulumi:"site"`
@@ -148,9 +94,9 @@ type groupArgs struct {
 type GroupArgs struct {
 	// A descriptive name for the user group (e.g., 'Staff', 'Guests', 'IoT Devices'). This name will be displayed in the UniFi controller interface and used when assigning clients to the group.
 	Name pulumi.StringPtrInput
-	// The maximum allowed download speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed. Defaults to `-1`.
+	// The maximum allowed download speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed.
 	QosRateMaxDown pulumi.IntPtrInput
-	// The maximum allowed upload speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed. Defaults to `-1`.
+	// The maximum allowed upload speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed.
 	QosRateMaxUp pulumi.IntPtrInput
 	// The name of the UniFi site where this user group should be created. If not specified, the default site will be used.
 	Site pulumi.StringPtrInput
@@ -248,12 +194,12 @@ func (o GroupOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v *Group) pulumi.StringOutput { return v.Name }).(pulumi.StringOutput)
 }
 
-// The maximum allowed download speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed. Defaults to `-1`.
+// The maximum allowed download speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed.
 func (o GroupOutput) QosRateMaxDown() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Group) pulumi.IntPtrOutput { return v.QosRateMaxDown }).(pulumi.IntPtrOutput)
 }
 
-// The maximum allowed upload speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed. Defaults to `-1`.
+// The maximum allowed upload speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed.
 func (o GroupOutput) QosRateMaxUp() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Group) pulumi.IntPtrOutput { return v.QosRateMaxUp }).(pulumi.IntPtrOutput)
 }

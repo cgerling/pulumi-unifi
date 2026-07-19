@@ -566,6 +566,9 @@ export namespace setting {
         bgImageTile: boolean;
         /**
          * Type of portal background. Valid values are:
+         * * `color` - Solid color background
+         * * `image` - (not yet supported!) Custom image background
+         * * `gallery` - Image from Unsplash gallery
          */
         bgType: string;
         /**
@@ -743,40 +746,6 @@ export namespace setting {
          * WeChat Shop ID for payments.
          */
         shopId: string;
-    }
-
-    export interface IpsDnsFilter {
-        /**
-         * List of allowed sites for this DNS filter. These domains will always be accessible regardless of other filtering rules. Each entry should be a valid domain name (e.g., `example.com`).
-         */
-        allowedSites?: string[];
-        /**
-         * List of blocked sites for this DNS filter. These domains will be blocked regardless of other filtering rules. Each entry should be a valid domain name (e.g., `example.com`).
-         */
-        blockedSites?: string[];
-        /**
-         * List of blocked top-level domains (TLDs) for this DNS filter. All domains with these TLDs will be blocked. Each entry should be a valid TLD without the dot prefix (e.g., `xyz`, `info`).
-         */
-        blockedTlds?: string[];
-        /**
-         * Description of the DNS filter. This is used for documentation purposes only and does not affect functionality.
-         */
-        description: string;
-        /**
-         * Filter type that determines the predefined filtering level. Valid values are:
-         *   * `none` - No predefined filtering
-         *   * `work` - Work-appropriate filtering that blocks adult content
-         *   * `family` - Family-friendly filtering that blocks adult content and other inappropriate sites
-         */
-        filter: string;
-        /**
-         * Name of the DNS filter. This is used to identify the filter in the UniFi interface.
-         */
-        name: string;
-        /**
-         * Network ID this filter applies to. This should be a valid network ID from your UniFi configuration.
-         */
-        networkId: string;
     }
 
     export interface IpsHoneypot {

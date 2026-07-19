@@ -20,10 +20,9 @@ __all__ = ['CountryArgs', 'Country']
 class CountryArgs:
     def __init__(__self__, *,
                  code: pulumi.Input[_builtins.str],
-                 site: pulumi.Input[Optional[_builtins.str]] = None):
+                 site: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a Country resource.
-
         :param pulumi.Input[_builtins.str] code: The country code to set for the UniFi site. The country code must be a valid ISO 3166-1 alpha-2 code.
         :param pulumi.Input[_builtins.str] site: The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         """
@@ -45,26 +44,25 @@ class CountryArgs:
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "site", value)
 
 
 @pulumi.input_type
 class _CountryState:
     def __init__(__self__, *,
-                 code: pulumi.Input[Optional[_builtins.str]] = None,
-                 code_numeric: pulumi.Input[Optional[_builtins.int]] = None,
-                 site: pulumi.Input[Optional[_builtins.str]] = None):
+                 code: Optional[pulumi.Input[_builtins.str]] = None,
+                 code_numeric: Optional[pulumi.Input[_builtins.int]] = None,
+                 site: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Country resources.
-
         :param pulumi.Input[_builtins.str] code: The country code to set for the UniFi site. The country code must be a valid ISO 3166-1 alpha-2 code.
         :param pulumi.Input[_builtins.int] code_numeric: The numeric representation in ISO 3166-1 of the country code.
         :param pulumi.Input[_builtins.str] site: The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
@@ -78,38 +76,38 @@ class _CountryState:
 
     @_builtins.property
     @pulumi.getter
-    def code(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def code(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The country code to set for the UniFi site. The country code must be a valid ISO 3166-1 alpha-2 code.
         """
         return pulumi.get(self, "code")
 
     @code.setter
-    def code(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def code(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "code", value)
 
     @_builtins.property
     @pulumi.getter(name="codeNumeric")
-    def code_numeric(self) -> pulumi.Input[Optional[_builtins.int]]:
+    def code_numeric(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
         The numeric representation in ISO 3166-1 of the country code.
         """
         return pulumi.get(self, "code_numeric")
 
     @code_numeric.setter
-    def code_numeric(self, value: pulumi.Input[Optional[_builtins.int]]):
+    def code_numeric(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "code_numeric", value)
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "site", value)
 
 
@@ -119,22 +117,11 @@ class Country(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 code: pulumi.Input[Optional[_builtins.str]] = None,
-                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 code: Optional[pulumi.Input[_builtins.str]] = None,
+                 site: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        The `setting.Country` resource allows you to configure the country settings for your UniFi network.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumiverse_unifi as unifi
-
-        example = unifi.setting.Country("example", code="US")
-        ```
-
-
+        Create a Country resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] code: The country code to set for the UniFi site. The country code must be a valid ISO 3166-1 alpha-2 code.
@@ -147,18 +134,7 @@ class Country(pulumi.CustomResource):
                  args: CountryArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        The `setting.Country` resource allows you to configure the country settings for your UniFi network.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumiverse_unifi as unifi
-
-        example = unifi.setting.Country("example", code="US")
-        ```
-
-
+        Create a Country resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param CountryArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -174,8 +150,8 @@ class Country(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 code: pulumi.Input[Optional[_builtins.str]] = None,
-                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 code: Optional[pulumi.Input[_builtins.str]] = None,
+                 site: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -200,9 +176,9 @@ class Country(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            code: pulumi.Input[Optional[_builtins.str]] = None,
-            code_numeric: pulumi.Input[Optional[_builtins.int]] = None,
-            site: pulumi.Input[Optional[_builtins.str]] = None) -> 'Country':
+            code: Optional[pulumi.Input[_builtins.str]] = None,
+            code_numeric: Optional[pulumi.Input[_builtins.int]] = None,
+            site: Optional[pulumi.Input[_builtins.str]] = None) -> 'Country':
         """
         Get an existing Country resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.

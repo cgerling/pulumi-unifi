@@ -22,35 +22,34 @@ class RuleArgs:
                  action: pulumi.Input[_builtins.str],
                  rule_index: pulumi.Input[_builtins.int],
                  ruleset: pulumi.Input[_builtins.str],
-                 dst_address: pulumi.Input[Optional[_builtins.str]] = None,
-                 dst_address_ipv6: pulumi.Input[Optional[_builtins.str]] = None,
-                 dst_firewall_group_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 dst_network_id: pulumi.Input[Optional[_builtins.str]] = None,
-                 dst_network_type: pulumi.Input[Optional[_builtins.str]] = None,
-                 dst_port: pulumi.Input[Optional[_builtins.str]] = None,
-                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 icmp_typename: pulumi.Input[Optional[_builtins.str]] = None,
-                 icmp_v6_typename: pulumi.Input[Optional[_builtins.str]] = None,
-                 ip_sec: pulumi.Input[Optional[_builtins.str]] = None,
-                 logging: pulumi.Input[Optional[_builtins.bool]] = None,
-                 name: pulumi.Input[Optional[_builtins.str]] = None,
-                 protocol: pulumi.Input[Optional[_builtins.str]] = None,
-                 protocol_v6: pulumi.Input[Optional[_builtins.str]] = None,
-                 site: pulumi.Input[Optional[_builtins.str]] = None,
-                 src_address: pulumi.Input[Optional[_builtins.str]] = None,
-                 src_address_ipv6: pulumi.Input[Optional[_builtins.str]] = None,
-                 src_firewall_group_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 src_mac: pulumi.Input[Optional[_builtins.str]] = None,
-                 src_network_id: pulumi.Input[Optional[_builtins.str]] = None,
-                 src_network_type: pulumi.Input[Optional[_builtins.str]] = None,
-                 src_port: pulumi.Input[Optional[_builtins.str]] = None,
-                 state_established: pulumi.Input[Optional[_builtins.bool]] = None,
-                 state_invalid: pulumi.Input[Optional[_builtins.bool]] = None,
-                 state_new: pulumi.Input[Optional[_builtins.bool]] = None,
-                 state_related: pulumi.Input[Optional[_builtins.bool]] = None):
+                 dst_address: Optional[pulumi.Input[_builtins.str]] = None,
+                 dst_address_ipv6: Optional[pulumi.Input[_builtins.str]] = None,
+                 dst_firewall_group_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 dst_network_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 dst_network_type: Optional[pulumi.Input[_builtins.str]] = None,
+                 dst_port: Optional[pulumi.Input[_builtins.str]] = None,
+                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 icmp_typename: Optional[pulumi.Input[_builtins.str]] = None,
+                 icmp_v6_typename: Optional[pulumi.Input[_builtins.str]] = None,
+                 ip_sec: Optional[pulumi.Input[_builtins.str]] = None,
+                 logging: Optional[pulumi.Input[_builtins.bool]] = None,
+                 name: Optional[pulumi.Input[_builtins.str]] = None,
+                 protocol: Optional[pulumi.Input[_builtins.str]] = None,
+                 protocol_v6: Optional[pulumi.Input[_builtins.str]] = None,
+                 site: Optional[pulumi.Input[_builtins.str]] = None,
+                 src_address: Optional[pulumi.Input[_builtins.str]] = None,
+                 src_address_ipv6: Optional[pulumi.Input[_builtins.str]] = None,
+                 src_firewall_group_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 src_mac: Optional[pulumi.Input[_builtins.str]] = None,
+                 src_network_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 src_network_type: Optional[pulumi.Input[_builtins.str]] = None,
+                 src_port: Optional[pulumi.Input[_builtins.str]] = None,
+                 state_established: Optional[pulumi.Input[_builtins.bool]] = None,
+                 state_invalid: Optional[pulumi.Input[_builtins.bool]] = None,
+                 state_new: Optional[pulumi.Input[_builtins.bool]] = None,
+                 state_related: Optional[pulumi.Input[_builtins.bool]] = None):
         """
         The set of arguments for constructing a Rule resource.
-
         :param pulumi.Input[_builtins.str] action: The action to take when traffic matches this rule. Valid values are:
                  * `accept` - Allow the traffic
                  * `drop` - Silently block the traffic
@@ -248,55 +247,55 @@ class RuleArgs:
 
     @_builtins.property
     @pulumi.getter(name="dstAddress")
-    def dst_address(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def dst_address(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The destination IPv4 address or network in CIDR notation (e.g., '192.168.1.10' or '192.168.0.0/24'). The format must match dst_network_type - use a single IP for ADDRv4 or CIDR for NETv4.
         """
         return pulumi.get(self, "dst_address")
 
     @dst_address.setter
-    def dst_address(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def dst_address(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "dst_address", value)
 
     @_builtins.property
     @pulumi.getter(name="dstAddressIpv6")
-    def dst_address_ipv6(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def dst_address_ipv6(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The destination IPv6 address or network in CIDR notation (e.g., '2001:db8::1' or '2001:db8::/64'). Used for IPv6 firewall rules.
         """
         return pulumi.get(self, "dst_address_ipv6")
 
     @dst_address_ipv6.setter
-    def dst_address_ipv6(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def dst_address_ipv6(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "dst_address_ipv6", value)
 
     @_builtins.property
     @pulumi.getter(name="dstFirewallGroupIds")
-    def dst_firewall_group_ids(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+    def dst_firewall_group_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         A list of firewall group IDs to use as destinations. Groups can contain IP addresses, networks, or port numbers. This allows you to create reusable sets of addresses/ports and reference them in multiple rules.
         """
         return pulumi.get(self, "dst_firewall_group_ids")
 
     @dst_firewall_group_ids.setter
-    def dst_firewall_group_ids(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+    def dst_firewall_group_ids(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "dst_firewall_group_ids", value)
 
     @_builtins.property
     @pulumi.getter(name="dstNetworkId")
-    def dst_network_id(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def dst_network_id(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The ID of the destination network this rule applies to. This can be found in the URL when viewing the network in the UniFi controller.
         """
         return pulumi.get(self, "dst_network_id")
 
     @dst_network_id.setter
-    def dst_network_id(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def dst_network_id(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "dst_network_id", value)
 
     @_builtins.property
     @pulumi.getter(name="dstNetworkType")
-    def dst_network_type(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def dst_network_type(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The type of destination network address. Valid values are:
           * `ADDRv4` - Single IPv4 address
@@ -305,12 +304,12 @@ class RuleArgs:
         return pulumi.get(self, "dst_network_type")
 
     @dst_network_type.setter
-    def dst_network_type(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def dst_network_type(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "dst_network_type", value)
 
     @_builtins.property
     @pulumi.getter(name="dstPort")
-    def dst_port(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def dst_port(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The destination port(s) for this rule. Can be:
           * A single port number (e.g., '80')
@@ -320,24 +319,24 @@ class RuleArgs:
         return pulumi.get(self, "dst_port")
 
     @dst_port.setter
-    def dst_port(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def dst_port(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "dst_port", value)
 
     @_builtins.property
     @pulumi.getter
-    def enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Whether this firewall rule is active (true) or disabled (false). Defaults to true.
         """
         return pulumi.get(self, "enabled")
 
     @enabled.setter
-    def enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="icmpTypename")
-    def icmp_typename(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def icmp_typename(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The ICMP type name when protocol is set to 'icmp'. Common values include:
           * `echo-request` - ICMP ping requests
@@ -348,12 +347,12 @@ class RuleArgs:
         return pulumi.get(self, "icmp_typename")
 
     @icmp_typename.setter
-    def icmp_typename(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def icmp_typename(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "icmp_typename", value)
 
     @_builtins.property
     @pulumi.getter(name="icmpV6Typename")
-    def icmp_v6_typename(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def icmp_v6_typename(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The ICMPv6 type name when protocol_v6 is set to 'ipv6-icmp'. Common values (not all are listed) include:
           * `echo-request` - IPv6 ping requests
@@ -366,48 +365,48 @@ class RuleArgs:
         return pulumi.get(self, "icmp_v6_typename")
 
     @icmp_v6_typename.setter
-    def icmp_v6_typename(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def icmp_v6_typename(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "icmp_v6_typename", value)
 
     @_builtins.property
     @pulumi.getter(name="ipSec")
-    def ip_sec(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def ip_sec(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         Specify whether the rule matches on IPsec packets. Can be one of `match-ipsec` or `match-none`.
         """
         return pulumi.get(self, "ip_sec")
 
     @ip_sec.setter
-    def ip_sec(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def ip_sec(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "ip_sec", value)
 
     @_builtins.property
     @pulumi.getter
-    def logging(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def logging(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Enable logging for the firewall rule.
         """
         return pulumi.get(self, "logging")
 
     @logging.setter
-    def logging(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def logging(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "logging", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         A friendly name for the firewall rule. This helps identify the rule's purpose in the UniFi controller UI.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter
-    def protocol(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def protocol(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The IPv4 protocol this rule applies to. Common values (not all are listed) include:
           * `all` - Match all protocols
@@ -425,12 +424,12 @@ class RuleArgs:
         return pulumi.get(self, "protocol")
 
     @protocol.setter
-    def protocol(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def protocol(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "protocol", value)
 
     @_builtins.property
     @pulumi.getter(name="protocolV6")
-    def protocol_v6(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def protocol_v6(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The IPv6 protocol this rule applies to. Similar to 'protocol' but for IPv6 traffic. Common values (not all are listed) include:
           * `all` - Match all protocols
@@ -442,48 +441,48 @@ class RuleArgs:
         return pulumi.get(self, "protocol_v6")
 
     @protocol_v6.setter
-    def protocol_v6(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def protocol_v6(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "protocol_v6", value)
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The name of the UniFi site where the firewall rule should be created. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "site", value)
 
     @_builtins.property
     @pulumi.getter(name="srcAddress")
-    def src_address(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def src_address(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The source IPv4 address for the firewall rule.
         """
         return pulumi.get(self, "src_address")
 
     @src_address.setter
-    def src_address(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def src_address(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "src_address", value)
 
     @_builtins.property
     @pulumi.getter(name="srcAddressIpv6")
-    def src_address_ipv6(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def src_address_ipv6(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The source IPv6 address or network in CIDR notation (e.g., '2001:db8::1' or '2001:db8::/64'). Used for IPv6 firewall rules.
         """
         return pulumi.get(self, "src_address_ipv6")
 
     @src_address_ipv6.setter
-    def src_address_ipv6(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def src_address_ipv6(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "src_address_ipv6", value)
 
     @_builtins.property
     @pulumi.getter(name="srcFirewallGroupIds")
-    def src_firewall_group_ids(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+    def src_firewall_group_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         A list of firewall group IDs to use as sources. Groups can contain:
           * IP Address Groups - For matching specific IP addresses
@@ -498,36 +497,36 @@ class RuleArgs:
         return pulumi.get(self, "src_firewall_group_ids")
 
     @src_firewall_group_ids.setter
-    def src_firewall_group_ids(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+    def src_firewall_group_ids(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "src_firewall_group_ids", value)
 
     @_builtins.property
     @pulumi.getter(name="srcMac")
-    def src_mac(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def src_mac(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The source MAC address this rule applies to. Use this to create rules that match specific devices regardless of their IP address. Format: 'XX:XX:XX:XX:XX:XX'. MAC addresses are case-insensitive.
         """
         return pulumi.get(self, "src_mac")
 
     @src_mac.setter
-    def src_mac(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def src_mac(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "src_mac", value)
 
     @_builtins.property
     @pulumi.getter(name="srcNetworkId")
-    def src_network_id(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def src_network_id(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The ID of the source network this rule applies to. This can be found in the URL when viewing the network in the UniFi controller, or by using the network's name in the form `[site]/[network_name]`.
         """
         return pulumi.get(self, "src_network_id")
 
     @src_network_id.setter
-    def src_network_id(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def src_network_id(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "src_network_id", value)
 
     @_builtins.property
     @pulumi.getter(name="srcNetworkType")
-    def src_network_type(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def src_network_type(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The type of source network address. Valid values are:
           * `ADDRv4` - Single IPv4 address
@@ -536,12 +535,12 @@ class RuleArgs:
         return pulumi.get(self, "src_network_type")
 
     @src_network_type.setter
-    def src_network_type(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def src_network_type(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "src_network_type", value)
 
     @_builtins.property
     @pulumi.getter(name="srcPort")
-    def src_port(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def src_port(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The source port(s) for this rule. Can be:
           * A single port number (e.g., '80')
@@ -551,12 +550,12 @@ class RuleArgs:
         return pulumi.get(self, "src_port")
 
     @src_port.setter
-    def src_port(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def src_port(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "src_port", value)
 
     @_builtins.property
     @pulumi.getter(name="stateEstablished")
-    def state_established(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def state_established(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Match established connections. When enabled:
           * Rule only applies to packets that are part of an existing connection
@@ -568,81 +567,80 @@ class RuleArgs:
         return pulumi.get(self, "state_established")
 
     @state_established.setter
-    def state_established(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def state_established(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "state_established", value)
 
     @_builtins.property
     @pulumi.getter(name="stateInvalid")
-    def state_invalid(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def state_invalid(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Match where the state is invalid.
         """
         return pulumi.get(self, "state_invalid")
 
     @state_invalid.setter
-    def state_invalid(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def state_invalid(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "state_invalid", value)
 
     @_builtins.property
     @pulumi.getter(name="stateNew")
-    def state_new(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def state_new(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Match where the state is new.
         """
         return pulumi.get(self, "state_new")
 
     @state_new.setter
-    def state_new(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def state_new(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "state_new", value)
 
     @_builtins.property
     @pulumi.getter(name="stateRelated")
-    def state_related(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def state_related(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Match where the state is related.
         """
         return pulumi.get(self, "state_related")
 
     @state_related.setter
-    def state_related(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def state_related(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "state_related", value)
 
 
 @pulumi.input_type
 class _RuleState:
     def __init__(__self__, *,
-                 action: pulumi.Input[Optional[_builtins.str]] = None,
-                 dst_address: pulumi.Input[Optional[_builtins.str]] = None,
-                 dst_address_ipv6: pulumi.Input[Optional[_builtins.str]] = None,
-                 dst_firewall_group_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 dst_network_id: pulumi.Input[Optional[_builtins.str]] = None,
-                 dst_network_type: pulumi.Input[Optional[_builtins.str]] = None,
-                 dst_port: pulumi.Input[Optional[_builtins.str]] = None,
-                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 icmp_typename: pulumi.Input[Optional[_builtins.str]] = None,
-                 icmp_v6_typename: pulumi.Input[Optional[_builtins.str]] = None,
-                 ip_sec: pulumi.Input[Optional[_builtins.str]] = None,
-                 logging: pulumi.Input[Optional[_builtins.bool]] = None,
-                 name: pulumi.Input[Optional[_builtins.str]] = None,
-                 protocol: pulumi.Input[Optional[_builtins.str]] = None,
-                 protocol_v6: pulumi.Input[Optional[_builtins.str]] = None,
-                 rule_index: pulumi.Input[Optional[_builtins.int]] = None,
-                 ruleset: pulumi.Input[Optional[_builtins.str]] = None,
-                 site: pulumi.Input[Optional[_builtins.str]] = None,
-                 src_address: pulumi.Input[Optional[_builtins.str]] = None,
-                 src_address_ipv6: pulumi.Input[Optional[_builtins.str]] = None,
-                 src_firewall_group_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 src_mac: pulumi.Input[Optional[_builtins.str]] = None,
-                 src_network_id: pulumi.Input[Optional[_builtins.str]] = None,
-                 src_network_type: pulumi.Input[Optional[_builtins.str]] = None,
-                 src_port: pulumi.Input[Optional[_builtins.str]] = None,
-                 state_established: pulumi.Input[Optional[_builtins.bool]] = None,
-                 state_invalid: pulumi.Input[Optional[_builtins.bool]] = None,
-                 state_new: pulumi.Input[Optional[_builtins.bool]] = None,
-                 state_related: pulumi.Input[Optional[_builtins.bool]] = None):
+                 action: Optional[pulumi.Input[_builtins.str]] = None,
+                 dst_address: Optional[pulumi.Input[_builtins.str]] = None,
+                 dst_address_ipv6: Optional[pulumi.Input[_builtins.str]] = None,
+                 dst_firewall_group_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 dst_network_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 dst_network_type: Optional[pulumi.Input[_builtins.str]] = None,
+                 dst_port: Optional[pulumi.Input[_builtins.str]] = None,
+                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 icmp_typename: Optional[pulumi.Input[_builtins.str]] = None,
+                 icmp_v6_typename: Optional[pulumi.Input[_builtins.str]] = None,
+                 ip_sec: Optional[pulumi.Input[_builtins.str]] = None,
+                 logging: Optional[pulumi.Input[_builtins.bool]] = None,
+                 name: Optional[pulumi.Input[_builtins.str]] = None,
+                 protocol: Optional[pulumi.Input[_builtins.str]] = None,
+                 protocol_v6: Optional[pulumi.Input[_builtins.str]] = None,
+                 rule_index: Optional[pulumi.Input[_builtins.int]] = None,
+                 ruleset: Optional[pulumi.Input[_builtins.str]] = None,
+                 site: Optional[pulumi.Input[_builtins.str]] = None,
+                 src_address: Optional[pulumi.Input[_builtins.str]] = None,
+                 src_address_ipv6: Optional[pulumi.Input[_builtins.str]] = None,
+                 src_firewall_group_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 src_mac: Optional[pulumi.Input[_builtins.str]] = None,
+                 src_network_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 src_network_type: Optional[pulumi.Input[_builtins.str]] = None,
+                 src_port: Optional[pulumi.Input[_builtins.str]] = None,
+                 state_established: Optional[pulumi.Input[_builtins.bool]] = None,
+                 state_invalid: Optional[pulumi.Input[_builtins.bool]] = None,
+                 state_new: Optional[pulumi.Input[_builtins.bool]] = None,
+                 state_related: Optional[pulumi.Input[_builtins.bool]] = None):
         """
         Input properties used for looking up and filtering Rule resources.
-
         :param pulumi.Input[_builtins.str] action: The action to take when traffic matches this rule. Valid values are:
                  * `accept` - Allow the traffic
                  * `drop` - Silently block the traffic
@@ -795,7 +793,7 @@ class _RuleState:
 
     @_builtins.property
     @pulumi.getter
-    def action(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def action(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The action to take when traffic matches this rule. Valid values are:
           * `accept` - Allow the traffic
@@ -805,60 +803,60 @@ class _RuleState:
         return pulumi.get(self, "action")
 
     @action.setter
-    def action(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def action(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "action", value)
 
     @_builtins.property
     @pulumi.getter(name="dstAddress")
-    def dst_address(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def dst_address(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The destination IPv4 address or network in CIDR notation (e.g., '192.168.1.10' or '192.168.0.0/24'). The format must match dst_network_type - use a single IP for ADDRv4 or CIDR for NETv4.
         """
         return pulumi.get(self, "dst_address")
 
     @dst_address.setter
-    def dst_address(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def dst_address(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "dst_address", value)
 
     @_builtins.property
     @pulumi.getter(name="dstAddressIpv6")
-    def dst_address_ipv6(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def dst_address_ipv6(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The destination IPv6 address or network in CIDR notation (e.g., '2001:db8::1' or '2001:db8::/64'). Used for IPv6 firewall rules.
         """
         return pulumi.get(self, "dst_address_ipv6")
 
     @dst_address_ipv6.setter
-    def dst_address_ipv6(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def dst_address_ipv6(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "dst_address_ipv6", value)
 
     @_builtins.property
     @pulumi.getter(name="dstFirewallGroupIds")
-    def dst_firewall_group_ids(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+    def dst_firewall_group_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         A list of firewall group IDs to use as destinations. Groups can contain IP addresses, networks, or port numbers. This allows you to create reusable sets of addresses/ports and reference them in multiple rules.
         """
         return pulumi.get(self, "dst_firewall_group_ids")
 
     @dst_firewall_group_ids.setter
-    def dst_firewall_group_ids(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+    def dst_firewall_group_ids(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "dst_firewall_group_ids", value)
 
     @_builtins.property
     @pulumi.getter(name="dstNetworkId")
-    def dst_network_id(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def dst_network_id(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The ID of the destination network this rule applies to. This can be found in the URL when viewing the network in the UniFi controller.
         """
         return pulumi.get(self, "dst_network_id")
 
     @dst_network_id.setter
-    def dst_network_id(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def dst_network_id(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "dst_network_id", value)
 
     @_builtins.property
     @pulumi.getter(name="dstNetworkType")
-    def dst_network_type(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def dst_network_type(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The type of destination network address. Valid values are:
           * `ADDRv4` - Single IPv4 address
@@ -867,12 +865,12 @@ class _RuleState:
         return pulumi.get(self, "dst_network_type")
 
     @dst_network_type.setter
-    def dst_network_type(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def dst_network_type(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "dst_network_type", value)
 
     @_builtins.property
     @pulumi.getter(name="dstPort")
-    def dst_port(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def dst_port(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The destination port(s) for this rule. Can be:
           * A single port number (e.g., '80')
@@ -882,24 +880,24 @@ class _RuleState:
         return pulumi.get(self, "dst_port")
 
     @dst_port.setter
-    def dst_port(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def dst_port(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "dst_port", value)
 
     @_builtins.property
     @pulumi.getter
-    def enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Whether this firewall rule is active (true) or disabled (false). Defaults to true.
         """
         return pulumi.get(self, "enabled")
 
     @enabled.setter
-    def enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="icmpTypename")
-    def icmp_typename(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def icmp_typename(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The ICMP type name when protocol is set to 'icmp'. Common values include:
           * `echo-request` - ICMP ping requests
@@ -910,12 +908,12 @@ class _RuleState:
         return pulumi.get(self, "icmp_typename")
 
     @icmp_typename.setter
-    def icmp_typename(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def icmp_typename(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "icmp_typename", value)
 
     @_builtins.property
     @pulumi.getter(name="icmpV6Typename")
-    def icmp_v6_typename(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def icmp_v6_typename(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The ICMPv6 type name when protocol_v6 is set to 'ipv6-icmp'. Common values (not all are listed) include:
           * `echo-request` - IPv6 ping requests
@@ -928,48 +926,48 @@ class _RuleState:
         return pulumi.get(self, "icmp_v6_typename")
 
     @icmp_v6_typename.setter
-    def icmp_v6_typename(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def icmp_v6_typename(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "icmp_v6_typename", value)
 
     @_builtins.property
     @pulumi.getter(name="ipSec")
-    def ip_sec(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def ip_sec(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         Specify whether the rule matches on IPsec packets. Can be one of `match-ipsec` or `match-none`.
         """
         return pulumi.get(self, "ip_sec")
 
     @ip_sec.setter
-    def ip_sec(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def ip_sec(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "ip_sec", value)
 
     @_builtins.property
     @pulumi.getter
-    def logging(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def logging(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Enable logging for the firewall rule.
         """
         return pulumi.get(self, "logging")
 
     @logging.setter
-    def logging(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def logging(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "logging", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         A friendly name for the firewall rule. This helps identify the rule's purpose in the UniFi controller UI.
         """
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter
-    def protocol(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def protocol(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The IPv4 protocol this rule applies to. Common values (not all are listed) include:
           * `all` - Match all protocols
@@ -987,12 +985,12 @@ class _RuleState:
         return pulumi.get(self, "protocol")
 
     @protocol.setter
-    def protocol(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def protocol(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "protocol", value)
 
     @_builtins.property
     @pulumi.getter(name="protocolV6")
-    def protocol_v6(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def protocol_v6(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The IPv6 protocol this rule applies to. Similar to 'protocol' but for IPv6 traffic. Common values (not all are listed) include:
           * `all` - Match all protocols
@@ -1004,12 +1002,12 @@ class _RuleState:
         return pulumi.get(self, "protocol_v6")
 
     @protocol_v6.setter
-    def protocol_v6(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def protocol_v6(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "protocol_v6", value)
 
     @_builtins.property
     @pulumi.getter(name="ruleIndex")
-    def rule_index(self) -> pulumi.Input[Optional[_builtins.int]]:
+    def rule_index(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
         The processing order for this rule. Lower numbers are processed first. Custom rules should use:
           * 2000-2999 for rules processed before auto-generated rules
@@ -1018,12 +1016,12 @@ class _RuleState:
         return pulumi.get(self, "rule_index")
 
     @rule_index.setter
-    def rule_index(self, value: pulumi.Input[Optional[_builtins.int]]):
+    def rule_index(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "rule_index", value)
 
     @_builtins.property
     @pulumi.getter
-    def ruleset(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def ruleset(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         Defines which traffic flow this rule applies to. The format is [NETWORK]_[DIRECTION], where:
           * NETWORK can be: WAN, LAN, GUEST (or their IPv6 variants WANv6, LANv6, GUESTv6)
@@ -1037,48 +1035,48 @@ class _RuleState:
         return pulumi.get(self, "ruleset")
 
     @ruleset.setter
-    def ruleset(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def ruleset(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "ruleset", value)
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The name of the UniFi site where the firewall rule should be created. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "site", value)
 
     @_builtins.property
     @pulumi.getter(name="srcAddress")
-    def src_address(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def src_address(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The source IPv4 address for the firewall rule.
         """
         return pulumi.get(self, "src_address")
 
     @src_address.setter
-    def src_address(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def src_address(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "src_address", value)
 
     @_builtins.property
     @pulumi.getter(name="srcAddressIpv6")
-    def src_address_ipv6(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def src_address_ipv6(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The source IPv6 address or network in CIDR notation (e.g., '2001:db8::1' or '2001:db8::/64'). Used for IPv6 firewall rules.
         """
         return pulumi.get(self, "src_address_ipv6")
 
     @src_address_ipv6.setter
-    def src_address_ipv6(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def src_address_ipv6(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "src_address_ipv6", value)
 
     @_builtins.property
     @pulumi.getter(name="srcFirewallGroupIds")
-    def src_firewall_group_ids(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+    def src_firewall_group_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         A list of firewall group IDs to use as sources. Groups can contain:
           * IP Address Groups - For matching specific IP addresses
@@ -1093,36 +1091,36 @@ class _RuleState:
         return pulumi.get(self, "src_firewall_group_ids")
 
     @src_firewall_group_ids.setter
-    def src_firewall_group_ids(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+    def src_firewall_group_ids(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "src_firewall_group_ids", value)
 
     @_builtins.property
     @pulumi.getter(name="srcMac")
-    def src_mac(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def src_mac(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The source MAC address this rule applies to. Use this to create rules that match specific devices regardless of their IP address. Format: 'XX:XX:XX:XX:XX:XX'. MAC addresses are case-insensitive.
         """
         return pulumi.get(self, "src_mac")
 
     @src_mac.setter
-    def src_mac(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def src_mac(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "src_mac", value)
 
     @_builtins.property
     @pulumi.getter(name="srcNetworkId")
-    def src_network_id(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def src_network_id(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The ID of the source network this rule applies to. This can be found in the URL when viewing the network in the UniFi controller, or by using the network's name in the form `[site]/[network_name]`.
         """
         return pulumi.get(self, "src_network_id")
 
     @src_network_id.setter
-    def src_network_id(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def src_network_id(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "src_network_id", value)
 
     @_builtins.property
     @pulumi.getter(name="srcNetworkType")
-    def src_network_type(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def src_network_type(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The type of source network address. Valid values are:
           * `ADDRv4` - Single IPv4 address
@@ -1131,12 +1129,12 @@ class _RuleState:
         return pulumi.get(self, "src_network_type")
 
     @src_network_type.setter
-    def src_network_type(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def src_network_type(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "src_network_type", value)
 
     @_builtins.property
     @pulumi.getter(name="srcPort")
-    def src_port(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def src_port(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The source port(s) for this rule. Can be:
           * A single port number (e.g., '80')
@@ -1146,12 +1144,12 @@ class _RuleState:
         return pulumi.get(self, "src_port")
 
     @src_port.setter
-    def src_port(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def src_port(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "src_port", value)
 
     @_builtins.property
     @pulumi.getter(name="stateEstablished")
-    def state_established(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def state_established(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Match established connections. When enabled:
           * Rule only applies to packets that are part of an existing connection
@@ -1163,43 +1161,43 @@ class _RuleState:
         return pulumi.get(self, "state_established")
 
     @state_established.setter
-    def state_established(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def state_established(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "state_established", value)
 
     @_builtins.property
     @pulumi.getter(name="stateInvalid")
-    def state_invalid(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def state_invalid(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Match where the state is invalid.
         """
         return pulumi.get(self, "state_invalid")
 
     @state_invalid.setter
-    def state_invalid(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def state_invalid(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "state_invalid", value)
 
     @_builtins.property
     @pulumi.getter(name="stateNew")
-    def state_new(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def state_new(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Match where the state is new.
         """
         return pulumi.get(self, "state_new")
 
     @state_new.setter
-    def state_new(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def state_new(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "state_new", value)
 
     @_builtins.property
     @pulumi.getter(name="stateRelated")
-    def state_related(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def state_related(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Match where the state is related.
         """
         return pulumi.get(self, "state_related")
 
     @state_related.setter
-    def state_related(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def state_related(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "state_related", value)
 
 
@@ -1209,71 +1207,38 @@ class Rule(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 action: pulumi.Input[Optional[_builtins.str]] = None,
-                 dst_address: pulumi.Input[Optional[_builtins.str]] = None,
-                 dst_address_ipv6: pulumi.Input[Optional[_builtins.str]] = None,
-                 dst_firewall_group_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 dst_network_id: pulumi.Input[Optional[_builtins.str]] = None,
-                 dst_network_type: pulumi.Input[Optional[_builtins.str]] = None,
-                 dst_port: pulumi.Input[Optional[_builtins.str]] = None,
-                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 icmp_typename: pulumi.Input[Optional[_builtins.str]] = None,
-                 icmp_v6_typename: pulumi.Input[Optional[_builtins.str]] = None,
-                 ip_sec: pulumi.Input[Optional[_builtins.str]] = None,
-                 logging: pulumi.Input[Optional[_builtins.bool]] = None,
-                 name: pulumi.Input[Optional[_builtins.str]] = None,
-                 protocol: pulumi.Input[Optional[_builtins.str]] = None,
-                 protocol_v6: pulumi.Input[Optional[_builtins.str]] = None,
-                 rule_index: pulumi.Input[Optional[_builtins.int]] = None,
-                 ruleset: pulumi.Input[Optional[_builtins.str]] = None,
-                 site: pulumi.Input[Optional[_builtins.str]] = None,
-                 src_address: pulumi.Input[Optional[_builtins.str]] = None,
-                 src_address_ipv6: pulumi.Input[Optional[_builtins.str]] = None,
-                 src_firewall_group_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 src_mac: pulumi.Input[Optional[_builtins.str]] = None,
-                 src_network_id: pulumi.Input[Optional[_builtins.str]] = None,
-                 src_network_type: pulumi.Input[Optional[_builtins.str]] = None,
-                 src_port: pulumi.Input[Optional[_builtins.str]] = None,
-                 state_established: pulumi.Input[Optional[_builtins.bool]] = None,
-                 state_invalid: pulumi.Input[Optional[_builtins.bool]] = None,
-                 state_new: pulumi.Input[Optional[_builtins.bool]] = None,
-                 state_related: pulumi.Input[Optional[_builtins.bool]] = None,
+                 action: Optional[pulumi.Input[_builtins.str]] = None,
+                 dst_address: Optional[pulumi.Input[_builtins.str]] = None,
+                 dst_address_ipv6: Optional[pulumi.Input[_builtins.str]] = None,
+                 dst_firewall_group_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 dst_network_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 dst_network_type: Optional[pulumi.Input[_builtins.str]] = None,
+                 dst_port: Optional[pulumi.Input[_builtins.str]] = None,
+                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 icmp_typename: Optional[pulumi.Input[_builtins.str]] = None,
+                 icmp_v6_typename: Optional[pulumi.Input[_builtins.str]] = None,
+                 ip_sec: Optional[pulumi.Input[_builtins.str]] = None,
+                 logging: Optional[pulumi.Input[_builtins.bool]] = None,
+                 name: Optional[pulumi.Input[_builtins.str]] = None,
+                 protocol: Optional[pulumi.Input[_builtins.str]] = None,
+                 protocol_v6: Optional[pulumi.Input[_builtins.str]] = None,
+                 rule_index: Optional[pulumi.Input[_builtins.int]] = None,
+                 ruleset: Optional[pulumi.Input[_builtins.str]] = None,
+                 site: Optional[pulumi.Input[_builtins.str]] = None,
+                 src_address: Optional[pulumi.Input[_builtins.str]] = None,
+                 src_address_ipv6: Optional[pulumi.Input[_builtins.str]] = None,
+                 src_firewall_group_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 src_mac: Optional[pulumi.Input[_builtins.str]] = None,
+                 src_network_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 src_network_type: Optional[pulumi.Input[_builtins.str]] = None,
+                 src_port: Optional[pulumi.Input[_builtins.str]] = None,
+                 state_established: Optional[pulumi.Input[_builtins.bool]] = None,
+                 state_invalid: Optional[pulumi.Input[_builtins.bool]] = None,
+                 state_new: Optional[pulumi.Input[_builtins.bool]] = None,
+                 state_related: Optional[pulumi.Input[_builtins.bool]] = None,
                  __props__=None):
         """
-        The `firewall.Rule` resource manages firewall rules.
-
-        This resource allows you to create and manage firewall rules that control traffic flow between different network segments (WAN, LAN, Guest) for both IPv4 and IPv6 traffic. Rules can be configured to allow, drop, or reject traffic based on various criteria including protocols, ports, and IP addresses.
-
-        Rules are processed in order based on their `rule_index`, with lower numbers being processed first. Custom rules should use indices between 2000-2999 or 4000-4999 to avoid conflicts with system rules.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumiverse_unifi as unifi
-
-        config = pulumi.Config()
-        ip_address = config.require("ipAddress")
-        drop_all = unifi.firewall.Rule("drop_all",
-            name="drop all",
-            action="drop",
-            ruleset="LAN_IN",
-            rule_index=2011,
-            protocol="all",
-            dst_address=ip_address)
-        ```
-
-        ## Import
-
-        The `pulumi import` command can be used, for example:
-
-        import using the ID from the controller API/UI
-
-        ```sh
-        $ pulumi import unifi:firewall/rule:Rule my_rule 5f7080eb6b8969064f80494f
-        ```
-
-
+        Create a Rule resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] action: The action to take when traffic matches this rule. Valid values are:
@@ -1374,40 +1339,7 @@ class Rule(pulumi.CustomResource):
                  args: RuleArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        The `firewall.Rule` resource manages firewall rules.
-
-        This resource allows you to create and manage firewall rules that control traffic flow between different network segments (WAN, LAN, Guest) for both IPv4 and IPv6 traffic. Rules can be configured to allow, drop, or reject traffic based on various criteria including protocols, ports, and IP addresses.
-
-        Rules are processed in order based on their `rule_index`, with lower numbers being processed first. Custom rules should use indices between 2000-2999 or 4000-4999 to avoid conflicts with system rules.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumiverse_unifi as unifi
-
-        config = pulumi.Config()
-        ip_address = config.require("ipAddress")
-        drop_all = unifi.firewall.Rule("drop_all",
-            name="drop all",
-            action="drop",
-            ruleset="LAN_IN",
-            rule_index=2011,
-            protocol="all",
-            dst_address=ip_address)
-        ```
-
-        ## Import
-
-        The `pulumi import` command can be used, for example:
-
-        import using the ID from the controller API/UI
-
-        ```sh
-        $ pulumi import unifi:firewall/rule:Rule my_rule 5f7080eb6b8969064f80494f
-        ```
-
-
+        Create a Rule resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param RuleArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -1423,35 +1355,35 @@ class Rule(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 action: pulumi.Input[Optional[_builtins.str]] = None,
-                 dst_address: pulumi.Input[Optional[_builtins.str]] = None,
-                 dst_address_ipv6: pulumi.Input[Optional[_builtins.str]] = None,
-                 dst_firewall_group_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 dst_network_id: pulumi.Input[Optional[_builtins.str]] = None,
-                 dst_network_type: pulumi.Input[Optional[_builtins.str]] = None,
-                 dst_port: pulumi.Input[Optional[_builtins.str]] = None,
-                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 icmp_typename: pulumi.Input[Optional[_builtins.str]] = None,
-                 icmp_v6_typename: pulumi.Input[Optional[_builtins.str]] = None,
-                 ip_sec: pulumi.Input[Optional[_builtins.str]] = None,
-                 logging: pulumi.Input[Optional[_builtins.bool]] = None,
-                 name: pulumi.Input[Optional[_builtins.str]] = None,
-                 protocol: pulumi.Input[Optional[_builtins.str]] = None,
-                 protocol_v6: pulumi.Input[Optional[_builtins.str]] = None,
-                 rule_index: pulumi.Input[Optional[_builtins.int]] = None,
-                 ruleset: pulumi.Input[Optional[_builtins.str]] = None,
-                 site: pulumi.Input[Optional[_builtins.str]] = None,
-                 src_address: pulumi.Input[Optional[_builtins.str]] = None,
-                 src_address_ipv6: pulumi.Input[Optional[_builtins.str]] = None,
-                 src_firewall_group_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 src_mac: pulumi.Input[Optional[_builtins.str]] = None,
-                 src_network_id: pulumi.Input[Optional[_builtins.str]] = None,
-                 src_network_type: pulumi.Input[Optional[_builtins.str]] = None,
-                 src_port: pulumi.Input[Optional[_builtins.str]] = None,
-                 state_established: pulumi.Input[Optional[_builtins.bool]] = None,
-                 state_invalid: pulumi.Input[Optional[_builtins.bool]] = None,
-                 state_new: pulumi.Input[Optional[_builtins.bool]] = None,
-                 state_related: pulumi.Input[Optional[_builtins.bool]] = None,
+                 action: Optional[pulumi.Input[_builtins.str]] = None,
+                 dst_address: Optional[pulumi.Input[_builtins.str]] = None,
+                 dst_address_ipv6: Optional[pulumi.Input[_builtins.str]] = None,
+                 dst_firewall_group_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 dst_network_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 dst_network_type: Optional[pulumi.Input[_builtins.str]] = None,
+                 dst_port: Optional[pulumi.Input[_builtins.str]] = None,
+                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 icmp_typename: Optional[pulumi.Input[_builtins.str]] = None,
+                 icmp_v6_typename: Optional[pulumi.Input[_builtins.str]] = None,
+                 ip_sec: Optional[pulumi.Input[_builtins.str]] = None,
+                 logging: Optional[pulumi.Input[_builtins.bool]] = None,
+                 name: Optional[pulumi.Input[_builtins.str]] = None,
+                 protocol: Optional[pulumi.Input[_builtins.str]] = None,
+                 protocol_v6: Optional[pulumi.Input[_builtins.str]] = None,
+                 rule_index: Optional[pulumi.Input[_builtins.int]] = None,
+                 ruleset: Optional[pulumi.Input[_builtins.str]] = None,
+                 site: Optional[pulumi.Input[_builtins.str]] = None,
+                 src_address: Optional[pulumi.Input[_builtins.str]] = None,
+                 src_address_ipv6: Optional[pulumi.Input[_builtins.str]] = None,
+                 src_firewall_group_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 src_mac: Optional[pulumi.Input[_builtins.str]] = None,
+                 src_network_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 src_network_type: Optional[pulumi.Input[_builtins.str]] = None,
+                 src_port: Optional[pulumi.Input[_builtins.str]] = None,
+                 state_established: Optional[pulumi.Input[_builtins.bool]] = None,
+                 state_invalid: Optional[pulumi.Input[_builtins.bool]] = None,
+                 state_new: Optional[pulumi.Input[_builtins.bool]] = None,
+                 state_related: Optional[pulumi.Input[_builtins.bool]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -1506,35 +1438,35 @@ class Rule(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            action: pulumi.Input[Optional[_builtins.str]] = None,
-            dst_address: pulumi.Input[Optional[_builtins.str]] = None,
-            dst_address_ipv6: pulumi.Input[Optional[_builtins.str]] = None,
-            dst_firewall_group_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-            dst_network_id: pulumi.Input[Optional[_builtins.str]] = None,
-            dst_network_type: pulumi.Input[Optional[_builtins.str]] = None,
-            dst_port: pulumi.Input[Optional[_builtins.str]] = None,
-            enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-            icmp_typename: pulumi.Input[Optional[_builtins.str]] = None,
-            icmp_v6_typename: pulumi.Input[Optional[_builtins.str]] = None,
-            ip_sec: pulumi.Input[Optional[_builtins.str]] = None,
-            logging: pulumi.Input[Optional[_builtins.bool]] = None,
-            name: pulumi.Input[Optional[_builtins.str]] = None,
-            protocol: pulumi.Input[Optional[_builtins.str]] = None,
-            protocol_v6: pulumi.Input[Optional[_builtins.str]] = None,
-            rule_index: pulumi.Input[Optional[_builtins.int]] = None,
-            ruleset: pulumi.Input[Optional[_builtins.str]] = None,
-            site: pulumi.Input[Optional[_builtins.str]] = None,
-            src_address: pulumi.Input[Optional[_builtins.str]] = None,
-            src_address_ipv6: pulumi.Input[Optional[_builtins.str]] = None,
-            src_firewall_group_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-            src_mac: pulumi.Input[Optional[_builtins.str]] = None,
-            src_network_id: pulumi.Input[Optional[_builtins.str]] = None,
-            src_network_type: pulumi.Input[Optional[_builtins.str]] = None,
-            src_port: pulumi.Input[Optional[_builtins.str]] = None,
-            state_established: pulumi.Input[Optional[_builtins.bool]] = None,
-            state_invalid: pulumi.Input[Optional[_builtins.bool]] = None,
-            state_new: pulumi.Input[Optional[_builtins.bool]] = None,
-            state_related: pulumi.Input[Optional[_builtins.bool]] = None) -> 'Rule':
+            action: Optional[pulumi.Input[_builtins.str]] = None,
+            dst_address: Optional[pulumi.Input[_builtins.str]] = None,
+            dst_address_ipv6: Optional[pulumi.Input[_builtins.str]] = None,
+            dst_firewall_group_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            dst_network_id: Optional[pulumi.Input[_builtins.str]] = None,
+            dst_network_type: Optional[pulumi.Input[_builtins.str]] = None,
+            dst_port: Optional[pulumi.Input[_builtins.str]] = None,
+            enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+            icmp_typename: Optional[pulumi.Input[_builtins.str]] = None,
+            icmp_v6_typename: Optional[pulumi.Input[_builtins.str]] = None,
+            ip_sec: Optional[pulumi.Input[_builtins.str]] = None,
+            logging: Optional[pulumi.Input[_builtins.bool]] = None,
+            name: Optional[pulumi.Input[_builtins.str]] = None,
+            protocol: Optional[pulumi.Input[_builtins.str]] = None,
+            protocol_v6: Optional[pulumi.Input[_builtins.str]] = None,
+            rule_index: Optional[pulumi.Input[_builtins.int]] = None,
+            ruleset: Optional[pulumi.Input[_builtins.str]] = None,
+            site: Optional[pulumi.Input[_builtins.str]] = None,
+            src_address: Optional[pulumi.Input[_builtins.str]] = None,
+            src_address_ipv6: Optional[pulumi.Input[_builtins.str]] = None,
+            src_firewall_group_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            src_mac: Optional[pulumi.Input[_builtins.str]] = None,
+            src_network_id: Optional[pulumi.Input[_builtins.str]] = None,
+            src_network_type: Optional[pulumi.Input[_builtins.str]] = None,
+            src_port: Optional[pulumi.Input[_builtins.str]] = None,
+            state_established: Optional[pulumi.Input[_builtins.bool]] = None,
+            state_invalid: Optional[pulumi.Input[_builtins.bool]] = None,
+            state_new: Optional[pulumi.Input[_builtins.bool]] = None,
+            state_related: Optional[pulumi.Input[_builtins.bool]] = None) -> 'Rule':
         """
         Get an existing Rule resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.

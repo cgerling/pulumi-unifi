@@ -6,78 +6,6 @@ import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 import * as utilities from "../utilities";
 
-/**
- * The `unifi.setting.GuestAccess` resource manages the guest access settings in the UniFi controller.
- *
- * This resource allows you to configure all aspects of guest network access including authentication methods, portal customization, and payment options.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as unifi from "@pulumiverse/unifi";
- *
- * // Configure guest access settings for your UniFi network
- * // This example demonstrates a comprehensive guest portal setup with various authentication options
- * const logo = new unifi.port.AlFile("logo", {filePath: "logo.png"});
- * const guestPortal = new unifi.setting.GuestAccess("guest_portal", {
- *     auth: "hotspot",
- *     portalEnabled: true,
- *     portalUseHostname: true,
- *     portalHostname: "guest.example.com",
- *     templateEngine: "angular",
- *     expire: 1440,
- *     expireNumber: 1,
- *     expireUnit: 1440,
- *     ecEnabled: true,
- *     password: "guest-access-password",
- *     google: {
- *         clientId: "your-google-client-id",
- *         clientSecret: "your-google-client-secret",
- *         domain: "example.com",
- *         scopeEmail: true,
- *     },
- *     paymentGateway: "paypal",
- *     paypal: {
- *         username: "business@example.com",
- *         password: "paypal-api-password",
- *         signature: "paypal-api-signature",
- *         useSandbox: true,
- *     },
- *     redirect: {
- *         url: "https://example.com/welcome",
- *         useHttps: true,
- *         toHttps: true,
- *     },
- *     restrictedDnsServers: [
- *         "1.1.1.1",
- *         "8.8.8.8",
- *     ],
- *     portalCustomization: {
- *         customized: true,
- *         title: "Welcome to Our Guest Network",
- *         welcomeText: "Thanks for visiting our location. Please enjoy our complimentary WiFi.",
- *         welcomeTextEnabled: true,
- *         welcomeTextPosition: "top",
- *         bgColor: "#f5f5f5",
- *         textColor: "#333333",
- *         linkColor: "#0078d4",
- *         boxColor: "#ffffff",
- *         boxTextColor: "#333333",
- *         boxLinkColor: "#0078d4",
- *         boxOpacity: 90,
- *         boxRadius: 5,
- *         logoFileId: logo.id,
- *         buttonColor: "#0078d4",
- *         buttonTextColor: "#ffffff",
- *         buttonText: "Connect",
- *         tosEnabled: true,
- *         tos: "By using this service, you agree to our terms and conditions. Unauthorized use is prohibited.",
- *         languages: ["PL"],
- *     },
- * });
- * ```
- */
 export class GuestAccess extends pulumi.CustomResource {
     /**
      * Get an existing GuestAccess resource's state with the given name, ID, and optional extra
@@ -112,6 +40,14 @@ export class GuestAccess extends pulumi.CustomResource {
     declare public readonly allowedSubnet: pulumi.Output<string>;
     /**
      * Authentication method for guest access. Valid values are:
+     * * `none` - No authentication required
+     * * `hotspot` - Password authentication
+     * * `facebookWifi` - Facebook auth entication
+     * * `custom` - Custom authentication
+     *
+     * For password authentication, set `auth` to `hotspot` and `passwordEnabled` to `true`.
+     * For voucher authentication, set `auth` to `hotspot` and `voucherEnabled` to `true`.
+     * For payment authentication, set `auth` to `hotspot` and `paymentEnabled` to `true`.
      */
     declare public readonly auth: pulumi.Output<string>;
     /**
@@ -155,7 +91,7 @@ export class GuestAccess extends pulumi.CustomResource {
      */
     declare public /*out*/ readonly facebookEnabled: pulumi.Output<boolean>;
     /**
-     * - Facebook auth entication
+     * Facebook WiFi authentication settings.
      */
     declare public readonly facebookWifi: pulumi.Output<outputs.setting.GuestAccessFacebookWifi | undefined>;
     /**
@@ -387,35 +323,43 @@ export interface GuestAccessState {
     /**
      * Subnet allowed for guest access.
      */
-    allowedSubnet?: pulumi.Input<string | undefined>;
+    allowedSubnet?: pulumi.Input<string>;
     /**
      * Authentication method for guest access. Valid values are:
+     * * `none` - No authentication required
+     * * `hotspot` - Password authentication
+     * * `facebookWifi` - Facebook auth entication
+     * * `custom` - Custom authentication
+     *
+     * For password authentication, set `auth` to `hotspot` and `passwordEnabled` to `true`.
+     * For voucher authentication, set `auth` to `hotspot` and `voucherEnabled` to `true`.
+     * For payment authentication, set `auth` to `hotspot` and `paymentEnabled` to `true`.
      */
-    auth?: pulumi.Input<string | undefined>;
+    auth?: pulumi.Input<string>;
     /**
      * URL for authentication. Must be a valid URL including the protocol.
      */
-    authUrl?: pulumi.Input<string | undefined>;
+    authUrl?: pulumi.Input<string>;
     /**
      * Authorize.net payment settings.
      */
-    authorize?: pulumi.Input<inputs.setting.GuestAccessAuthorize | undefined>;
+    authorize?: pulumi.Input<inputs.setting.GuestAccessAuthorize>;
     /**
      * Custom IP address. Must be a valid IPv4 address (e.g., `192.168.1.1`).
      */
-    customIp?: pulumi.Input<string | undefined>;
+    customIp?: pulumi.Input<string>;
     /**
      * Enable enterprise controller functionality.
      */
-    ecEnabled?: pulumi.Input<boolean | undefined>;
+    ecEnabled?: pulumi.Input<boolean>;
     /**
      * Expiration time for guest access.
      */
-    expire?: pulumi.Input<number | undefined>;
+    expire?: pulumi.Input<number>;
     /**
      * Number value for the expiration time.
      */
-    expireNumber?: pulumi.Input<number | undefined>;
+    expireNumber?: pulumi.Input<number>;
     /**
      * Unit for the expiration time. Valid values are:
      * * `1` - Minute
@@ -423,47 +367,47 @@ export interface GuestAccessState {
      * * `1440` - Day
      * * `10080` - Week
      */
-    expireUnit?: pulumi.Input<number | undefined>;
+    expireUnit?: pulumi.Input<number>;
     /**
      * Facebook authentication settings.
      */
-    facebook?: pulumi.Input<inputs.setting.GuestAccessFacebook | undefined>;
+    facebook?: pulumi.Input<inputs.setting.GuestAccessFacebook>;
     /**
      * Whether Facebook authentication for guest access is enabled.
      */
-    facebookEnabled?: pulumi.Input<boolean | undefined>;
+    facebookEnabled?: pulumi.Input<boolean>;
     /**
-     * - Facebook auth entication
+     * Facebook WiFi authentication settings.
      */
-    facebookWifi?: pulumi.Input<inputs.setting.GuestAccessFacebookWifi | undefined>;
+    facebookWifi?: pulumi.Input<inputs.setting.GuestAccessFacebookWifi>;
     /**
      * Google authentication settings.
      */
-    google?: pulumi.Input<inputs.setting.GuestAccessGoogle | undefined>;
+    google?: pulumi.Input<inputs.setting.GuestAccessGoogle>;
     /**
      * Whether Google authentication for guest access is enabled.
      */
-    googleEnabled?: pulumi.Input<boolean | undefined>;
+    googleEnabled?: pulumi.Input<boolean>;
     /**
      * IPpay Payments settings.
      */
-    ippay?: pulumi.Input<inputs.setting.GuestAccessIppay | undefined>;
+    ippay?: pulumi.Input<inputs.setting.GuestAccessIppay>;
     /**
      * MerchantWarrior payment settings.
      */
-    merchantWarrior?: pulumi.Input<inputs.setting.GuestAccessMerchantWarrior | undefined>;
+    merchantWarrior?: pulumi.Input<inputs.setting.GuestAccessMerchantWarrior>;
     /**
      * Password for guest access.
      */
-    password?: pulumi.Input<string | undefined>;
+    password?: pulumi.Input<string>;
     /**
      * Enable password authentication for guest access.
      */
-    passwordEnabled?: pulumi.Input<boolean | undefined>;
+    passwordEnabled?: pulumi.Input<boolean>;
     /**
      * Enable payment for guest access.
      */
-    paymentEnabled?: pulumi.Input<boolean | undefined>;
+    paymentEnabled?: pulumi.Input<boolean>;
     /**
      * Payment gateway. Valid values are:
      * * `paypal` - PayPal
@@ -473,87 +417,87 @@ export interface GuestAccessState {
      * * `merchantwarrior` - Merchant Warrior
      * * `ippay` - IP Payments
      */
-    paymentGateway?: pulumi.Input<string | undefined>;
+    paymentGateway?: pulumi.Input<string>;
     /**
      * PayPal payment settings.
      */
-    paypal?: pulumi.Input<inputs.setting.GuestAccessPaypal | undefined>;
+    paypal?: pulumi.Input<inputs.setting.GuestAccessPaypal>;
     /**
      * Portal customization settings.
      */
-    portalCustomization?: pulumi.Input<inputs.setting.GuestAccessPortalCustomization | undefined>;
+    portalCustomization?: pulumi.Input<inputs.setting.GuestAccessPortalCustomization>;
     /**
      * Enable the guest portal.
      */
-    portalEnabled?: pulumi.Input<boolean | undefined>;
+    portalEnabled?: pulumi.Input<boolean>;
     /**
      * Hostname to use for the captive portal.
      */
-    portalHostname?: pulumi.Input<string | undefined>;
+    portalHostname?: pulumi.Input<string>;
     /**
      * Use a custom hostname for the portal.
      */
-    portalUseHostname?: pulumi.Input<boolean | undefined>;
+    portalUseHostname?: pulumi.Input<boolean>;
     /**
      * QuickPay payment settings.
      */
-    quickpay?: pulumi.Input<inputs.setting.GuestAccessQuickpay | undefined>;
+    quickpay?: pulumi.Input<inputs.setting.GuestAccessQuickpay>;
     /**
      * RADIUS authentication settings.
      */
-    radius?: pulumi.Input<inputs.setting.GuestAccessRadius | undefined>;
+    radius?: pulumi.Input<inputs.setting.GuestAccessRadius>;
     /**
      * Whether RADIUS authentication for guest access is enabled.
      */
-    radiusEnabled?: pulumi.Input<boolean | undefined>;
+    radiusEnabled?: pulumi.Input<boolean>;
     /**
      * Redirect after authentication settings.
      */
-    redirect?: pulumi.Input<inputs.setting.GuestAccessRedirect | undefined>;
+    redirect?: pulumi.Input<inputs.setting.GuestAccessRedirect>;
     /**
      * Whether redirect after authentication is enabled.
      */
-    redirectEnabled?: pulumi.Input<boolean | undefined>;
+    redirectEnabled?: pulumi.Input<boolean>;
     /**
      * Whether restricted DNS servers for guest networks are enabled.
      */
-    restrictedDnsEnabled?: pulumi.Input<boolean | undefined>;
+    restrictedDnsEnabled?: pulumi.Input<boolean>;
     /**
      * List of restricted DNS servers for guest networks. Each value must be a valid IPv4 address.
      */
-    restrictedDnsServers?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    restrictedDnsServers?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * Subnet for restricted guest access.
      */
-    restrictedSubnet?: pulumi.Input<string | undefined>;
+    restrictedSubnet?: pulumi.Input<string>;
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string | undefined>;
+    site?: pulumi.Input<string>;
     /**
      * Stripe payment settings.
      */
-    stripe?: pulumi.Input<inputs.setting.GuestAccessStripe | undefined>;
+    stripe?: pulumi.Input<inputs.setting.GuestAccessStripe>;
     /**
      * Template engine for the portal. Valid values are: `jsp`, `angular`.
      */
-    templateEngine?: pulumi.Input<string | undefined>;
+    templateEngine?: pulumi.Input<string>;
     /**
      * Whether vouchers are customized.
      */
-    voucherCustomized?: pulumi.Input<boolean | undefined>;
+    voucherCustomized?: pulumi.Input<boolean>;
     /**
      * Enable voucher-based authentication for guest access.
      */
-    voucherEnabled?: pulumi.Input<boolean | undefined>;
+    voucherEnabled?: pulumi.Input<boolean>;
     /**
      * WeChat authentication settings.
      */
-    wechat?: pulumi.Input<inputs.setting.GuestAccessWechat | undefined>;
+    wechat?: pulumi.Input<inputs.setting.GuestAccessWechat>;
     /**
      * Whether WeChat authentication for guest access is enabled.
      */
-    wechatEnabled?: pulumi.Input<boolean | undefined>;
+    wechatEnabled?: pulumi.Input<boolean>;
 }
 
 /**
@@ -563,35 +507,43 @@ export interface GuestAccessArgs {
     /**
      * Subnet allowed for guest access.
      */
-    allowedSubnet?: pulumi.Input<string | undefined>;
+    allowedSubnet?: pulumi.Input<string>;
     /**
      * Authentication method for guest access. Valid values are:
+     * * `none` - No authentication required
+     * * `hotspot` - Password authentication
+     * * `facebookWifi` - Facebook auth entication
+     * * `custom` - Custom authentication
+     *
+     * For password authentication, set `auth` to `hotspot` and `passwordEnabled` to `true`.
+     * For voucher authentication, set `auth` to `hotspot` and `voucherEnabled` to `true`.
+     * For payment authentication, set `auth` to `hotspot` and `paymentEnabled` to `true`.
      */
-    auth?: pulumi.Input<string | undefined>;
+    auth?: pulumi.Input<string>;
     /**
      * URL for authentication. Must be a valid URL including the protocol.
      */
-    authUrl?: pulumi.Input<string | undefined>;
+    authUrl?: pulumi.Input<string>;
     /**
      * Authorize.net payment settings.
      */
-    authorize?: pulumi.Input<inputs.setting.GuestAccessAuthorize | undefined>;
+    authorize?: pulumi.Input<inputs.setting.GuestAccessAuthorize>;
     /**
      * Custom IP address. Must be a valid IPv4 address (e.g., `192.168.1.1`).
      */
-    customIp?: pulumi.Input<string | undefined>;
+    customIp?: pulumi.Input<string>;
     /**
      * Enable enterprise controller functionality.
      */
-    ecEnabled?: pulumi.Input<boolean | undefined>;
+    ecEnabled?: pulumi.Input<boolean>;
     /**
      * Expiration time for guest access.
      */
-    expire?: pulumi.Input<number | undefined>;
+    expire?: pulumi.Input<number>;
     /**
      * Number value for the expiration time.
      */
-    expireNumber?: pulumi.Input<number | undefined>;
+    expireNumber?: pulumi.Input<number>;
     /**
      * Unit for the expiration time. Valid values are:
      * * `1` - Minute
@@ -599,31 +551,31 @@ export interface GuestAccessArgs {
      * * `1440` - Day
      * * `10080` - Week
      */
-    expireUnit?: pulumi.Input<number | undefined>;
+    expireUnit?: pulumi.Input<number>;
     /**
      * Facebook authentication settings.
      */
-    facebook?: pulumi.Input<inputs.setting.GuestAccessFacebook | undefined>;
+    facebook?: pulumi.Input<inputs.setting.GuestAccessFacebook>;
     /**
-     * - Facebook auth entication
+     * Facebook WiFi authentication settings.
      */
-    facebookWifi?: pulumi.Input<inputs.setting.GuestAccessFacebookWifi | undefined>;
+    facebookWifi?: pulumi.Input<inputs.setting.GuestAccessFacebookWifi>;
     /**
      * Google authentication settings.
      */
-    google?: pulumi.Input<inputs.setting.GuestAccessGoogle | undefined>;
+    google?: pulumi.Input<inputs.setting.GuestAccessGoogle>;
     /**
      * IPpay Payments settings.
      */
-    ippay?: pulumi.Input<inputs.setting.GuestAccessIppay | undefined>;
+    ippay?: pulumi.Input<inputs.setting.GuestAccessIppay>;
     /**
      * MerchantWarrior payment settings.
      */
-    merchantWarrior?: pulumi.Input<inputs.setting.GuestAccessMerchantWarrior | undefined>;
+    merchantWarrior?: pulumi.Input<inputs.setting.GuestAccessMerchantWarrior>;
     /**
      * Password for guest access.
      */
-    password?: pulumi.Input<string | undefined>;
+    password?: pulumi.Input<string>;
     /**
      * Payment gateway. Valid values are:
      * * `paypal` - PayPal
@@ -633,69 +585,69 @@ export interface GuestAccessArgs {
      * * `merchantwarrior` - Merchant Warrior
      * * `ippay` - IP Payments
      */
-    paymentGateway?: pulumi.Input<string | undefined>;
+    paymentGateway?: pulumi.Input<string>;
     /**
      * PayPal payment settings.
      */
-    paypal?: pulumi.Input<inputs.setting.GuestAccessPaypal | undefined>;
+    paypal?: pulumi.Input<inputs.setting.GuestAccessPaypal>;
     /**
      * Portal customization settings.
      */
-    portalCustomization?: pulumi.Input<inputs.setting.GuestAccessPortalCustomization | undefined>;
+    portalCustomization?: pulumi.Input<inputs.setting.GuestAccessPortalCustomization>;
     /**
      * Enable the guest portal.
      */
-    portalEnabled?: pulumi.Input<boolean | undefined>;
+    portalEnabled?: pulumi.Input<boolean>;
     /**
      * Hostname to use for the captive portal.
      */
-    portalHostname?: pulumi.Input<string | undefined>;
+    portalHostname?: pulumi.Input<string>;
     /**
      * Use a custom hostname for the portal.
      */
-    portalUseHostname?: pulumi.Input<boolean | undefined>;
+    portalUseHostname?: pulumi.Input<boolean>;
     /**
      * QuickPay payment settings.
      */
-    quickpay?: pulumi.Input<inputs.setting.GuestAccessQuickpay | undefined>;
+    quickpay?: pulumi.Input<inputs.setting.GuestAccessQuickpay>;
     /**
      * RADIUS authentication settings.
      */
-    radius?: pulumi.Input<inputs.setting.GuestAccessRadius | undefined>;
+    radius?: pulumi.Input<inputs.setting.GuestAccessRadius>;
     /**
      * Redirect after authentication settings.
      */
-    redirect?: pulumi.Input<inputs.setting.GuestAccessRedirect | undefined>;
+    redirect?: pulumi.Input<inputs.setting.GuestAccessRedirect>;
     /**
      * List of restricted DNS servers for guest networks. Each value must be a valid IPv4 address.
      */
-    restrictedDnsServers?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    restrictedDnsServers?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * Subnet for restricted guest access.
      */
-    restrictedSubnet?: pulumi.Input<string | undefined>;
+    restrictedSubnet?: pulumi.Input<string>;
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string | undefined>;
+    site?: pulumi.Input<string>;
     /**
      * Stripe payment settings.
      */
-    stripe?: pulumi.Input<inputs.setting.GuestAccessStripe | undefined>;
+    stripe?: pulumi.Input<inputs.setting.GuestAccessStripe>;
     /**
      * Template engine for the portal. Valid values are: `jsp`, `angular`.
      */
-    templateEngine?: pulumi.Input<string | undefined>;
+    templateEngine?: pulumi.Input<string>;
     /**
      * Whether vouchers are customized.
      */
-    voucherCustomized?: pulumi.Input<boolean | undefined>;
+    voucherCustomized?: pulumi.Input<boolean>;
     /**
      * Enable voucher-based authentication for guest access.
      */
-    voucherEnabled?: pulumi.Input<boolean | undefined>;
+    voucherEnabled?: pulumi.Input<boolean>;
     /**
      * WeChat authentication settings.
      */
-    wechat?: pulumi.Input<inputs.setting.GuestAccessWechat | undefined>;
+    wechat?: pulumi.Input<inputs.setting.GuestAccessWechat>;
 }

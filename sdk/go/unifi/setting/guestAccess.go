@@ -11,105 +11,20 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
-// The `setting.GuestAccess` resource manages the guest access settings in the UniFi controller.
-//
-// This resource allows you to configure all aspects of guest network access including authentication methods, portal customization, and payment options.
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/port"
-//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/setting"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			// Configure guest access settings for your UniFi network
-//			// This example demonstrates a comprehensive guest portal setup with various authentication options
-//			logo, err := port.NewAlFile(ctx, "logo", &port.AlFileArgs{
-//				FilePath: pulumi.String("logo.png"),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			_, err = setting.NewGuestAccess(ctx, "guest_portal", &setting.GuestAccessArgs{
-//				Auth:              pulumi.String("hotspot"),
-//				PortalEnabled:     pulumi.Bool(true),
-//				PortalUseHostname: pulumi.Bool(true),
-//				PortalHostname:    pulumi.String("guest.example.com"),
-//				TemplateEngine:    pulumi.String("angular"),
-//				Expire:            pulumi.Int(1440),
-//				ExpireNumber:      pulumi.Int(1),
-//				ExpireUnit:        pulumi.Int(1440),
-//				EcEnabled:         pulumi.Bool(true),
-//				Password:          pulumi.String("guest-access-password"),
-//				Google: &setting.GuestAccessGoogleArgs{
-//					ClientId:     pulumi.String("your-google-client-id"),
-//					ClientSecret: pulumi.String("your-google-client-secret"),
-//					Domain:       pulumi.String("example.com"),
-//					ScopeEmail:   pulumi.Bool(true),
-//				},
-//				PaymentGateway: pulumi.String("paypal"),
-//				Paypal: &setting.GuestAccessPaypalArgs{
-//					Username:   pulumi.String("business@example.com"),
-//					Password:   pulumi.String("paypal-api-password"),
-//					Signature:  pulumi.String("paypal-api-signature"),
-//					UseSandbox: pulumi.Bool(true),
-//				},
-//				Redirect: &setting.GuestAccessRedirectArgs{
-//					Url:      pulumi.String("https://example.com/welcome"),
-//					UseHttps: pulumi.Bool(true),
-//					ToHttps:  pulumi.Bool(true),
-//				},
-//				RestrictedDnsServers: pulumi.StringArray{
-//					pulumi.String("1.1.1.1"),
-//					pulumi.String("8.8.8.8"),
-//				},
-//				PortalCustomization: &setting.GuestAccessPortalCustomizationArgs{
-//					Customized:          pulumi.Bool(true),
-//					Title:               pulumi.String("Welcome to Our Guest Network"),
-//					WelcomeText:         pulumi.String("Thanks for visiting our location. Please enjoy our complimentary WiFi."),
-//					WelcomeTextEnabled:  pulumi.Bool(true),
-//					WelcomeTextPosition: pulumi.String("top"),
-//					BgColor:             pulumi.String("#f5f5f5"),
-//					TextColor:           pulumi.String("#333333"),
-//					LinkColor:           pulumi.String("#0078d4"),
-//					BoxColor:            pulumi.String("#ffffff"),
-//					BoxTextColor:        pulumi.String("#333333"),
-//					BoxLinkColor:        pulumi.String("#0078d4"),
-//					BoxOpacity:          pulumi.Int(90),
-//					BoxRadius:           pulumi.Int(5),
-//					LogoFileId:          logo.ID(),
-//					ButtonColor:         pulumi.String("#0078d4"),
-//					ButtonTextColor:     pulumi.String("#ffffff"),
-//					ButtonText:          pulumi.String("Connect"),
-//					TosEnabled:          pulumi.Bool(true),
-//					Tos:                 pulumi.String("By using this service, you agree to our terms and conditions. Unauthorized use is prohibited."),
-//					Languages: pulumi.StringArray{
-//						pulumi.String("PL"),
-//					},
-//				},
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
-// ```
 type GuestAccess struct {
 	pulumi.CustomResourceState
 
 	// Subnet allowed for guest access.
 	AllowedSubnet pulumi.StringOutput `pulumi:"allowedSubnet"`
 	// Authentication method for guest access. Valid values are:
+	// * `none` - No authentication required
+	// * `hotspot` - Password authentication
+	// * `facebookWifi` - Facebook auth entication
+	// * `custom` - Custom authentication
+	//
+	// For password authentication, set `auth` to `hotspot` and `passwordEnabled` to `true`.
+	// For voucher authentication, set `auth` to `hotspot` and `voucherEnabled` to `true`.
+	// For payment authentication, set `auth` to `hotspot` and `paymentEnabled` to `true`.
 	Auth pulumi.StringOutput `pulumi:"auth"`
 	// URL for authentication. Must be a valid URL including the protocol.
 	AuthUrl pulumi.StringOutput `pulumi:"authUrl"`
@@ -133,7 +48,7 @@ type GuestAccess struct {
 	Facebook GuestAccessFacebookPtrOutput `pulumi:"facebook"`
 	// Whether Facebook authentication for guest access is enabled.
 	FacebookEnabled pulumi.BoolOutput `pulumi:"facebookEnabled"`
-	// - Facebook auth entication
+	// Facebook WiFi authentication settings.
 	FacebookWifi GuestAccessFacebookWifiPtrOutput `pulumi:"facebookWifi"`
 	// Google authentication settings.
 	Google GuestAccessGooglePtrOutput `pulumi:"google"`
@@ -239,6 +154,14 @@ type guestAccessState struct {
 	// Subnet allowed for guest access.
 	AllowedSubnet *string `pulumi:"allowedSubnet"`
 	// Authentication method for guest access. Valid values are:
+	// * `none` - No authentication required
+	// * `hotspot` - Password authentication
+	// * `facebookWifi` - Facebook auth entication
+	// * `custom` - Custom authentication
+	//
+	// For password authentication, set `auth` to `hotspot` and `passwordEnabled` to `true`.
+	// For voucher authentication, set `auth` to `hotspot` and `voucherEnabled` to `true`.
+	// For payment authentication, set `auth` to `hotspot` and `paymentEnabled` to `true`.
 	Auth *string `pulumi:"auth"`
 	// URL for authentication. Must be a valid URL including the protocol.
 	AuthUrl *string `pulumi:"authUrl"`
@@ -262,7 +185,7 @@ type guestAccessState struct {
 	Facebook *GuestAccessFacebook `pulumi:"facebook"`
 	// Whether Facebook authentication for guest access is enabled.
 	FacebookEnabled *bool `pulumi:"facebookEnabled"`
-	// - Facebook auth entication
+	// Facebook WiFi authentication settings.
 	FacebookWifi *GuestAccessFacebookWifi `pulumi:"facebookWifi"`
 	// Google authentication settings.
 	Google *GuestAccessGoogle `pulumi:"google"`
@@ -332,6 +255,14 @@ type GuestAccessState struct {
 	// Subnet allowed for guest access.
 	AllowedSubnet pulumi.StringPtrInput
 	// Authentication method for guest access. Valid values are:
+	// * `none` - No authentication required
+	// * `hotspot` - Password authentication
+	// * `facebookWifi` - Facebook auth entication
+	// * `custom` - Custom authentication
+	//
+	// For password authentication, set `auth` to `hotspot` and `passwordEnabled` to `true`.
+	// For voucher authentication, set `auth` to `hotspot` and `voucherEnabled` to `true`.
+	// For payment authentication, set `auth` to `hotspot` and `paymentEnabled` to `true`.
 	Auth pulumi.StringPtrInput
 	// URL for authentication. Must be a valid URL including the protocol.
 	AuthUrl pulumi.StringPtrInput
@@ -355,7 +286,7 @@ type GuestAccessState struct {
 	Facebook GuestAccessFacebookPtrInput
 	// Whether Facebook authentication for guest access is enabled.
 	FacebookEnabled pulumi.BoolPtrInput
-	// - Facebook auth entication
+	// Facebook WiFi authentication settings.
 	FacebookWifi GuestAccessFacebookWifiPtrInput
 	// Google authentication settings.
 	Google GuestAccessGooglePtrInput
@@ -429,6 +360,14 @@ type guestAccessArgs struct {
 	// Subnet allowed for guest access.
 	AllowedSubnet *string `pulumi:"allowedSubnet"`
 	// Authentication method for guest access. Valid values are:
+	// * `none` - No authentication required
+	// * `hotspot` - Password authentication
+	// * `facebookWifi` - Facebook auth entication
+	// * `custom` - Custom authentication
+	//
+	// For password authentication, set `auth` to `hotspot` and `passwordEnabled` to `true`.
+	// For voucher authentication, set `auth` to `hotspot` and `voucherEnabled` to `true`.
+	// For payment authentication, set `auth` to `hotspot` and `paymentEnabled` to `true`.
 	Auth *string `pulumi:"auth"`
 	// URL for authentication. Must be a valid URL including the protocol.
 	AuthUrl *string `pulumi:"authUrl"`
@@ -450,7 +389,7 @@ type guestAccessArgs struct {
 	ExpireUnit *int `pulumi:"expireUnit"`
 	// Facebook authentication settings.
 	Facebook *GuestAccessFacebook `pulumi:"facebook"`
-	// - Facebook auth entication
+	// Facebook WiFi authentication settings.
 	FacebookWifi *GuestAccessFacebookWifi `pulumi:"facebookWifi"`
 	// Google authentication settings.
 	Google *GuestAccessGoogle `pulumi:"google"`
@@ -507,6 +446,14 @@ type GuestAccessArgs struct {
 	// Subnet allowed for guest access.
 	AllowedSubnet pulumi.StringPtrInput
 	// Authentication method for guest access. Valid values are:
+	// * `none` - No authentication required
+	// * `hotspot` - Password authentication
+	// * `facebookWifi` - Facebook auth entication
+	// * `custom` - Custom authentication
+	//
+	// For password authentication, set `auth` to `hotspot` and `passwordEnabled` to `true`.
+	// For voucher authentication, set `auth` to `hotspot` and `voucherEnabled` to `true`.
+	// For payment authentication, set `auth` to `hotspot` and `paymentEnabled` to `true`.
 	Auth pulumi.StringPtrInput
 	// URL for authentication. Must be a valid URL including the protocol.
 	AuthUrl pulumi.StringPtrInput
@@ -528,7 +475,7 @@ type GuestAccessArgs struct {
 	ExpireUnit pulumi.IntPtrInput
 	// Facebook authentication settings.
 	Facebook GuestAccessFacebookPtrInput
-	// - Facebook auth entication
+	// Facebook WiFi authentication settings.
 	FacebookWifi GuestAccessFacebookWifiPtrInput
 	// Google authentication settings.
 	Google GuestAccessGooglePtrInput
@@ -673,6 +620,14 @@ func (o GuestAccessOutput) AllowedSubnet() pulumi.StringOutput {
 }
 
 // Authentication method for guest access. Valid values are:
+// * `none` - No authentication required
+// * `hotspot` - Password authentication
+// * `facebookWifi` - Facebook auth entication
+// * `custom` - Custom authentication
+//
+// For password authentication, set `auth` to `hotspot` and `passwordEnabled` to `true`.
+// For voucher authentication, set `auth` to `hotspot` and `voucherEnabled` to `true`.
+// For payment authentication, set `auth` to `hotspot` and `paymentEnabled` to `true`.
 func (o GuestAccessOutput) Auth() pulumi.StringOutput {
 	return o.ApplyT(func(v *GuestAccess) pulumi.StringOutput { return v.Auth }).(pulumi.StringOutput)
 }
@@ -726,7 +681,7 @@ func (o GuestAccessOutput) FacebookEnabled() pulumi.BoolOutput {
 	return o.ApplyT(func(v *GuestAccess) pulumi.BoolOutput { return v.FacebookEnabled }).(pulumi.BoolOutput)
 }
 
-// - Facebook auth entication
+// Facebook WiFi authentication settings.
 func (o GuestAccessOutput) FacebookWifi() GuestAccessFacebookWifiPtrOutput {
 	return o.ApplyT(func(v *GuestAccess) GuestAccessFacebookWifiPtrOutput { return v.FacebookWifi }).(GuestAccessFacebookWifiPtrOutput)
 }

@@ -4,21 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
-/**
- * Manages Teleport settings for a UniFi site. Teleport is a secure remote access technology that allows authorized users to connect to UniFi devices from anywhere.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as unifi from "@pulumiverse/unifi";
- *
- * const example = new unifi.setting.Teleport("example", {
- *     enabled: true,
- *     subnet: "192.168.100.0/24",
- * });
- * ```
- */
 export class Teleport extends pulumi.CustomResource {
     /**
      * Get an existing Teleport resource's state with the given name, ID, and optional extra
@@ -97,15 +82,15 @@ export interface TeleportState {
     /**
      * Whether Teleport is enabled.
      */
-    enabled?: pulumi.Input<boolean | undefined>;
+    enabled?: pulumi.Input<boolean>;
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string | undefined>;
+    site?: pulumi.Input<string>;
     /**
      * The subnet CIDR for Teleport (e.g., `192.168.1.0/24`). Can be empty but must be set explicitly.
      */
-    subnet?: pulumi.Input<string | undefined>;
+    subnet?: pulumi.Input<string>;
 }
 
 /**
@@ -119,9 +104,9 @@ export interface TeleportArgs {
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string | undefined>;
+    site?: pulumi.Input<string>;
     /**
      * The subnet CIDR for Teleport (e.g., `192.168.1.0/24`). Can be empty but must be set explicitly.
      */
-    subnet?: pulumi.Input<string | undefined>;
+    subnet?: pulumi.Input<string>;
 }

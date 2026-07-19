@@ -88,31 +88,31 @@ export interface ProviderArgs {
     /**
      * Skip verification of TLS certificates of API requests. You may need to set this to `true` if you are using your local API without setting up a signed certificate. Can be specified with the `UNIFI_INSECURE` environment variable.
      */
-    allowInsecure?: pulumi.Input<boolean | undefined>;
+    allowInsecure?: pulumi.Input<boolean>;
     /**
      * API Key for the user accessing the API. Can be specified with the `UNIFI_API_KEY` environment variable. Controller version 9.0.108 or later is required.
      */
-    apiKey?: pulumi.Input<string | undefined>;
+    apiKey?: pulumi.Input<string>;
     /**
      * URL of the controller API. Can be specified with the `UNIFI_API` environment variable. You should **NOT** supply the path (`/api`), the SDK will discover the appropriate paths. This is to support UDM Pro style API paths as well as more standard controller paths.
      */
-    apiUrl?: pulumi.Input<string | undefined>;
+    apiUrl?: pulumi.Input<string>;
     /**
      * Maximum number of additional attempts the provider makes when the controller returns a transient response (network/connection errors, HTTP 5xx or 429 status codes, or an HTML body instead of JSON, which can happen under parallel load). Only idempotent requests (`GET`, `HEAD`, `PUT`, `DELETE`, `OPTIONS`) are retried. Defaults to `0`, which disables retries and preserves the default behavior. Can be specified with the `UNIFI_MAX_RETRIES` environment variable.
      */
-    httpMaxRetries?: pulumi.Input<number | undefined>;
+    httpMaxRetries?: pulumi.Input<number>;
     /**
      * Password for the user accessing the API. Can be specified with the `UNIFI_PASSWORD` environment variable.
      */
-    password?: pulumi.Input<string | undefined>;
+    password?: pulumi.Input<string>;
     /**
      * The site in the Unifi controller this provider will manage. Can be specified with the `UNIFI_SITE` environment variable. Default: `default`
      */
-    site?: pulumi.Input<string | undefined>;
+    site?: pulumi.Input<string>;
     /**
      * Local user name for the Unifi controller API. Can be specified with the `UNIFI_USERNAME` environment variable.
      */
-    username?: pulumi.Input<string | undefined>;
+    username?: pulumi.Input<string>;
 }
 
 export namespace Provider {

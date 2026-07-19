@@ -20,10 +20,9 @@ __all__ = ['ConnectivityArgs', 'Connectivity']
 class ConnectivityArgs:
     def __init__(__self__, *,
                  enabled: pulumi.Input[_builtins.bool],
-                 site: pulumi.Input[Optional[_builtins.str]] = None):
+                 site: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a Connectivity resource.
-
         :param pulumi.Input[_builtins.bool] enabled: Whether wireless meshing is enabled for the site.
         :param pulumi.Input[_builtins.str] site: The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         """
@@ -45,25 +44,24 @@ class ConnectivityArgs:
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "site", value)
 
 
 @pulumi.input_type
 class _ConnectivityState:
     def __init__(__self__, *,
-                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 site: pulumi.Input[Optional[_builtins.str]] = None):
+                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 site: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Connectivity resources.
-
         :param pulumi.Input[_builtins.bool] enabled: Whether wireless meshing is enabled for the site.
         :param pulumi.Input[_builtins.str] site: The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         """
@@ -74,26 +72,26 @@ class _ConnectivityState:
 
     @_builtins.property
     @pulumi.getter
-    def enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Whether wireless meshing is enabled for the site.
         """
         return pulumi.get(self, "enabled")
 
     @enabled.setter
-    def enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "enabled", value)
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "site", value)
 
 
@@ -103,22 +101,11 @@ class Connectivity(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 site: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        Manages the site Connectivity settings for a UniFi site. The `enabled` flag controls **wireless meshing** (shown as "Wireless Meshing" in the controller UI): when on, access points can uplink to the network over a hidden wireless backhaul instead of Ethernet, and each AP keeps a standby mesh radio running for failover. Disable it on a fully wired site to reclaim that radio/airtime; APs that lose their wired uplink then go offline rather than re-joining over mesh. The controller-generated mesh SSID and PSK are intentionally not managed by this resource.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumiverse_unifi as unifi
-
-        example = unifi.setting.Connectivity("example", enabled=False)
-        ```
-
-
+        Create a Connectivity resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] enabled: Whether wireless meshing is enabled for the site.
@@ -131,18 +118,7 @@ class Connectivity(pulumi.CustomResource):
                  args: ConnectivityArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Manages the site Connectivity settings for a UniFi site. The `enabled` flag controls **wireless meshing** (shown as "Wireless Meshing" in the controller UI): when on, access points can uplink to the network over a hidden wireless backhaul instead of Ethernet, and each AP keeps a standby mesh radio running for failover. Disable it on a fully wired site to reclaim that radio/airtime; APs that lose their wired uplink then go offline rather than re-joining over mesh. The controller-generated mesh SSID and PSK are intentionally not managed by this resource.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumiverse_unifi as unifi
-
-        example = unifi.setting.Connectivity("example", enabled=False)
-        ```
-
-
+        Create a Connectivity resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param ConnectivityArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -158,8 +134,8 @@ class Connectivity(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 site: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -183,8 +159,8 @@ class Connectivity(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-            site: pulumi.Input[Optional[_builtins.str]] = None) -> 'Connectivity':
+            enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+            site: Optional[pulumi.Input[_builtins.str]] = None) -> 'Connectivity':
         """
         Get an existing Connectivity resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.

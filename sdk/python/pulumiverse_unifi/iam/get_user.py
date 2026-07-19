@@ -70,105 +70,66 @@ class GetUserResult:
     @_builtins.property
     @pulumi.getter
     def blocked(self) -> _builtins.bool:
-        """
-        Specifies whether this user should be blocked from the network.
-        """
         return pulumi.get(self, "blocked")
 
     @_builtins.property
     @pulumi.getter(name="devIdOverride")
     def dev_id_override(self) -> _builtins.int:
-        """
-        Override the device fingerprint.
-        """
         return pulumi.get(self, "dev_id_override")
 
     @_builtins.property
     @pulumi.getter(name="fixedIp")
     def fixed_ip(self) -> _builtins.str:
-        """
-        Fixed IPv4 address set for this user.
-        """
         return pulumi.get(self, "fixed_ip")
 
     @_builtins.property
     @pulumi.getter
     def hostname(self) -> _builtins.str:
-        """
-        The hostname of the user.
-        """
         return pulumi.get(self, "hostname")
 
     @_builtins.property
     @pulumi.getter
     def id(self) -> _builtins.str:
-        """
-        The ID of the user.
-        """
         return pulumi.get(self, "id")
 
     @_builtins.property
     @pulumi.getter
     def ip(self) -> _builtins.str:
-        """
-        The IP address of the user.
-        """
         return pulumi.get(self, "ip")
 
     @_builtins.property
     @pulumi.getter(name="localDnsRecord")
     def local_dns_record(self) -> _builtins.str:
-        """
-        The local DNS record for this user.
-        """
         return pulumi.get(self, "local_dns_record")
 
     @_builtins.property
     @pulumi.getter
     def mac(self) -> _builtins.str:
-        """
-        The MAC address of the user.
-        """
         return pulumi.get(self, "mac")
 
     @_builtins.property
     @pulumi.getter
     def name(self) -> _builtins.str:
-        """
-        The name of the user.
-        """
         return pulumi.get(self, "name")
 
     @_builtins.property
     @pulumi.getter(name="networkId")
     def network_id(self) -> _builtins.str:
-        """
-        The network ID for this user.
-        """
         return pulumi.get(self, "network_id")
 
     @_builtins.property
     @pulumi.getter
     def note(self) -> _builtins.str:
-        """
-        A note with additional information for the user.
-        """
         return pulumi.get(self, "note")
 
     @_builtins.property
     @pulumi.getter
     def site(self) -> _builtins.str:
-        """
-        The name of the site the user is associated with.
-        """
         return pulumi.get(self, "site")
 
     @_builtins.property
     @pulumi.getter(name="userGroupId")
     def user_group_id(self) -> _builtins.str:
-        """
-        The user group ID for the user.
-        """
         return pulumi.get(self, "user_group_id")
 
 
@@ -197,20 +158,7 @@ def get_user(mac: Optional[_builtins.str] = None,
              site: Optional[_builtins.str] = None,
              opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetUserResult:
     """
-    `iam.User` retrieves properties of a user (or "client" in the UI) of the network by MAC address.
-
-    ## Example Usage
-
-    ```python
-    import pulumi
-    import pulumi_unifi as unifi
-
-    client = unifi.iam.get_user(mac="01:23:45:67:89:ab")
-    ```
-
-
-    :param _builtins.str mac: The MAC address of the user.
-    :param _builtins.str site: The name of the site the user is associated with.
+    Use this data source to access information about an existing resource.
     """
     __args__ = dict()
     __args__['mac'] = mac
@@ -232,24 +180,11 @@ def get_user(mac: Optional[_builtins.str] = None,
         note=pulumi.get(__ret__, 'note'),
         site=pulumi.get(__ret__, 'site'),
         user_group_id=pulumi.get(__ret__, 'user_group_id'))
-def get_user_output(mac: pulumi.Input[Optional[_builtins.str]] = None,
-                    site: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
+def get_user_output(mac: Optional[pulumi.Input[_builtins.str]] = None,
+                    site: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
                     opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetUserResult]:
     """
-    `iam.User` retrieves properties of a user (or "client" in the UI) of the network by MAC address.
-
-    ## Example Usage
-
-    ```python
-    import pulumi
-    import pulumi_unifi as unifi
-
-    client = unifi.iam.get_user(mac="01:23:45:67:89:ab")
-    ```
-
-
-    :param _builtins.str mac: The MAC address of the user.
-    :param _builtins.str site: The name of the site the user is associated with.
+    Use this data source to access information about an existing resource.
     """
     __args__ = dict()
     __args__['mac'] = mac

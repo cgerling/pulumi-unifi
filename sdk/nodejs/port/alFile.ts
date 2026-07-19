@@ -4,20 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
-/**
- * The `unifi.port.AlFile` resource manages files uploaded to the UniFi guest portal. This resource allows you to upload images that can be used in customizing the UniFi guest portal interface.
- *
- * **Note:** This resource uploads files to the UniFi controller. The file must exist on the local filesystem where Terraform is executed.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as unifi from "@pulumiverse/unifi";
- *
- * const file = new unifi.port.AlFile("file", {filePath: "/Users/username/Downloads/portal.png"});
- * ```
- */
 export class AlFile extends pulumi.CustomResource {
     /**
      * Get an existing AlFile resource's state with the given name, ID, and optional extra
@@ -126,35 +112,35 @@ export interface AlFileState {
     /**
      * MIME type of the file.
      */
-    contentType?: pulumi.Input<string | undefined>;
+    contentType?: pulumi.Input<string>;
     /**
      * Path to the file on the local filesystem to upload to the UniFi controller. The file must exist and be readable.
      */
-    filePath?: pulumi.Input<string | undefined>;
+    filePath?: pulumi.Input<string>;
     /**
      * Size of the file in bytes.
      */
-    fileSize?: pulumi.Input<number | undefined>;
+    fileSize?: pulumi.Input<number>;
     /**
      * Name of the file as stored in the UniFi controller.
      */
-    filename?: pulumi.Input<string | undefined>;
+    filename?: pulumi.Input<string>;
     /**
      * Timestamp when the file was last modified.
      */
-    lastModified?: pulumi.Input<number | undefined>;
+    lastModified?: pulumi.Input<number>;
     /**
      * MD5 hash of the file content.
      */
-    md5?: pulumi.Input<string | undefined>;
+    md5?: pulumi.Input<string>;
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string | undefined>;
+    site?: pulumi.Input<string>;
     /**
      * URL where the file can be accessed on the UniFi controller.
      */
-    url?: pulumi.Input<string | undefined>;
+    url?: pulumi.Input<string>;
 }
 
 /**
@@ -168,5 +154,5 @@ export interface AlFileArgs {
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string | undefined>;
+    site?: pulumi.Input<string>;
 }

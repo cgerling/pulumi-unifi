@@ -4,47 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
-/**
- * The `unifi.firewall.Zone` resource manages firewall zones in the UniFi controller.
- *
- * Firewall zones allow you to group networks together for firewall rule application. This resource allows you to create, update, and delete firewall zones.
- *
- * > This is experimental feature, that requires UniFi OS 9.0.0 or later and Zone Based Firewall feature enabled. Check [official documentation](https://help.ui.com/hc/en-us/articles/28223082254743-Migrating-to-Zone-Based-Firewalls-in-UniFi) how to migate to Zone-Based firewalls.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as unifi from "@pulumiverse/unifi";
- *
- * const network = new unifi.Network("network", {
- *     name: "my-network",
- *     purpose: "corporate",
- *     subnet: "10.0.10.0/24",
- *     vlanId: 400,
- * });
- * const zone = new unifi.firewall.Zone("zone", {
- *     name: "my-zone",
- *     networks: [network.id],
- * });
- * ```
- *
- * ## Import
- *
- * The `pulumi import` command can be used, for example:
- *
- * import from provider configured site
- *
- * ```sh
- * $ pulumi import unifi:firewall/zone:Zone myzone 5dc28e5e9106d105bdc87217
- * ```
- *
- * import from another site
- *
- * ```sh
- * $ pulumi import unifi:firewall/zone:Zone myzone another-site:5dc28e5e9106d105bdc87217
- * ```
- */
 export class Zone extends pulumi.CustomResource {
     /**
      * Get an existing Zone resource's state with the given name, ID, and optional extra
@@ -120,15 +79,15 @@ export interface ZoneState {
     /**
      * The name of the firewall zone.
      */
-    name?: pulumi.Input<string | undefined>;
+    name?: pulumi.Input<string>;
     /**
      * List of network IDs to include in this firewall zone.
      */
-    networks?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    networks?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string | undefined>;
+    site?: pulumi.Input<string>;
 }
 
 /**
@@ -138,13 +97,13 @@ export interface ZoneArgs {
     /**
      * The name of the firewall zone.
      */
-    name?: pulumi.Input<string | undefined>;
+    name?: pulumi.Input<string>;
     /**
      * List of network IDs to include in this firewall zone.
      */
-    networks?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    networks?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string | undefined>;
+    site?: pulumi.Input<string>;
 }

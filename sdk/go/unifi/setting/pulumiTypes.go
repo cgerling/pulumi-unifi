@@ -1623,6 +1623,9 @@ type GuestAccessPortalCustomization struct {
 	// Tile the background image.
 	BgImageTile *bool `pulumi:"bgImageTile"`
 	// Type of portal background. Valid values are:
+	// * `color` - Solid color background
+	// * `image` - (not yet supported!) Custom image background
+	// * `gallery` - Image from Unsplash gallery
 	BgType *string `pulumi:"bgType"`
 	// Color of the login box in the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
 	BoxColor *string `pulumi:"boxColor"`
@@ -1695,6 +1698,9 @@ type GuestAccessPortalCustomizationArgs struct {
 	// Tile the background image.
 	BgImageTile pulumi.BoolPtrInput `pulumi:"bgImageTile"`
 	// Type of portal background. Valid values are:
+	// * `color` - Solid color background
+	// * `image` - (not yet supported!) Custom image background
+	// * `gallery` - Image from Unsplash gallery
 	BgType pulumi.StringPtrInput `pulumi:"bgType"`
 	// Color of the login box in the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
 	BoxColor pulumi.StringPtrInput `pulumi:"boxColor"`
@@ -1844,6 +1850,9 @@ func (o GuestAccessPortalCustomizationOutput) BgImageTile() pulumi.BoolPtrOutput
 }
 
 // Type of portal background. Valid values are:
+// * `color` - Solid color background
+// * `image` - (not yet supported!) Custom image background
+// * `gallery` - Image from Unsplash gallery
 func (o GuestAccessPortalCustomizationOutput) BgType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v GuestAccessPortalCustomization) *string { return v.BgType }).(pulumi.StringPtrOutput)
 }
@@ -2033,6 +2042,9 @@ func (o GuestAccessPortalCustomizationPtrOutput) BgImageTile() pulumi.BoolPtrOut
 }
 
 // Type of portal background. Valid values are:
+// * `color` - Solid color background
+// * `image` - (not yet supported!) Custom image background
+// * `gallery` - Image from Unsplash gallery
 func (o GuestAccessPortalCustomizationPtrOutput) BgType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *GuestAccessPortalCustomization) *string {
 		if v == nil {
@@ -3174,166 +3186,6 @@ func (o GuestAccessWechatPtrOutput) ShopId() pulumi.StringPtrOutput {
 		}
 		return v.ShopId
 	}).(pulumi.StringPtrOutput)
-}
-
-type IpsDnsFilter struct {
-	// List of allowed sites for this DNS filter. These domains will always be accessible regardless of other filtering rules. Each entry should be a valid domain name (e.g., `example.com`).
-	AllowedSites []string `pulumi:"allowedSites"`
-	// List of blocked sites for this DNS filter. These domains will be blocked regardless of other filtering rules. Each entry should be a valid domain name (e.g., `example.com`).
-	BlockedSites []string `pulumi:"blockedSites"`
-	// List of blocked top-level domains (TLDs) for this DNS filter. All domains with these TLDs will be blocked. Each entry should be a valid TLD without the dot prefix (e.g., `xyz`, `info`).
-	BlockedTlds []string `pulumi:"blockedTlds"`
-	// Description of the DNS filter. This is used for documentation purposes only and does not affect functionality.
-	Description *string `pulumi:"description"`
-	// Filter type that determines the predefined filtering level. Valid values are:
-	//   * `none` - No predefined filtering
-	//   * `work` - Work-appropriate filtering that blocks adult content
-	//   * `family` - Family-friendly filtering that blocks adult content and other inappropriate sites
-	Filter string `pulumi:"filter"`
-	// Name of the DNS filter. This is used to identify the filter in the UniFi interface.
-	Name string `pulumi:"name"`
-	// Network ID this filter applies to. This should be a valid network ID from your UniFi configuration.
-	NetworkId string `pulumi:"networkId"`
-}
-
-// IpsDnsFilterInput is an input type that accepts IpsDnsFilterArgs and IpsDnsFilterOutput values.
-// You can construct a concrete instance of `IpsDnsFilterInput` via:
-//
-//	IpsDnsFilterArgs{...}
-type IpsDnsFilterInput interface {
-	pulumi.Input
-
-	ToIpsDnsFilterOutput() IpsDnsFilterOutput
-	ToIpsDnsFilterOutputWithContext(context.Context) IpsDnsFilterOutput
-}
-
-type IpsDnsFilterArgs struct {
-	// List of allowed sites for this DNS filter. These domains will always be accessible regardless of other filtering rules. Each entry should be a valid domain name (e.g., `example.com`).
-	AllowedSites pulumi.StringArrayInput `pulumi:"allowedSites"`
-	// List of blocked sites for this DNS filter. These domains will be blocked regardless of other filtering rules. Each entry should be a valid domain name (e.g., `example.com`).
-	BlockedSites pulumi.StringArrayInput `pulumi:"blockedSites"`
-	// List of blocked top-level domains (TLDs) for this DNS filter. All domains with these TLDs will be blocked. Each entry should be a valid TLD without the dot prefix (e.g., `xyz`, `info`).
-	BlockedTlds pulumi.StringArrayInput `pulumi:"blockedTlds"`
-	// Description of the DNS filter. This is used for documentation purposes only and does not affect functionality.
-	Description pulumi.StringPtrInput `pulumi:"description"`
-	// Filter type that determines the predefined filtering level. Valid values are:
-	//   * `none` - No predefined filtering
-	//   * `work` - Work-appropriate filtering that blocks adult content
-	//   * `family` - Family-friendly filtering that blocks adult content and other inappropriate sites
-	Filter pulumi.StringInput `pulumi:"filter"`
-	// Name of the DNS filter. This is used to identify the filter in the UniFi interface.
-	Name pulumi.StringInput `pulumi:"name"`
-	// Network ID this filter applies to. This should be a valid network ID from your UniFi configuration.
-	NetworkId pulumi.StringInput `pulumi:"networkId"`
-}
-
-func (IpsDnsFilterArgs) ElementType() reflect.Type {
-	return reflect.TypeOf((*IpsDnsFilter)(nil)).Elem()
-}
-
-func (i IpsDnsFilterArgs) ToIpsDnsFilterOutput() IpsDnsFilterOutput {
-	return i.ToIpsDnsFilterOutputWithContext(context.Background())
-}
-
-func (i IpsDnsFilterArgs) ToIpsDnsFilterOutputWithContext(ctx context.Context) IpsDnsFilterOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(IpsDnsFilterOutput)
-}
-
-// IpsDnsFilterArrayInput is an input type that accepts IpsDnsFilterArray and IpsDnsFilterArrayOutput values.
-// You can construct a concrete instance of `IpsDnsFilterArrayInput` via:
-//
-//	IpsDnsFilterArray{ IpsDnsFilterArgs{...} }
-type IpsDnsFilterArrayInput interface {
-	pulumi.Input
-
-	ToIpsDnsFilterArrayOutput() IpsDnsFilterArrayOutput
-	ToIpsDnsFilterArrayOutputWithContext(context.Context) IpsDnsFilterArrayOutput
-}
-
-type IpsDnsFilterArray []IpsDnsFilterInput
-
-func (IpsDnsFilterArray) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]IpsDnsFilter)(nil)).Elem()
-}
-
-func (i IpsDnsFilterArray) ToIpsDnsFilterArrayOutput() IpsDnsFilterArrayOutput {
-	return i.ToIpsDnsFilterArrayOutputWithContext(context.Background())
-}
-
-func (i IpsDnsFilterArray) ToIpsDnsFilterArrayOutputWithContext(ctx context.Context) IpsDnsFilterArrayOutput {
-	return pulumi.ToOutputWithContext(ctx, i).(IpsDnsFilterArrayOutput)
-}
-
-type IpsDnsFilterOutput struct{ *pulumi.OutputState }
-
-func (IpsDnsFilterOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*IpsDnsFilter)(nil)).Elem()
-}
-
-func (o IpsDnsFilterOutput) ToIpsDnsFilterOutput() IpsDnsFilterOutput {
-	return o
-}
-
-func (o IpsDnsFilterOutput) ToIpsDnsFilterOutputWithContext(ctx context.Context) IpsDnsFilterOutput {
-	return o
-}
-
-// List of allowed sites for this DNS filter. These domains will always be accessible regardless of other filtering rules. Each entry should be a valid domain name (e.g., `example.com`).
-func (o IpsDnsFilterOutput) AllowedSites() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v IpsDnsFilter) []string { return v.AllowedSites }).(pulumi.StringArrayOutput)
-}
-
-// List of blocked sites for this DNS filter. These domains will be blocked regardless of other filtering rules. Each entry should be a valid domain name (e.g., `example.com`).
-func (o IpsDnsFilterOutput) BlockedSites() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v IpsDnsFilter) []string { return v.BlockedSites }).(pulumi.StringArrayOutput)
-}
-
-// List of blocked top-level domains (TLDs) for this DNS filter. All domains with these TLDs will be blocked. Each entry should be a valid TLD without the dot prefix (e.g., `xyz`, `info`).
-func (o IpsDnsFilterOutput) BlockedTlds() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v IpsDnsFilter) []string { return v.BlockedTlds }).(pulumi.StringArrayOutput)
-}
-
-// Description of the DNS filter. This is used for documentation purposes only and does not affect functionality.
-func (o IpsDnsFilterOutput) Description() pulumi.StringPtrOutput {
-	return o.ApplyT(func(v IpsDnsFilter) *string { return v.Description }).(pulumi.StringPtrOutput)
-}
-
-// Filter type that determines the predefined filtering level. Valid values are:
-//   - `none` - No predefined filtering
-//   - `work` - Work-appropriate filtering that blocks adult content
-//   - `family` - Family-friendly filtering that blocks adult content and other inappropriate sites
-func (o IpsDnsFilterOutput) Filter() pulumi.StringOutput {
-	return o.ApplyT(func(v IpsDnsFilter) string { return v.Filter }).(pulumi.StringOutput)
-}
-
-// Name of the DNS filter. This is used to identify the filter in the UniFi interface.
-func (o IpsDnsFilterOutput) Name() pulumi.StringOutput {
-	return o.ApplyT(func(v IpsDnsFilter) string { return v.Name }).(pulumi.StringOutput)
-}
-
-// Network ID this filter applies to. This should be a valid network ID from your UniFi configuration.
-func (o IpsDnsFilterOutput) NetworkId() pulumi.StringOutput {
-	return o.ApplyT(func(v IpsDnsFilter) string { return v.NetworkId }).(pulumi.StringOutput)
-}
-
-type IpsDnsFilterArrayOutput struct{ *pulumi.OutputState }
-
-func (IpsDnsFilterArrayOutput) ElementType() reflect.Type {
-	return reflect.TypeOf((*[]IpsDnsFilter)(nil)).Elem()
-}
-
-func (o IpsDnsFilterArrayOutput) ToIpsDnsFilterArrayOutput() IpsDnsFilterArrayOutput {
-	return o
-}
-
-func (o IpsDnsFilterArrayOutput) ToIpsDnsFilterArrayOutputWithContext(ctx context.Context) IpsDnsFilterArrayOutput {
-	return o
-}
-
-func (o IpsDnsFilterArrayOutput) Index(i pulumi.IntInput) IpsDnsFilterOutput {
-	return pulumi.All(o, i).ApplyT(func(vs []interface{}) IpsDnsFilter {
-		return vs[0].([]IpsDnsFilter)[vs[1].(int)]
-	}).(IpsDnsFilterOutput)
 }
 
 type IpsHoneypot struct {
@@ -5290,8 +5142,6 @@ func init() {
 	pulumi.RegisterInputType(reflect.TypeOf((*GuestAccessStripePtrInput)(nil)).Elem(), GuestAccessStripeArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GuestAccessWechatInput)(nil)).Elem(), GuestAccessWechatArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*GuestAccessWechatPtrInput)(nil)).Elem(), GuestAccessWechatArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*IpsDnsFilterInput)(nil)).Elem(), IpsDnsFilterArgs{})
-	pulumi.RegisterInputType(reflect.TypeOf((*IpsDnsFilterArrayInput)(nil)).Elem(), IpsDnsFilterArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*IpsHoneypotInput)(nil)).Elem(), IpsHoneypotArgs{})
 	pulumi.RegisterInputType(reflect.TypeOf((*IpsHoneypotArrayInput)(nil)).Elem(), IpsHoneypotArray{})
 	pulumi.RegisterInputType(reflect.TypeOf((*IpsSuppressionInput)(nil)).Elem(), IpsSuppressionArgs{})
@@ -5346,8 +5196,6 @@ func init() {
 	pulumi.RegisterOutputType(GuestAccessStripePtrOutput{})
 	pulumi.RegisterOutputType(GuestAccessWechatOutput{})
 	pulumi.RegisterOutputType(GuestAccessWechatPtrOutput{})
-	pulumi.RegisterOutputType(IpsDnsFilterOutput{})
-	pulumi.RegisterOutputType(IpsDnsFilterArrayOutput{})
 	pulumi.RegisterOutputType(IpsHoneypotOutput{})
 	pulumi.RegisterOutputType(IpsHoneypotArrayOutput{})
 	pulumi.RegisterOutputType(IpsSuppressionOutput{})

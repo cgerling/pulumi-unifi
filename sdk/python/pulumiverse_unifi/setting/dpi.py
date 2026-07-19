@@ -21,10 +21,9 @@ class DpiArgs:
     def __init__(__self__, *,
                  enabled: pulumi.Input[_builtins.bool],
                  fingerprinting_enabled: pulumi.Input[_builtins.bool],
-                 site: pulumi.Input[Optional[_builtins.str]] = None):
+                 site: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a Dpi resource.
-
         :param pulumi.Input[_builtins.bool] enabled: Whether Deep Packet Inspection is enabled.
         :param pulumi.Input[_builtins.bool] fingerprinting_enabled: Whether DPI fingerprinting is enabled. Fingerprinting allows the controller to identify applications and services based on traffic patterns.
         :param pulumi.Input[_builtins.str] site: The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
@@ -60,26 +59,25 @@ class DpiArgs:
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "site", value)
 
 
 @pulumi.input_type
 class _DpiState:
     def __init__(__self__, *,
-                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 fingerprinting_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 site: pulumi.Input[Optional[_builtins.str]] = None):
+                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 fingerprinting_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 site: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Dpi resources.
-
         :param pulumi.Input[_builtins.bool] enabled: Whether Deep Packet Inspection is enabled.
         :param pulumi.Input[_builtins.bool] fingerprinting_enabled: Whether DPI fingerprinting is enabled. Fingerprinting allows the controller to identify applications and services based on traffic patterns.
         :param pulumi.Input[_builtins.str] site: The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
@@ -93,38 +91,38 @@ class _DpiState:
 
     @_builtins.property
     @pulumi.getter
-    def enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Whether Deep Packet Inspection is enabled.
         """
         return pulumi.get(self, "enabled")
 
     @enabled.setter
-    def enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="fingerprintingEnabled")
-    def fingerprinting_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def fingerprinting_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Whether DPI fingerprinting is enabled. Fingerprinting allows the controller to identify applications and services based on traffic patterns.
         """
         return pulumi.get(self, "fingerprinting_enabled")
 
     @fingerprinting_enabled.setter
-    def fingerprinting_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def fingerprinting_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "fingerprinting_enabled", value)
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "site", value)
 
 
@@ -134,25 +132,12 @@ class Dpi(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 fingerprinting_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 fingerprinting_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 site: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        Manages Deep Packet Inspection (DPI) settings for a UniFi site. DPI is a feature that allows the UniFi controller to analyze network traffic and identify applications and services being used on the network.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumiverse_unifi as unifi
-
-        example = unifi.setting.Dpi("example",
-            enabled=True,
-            fingerprinting_enabled=True)
-        ```
-
-
+        Create a Dpi resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] enabled: Whether Deep Packet Inspection is enabled.
@@ -166,20 +151,7 @@ class Dpi(pulumi.CustomResource):
                  args: DpiArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Manages Deep Packet Inspection (DPI) settings for a UniFi site. DPI is a feature that allows the UniFi controller to analyze network traffic and identify applications and services being used on the network.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumiverse_unifi as unifi
-
-        example = unifi.setting.Dpi("example",
-            enabled=True,
-            fingerprinting_enabled=True)
-        ```
-
-
+        Create a Dpi resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param DpiArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -195,9 +167,9 @@ class Dpi(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 fingerprinting_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 site: pulumi.Input[Optional[_builtins.str]] = None,
+                 enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 fingerprinting_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 site: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -224,9 +196,9 @@ class Dpi(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-            fingerprinting_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-            site: pulumi.Input[Optional[_builtins.str]] = None) -> 'Dpi':
+            enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+            fingerprinting_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+            site: Optional[pulumi.Input[_builtins.str]] = None) -> 'Dpi':
         """
         Get an existing Dpi resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.

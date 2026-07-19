@@ -6,6 +6,13 @@
             },
             "unifi_ap_group": {
                 "current": "unifi:ap/group:Group",
+                "past": [
+                    {
+                        "name": "unifi:index/apGroup:ApGroup",
+                        "inCodegen": true,
+                        "majorVersion": 0
+                    }
+                ],
                 "fields": {
                     "device_macs": {
                         "maxItemsOne": false
@@ -240,25 +247,6 @@
             "unifi_setting_ips": {
                 "current": "unifi:setting/ips:Ips",
                 "fields": {
-                    "ad_blocked_networks": {
-                        "maxItemsOne": false
-                    },
-                    "dns_filters": {
-                        "maxItemsOne": false,
-                        "elem": {
-                            "fields": {
-                                "allowed_sites": {
-                                    "maxItemsOne": false
-                                },
-                                "blocked_sites": {
-                                    "maxItemsOne": false
-                                },
-                                "blocked_tld": {
-                                    "maxItemsOne": false
-                                }
-                            }
-                        }
-                    },
                     "enabled_categories": {
                         "maxItemsOne": false
                     },
@@ -437,6 +425,13 @@
         }
     },
     "auto-settings": {
+        "resources": {
+            "unifi_ap_group": {
+                "aliases": [
+                    "unifi:index/apGroup:ApGroup"
+                ]
+            }
+        },
         "datasources": {
             "unifi_ap_group": {
                 "renames": [
@@ -486,6 +481,7 @@
             "unifi:iam/group:Group": 0,
             "unifi:iam/user:User": 0,
             "unifi:index/account:Account": 0,
+            "unifi:index/apGroup:ApGroup": 1,
             "unifi:index/device:Device": 0,
             "unifi:index/dynamicDNS:DynamicDNS": 0,
             "unifi:index/network:Network": 0,

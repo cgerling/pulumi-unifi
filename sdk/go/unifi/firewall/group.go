@@ -12,49 +12,6 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
-// The `firewall.Group` resource manages reusable groups of addresses or ports that can be referenced in firewall rules (`firewall.Rule`).
-//
-// Firewall groups help organize and simplify firewall rule management by allowing you to:
-//   - Create collections of IP addresses or networks
-//   - Define sets of ports for specific services
-//   - Group IPv6 addresses for IPv6-specific rules
-//
-// Common use cases include:
-//   - Creating groups of trusted IP addresses
-//   - Defining port groups for specific applications
-//   - Managing access control lists
-//   - Simplifying rule maintenance by using groups instead of individual IPs/ports
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config"
-//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/firewall"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			cfg := config.New(ctx, "")
-//			laptopIps := cfg.Require("laptopIps")
-//			_, err := firewall.NewGroup(ctx, "can_print", &firewall.GroupArgs{
-//				Name:    pulumi.String("can-print"),
-//				Type:    pulumi.String("address-group"),
-//				Members: laptopIps,
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
-// ```
 type Group struct {
 	pulumi.CustomResourceState
 

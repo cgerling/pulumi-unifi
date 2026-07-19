@@ -46,17 +46,11 @@ class GetGroupResult:
     @_builtins.property
     @pulumi.getter
     def id(self) -> _builtins.str:
-        """
-        The ID of this AP group.
-        """
         return pulumi.get(self, "id")
 
     @_builtins.property
     @pulumi.getter
     def name(self) -> Optional[_builtins.str]:
-        """
-        The name of the user group to look up. Defaults to `Default`.
-        """
         return pulumi.get(self, "name")
 
     @_builtins.property
@@ -72,9 +66,6 @@ class GetGroupResult:
     @_builtins.property
     @pulumi.getter
     def site(self) -> _builtins.str:
-        """
-        The name of the site the user group is associated with.
-        """
         return pulumi.get(self, "site")
 
 
@@ -95,11 +86,7 @@ def get_group(name: Optional[_builtins.str] = None,
               site: Optional[_builtins.str] = None,
               opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetGroupResult:
     """
-    `iam.Group` data source can be used to retrieve the ID for a user group by name.
-
-
-    :param _builtins.str name: The name of the user group to look up. Defaults to `Default`.
-    :param _builtins.str site: The name of the site the user group is associated with.
+    Use this data source to access information about an existing resource.
     """
     __args__ = dict()
     __args__['name'] = name
@@ -113,15 +100,11 @@ def get_group(name: Optional[_builtins.str] = None,
         qos_rate_max_down=pulumi.get(__ret__, 'qos_rate_max_down'),
         qos_rate_max_up=pulumi.get(__ret__, 'qos_rate_max_up'),
         site=pulumi.get(__ret__, 'site'))
-def get_group_output(name: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
-                     site: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
+def get_group_output(name: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
+                     site: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
                      opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetGroupResult]:
     """
-    `iam.Group` data source can be used to retrieve the ID for a user group by name.
-
-
-    :param _builtins.str name: The name of the user group to look up. Defaults to `Default`.
-    :param _builtins.str site: The name of the site the user group is associated with.
+    Use this data source to access information about an existing resource.
     """
     __args__ = dict()
     __args__['name'] = name

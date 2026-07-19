@@ -19,45 +19,44 @@ __all__ = ['ProfileArgs', 'Profile']
 @pulumi.input_type
 class ProfileArgs:
     def __init__(__self__, *,
-                 autoneg: pulumi.Input[Optional[_builtins.bool]] = None,
-                 dot1x_ctrl: pulumi.Input[Optional[_builtins.str]] = None,
-                 dot1x_idle_timeout: pulumi.Input[Optional[_builtins.int]] = None,
-                 egress_rate_limit_kbps: pulumi.Input[Optional[_builtins.int]] = None,
-                 egress_rate_limit_kbps_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 excluded_network_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 forward: pulumi.Input[Optional[_builtins.str]] = None,
-                 full_duplex: pulumi.Input[Optional[_builtins.bool]] = None,
-                 isolation: pulumi.Input[Optional[_builtins.bool]] = None,
-                 lldpmed_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 lldpmed_notify_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 name: pulumi.Input[Optional[_builtins.str]] = None,
-                 native_networkconf_id: pulumi.Input[Optional[_builtins.str]] = None,
-                 op_mode: pulumi.Input[Optional[_builtins.str]] = None,
-                 poe_mode: pulumi.Input[Optional[_builtins.str]] = None,
-                 port_security_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 port_security_mac_addresses: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 priority_queue1_level: pulumi.Input[Optional[_builtins.int]] = None,
-                 priority_queue2_level: pulumi.Input[Optional[_builtins.int]] = None,
-                 priority_queue3_level: pulumi.Input[Optional[_builtins.int]] = None,
-                 priority_queue4_level: pulumi.Input[Optional[_builtins.int]] = None,
-                 site: pulumi.Input[Optional[_builtins.str]] = None,
-                 speed: pulumi.Input[Optional[_builtins.int]] = None,
-                 stormctrl_bcast_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 stormctrl_bcast_level: pulumi.Input[Optional[_builtins.int]] = None,
-                 stormctrl_bcast_rate: pulumi.Input[Optional[_builtins.int]] = None,
-                 stormctrl_mcast_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 stormctrl_mcast_level: pulumi.Input[Optional[_builtins.int]] = None,
-                 stormctrl_mcast_rate: pulumi.Input[Optional[_builtins.int]] = None,
-                 stormctrl_type: pulumi.Input[Optional[_builtins.str]] = None,
-                 stormctrl_ucast_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 stormctrl_ucast_level: pulumi.Input[Optional[_builtins.int]] = None,
-                 stormctrl_ucast_rate: pulumi.Input[Optional[_builtins.int]] = None,
-                 stp_port_mode: pulumi.Input[Optional[_builtins.bool]] = None,
-                 tagged_vlan_mgmt: pulumi.Input[Optional[_builtins.str]] = None,
-                 voice_networkconf_id: pulumi.Input[Optional[_builtins.str]] = None):
+                 autoneg: Optional[pulumi.Input[_builtins.bool]] = None,
+                 dot1x_ctrl: Optional[pulumi.Input[_builtins.str]] = None,
+                 dot1x_idle_timeout: Optional[pulumi.Input[_builtins.int]] = None,
+                 egress_rate_limit_kbps: Optional[pulumi.Input[_builtins.int]] = None,
+                 egress_rate_limit_kbps_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 excluded_network_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 forward: Optional[pulumi.Input[_builtins.str]] = None,
+                 full_duplex: Optional[pulumi.Input[_builtins.bool]] = None,
+                 isolation: Optional[pulumi.Input[_builtins.bool]] = None,
+                 lldpmed_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 lldpmed_notify_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 name: Optional[pulumi.Input[_builtins.str]] = None,
+                 native_networkconf_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 op_mode: Optional[pulumi.Input[_builtins.str]] = None,
+                 poe_mode: Optional[pulumi.Input[_builtins.str]] = None,
+                 port_security_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 port_security_mac_addresses: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 priority_queue1_level: Optional[pulumi.Input[_builtins.int]] = None,
+                 priority_queue2_level: Optional[pulumi.Input[_builtins.int]] = None,
+                 priority_queue3_level: Optional[pulumi.Input[_builtins.int]] = None,
+                 priority_queue4_level: Optional[pulumi.Input[_builtins.int]] = None,
+                 site: Optional[pulumi.Input[_builtins.str]] = None,
+                 speed: Optional[pulumi.Input[_builtins.int]] = None,
+                 stormctrl_bcast_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 stormctrl_bcast_level: Optional[pulumi.Input[_builtins.int]] = None,
+                 stormctrl_bcast_rate: Optional[pulumi.Input[_builtins.int]] = None,
+                 stormctrl_mcast_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 stormctrl_mcast_level: Optional[pulumi.Input[_builtins.int]] = None,
+                 stormctrl_mcast_rate: Optional[pulumi.Input[_builtins.int]] = None,
+                 stormctrl_type: Optional[pulumi.Input[_builtins.str]] = None,
+                 stormctrl_ucast_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 stormctrl_ucast_level: Optional[pulumi.Input[_builtins.int]] = None,
+                 stormctrl_ucast_rate: Optional[pulumi.Input[_builtins.int]] = None,
+                 stp_port_mode: Optional[pulumi.Input[_builtins.bool]] = None,
+                 tagged_vlan_mgmt: Optional[pulumi.Input[_builtins.str]] = None,
+                 voice_networkconf_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         The set of arguments for constructing a Profile resource.
-
         :param pulumi.Input[_builtins.bool] autoneg: Enable automatic negotiation of port speed and duplex settings. When enabled, this overrides manual speed and duplex settings. Recommended for most use cases.
         :param pulumi.Input[_builtins.str] dot1x_ctrl: 802.1X port-based network access control (PNAC) mode. Valid values are:
                  * `force_authorized` - Port allows all traffic, no authentication required (default)
@@ -281,19 +280,19 @@ class ProfileArgs:
 
     @_builtins.property
     @pulumi.getter
-    def autoneg(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def autoneg(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Enable automatic negotiation of port speed and duplex settings. When enabled, this overrides manual speed and duplex settings. Recommended for most use cases.
         """
         return pulumi.get(self, "autoneg")
 
     @autoneg.setter
-    def autoneg(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def autoneg(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "autoneg", value)
 
     @_builtins.property
     @pulumi.getter(name="dot1xCtrl")
-    def dot1x_ctrl(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def dot1x_ctrl(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         802.1X port-based network access control (PNAC) mode. Valid values are:
           * `force_authorized` - Port allows all traffic, no authentication required (default)
@@ -307,60 +306,60 @@ class ProfileArgs:
         return pulumi.get(self, "dot1x_ctrl")
 
     @dot1x_ctrl.setter
-    def dot1x_ctrl(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def dot1x_ctrl(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "dot1x_ctrl", value)
 
     @_builtins.property
     @pulumi.getter(name="dot1xIdleTimeout")
-    def dot1x_idle_timeout(self) -> pulumi.Input[Optional[_builtins.int]]:
+    def dot1x_idle_timeout(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
         The number of seconds before an inactive authenticated MAC address is removed when using MAC-based 802.1X control. Range: 0-65535 seconds.
         """
         return pulumi.get(self, "dot1x_idle_timeout")
 
     @dot1x_idle_timeout.setter
-    def dot1x_idle_timeout(self, value: pulumi.Input[Optional[_builtins.int]]):
+    def dot1x_idle_timeout(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "dot1x_idle_timeout", value)
 
     @_builtins.property
     @pulumi.getter(name="egressRateLimitKbps")
-    def egress_rate_limit_kbps(self) -> pulumi.Input[Optional[_builtins.int]]:
+    def egress_rate_limit_kbps(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
         The maximum outbound bandwidth allowed on the port in kilobits per second. Range: 64-9999999 kbps. Only applied when egress_rate_limit_kbps_enabled is true.
         """
         return pulumi.get(self, "egress_rate_limit_kbps")
 
     @egress_rate_limit_kbps.setter
-    def egress_rate_limit_kbps(self, value: pulumi.Input[Optional[_builtins.int]]):
+    def egress_rate_limit_kbps(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "egress_rate_limit_kbps", value)
 
     @_builtins.property
     @pulumi.getter(name="egressRateLimitKbpsEnabled")
-    def egress_rate_limit_kbps_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def egress_rate_limit_kbps_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Enable outbound bandwidth rate limiting on the port. When enabled, traffic will be limited to the rate specified in egress_rate_limit_kbps.
         """
         return pulumi.get(self, "egress_rate_limit_kbps_enabled")
 
     @egress_rate_limit_kbps_enabled.setter
-    def egress_rate_limit_kbps_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def egress_rate_limit_kbps_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "egress_rate_limit_kbps_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="excludedNetworkIds")
-    def excluded_network_ids(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+    def excluded_network_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         List of network IDs to exclude when forward is set to 'customize'. This allows you to prevent specific networks from being accessible on ports using this profile.
         """
         return pulumi.get(self, "excluded_network_ids")
 
     @excluded_network_ids.setter
-    def excluded_network_ids(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+    def excluded_network_ids(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "excluded_network_ids", value)
 
     @_builtins.property
     @pulumi.getter
-    def forward(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def forward(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         VLAN forwarding mode for the port. Valid values are:
           * `all` - Forward all VLANs (trunk port)
@@ -378,48 +377,48 @@ class ProfileArgs:
         return pulumi.get(self, "forward")
 
     @forward.setter
-    def forward(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def forward(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "forward", value)
 
     @_builtins.property
     @pulumi.getter(name="fullDuplex")
-    def full_duplex(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def full_duplex(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Enable full-duplex mode when auto-negotiation is disabled. Full duplex allows simultaneous two-way communication.
         """
         return pulumi.get(self, "full_duplex")
 
     @full_duplex.setter
-    def full_duplex(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def full_duplex(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "full_duplex", value)
 
     @_builtins.property
     @pulumi.getter
-    def isolation(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def isolation(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Enable port isolation. When enabled, devices connected to ports with this profile cannot communicate with each other, providing enhanced security.
         """
         return pulumi.get(self, "isolation")
 
     @isolation.setter
-    def isolation(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def isolation(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "isolation", value)
 
     @_builtins.property
     @pulumi.getter(name="lldpmedEnabled")
-    def lldpmed_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def lldpmed_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Enable Link Layer Discovery Protocol-Media Endpoint Discovery (LLDP-MED). This allows for automatic discovery and configuration of devices like VoIP phones.
         """
         return pulumi.get(self, "lldpmed_enabled")
 
     @lldpmed_enabled.setter
-    def lldpmed_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def lldpmed_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "lldpmed_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="lldpmedNotifyEnabled")
-    def lldpmed_notify_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def lldpmed_notify_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Enable LLDP-MED topology change notifications. When enabled:
         * Network devices will be notified of topology changes
@@ -430,12 +429,12 @@ class ProfileArgs:
         return pulumi.get(self, "lldpmed_notify_enabled")
 
     @lldpmed_notify_enabled.setter
-    def lldpmed_notify_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def lldpmed_notify_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "lldpmed_notify_enabled", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         A descriptive name for the port profile. Examples:
         * 'AP-Trunk-Port' - For access point uplinks
@@ -446,12 +445,12 @@ class ProfileArgs:
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="nativeNetworkconfId")
-    def native_networkconf_id(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def native_networkconf_id(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The ID of the network to use as the native (untagged) network on ports using this profile. This is typically used for:
         * Access ports where devices need untagged access
@@ -461,36 +460,36 @@ class ProfileArgs:
         return pulumi.get(self, "native_networkconf_id")
 
     @native_networkconf_id.setter
-    def native_networkconf_id(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def native_networkconf_id(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "native_networkconf_id", value)
 
     @_builtins.property
     @pulumi.getter(name="opMode")
-    def op_mode(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def op_mode(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The operation mode for the port profile. Can only be `switch`
         """
         return pulumi.get(self, "op_mode")
 
     @op_mode.setter
-    def op_mode(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def op_mode(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "op_mode", value)
 
     @_builtins.property
     @pulumi.getter(name="poeMode")
-    def poe_mode(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def poe_mode(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The POE mode for the port profile. Can be one of `auto`, `passv24`, `passthrough` or `off`.
         """
         return pulumi.get(self, "poe_mode")
 
     @poe_mode.setter
-    def poe_mode(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def poe_mode(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "poe_mode", value)
 
     @_builtins.property
     @pulumi.getter(name="portSecurityEnabled")
-    def port_security_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def port_security_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Enable MAC address-based port security. When enabled:
         * Only devices with specified MAC addresses can connect
@@ -501,12 +500,12 @@ class ProfileArgs:
         return pulumi.get(self, "port_security_enabled")
 
     @port_security_enabled.setter
-    def port_security_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def port_security_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "port_security_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="portSecurityMacAddresses")
-    def port_security_mac_addresses(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+    def port_security_mac_addresses(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         List of allowed MAC addresses when port security is enabled. Each address should be:
         * In standard format (e.g., 'aa:bb:cc:dd:ee:ff')
@@ -517,12 +516,12 @@ class ProfileArgs:
         return pulumi.get(self, "port_security_mac_addresses")
 
     @port_security_mac_addresses.setter
-    def port_security_mac_addresses(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+    def port_security_mac_addresses(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "port_security_mac_addresses", value)
 
     @_builtins.property
     @pulumi.getter(name="priorityQueue1Level")
-    def priority_queue1_level(self) -> pulumi.Input[Optional[_builtins.int]]:
+    def priority_queue1_level(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
         Priority queue 1 level (0-100) for Quality of Service (QoS). Used for:
         * Low-priority background traffic
@@ -533,12 +532,12 @@ class ProfileArgs:
         return pulumi.get(self, "priority_queue1_level")
 
     @priority_queue1_level.setter
-    def priority_queue1_level(self, value: pulumi.Input[Optional[_builtins.int]]):
+    def priority_queue1_level(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "priority_queue1_level", value)
 
     @_builtins.property
     @pulumi.getter(name="priorityQueue2Level")
-    def priority_queue2_level(self) -> pulumi.Input[Optional[_builtins.int]]:
+    def priority_queue2_level(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
         Priority queue 2 level (0-100) for Quality of Service (QoS). Used for:
         * Standard user traffic
@@ -549,12 +548,12 @@ class ProfileArgs:
         return pulumi.get(self, "priority_queue2_level")
 
     @priority_queue2_level.setter
-    def priority_queue2_level(self, value: pulumi.Input[Optional[_builtins.int]]):
+    def priority_queue2_level(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "priority_queue2_level", value)
 
     @_builtins.property
     @pulumi.getter(name="priorityQueue3Level")
-    def priority_queue3_level(self) -> pulumi.Input[Optional[_builtins.int]]:
+    def priority_queue3_level(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
         Priority queue 3 level (0-100) for Quality of Service (QoS). Used for:
         * High-priority traffic
@@ -565,12 +564,12 @@ class ProfileArgs:
         return pulumi.get(self, "priority_queue3_level")
 
     @priority_queue3_level.setter
-    def priority_queue3_level(self, value: pulumi.Input[Optional[_builtins.int]]):
+    def priority_queue3_level(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "priority_queue3_level", value)
 
     @_builtins.property
     @pulumi.getter(name="priorityQueue4Level")
-    def priority_queue4_level(self) -> pulumi.Input[Optional[_builtins.int]]:
+    def priority_queue4_level(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
         Priority queue 4 level (0-100) for Quality of Service (QoS). Used for:
         * Highest priority traffic
@@ -581,24 +580,24 @@ class ProfileArgs:
         return pulumi.get(self, "priority_queue4_level")
 
     @priority_queue4_level.setter
-    def priority_queue4_level(self, value: pulumi.Input[Optional[_builtins.int]]):
+    def priority_queue4_level(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "priority_queue4_level", value)
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The name of the UniFi site where the port profile should be created. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "site", value)
 
     @_builtins.property
     @pulumi.getter
-    def speed(self) -> pulumi.Input[Optional[_builtins.int]]:
+    def speed(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
         Port speed in Mbps when auto-negotiation is disabled. Common values:
         * 10 - 10 Mbps (legacy devices)
@@ -612,12 +611,12 @@ class ProfileArgs:
         return pulumi.get(self, "speed")
 
     @speed.setter
-    def speed(self, value: pulumi.Input[Optional[_builtins.int]]):
+    def speed(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "speed", value)
 
     @_builtins.property
     @pulumi.getter(name="stormctrlBcastEnabled")
-    def stormctrl_bcast_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def stormctrl_bcast_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Enable broadcast storm control. When enabled:
         * Limits broadcast traffic to prevent network flooding
@@ -628,24 +627,24 @@ class ProfileArgs:
         return pulumi.get(self, "stormctrl_bcast_enabled")
 
     @stormctrl_bcast_enabled.setter
-    def stormctrl_bcast_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def stormctrl_bcast_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "stormctrl_bcast_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="stormctrlBcastLevel")
-    def stormctrl_bcast_level(self) -> pulumi.Input[Optional[_builtins.int]]:
+    def stormctrl_bcast_level(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
         The broadcast Storm Control level for the port profile. Can be between 0 and 100.
         """
         return pulumi.get(self, "stormctrl_bcast_level")
 
     @stormctrl_bcast_level.setter
-    def stormctrl_bcast_level(self, value: pulumi.Input[Optional[_builtins.int]]):
+    def stormctrl_bcast_level(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "stormctrl_bcast_level", value)
 
     @_builtins.property
     @pulumi.getter(name="stormctrlBcastRate")
-    def stormctrl_bcast_rate(self) -> pulumi.Input[Optional[_builtins.int]]:
+    def stormctrl_bcast_rate(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
         Maximum broadcast traffic rate in packets per second (0 - 14880000). Used to:
         * Control broadcast traffic levels
@@ -656,12 +655,12 @@ class ProfileArgs:
         return pulumi.get(self, "stormctrl_bcast_rate")
 
     @stormctrl_bcast_rate.setter
-    def stormctrl_bcast_rate(self, value: pulumi.Input[Optional[_builtins.int]]):
+    def stormctrl_bcast_rate(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "stormctrl_bcast_rate", value)
 
     @_builtins.property
     @pulumi.getter(name="stormctrlMcastEnabled")
-    def stormctrl_mcast_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def stormctrl_mcast_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Enable multicast storm control. When enabled:
         * Limits multicast traffic to prevent network flooding
@@ -672,24 +671,24 @@ class ProfileArgs:
         return pulumi.get(self, "stormctrl_mcast_enabled")
 
     @stormctrl_mcast_enabled.setter
-    def stormctrl_mcast_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def stormctrl_mcast_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "stormctrl_mcast_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="stormctrlMcastLevel")
-    def stormctrl_mcast_level(self) -> pulumi.Input[Optional[_builtins.int]]:
+    def stormctrl_mcast_level(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
         The multicast Storm Control level for the port profile. Can be between 0 and 100.
         """
         return pulumi.get(self, "stormctrl_mcast_level")
 
     @stormctrl_mcast_level.setter
-    def stormctrl_mcast_level(self, value: pulumi.Input[Optional[_builtins.int]]):
+    def stormctrl_mcast_level(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "stormctrl_mcast_level", value)
 
     @_builtins.property
     @pulumi.getter(name="stormctrlMcastRate")
-    def stormctrl_mcast_rate(self) -> pulumi.Input[Optional[_builtins.int]]:
+    def stormctrl_mcast_rate(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
         Maximum multicast traffic rate in packets per second (0 - 14880000). Used to:
         * Control multicast traffic levels
@@ -700,24 +699,24 @@ class ProfileArgs:
         return pulumi.get(self, "stormctrl_mcast_rate")
 
     @stormctrl_mcast_rate.setter
-    def stormctrl_mcast_rate(self, value: pulumi.Input[Optional[_builtins.int]]):
+    def stormctrl_mcast_rate(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "stormctrl_mcast_rate", value)
 
     @_builtins.property
     @pulumi.getter(name="stormctrlType")
-    def stormctrl_type(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def stormctrl_type(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The type of Storm Control to use for the port profile. Can be one of `level` or `rate`.
         """
         return pulumi.get(self, "stormctrl_type")
 
     @stormctrl_type.setter
-    def stormctrl_type(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def stormctrl_type(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "stormctrl_type", value)
 
     @_builtins.property
     @pulumi.getter(name="stormctrlUcastEnabled")
-    def stormctrl_ucast_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def stormctrl_ucast_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Enable unknown unicast storm control. When enabled:
         * Limits unknown unicast traffic to prevent flooding
@@ -728,24 +727,24 @@ class ProfileArgs:
         return pulumi.get(self, "stormctrl_ucast_enabled")
 
     @stormctrl_ucast_enabled.setter
-    def stormctrl_ucast_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def stormctrl_ucast_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "stormctrl_ucast_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="stormctrlUcastLevel")
-    def stormctrl_ucast_level(self) -> pulumi.Input[Optional[_builtins.int]]:
+    def stormctrl_ucast_level(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
         The unknown unicast Storm Control level for the port profile. Can be between 0 and 100.
         """
         return pulumi.get(self, "stormctrl_ucast_level")
 
     @stormctrl_ucast_level.setter
-    def stormctrl_ucast_level(self, value: pulumi.Input[Optional[_builtins.int]]):
+    def stormctrl_ucast_level(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "stormctrl_ucast_level", value)
 
     @_builtins.property
     @pulumi.getter(name="stormctrlUcastRate")
-    def stormctrl_ucast_rate(self) -> pulumi.Input[Optional[_builtins.int]]:
+    def stormctrl_ucast_rate(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
         Maximum unknown unicast traffic rate in packets per second (0 - 14880000). Used to:
         * Control unknown unicast traffic levels
@@ -756,12 +755,12 @@ class ProfileArgs:
         return pulumi.get(self, "stormctrl_ucast_rate")
 
     @stormctrl_ucast_rate.setter
-    def stormctrl_ucast_rate(self, value: pulumi.Input[Optional[_builtins.int]]):
+    def stormctrl_ucast_rate(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "stormctrl_ucast_rate", value)
 
     @_builtins.property
     @pulumi.getter(name="stpPortMode")
-    def stp_port_mode(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def stp_port_mode(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Spanning Tree Protocol (STP) configuration for the port. When enabled:
         * Prevents network loops in switch-to-switch connections
@@ -776,12 +775,12 @@ class ProfileArgs:
         return pulumi.get(self, "stp_port_mode")
 
     @stp_port_mode.setter
-    def stp_port_mode(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def stp_port_mode(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "stp_port_mode", value)
 
     @_builtins.property
     @pulumi.getter(name="taggedVlanMgmt")
-    def tagged_vlan_mgmt(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def tagged_vlan_mgmt(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         VLAN tagging behavior for the port. Valid values are:
         * `auto` - Automatically handle VLAN tags (recommended)
@@ -797,12 +796,12 @@ class ProfileArgs:
         return pulumi.get(self, "tagged_vlan_mgmt")
 
     @tagged_vlan_mgmt.setter
-    def tagged_vlan_mgmt(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def tagged_vlan_mgmt(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "tagged_vlan_mgmt", value)
 
     @_builtins.property
     @pulumi.getter(name="voiceNetworkconfId")
-    def voice_networkconf_id(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def voice_networkconf_id(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The ID of the network to use for Voice over IP (VoIP) traffic. Used for:
         * Automatic VoIP VLAN configuration
@@ -819,52 +818,51 @@ class ProfileArgs:
         return pulumi.get(self, "voice_networkconf_id")
 
     @voice_networkconf_id.setter
-    def voice_networkconf_id(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def voice_networkconf_id(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "voice_networkconf_id", value)
 
 
 @pulumi.input_type
 class _ProfileState:
     def __init__(__self__, *,
-                 autoneg: pulumi.Input[Optional[_builtins.bool]] = None,
-                 dot1x_ctrl: pulumi.Input[Optional[_builtins.str]] = None,
-                 dot1x_idle_timeout: pulumi.Input[Optional[_builtins.int]] = None,
-                 egress_rate_limit_kbps: pulumi.Input[Optional[_builtins.int]] = None,
-                 egress_rate_limit_kbps_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 excluded_network_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 forward: pulumi.Input[Optional[_builtins.str]] = None,
-                 full_duplex: pulumi.Input[Optional[_builtins.bool]] = None,
-                 isolation: pulumi.Input[Optional[_builtins.bool]] = None,
-                 lldpmed_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 lldpmed_notify_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 name: pulumi.Input[Optional[_builtins.str]] = None,
-                 native_networkconf_id: pulumi.Input[Optional[_builtins.str]] = None,
-                 op_mode: pulumi.Input[Optional[_builtins.str]] = None,
-                 poe_mode: pulumi.Input[Optional[_builtins.str]] = None,
-                 port_security_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 port_security_mac_addresses: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 priority_queue1_level: pulumi.Input[Optional[_builtins.int]] = None,
-                 priority_queue2_level: pulumi.Input[Optional[_builtins.int]] = None,
-                 priority_queue3_level: pulumi.Input[Optional[_builtins.int]] = None,
-                 priority_queue4_level: pulumi.Input[Optional[_builtins.int]] = None,
-                 site: pulumi.Input[Optional[_builtins.str]] = None,
-                 speed: pulumi.Input[Optional[_builtins.int]] = None,
-                 stormctrl_bcast_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 stormctrl_bcast_level: pulumi.Input[Optional[_builtins.int]] = None,
-                 stormctrl_bcast_rate: pulumi.Input[Optional[_builtins.int]] = None,
-                 stormctrl_mcast_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 stormctrl_mcast_level: pulumi.Input[Optional[_builtins.int]] = None,
-                 stormctrl_mcast_rate: pulumi.Input[Optional[_builtins.int]] = None,
-                 stormctrl_type: pulumi.Input[Optional[_builtins.str]] = None,
-                 stormctrl_ucast_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 stormctrl_ucast_level: pulumi.Input[Optional[_builtins.int]] = None,
-                 stormctrl_ucast_rate: pulumi.Input[Optional[_builtins.int]] = None,
-                 stp_port_mode: pulumi.Input[Optional[_builtins.bool]] = None,
-                 tagged_vlan_mgmt: pulumi.Input[Optional[_builtins.str]] = None,
-                 voice_networkconf_id: pulumi.Input[Optional[_builtins.str]] = None):
+                 autoneg: Optional[pulumi.Input[_builtins.bool]] = None,
+                 dot1x_ctrl: Optional[pulumi.Input[_builtins.str]] = None,
+                 dot1x_idle_timeout: Optional[pulumi.Input[_builtins.int]] = None,
+                 egress_rate_limit_kbps: Optional[pulumi.Input[_builtins.int]] = None,
+                 egress_rate_limit_kbps_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 excluded_network_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 forward: Optional[pulumi.Input[_builtins.str]] = None,
+                 full_duplex: Optional[pulumi.Input[_builtins.bool]] = None,
+                 isolation: Optional[pulumi.Input[_builtins.bool]] = None,
+                 lldpmed_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 lldpmed_notify_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 name: Optional[pulumi.Input[_builtins.str]] = None,
+                 native_networkconf_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 op_mode: Optional[pulumi.Input[_builtins.str]] = None,
+                 poe_mode: Optional[pulumi.Input[_builtins.str]] = None,
+                 port_security_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 port_security_mac_addresses: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 priority_queue1_level: Optional[pulumi.Input[_builtins.int]] = None,
+                 priority_queue2_level: Optional[pulumi.Input[_builtins.int]] = None,
+                 priority_queue3_level: Optional[pulumi.Input[_builtins.int]] = None,
+                 priority_queue4_level: Optional[pulumi.Input[_builtins.int]] = None,
+                 site: Optional[pulumi.Input[_builtins.str]] = None,
+                 speed: Optional[pulumi.Input[_builtins.int]] = None,
+                 stormctrl_bcast_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 stormctrl_bcast_level: Optional[pulumi.Input[_builtins.int]] = None,
+                 stormctrl_bcast_rate: Optional[pulumi.Input[_builtins.int]] = None,
+                 stormctrl_mcast_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 stormctrl_mcast_level: Optional[pulumi.Input[_builtins.int]] = None,
+                 stormctrl_mcast_rate: Optional[pulumi.Input[_builtins.int]] = None,
+                 stormctrl_type: Optional[pulumi.Input[_builtins.str]] = None,
+                 stormctrl_ucast_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 stormctrl_ucast_level: Optional[pulumi.Input[_builtins.int]] = None,
+                 stormctrl_ucast_rate: Optional[pulumi.Input[_builtins.int]] = None,
+                 stp_port_mode: Optional[pulumi.Input[_builtins.bool]] = None,
+                 tagged_vlan_mgmt: Optional[pulumi.Input[_builtins.str]] = None,
+                 voice_networkconf_id: Optional[pulumi.Input[_builtins.str]] = None):
         """
         Input properties used for looking up and filtering Profile resources.
-
         :param pulumi.Input[_builtins.bool] autoneg: Enable automatic negotiation of port speed and duplex settings. When enabled, this overrides manual speed and duplex settings. Recommended for most use cases.
         :param pulumi.Input[_builtins.str] dot1x_ctrl: 802.1X port-based network access control (PNAC) mode. Valid values are:
                  * `force_authorized` - Port allows all traffic, no authentication required (default)
@@ -1088,19 +1086,19 @@ class _ProfileState:
 
     @_builtins.property
     @pulumi.getter
-    def autoneg(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def autoneg(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Enable automatic negotiation of port speed and duplex settings. When enabled, this overrides manual speed and duplex settings. Recommended for most use cases.
         """
         return pulumi.get(self, "autoneg")
 
     @autoneg.setter
-    def autoneg(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def autoneg(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "autoneg", value)
 
     @_builtins.property
     @pulumi.getter(name="dot1xCtrl")
-    def dot1x_ctrl(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def dot1x_ctrl(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         802.1X port-based network access control (PNAC) mode. Valid values are:
           * `force_authorized` - Port allows all traffic, no authentication required (default)
@@ -1114,60 +1112,60 @@ class _ProfileState:
         return pulumi.get(self, "dot1x_ctrl")
 
     @dot1x_ctrl.setter
-    def dot1x_ctrl(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def dot1x_ctrl(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "dot1x_ctrl", value)
 
     @_builtins.property
     @pulumi.getter(name="dot1xIdleTimeout")
-    def dot1x_idle_timeout(self) -> pulumi.Input[Optional[_builtins.int]]:
+    def dot1x_idle_timeout(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
         The number of seconds before an inactive authenticated MAC address is removed when using MAC-based 802.1X control. Range: 0-65535 seconds.
         """
         return pulumi.get(self, "dot1x_idle_timeout")
 
     @dot1x_idle_timeout.setter
-    def dot1x_idle_timeout(self, value: pulumi.Input[Optional[_builtins.int]]):
+    def dot1x_idle_timeout(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "dot1x_idle_timeout", value)
 
     @_builtins.property
     @pulumi.getter(name="egressRateLimitKbps")
-    def egress_rate_limit_kbps(self) -> pulumi.Input[Optional[_builtins.int]]:
+    def egress_rate_limit_kbps(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
         The maximum outbound bandwidth allowed on the port in kilobits per second. Range: 64-9999999 kbps. Only applied when egress_rate_limit_kbps_enabled is true.
         """
         return pulumi.get(self, "egress_rate_limit_kbps")
 
     @egress_rate_limit_kbps.setter
-    def egress_rate_limit_kbps(self, value: pulumi.Input[Optional[_builtins.int]]):
+    def egress_rate_limit_kbps(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "egress_rate_limit_kbps", value)
 
     @_builtins.property
     @pulumi.getter(name="egressRateLimitKbpsEnabled")
-    def egress_rate_limit_kbps_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def egress_rate_limit_kbps_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Enable outbound bandwidth rate limiting on the port. When enabled, traffic will be limited to the rate specified in egress_rate_limit_kbps.
         """
         return pulumi.get(self, "egress_rate_limit_kbps_enabled")
 
     @egress_rate_limit_kbps_enabled.setter
-    def egress_rate_limit_kbps_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def egress_rate_limit_kbps_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "egress_rate_limit_kbps_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="excludedNetworkIds")
-    def excluded_network_ids(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+    def excluded_network_ids(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         List of network IDs to exclude when forward is set to 'customize'. This allows you to prevent specific networks from being accessible on ports using this profile.
         """
         return pulumi.get(self, "excluded_network_ids")
 
     @excluded_network_ids.setter
-    def excluded_network_ids(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+    def excluded_network_ids(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "excluded_network_ids", value)
 
     @_builtins.property
     @pulumi.getter
-    def forward(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def forward(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         VLAN forwarding mode for the port. Valid values are:
           * `all` - Forward all VLANs (trunk port)
@@ -1185,48 +1183,48 @@ class _ProfileState:
         return pulumi.get(self, "forward")
 
     @forward.setter
-    def forward(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def forward(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "forward", value)
 
     @_builtins.property
     @pulumi.getter(name="fullDuplex")
-    def full_duplex(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def full_duplex(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Enable full-duplex mode when auto-negotiation is disabled. Full duplex allows simultaneous two-way communication.
         """
         return pulumi.get(self, "full_duplex")
 
     @full_duplex.setter
-    def full_duplex(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def full_duplex(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "full_duplex", value)
 
     @_builtins.property
     @pulumi.getter
-    def isolation(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def isolation(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Enable port isolation. When enabled, devices connected to ports with this profile cannot communicate with each other, providing enhanced security.
         """
         return pulumi.get(self, "isolation")
 
     @isolation.setter
-    def isolation(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def isolation(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "isolation", value)
 
     @_builtins.property
     @pulumi.getter(name="lldpmedEnabled")
-    def lldpmed_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def lldpmed_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Enable Link Layer Discovery Protocol-Media Endpoint Discovery (LLDP-MED). This allows for automatic discovery and configuration of devices like VoIP phones.
         """
         return pulumi.get(self, "lldpmed_enabled")
 
     @lldpmed_enabled.setter
-    def lldpmed_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def lldpmed_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "lldpmed_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="lldpmedNotifyEnabled")
-    def lldpmed_notify_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def lldpmed_notify_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Enable LLDP-MED topology change notifications. When enabled:
         * Network devices will be notified of topology changes
@@ -1237,12 +1235,12 @@ class _ProfileState:
         return pulumi.get(self, "lldpmed_notify_enabled")
 
     @lldpmed_notify_enabled.setter
-    def lldpmed_notify_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def lldpmed_notify_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "lldpmed_notify_enabled", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         A descriptive name for the port profile. Examples:
         * 'AP-Trunk-Port' - For access point uplinks
@@ -1253,12 +1251,12 @@ class _ProfileState:
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="nativeNetworkconfId")
-    def native_networkconf_id(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def native_networkconf_id(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The ID of the network to use as the native (untagged) network on ports using this profile. This is typically used for:
         * Access ports where devices need untagged access
@@ -1268,36 +1266,36 @@ class _ProfileState:
         return pulumi.get(self, "native_networkconf_id")
 
     @native_networkconf_id.setter
-    def native_networkconf_id(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def native_networkconf_id(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "native_networkconf_id", value)
 
     @_builtins.property
     @pulumi.getter(name="opMode")
-    def op_mode(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def op_mode(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The operation mode for the port profile. Can only be `switch`
         """
         return pulumi.get(self, "op_mode")
 
     @op_mode.setter
-    def op_mode(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def op_mode(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "op_mode", value)
 
     @_builtins.property
     @pulumi.getter(name="poeMode")
-    def poe_mode(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def poe_mode(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The POE mode for the port profile. Can be one of `auto`, `passv24`, `passthrough` or `off`.
         """
         return pulumi.get(self, "poe_mode")
 
     @poe_mode.setter
-    def poe_mode(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def poe_mode(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "poe_mode", value)
 
     @_builtins.property
     @pulumi.getter(name="portSecurityEnabled")
-    def port_security_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def port_security_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Enable MAC address-based port security. When enabled:
         * Only devices with specified MAC addresses can connect
@@ -1308,12 +1306,12 @@ class _ProfileState:
         return pulumi.get(self, "port_security_enabled")
 
     @port_security_enabled.setter
-    def port_security_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def port_security_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "port_security_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="portSecurityMacAddresses")
-    def port_security_mac_addresses(self) -> pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]:
+    def port_security_mac_addresses(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
         List of allowed MAC addresses when port security is enabled. Each address should be:
         * In standard format (e.g., 'aa:bb:cc:dd:ee:ff')
@@ -1324,12 +1322,12 @@ class _ProfileState:
         return pulumi.get(self, "port_security_mac_addresses")
 
     @port_security_mac_addresses.setter
-    def port_security_mac_addresses(self, value: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]]):
+    def port_security_mac_addresses(self, value: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]):
         pulumi.set(self, "port_security_mac_addresses", value)
 
     @_builtins.property
     @pulumi.getter(name="priorityQueue1Level")
-    def priority_queue1_level(self) -> pulumi.Input[Optional[_builtins.int]]:
+    def priority_queue1_level(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
         Priority queue 1 level (0-100) for Quality of Service (QoS). Used for:
         * Low-priority background traffic
@@ -1340,12 +1338,12 @@ class _ProfileState:
         return pulumi.get(self, "priority_queue1_level")
 
     @priority_queue1_level.setter
-    def priority_queue1_level(self, value: pulumi.Input[Optional[_builtins.int]]):
+    def priority_queue1_level(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "priority_queue1_level", value)
 
     @_builtins.property
     @pulumi.getter(name="priorityQueue2Level")
-    def priority_queue2_level(self) -> pulumi.Input[Optional[_builtins.int]]:
+    def priority_queue2_level(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
         Priority queue 2 level (0-100) for Quality of Service (QoS). Used for:
         * Standard user traffic
@@ -1356,12 +1354,12 @@ class _ProfileState:
         return pulumi.get(self, "priority_queue2_level")
 
     @priority_queue2_level.setter
-    def priority_queue2_level(self, value: pulumi.Input[Optional[_builtins.int]]):
+    def priority_queue2_level(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "priority_queue2_level", value)
 
     @_builtins.property
     @pulumi.getter(name="priorityQueue3Level")
-    def priority_queue3_level(self) -> pulumi.Input[Optional[_builtins.int]]:
+    def priority_queue3_level(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
         Priority queue 3 level (0-100) for Quality of Service (QoS). Used for:
         * High-priority traffic
@@ -1372,12 +1370,12 @@ class _ProfileState:
         return pulumi.get(self, "priority_queue3_level")
 
     @priority_queue3_level.setter
-    def priority_queue3_level(self, value: pulumi.Input[Optional[_builtins.int]]):
+    def priority_queue3_level(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "priority_queue3_level", value)
 
     @_builtins.property
     @pulumi.getter(name="priorityQueue4Level")
-    def priority_queue4_level(self) -> pulumi.Input[Optional[_builtins.int]]:
+    def priority_queue4_level(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
         Priority queue 4 level (0-100) for Quality of Service (QoS). Used for:
         * Highest priority traffic
@@ -1388,24 +1386,24 @@ class _ProfileState:
         return pulumi.get(self, "priority_queue4_level")
 
     @priority_queue4_level.setter
-    def priority_queue4_level(self, value: pulumi.Input[Optional[_builtins.int]]):
+    def priority_queue4_level(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "priority_queue4_level", value)
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The name of the UniFi site where the port profile should be created. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "site", value)
 
     @_builtins.property
     @pulumi.getter
-    def speed(self) -> pulumi.Input[Optional[_builtins.int]]:
+    def speed(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
         Port speed in Mbps when auto-negotiation is disabled. Common values:
         * 10 - 10 Mbps (legacy devices)
@@ -1419,12 +1417,12 @@ class _ProfileState:
         return pulumi.get(self, "speed")
 
     @speed.setter
-    def speed(self, value: pulumi.Input[Optional[_builtins.int]]):
+    def speed(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "speed", value)
 
     @_builtins.property
     @pulumi.getter(name="stormctrlBcastEnabled")
-    def stormctrl_bcast_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def stormctrl_bcast_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Enable broadcast storm control. When enabled:
         * Limits broadcast traffic to prevent network flooding
@@ -1435,24 +1433,24 @@ class _ProfileState:
         return pulumi.get(self, "stormctrl_bcast_enabled")
 
     @stormctrl_bcast_enabled.setter
-    def stormctrl_bcast_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def stormctrl_bcast_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "stormctrl_bcast_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="stormctrlBcastLevel")
-    def stormctrl_bcast_level(self) -> pulumi.Input[Optional[_builtins.int]]:
+    def stormctrl_bcast_level(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
         The broadcast Storm Control level for the port profile. Can be between 0 and 100.
         """
         return pulumi.get(self, "stormctrl_bcast_level")
 
     @stormctrl_bcast_level.setter
-    def stormctrl_bcast_level(self, value: pulumi.Input[Optional[_builtins.int]]):
+    def stormctrl_bcast_level(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "stormctrl_bcast_level", value)
 
     @_builtins.property
     @pulumi.getter(name="stormctrlBcastRate")
-    def stormctrl_bcast_rate(self) -> pulumi.Input[Optional[_builtins.int]]:
+    def stormctrl_bcast_rate(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
         Maximum broadcast traffic rate in packets per second (0 - 14880000). Used to:
         * Control broadcast traffic levels
@@ -1463,12 +1461,12 @@ class _ProfileState:
         return pulumi.get(self, "stormctrl_bcast_rate")
 
     @stormctrl_bcast_rate.setter
-    def stormctrl_bcast_rate(self, value: pulumi.Input[Optional[_builtins.int]]):
+    def stormctrl_bcast_rate(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "stormctrl_bcast_rate", value)
 
     @_builtins.property
     @pulumi.getter(name="stormctrlMcastEnabled")
-    def stormctrl_mcast_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def stormctrl_mcast_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Enable multicast storm control. When enabled:
         * Limits multicast traffic to prevent network flooding
@@ -1479,24 +1477,24 @@ class _ProfileState:
         return pulumi.get(self, "stormctrl_mcast_enabled")
 
     @stormctrl_mcast_enabled.setter
-    def stormctrl_mcast_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def stormctrl_mcast_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "stormctrl_mcast_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="stormctrlMcastLevel")
-    def stormctrl_mcast_level(self) -> pulumi.Input[Optional[_builtins.int]]:
+    def stormctrl_mcast_level(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
         The multicast Storm Control level for the port profile. Can be between 0 and 100.
         """
         return pulumi.get(self, "stormctrl_mcast_level")
 
     @stormctrl_mcast_level.setter
-    def stormctrl_mcast_level(self, value: pulumi.Input[Optional[_builtins.int]]):
+    def stormctrl_mcast_level(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "stormctrl_mcast_level", value)
 
     @_builtins.property
     @pulumi.getter(name="stormctrlMcastRate")
-    def stormctrl_mcast_rate(self) -> pulumi.Input[Optional[_builtins.int]]:
+    def stormctrl_mcast_rate(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
         Maximum multicast traffic rate in packets per second (0 - 14880000). Used to:
         * Control multicast traffic levels
@@ -1507,24 +1505,24 @@ class _ProfileState:
         return pulumi.get(self, "stormctrl_mcast_rate")
 
     @stormctrl_mcast_rate.setter
-    def stormctrl_mcast_rate(self, value: pulumi.Input[Optional[_builtins.int]]):
+    def stormctrl_mcast_rate(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "stormctrl_mcast_rate", value)
 
     @_builtins.property
     @pulumi.getter(name="stormctrlType")
-    def stormctrl_type(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def stormctrl_type(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The type of Storm Control to use for the port profile. Can be one of `level` or `rate`.
         """
         return pulumi.get(self, "stormctrl_type")
 
     @stormctrl_type.setter
-    def stormctrl_type(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def stormctrl_type(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "stormctrl_type", value)
 
     @_builtins.property
     @pulumi.getter(name="stormctrlUcastEnabled")
-    def stormctrl_ucast_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def stormctrl_ucast_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Enable unknown unicast storm control. When enabled:
         * Limits unknown unicast traffic to prevent flooding
@@ -1535,24 +1533,24 @@ class _ProfileState:
         return pulumi.get(self, "stormctrl_ucast_enabled")
 
     @stormctrl_ucast_enabled.setter
-    def stormctrl_ucast_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def stormctrl_ucast_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "stormctrl_ucast_enabled", value)
 
     @_builtins.property
     @pulumi.getter(name="stormctrlUcastLevel")
-    def stormctrl_ucast_level(self) -> pulumi.Input[Optional[_builtins.int]]:
+    def stormctrl_ucast_level(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
         The unknown unicast Storm Control level for the port profile. Can be between 0 and 100.
         """
         return pulumi.get(self, "stormctrl_ucast_level")
 
     @stormctrl_ucast_level.setter
-    def stormctrl_ucast_level(self, value: pulumi.Input[Optional[_builtins.int]]):
+    def stormctrl_ucast_level(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "stormctrl_ucast_level", value)
 
     @_builtins.property
     @pulumi.getter(name="stormctrlUcastRate")
-    def stormctrl_ucast_rate(self) -> pulumi.Input[Optional[_builtins.int]]:
+    def stormctrl_ucast_rate(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
         Maximum unknown unicast traffic rate in packets per second (0 - 14880000). Used to:
         * Control unknown unicast traffic levels
@@ -1563,12 +1561,12 @@ class _ProfileState:
         return pulumi.get(self, "stormctrl_ucast_rate")
 
     @stormctrl_ucast_rate.setter
-    def stormctrl_ucast_rate(self, value: pulumi.Input[Optional[_builtins.int]]):
+    def stormctrl_ucast_rate(self, value: Optional[pulumi.Input[_builtins.int]]):
         pulumi.set(self, "stormctrl_ucast_rate", value)
 
     @_builtins.property
     @pulumi.getter(name="stpPortMode")
-    def stp_port_mode(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def stp_port_mode(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Spanning Tree Protocol (STP) configuration for the port. When enabled:
         * Prevents network loops in switch-to-switch connections
@@ -1583,12 +1581,12 @@ class _ProfileState:
         return pulumi.get(self, "stp_port_mode")
 
     @stp_port_mode.setter
-    def stp_port_mode(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def stp_port_mode(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "stp_port_mode", value)
 
     @_builtins.property
     @pulumi.getter(name="taggedVlanMgmt")
-    def tagged_vlan_mgmt(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def tagged_vlan_mgmt(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         VLAN tagging behavior for the port. Valid values are:
         * `auto` - Automatically handle VLAN tags (recommended)
@@ -1604,12 +1602,12 @@ class _ProfileState:
         return pulumi.get(self, "tagged_vlan_mgmt")
 
     @tagged_vlan_mgmt.setter
-    def tagged_vlan_mgmt(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def tagged_vlan_mgmt(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "tagged_vlan_mgmt", value)
 
     @_builtins.property
     @pulumi.getter(name="voiceNetworkconfId")
-    def voice_networkconf_id(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def voice_networkconf_id(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The ID of the network to use for Voice over IP (VoIP) traffic. Used for:
         * Automatic VoIP VLAN configuration
@@ -1626,7 +1624,7 @@ class _ProfileState:
         return pulumi.get(self, "voice_networkconf_id")
 
     @voice_networkconf_id.setter
-    def voice_networkconf_id(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def voice_networkconf_id(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "voice_networkconf_id", value)
 
 
@@ -1636,80 +1634,45 @@ class Profile(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 autoneg: pulumi.Input[Optional[_builtins.bool]] = None,
-                 dot1x_ctrl: pulumi.Input[Optional[_builtins.str]] = None,
-                 dot1x_idle_timeout: pulumi.Input[Optional[_builtins.int]] = None,
-                 egress_rate_limit_kbps: pulumi.Input[Optional[_builtins.int]] = None,
-                 egress_rate_limit_kbps_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 excluded_network_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 forward: pulumi.Input[Optional[_builtins.str]] = None,
-                 full_duplex: pulumi.Input[Optional[_builtins.bool]] = None,
-                 isolation: pulumi.Input[Optional[_builtins.bool]] = None,
-                 lldpmed_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 lldpmed_notify_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 name: pulumi.Input[Optional[_builtins.str]] = None,
-                 native_networkconf_id: pulumi.Input[Optional[_builtins.str]] = None,
-                 op_mode: pulumi.Input[Optional[_builtins.str]] = None,
-                 poe_mode: pulumi.Input[Optional[_builtins.str]] = None,
-                 port_security_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 port_security_mac_addresses: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 priority_queue1_level: pulumi.Input[Optional[_builtins.int]] = None,
-                 priority_queue2_level: pulumi.Input[Optional[_builtins.int]] = None,
-                 priority_queue3_level: pulumi.Input[Optional[_builtins.int]] = None,
-                 priority_queue4_level: pulumi.Input[Optional[_builtins.int]] = None,
-                 site: pulumi.Input[Optional[_builtins.str]] = None,
-                 speed: pulumi.Input[Optional[_builtins.int]] = None,
-                 stormctrl_bcast_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 stormctrl_bcast_level: pulumi.Input[Optional[_builtins.int]] = None,
-                 stormctrl_bcast_rate: pulumi.Input[Optional[_builtins.int]] = None,
-                 stormctrl_mcast_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 stormctrl_mcast_level: pulumi.Input[Optional[_builtins.int]] = None,
-                 stormctrl_mcast_rate: pulumi.Input[Optional[_builtins.int]] = None,
-                 stormctrl_type: pulumi.Input[Optional[_builtins.str]] = None,
-                 stormctrl_ucast_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 stormctrl_ucast_level: pulumi.Input[Optional[_builtins.int]] = None,
-                 stormctrl_ucast_rate: pulumi.Input[Optional[_builtins.int]] = None,
-                 stp_port_mode: pulumi.Input[Optional[_builtins.bool]] = None,
-                 tagged_vlan_mgmt: pulumi.Input[Optional[_builtins.str]] = None,
-                 voice_networkconf_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 autoneg: Optional[pulumi.Input[_builtins.bool]] = None,
+                 dot1x_ctrl: Optional[pulumi.Input[_builtins.str]] = None,
+                 dot1x_idle_timeout: Optional[pulumi.Input[_builtins.int]] = None,
+                 egress_rate_limit_kbps: Optional[pulumi.Input[_builtins.int]] = None,
+                 egress_rate_limit_kbps_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 excluded_network_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 forward: Optional[pulumi.Input[_builtins.str]] = None,
+                 full_duplex: Optional[pulumi.Input[_builtins.bool]] = None,
+                 isolation: Optional[pulumi.Input[_builtins.bool]] = None,
+                 lldpmed_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 lldpmed_notify_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 name: Optional[pulumi.Input[_builtins.str]] = None,
+                 native_networkconf_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 op_mode: Optional[pulumi.Input[_builtins.str]] = None,
+                 poe_mode: Optional[pulumi.Input[_builtins.str]] = None,
+                 port_security_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 port_security_mac_addresses: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 priority_queue1_level: Optional[pulumi.Input[_builtins.int]] = None,
+                 priority_queue2_level: Optional[pulumi.Input[_builtins.int]] = None,
+                 priority_queue3_level: Optional[pulumi.Input[_builtins.int]] = None,
+                 priority_queue4_level: Optional[pulumi.Input[_builtins.int]] = None,
+                 site: Optional[pulumi.Input[_builtins.str]] = None,
+                 speed: Optional[pulumi.Input[_builtins.int]] = None,
+                 stormctrl_bcast_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 stormctrl_bcast_level: Optional[pulumi.Input[_builtins.int]] = None,
+                 stormctrl_bcast_rate: Optional[pulumi.Input[_builtins.int]] = None,
+                 stormctrl_mcast_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 stormctrl_mcast_level: Optional[pulumi.Input[_builtins.int]] = None,
+                 stormctrl_mcast_rate: Optional[pulumi.Input[_builtins.int]] = None,
+                 stormctrl_type: Optional[pulumi.Input[_builtins.str]] = None,
+                 stormctrl_ucast_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 stormctrl_ucast_level: Optional[pulumi.Input[_builtins.int]] = None,
+                 stormctrl_ucast_rate: Optional[pulumi.Input[_builtins.int]] = None,
+                 stp_port_mode: Optional[pulumi.Input[_builtins.bool]] = None,
+                 tagged_vlan_mgmt: Optional[pulumi.Input[_builtins.str]] = None,
+                 voice_networkconf_id: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        The `port.Profile` resource manages port profiles that can be applied to UniFi switch ports.
-
-        Port profiles define a collection of settings that can be applied to one or more switch ports, including:
-          * Network and VLAN settings
-          * Port speed and duplex settings
-          * Security features like 802.1X authentication and port isolation
-          * Rate limiting and QoS settings
-          * Network protocols like LLDP and STP
-
-        Creating port profiles allows for consistent configuration across multiple switch ports and easier management of port settings.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumiverse_unifi as unifi
-
-        config = pulumi.Config()
-        vlan_id = config.get_float("vlanId")
-        if vlan_id is None:
-            vlan_id = 10
-        vlan = unifi.Network("vlan",
-            name="wifi-vlan",
-            purpose="corporate",
-            subnet="10.0.0.1/24",
-            vlan_id=int(vlan_id),
-            dhcp_start="10.0.0.6",
-            dhcp_stop="10.0.0.254",
-            dhcp_enabled=True)
-        poe_disabled = unifi.port.Profile("poe_disabled",
-            name="POE Disabled",
-            native_networkconf_id=vlan.id,
-            poe_mode="off")
-        ```
-
-
+        Create a Profile resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] autoneg: Enable automatic negotiation of port speed and duplex settings. When enabled, this overrides manual speed and duplex settings. Recommended for most use cases.
@@ -1867,42 +1830,7 @@ class Profile(pulumi.CustomResource):
                  args: Optional[ProfileArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        The `port.Profile` resource manages port profiles that can be applied to UniFi switch ports.
-
-        Port profiles define a collection of settings that can be applied to one or more switch ports, including:
-          * Network and VLAN settings
-          * Port speed and duplex settings
-          * Security features like 802.1X authentication and port isolation
-          * Rate limiting and QoS settings
-          * Network protocols like LLDP and STP
-
-        Creating port profiles allows for consistent configuration across multiple switch ports and easier management of port settings.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumiverse_unifi as unifi
-
-        config = pulumi.Config()
-        vlan_id = config.get_float("vlanId")
-        if vlan_id is None:
-            vlan_id = 10
-        vlan = unifi.Network("vlan",
-            name="wifi-vlan",
-            purpose="corporate",
-            subnet="10.0.0.1/24",
-            vlan_id=int(vlan_id),
-            dhcp_start="10.0.0.6",
-            dhcp_stop="10.0.0.254",
-            dhcp_enabled=True)
-        poe_disabled = unifi.port.Profile("poe_disabled",
-            name="POE Disabled",
-            native_networkconf_id=vlan.id,
-            poe_mode="off")
-        ```
-
-
+        Create a Profile resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param ProfileArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -1918,42 +1846,42 @@ class Profile(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 autoneg: pulumi.Input[Optional[_builtins.bool]] = None,
-                 dot1x_ctrl: pulumi.Input[Optional[_builtins.str]] = None,
-                 dot1x_idle_timeout: pulumi.Input[Optional[_builtins.int]] = None,
-                 egress_rate_limit_kbps: pulumi.Input[Optional[_builtins.int]] = None,
-                 egress_rate_limit_kbps_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 excluded_network_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 forward: pulumi.Input[Optional[_builtins.str]] = None,
-                 full_duplex: pulumi.Input[Optional[_builtins.bool]] = None,
-                 isolation: pulumi.Input[Optional[_builtins.bool]] = None,
-                 lldpmed_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 lldpmed_notify_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 name: pulumi.Input[Optional[_builtins.str]] = None,
-                 native_networkconf_id: pulumi.Input[Optional[_builtins.str]] = None,
-                 op_mode: pulumi.Input[Optional[_builtins.str]] = None,
-                 poe_mode: pulumi.Input[Optional[_builtins.str]] = None,
-                 port_security_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 port_security_mac_addresses: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-                 priority_queue1_level: pulumi.Input[Optional[_builtins.int]] = None,
-                 priority_queue2_level: pulumi.Input[Optional[_builtins.int]] = None,
-                 priority_queue3_level: pulumi.Input[Optional[_builtins.int]] = None,
-                 priority_queue4_level: pulumi.Input[Optional[_builtins.int]] = None,
-                 site: pulumi.Input[Optional[_builtins.str]] = None,
-                 speed: pulumi.Input[Optional[_builtins.int]] = None,
-                 stormctrl_bcast_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 stormctrl_bcast_level: pulumi.Input[Optional[_builtins.int]] = None,
-                 stormctrl_bcast_rate: pulumi.Input[Optional[_builtins.int]] = None,
-                 stormctrl_mcast_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 stormctrl_mcast_level: pulumi.Input[Optional[_builtins.int]] = None,
-                 stormctrl_mcast_rate: pulumi.Input[Optional[_builtins.int]] = None,
-                 stormctrl_type: pulumi.Input[Optional[_builtins.str]] = None,
-                 stormctrl_ucast_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 stormctrl_ucast_level: pulumi.Input[Optional[_builtins.int]] = None,
-                 stormctrl_ucast_rate: pulumi.Input[Optional[_builtins.int]] = None,
-                 stp_port_mode: pulumi.Input[Optional[_builtins.bool]] = None,
-                 tagged_vlan_mgmt: pulumi.Input[Optional[_builtins.str]] = None,
-                 voice_networkconf_id: pulumi.Input[Optional[_builtins.str]] = None,
+                 autoneg: Optional[pulumi.Input[_builtins.bool]] = None,
+                 dot1x_ctrl: Optional[pulumi.Input[_builtins.str]] = None,
+                 dot1x_idle_timeout: Optional[pulumi.Input[_builtins.int]] = None,
+                 egress_rate_limit_kbps: Optional[pulumi.Input[_builtins.int]] = None,
+                 egress_rate_limit_kbps_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 excluded_network_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 forward: Optional[pulumi.Input[_builtins.str]] = None,
+                 full_duplex: Optional[pulumi.Input[_builtins.bool]] = None,
+                 isolation: Optional[pulumi.Input[_builtins.bool]] = None,
+                 lldpmed_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 lldpmed_notify_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 name: Optional[pulumi.Input[_builtins.str]] = None,
+                 native_networkconf_id: Optional[pulumi.Input[_builtins.str]] = None,
+                 op_mode: Optional[pulumi.Input[_builtins.str]] = None,
+                 poe_mode: Optional[pulumi.Input[_builtins.str]] = None,
+                 port_security_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 port_security_mac_addresses: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+                 priority_queue1_level: Optional[pulumi.Input[_builtins.int]] = None,
+                 priority_queue2_level: Optional[pulumi.Input[_builtins.int]] = None,
+                 priority_queue3_level: Optional[pulumi.Input[_builtins.int]] = None,
+                 priority_queue4_level: Optional[pulumi.Input[_builtins.int]] = None,
+                 site: Optional[pulumi.Input[_builtins.str]] = None,
+                 speed: Optional[pulumi.Input[_builtins.int]] = None,
+                 stormctrl_bcast_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 stormctrl_bcast_level: Optional[pulumi.Input[_builtins.int]] = None,
+                 stormctrl_bcast_rate: Optional[pulumi.Input[_builtins.int]] = None,
+                 stormctrl_mcast_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 stormctrl_mcast_level: Optional[pulumi.Input[_builtins.int]] = None,
+                 stormctrl_mcast_rate: Optional[pulumi.Input[_builtins.int]] = None,
+                 stormctrl_type: Optional[pulumi.Input[_builtins.str]] = None,
+                 stormctrl_ucast_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 stormctrl_ucast_level: Optional[pulumi.Input[_builtins.int]] = None,
+                 stormctrl_ucast_rate: Optional[pulumi.Input[_builtins.int]] = None,
+                 stp_port_mode: Optional[pulumi.Input[_builtins.bool]] = None,
+                 tagged_vlan_mgmt: Optional[pulumi.Input[_builtins.str]] = None,
+                 voice_networkconf_id: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -2009,42 +1937,42 @@ class Profile(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            autoneg: pulumi.Input[Optional[_builtins.bool]] = None,
-            dot1x_ctrl: pulumi.Input[Optional[_builtins.str]] = None,
-            dot1x_idle_timeout: pulumi.Input[Optional[_builtins.int]] = None,
-            egress_rate_limit_kbps: pulumi.Input[Optional[_builtins.int]] = None,
-            egress_rate_limit_kbps_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-            excluded_network_ids: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-            forward: pulumi.Input[Optional[_builtins.str]] = None,
-            full_duplex: pulumi.Input[Optional[_builtins.bool]] = None,
-            isolation: pulumi.Input[Optional[_builtins.bool]] = None,
-            lldpmed_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-            lldpmed_notify_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-            name: pulumi.Input[Optional[_builtins.str]] = None,
-            native_networkconf_id: pulumi.Input[Optional[_builtins.str]] = None,
-            op_mode: pulumi.Input[Optional[_builtins.str]] = None,
-            poe_mode: pulumi.Input[Optional[_builtins.str]] = None,
-            port_security_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-            port_security_mac_addresses: pulumi.Input[Optional[Sequence[pulumi.Input[_builtins.str]]]] = None,
-            priority_queue1_level: pulumi.Input[Optional[_builtins.int]] = None,
-            priority_queue2_level: pulumi.Input[Optional[_builtins.int]] = None,
-            priority_queue3_level: pulumi.Input[Optional[_builtins.int]] = None,
-            priority_queue4_level: pulumi.Input[Optional[_builtins.int]] = None,
-            site: pulumi.Input[Optional[_builtins.str]] = None,
-            speed: pulumi.Input[Optional[_builtins.int]] = None,
-            stormctrl_bcast_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-            stormctrl_bcast_level: pulumi.Input[Optional[_builtins.int]] = None,
-            stormctrl_bcast_rate: pulumi.Input[Optional[_builtins.int]] = None,
-            stormctrl_mcast_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-            stormctrl_mcast_level: pulumi.Input[Optional[_builtins.int]] = None,
-            stormctrl_mcast_rate: pulumi.Input[Optional[_builtins.int]] = None,
-            stormctrl_type: pulumi.Input[Optional[_builtins.str]] = None,
-            stormctrl_ucast_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
-            stormctrl_ucast_level: pulumi.Input[Optional[_builtins.int]] = None,
-            stormctrl_ucast_rate: pulumi.Input[Optional[_builtins.int]] = None,
-            stp_port_mode: pulumi.Input[Optional[_builtins.bool]] = None,
-            tagged_vlan_mgmt: pulumi.Input[Optional[_builtins.str]] = None,
-            voice_networkconf_id: pulumi.Input[Optional[_builtins.str]] = None) -> 'Profile':
+            autoneg: Optional[pulumi.Input[_builtins.bool]] = None,
+            dot1x_ctrl: Optional[pulumi.Input[_builtins.str]] = None,
+            dot1x_idle_timeout: Optional[pulumi.Input[_builtins.int]] = None,
+            egress_rate_limit_kbps: Optional[pulumi.Input[_builtins.int]] = None,
+            egress_rate_limit_kbps_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+            excluded_network_ids: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            forward: Optional[pulumi.Input[_builtins.str]] = None,
+            full_duplex: Optional[pulumi.Input[_builtins.bool]] = None,
+            isolation: Optional[pulumi.Input[_builtins.bool]] = None,
+            lldpmed_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+            lldpmed_notify_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+            name: Optional[pulumi.Input[_builtins.str]] = None,
+            native_networkconf_id: Optional[pulumi.Input[_builtins.str]] = None,
+            op_mode: Optional[pulumi.Input[_builtins.str]] = None,
+            poe_mode: Optional[pulumi.Input[_builtins.str]] = None,
+            port_security_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+            port_security_mac_addresses: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
+            priority_queue1_level: Optional[pulumi.Input[_builtins.int]] = None,
+            priority_queue2_level: Optional[pulumi.Input[_builtins.int]] = None,
+            priority_queue3_level: Optional[pulumi.Input[_builtins.int]] = None,
+            priority_queue4_level: Optional[pulumi.Input[_builtins.int]] = None,
+            site: Optional[pulumi.Input[_builtins.str]] = None,
+            speed: Optional[pulumi.Input[_builtins.int]] = None,
+            stormctrl_bcast_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+            stormctrl_bcast_level: Optional[pulumi.Input[_builtins.int]] = None,
+            stormctrl_bcast_rate: Optional[pulumi.Input[_builtins.int]] = None,
+            stormctrl_mcast_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+            stormctrl_mcast_level: Optional[pulumi.Input[_builtins.int]] = None,
+            stormctrl_mcast_rate: Optional[pulumi.Input[_builtins.int]] = None,
+            stormctrl_type: Optional[pulumi.Input[_builtins.str]] = None,
+            stormctrl_ucast_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
+            stormctrl_ucast_level: Optional[pulumi.Input[_builtins.int]] = None,
+            stormctrl_ucast_rate: Optional[pulumi.Input[_builtins.int]] = None,
+            stp_port_mode: Optional[pulumi.Input[_builtins.bool]] = None,
+            tagged_vlan_mgmt: Optional[pulumi.Input[_builtins.str]] = None,
+            voice_networkconf_id: Optional[pulumi.Input[_builtins.str]] = None) -> 'Profile':
         """
         Get an existing Profile resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.

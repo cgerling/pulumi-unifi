@@ -6,9 +6,6 @@ import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 import * as utilities from "../utilities";
 
-/**
- * Manages the site-level Etherlighting palette — the colors that switches with per-port LEDs (USW Pro Max line) use when a device's `etherLighting` block selects a scheme. `networkOverrides` assigns a color per network/VLAN (used by `mode = "network"`); `speedOverrides` assigns a color per link-speed class (used by `mode = "speed"`). Overrides take precedence over the controller's built-in default palette; networks or speeds without an override keep their default color. NOTE: the controller silently drops any override whose color equals that network's built-in default — declare only colors that actually differ from the defaults, or the entry will not round-trip.
- */
 export class EtherLighting extends pulumi.CustomResource {
     /**
      * Get an existing EtherLighting resource's state with the given name, ID, and optional extra
@@ -84,15 +81,15 @@ export interface EtherLightingState {
     /**
      * Per-network LED colors, used when a device's Etherlighting `mode` is `network`.
      */
-    networkOverrides?: pulumi.Input<pulumi.Input<inputs.setting.EtherLightingNetworkOverride>[] | undefined>;
+    networkOverrides?: pulumi.Input<pulumi.Input<inputs.setting.EtherLightingNetworkOverride>[]>;
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string | undefined>;
+    site?: pulumi.Input<string>;
     /**
      * Per-link-speed LED colors, used when a device's Etherlighting `mode` is `speed`.
      */
-    speedOverrides?: pulumi.Input<pulumi.Input<inputs.setting.EtherLightingSpeedOverride>[] | undefined>;
+    speedOverrides?: pulumi.Input<pulumi.Input<inputs.setting.EtherLightingSpeedOverride>[]>;
 }
 
 /**
@@ -102,13 +99,13 @@ export interface EtherLightingArgs {
     /**
      * Per-network LED colors, used when a device's Etherlighting `mode` is `network`.
      */
-    networkOverrides?: pulumi.Input<pulumi.Input<inputs.setting.EtherLightingNetworkOverride>[] | undefined>;
+    networkOverrides?: pulumi.Input<pulumi.Input<inputs.setting.EtherLightingNetworkOverride>[]>;
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string | undefined>;
+    site?: pulumi.Input<string>;
     /**
      * Per-link-speed LED colors, used when a device's Etherlighting `mode` is `speed`.
      */
-    speedOverrides?: pulumi.Input<pulumi.Input<inputs.setting.EtherLightingSpeedOverride>[] | undefined>;
+    speedOverrides?: pulumi.Input<pulumi.Input<inputs.setting.EtherLightingSpeedOverride>[]>;
 }

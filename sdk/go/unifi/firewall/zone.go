@@ -11,66 +11,6 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
-// The `firewall.Zone` resource manages firewall zones in the UniFi controller.
-//
-// Firewall zones allow you to group networks together for firewall rule application. This resource allows you to create, update, and delete firewall zones.
-//
-// > This is experimental feature, that requires UniFi OS 9.0.0 or later and Zone Based Firewall feature enabled. Check [official documentation](https://help.ui.com/hc/en-us/articles/28223082254743-Migrating-to-Zone-Based-Firewalls-in-UniFi) how to migate to Zone-Based firewalls.
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi"
-//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/firewall"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			network, err := unifi.NewNetwork(ctx, "network", &unifi.NetworkArgs{
-//				Name:    pulumi.String("my-network"),
-//				Purpose: pulumi.String("corporate"),
-//				Subnet:  pulumi.String("10.0.10.0/24"),
-//				VlanId:  pulumi.Int(400),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			_, err = firewall.NewZone(ctx, "zone", &firewall.ZoneArgs{
-//				Name: pulumi.String("my-zone"),
-//				Networks: pulumi.StringArray{
-//					network.ID(),
-//				},
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
-// ```
-//
-// ## Import
-//
-// The `pulumi import` command can be used, for example:
-//
-// import from provider configured site
-//
-// ```sh
-// $ pulumi import unifi:firewall/zone:Zone myzone 5dc28e5e9106d105bdc87217
-// ```
-//
-// import from another site
-//
-// ```sh
-// $ pulumi import unifi:firewall/zone:Zone myzone another-site:5dc28e5e9106d105bdc87217
-// ```
 type Zone struct {
 	pulumi.CustomResourceState
 

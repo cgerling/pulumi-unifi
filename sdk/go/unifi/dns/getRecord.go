@@ -11,39 +11,6 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
-// Retrieves information about a specific DNS record configured in your UniFi network. This data source allows you to look up DNS records by either their name or record content. It's particularly useful for validating existing DNS configurations or referencing DNS records in other resources.
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/dns"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := dns.LookupRecord(ctx, &dns.LookupRecordArgs{
-//				Name: pulumi.StringRef("example.mydomain.com"),
-//			}, nil)
-//			if err != nil {
-//				return err
-//			}
-//			_, err = dns.LookupRecord(ctx, &dns.LookupRecordArgs{
-//				Value: pulumi.StringRef("192.168.0.1"),
-//			}, nil)
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
-// ```
 func LookupRecord(ctx *pulumi.Context, args *LookupRecordArgs, opts ...pulumi.InvokeOption) (*LookupRecordResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupRecordResult
@@ -56,36 +23,23 @@ func LookupRecord(ctx *pulumi.Context, args *LookupRecordArgs, opts ...pulumi.In
 
 // A collection of arguments for invoking getRecord.
 type LookupRecordArgs struct {
-	// DNS record name.
-	Name *string `pulumi:"name"`
-	// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
-	Site *string `pulumi:"site"`
-	// DNS record content.
+	Name  *string `pulumi:"name"`
+	Site  *string `pulumi:"site"`
 	Value *string `pulumi:"value"`
 }
 
 // A collection of values returned by getRecord.
 type LookupRecordResult struct {
-	// Whether the DNS record is enabled.
-	Enabled bool `pulumi:"enabled"`
-	// The unique identifier of this resource.
-	Id string `pulumi:"id"`
-	// DNS record name.
-	Name string `pulumi:"name"`
-	// The port of the DNS record.
-	Port int `pulumi:"port"`
-	// Priority of the DNS records. Present only for MX and SRV records; unused by other record types.
-	Priority int `pulumi:"priority"`
-	// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
-	Site string `pulumi:"site"`
-	// Time To Live (TTL) of the DNS record in seconds. Setting to 0 means 'automatic'.
-	Ttl int `pulumi:"ttl"`
-	// The type of the DNS record.
-	Type string `pulumi:"type"`
-	// DNS record content.
-	Value string `pulumi:"value"`
-	// A numeric value indicating the relative weight of the record.
-	Weight int `pulumi:"weight"`
+	Enabled  bool   `pulumi:"enabled"`
+	Id       string `pulumi:"id"`
+	Name     string `pulumi:"name"`
+	Port     int    `pulumi:"port"`
+	Priority int    `pulumi:"priority"`
+	Site     string `pulumi:"site"`
+	Ttl      int    `pulumi:"ttl"`
+	Type     string `pulumi:"type"`
+	Value    string `pulumi:"value"`
+	Weight   int    `pulumi:"weight"`
 }
 
 func LookupRecordOutput(ctx *pulumi.Context, args LookupRecordOutputArgs, opts ...pulumi.InvokeOption) LookupRecordResultOutput {
@@ -99,11 +53,8 @@ func LookupRecordOutput(ctx *pulumi.Context, args LookupRecordOutputArgs, opts .
 
 // A collection of arguments for invoking getRecord.
 type LookupRecordOutputArgs struct {
-	// DNS record name.
-	Name pulumi.StringPtrInput `pulumi:"name"`
-	// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
-	Site pulumi.StringPtrInput `pulumi:"site"`
-	// DNS record content.
+	Name  pulumi.StringPtrInput `pulumi:"name"`
+	Site  pulumi.StringPtrInput `pulumi:"site"`
 	Value pulumi.StringPtrInput `pulumi:"value"`
 }
 
@@ -126,52 +77,42 @@ func (o LookupRecordResultOutput) ToLookupRecordResultOutputWithContext(ctx cont
 	return o
 }
 
-// Whether the DNS record is enabled.
 func (o LookupRecordResultOutput) Enabled() pulumi.BoolOutput {
 	return o.ApplyT(func(v LookupRecordResult) bool { return v.Enabled }).(pulumi.BoolOutput)
 }
 
-// The unique identifier of this resource.
 func (o LookupRecordResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupRecordResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
-// DNS record name.
 func (o LookupRecordResultOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupRecordResult) string { return v.Name }).(pulumi.StringOutput)
 }
 
-// The port of the DNS record.
 func (o LookupRecordResultOutput) Port() pulumi.IntOutput {
 	return o.ApplyT(func(v LookupRecordResult) int { return v.Port }).(pulumi.IntOutput)
 }
 
-// Priority of the DNS records. Present only for MX and SRV records; unused by other record types.
 func (o LookupRecordResultOutput) Priority() pulumi.IntOutput {
 	return o.ApplyT(func(v LookupRecordResult) int { return v.Priority }).(pulumi.IntOutput)
 }
 
-// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
 func (o LookupRecordResultOutput) Site() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupRecordResult) string { return v.Site }).(pulumi.StringOutput)
 }
 
-// Time To Live (TTL) of the DNS record in seconds. Setting to 0 means 'automatic'.
 func (o LookupRecordResultOutput) Ttl() pulumi.IntOutput {
 	return o.ApplyT(func(v LookupRecordResult) int { return v.Ttl }).(pulumi.IntOutput)
 }
 
-// The type of the DNS record.
 func (o LookupRecordResultOutput) Type() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupRecordResult) string { return v.Type }).(pulumi.StringOutput)
 }
 
-// DNS record content.
 func (o LookupRecordResultOutput) Value() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupRecordResult) string { return v.Value }).(pulumi.StringOutput)
 }
 
-// A numeric value indicating the relative weight of the record.
 func (o LookupRecordResultOutput) Weight() pulumi.IntOutput {
 	return o.ApplyT(func(v LookupRecordResult) int { return v.Weight }).(pulumi.IntOutput)
 }

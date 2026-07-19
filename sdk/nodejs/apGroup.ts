@@ -2,11 +2,14 @@
 // *** Do not edit by hand unless you're certain you know what you are doing! ***
 
 import * as pulumi from "@pulumi/pulumi";
-import * as utilities from "../utilities";
+import * as utilities from "./utilities";
 
-export class Group extends pulumi.CustomResource {
+/**
+ * @deprecated unifi.index/apgroup.ApGroup has been deprecated in favor of unifi.ap/group.Group
+ */
+export class ApGroup extends pulumi.CustomResource {
     /**
-     * Get an existing Group resource's state with the given name, ID, and optional extra
+     * Get an existing ApGroup resource's state with the given name, ID, and optional extra
      * properties used to qualify the lookup.
      *
      * @param name The _unique_ name of the resulting resource.
@@ -14,22 +17,23 @@ export class Group extends pulumi.CustomResource {
      * @param state Any extra arguments used during the lookup.
      * @param opts Optional settings to control the behavior of the CustomResource.
      */
-    public static get(name: string, id: pulumi.Input<pulumi.ID>, state?: GroupState, opts?: pulumi.CustomResourceOptions): Group {
-        return new Group(name, <any>state, { ...opts, id: id });
+    public static get(name: string, id: pulumi.Input<pulumi.ID>, state?: ApGroupState, opts?: pulumi.CustomResourceOptions): ApGroup {
+        pulumi.log.warn("ApGroup is deprecated: unifi.index/apgroup.ApGroup has been deprecated in favor of unifi.ap/group.Group")
+        return new ApGroup(name, <any>state, { ...opts, id: id });
     }
 
     /** @internal */
-    public static readonly __pulumiType = 'unifi:ap/group:Group';
+    public static readonly __pulumiType = 'unifi:index/apGroup:ApGroup';
 
     /**
-     * Returns true if the given object is an instance of Group.  This is designed to work even
+     * Returns true if the given object is an instance of ApGroup.  This is designed to work even
      * when multiple copies of the Pulumi SDK have been loaded into the same process.
      */
-    public static isInstance(obj: any): obj is Group {
+    public static isInstance(obj: any): obj is ApGroup {
         if (obj === undefined || obj === null) {
             return false;
         }
-        return obj['__pulumiType'] === Group.__pulumiType;
+        return obj['__pulumiType'] === ApGroup.__pulumiType;
     }
 
     /**
@@ -46,23 +50,26 @@ export class Group extends pulumi.CustomResource {
     declare public readonly site: pulumi.Output<string>;
 
     /**
-     * Create a Group resource with the given unique name, arguments, and options.
+     * Create a ApGroup resource with the given unique name, arguments, and options.
      *
      * @param name The _unique_ name of the resource.
      * @param args The arguments to use to populate this resource's properties.
      * @param opts A bag of options that control this resource's behavior.
      */
-    constructor(name: string, args: GroupArgs, opts?: pulumi.CustomResourceOptions)
-    constructor(name: string, argsOrState?: GroupArgs | GroupState, opts?: pulumi.CustomResourceOptions) {
+    /** @deprecated unifi.index/apgroup.ApGroup has been deprecated in favor of unifi.ap/group.Group */
+    constructor(name: string, args: ApGroupArgs, opts?: pulumi.CustomResourceOptions)
+    /** @deprecated unifi.index/apgroup.ApGroup has been deprecated in favor of unifi.ap/group.Group */
+    constructor(name: string, argsOrState?: ApGroupArgs | ApGroupState, opts?: pulumi.CustomResourceOptions) {
+        pulumi.log.warn("ApGroup is deprecated: unifi.index/apgroup.ApGroup has been deprecated in favor of unifi.ap/group.Group")
         let resourceInputs: pulumi.Inputs = {};
         opts = opts || {};
         if (opts.id) {
-            const state = argsOrState as GroupState | undefined;
+            const state = argsOrState as ApGroupState | undefined;
             resourceInputs["deviceMacs"] = state?.deviceMacs;
             resourceInputs["name"] = state?.name;
             resourceInputs["site"] = state?.site;
         } else {
-            const args = argsOrState as GroupArgs | undefined;
+            const args = argsOrState as ApGroupArgs | undefined;
             if (args?.deviceMacs === undefined && !opts.urn) {
                 throw new Error("Missing required property 'deviceMacs'");
             }
@@ -71,16 +78,14 @@ export class Group extends pulumi.CustomResource {
             resourceInputs["site"] = args?.site;
         }
         opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts);
-        const aliasOpts = { aliases: [{ type: "unifi:index/apGroup:ApGroup" }] };
-        opts = pulumi.mergeOptions(opts, aliasOpts);
-        super(Group.__pulumiType, name, resourceInputs, opts);
+        super(ApGroup.__pulumiType, name, resourceInputs, opts);
     }
 }
 
 /**
- * Input properties used for looking up and filtering Group resources.
+ * Input properties used for looking up and filtering ApGroup resources.
  */
-export interface GroupState {
+export interface ApGroupState {
     /**
      * Set of AP device MAC addresses to include in this AP group. MAC addresses are case-insensitive and may use `:` or `-` separators (e.g. `aa:bb:cc:dd:ee:ff` and `AA-BB-CC-DD-EE-FF` are treated as the same address and produce no diff); the value is kept as written.
      */
@@ -96,9 +101,9 @@ export interface GroupState {
 }
 
 /**
- * The set of arguments for constructing a Group resource.
+ * The set of arguments for constructing a ApGroup resource.
  */
-export interface GroupArgs {
+export interface ApGroupArgs {
     /**
      * Set of AP device MAC addresses to include in this AP group. MAC addresses are case-insensitive and may use `:` or `-` separators (e.g. `aa:bb:cc:dd:ee:ff` and `AA-BB-CC-DD-EE-FF` are treated as the same address and produce no diff); the value is kept as written.
      */

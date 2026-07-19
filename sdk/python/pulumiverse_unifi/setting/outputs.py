@@ -32,7 +32,6 @@ __all__ = [
     'GuestAccessRedirect',
     'GuestAccessStripe',
     'GuestAccessWechat',
-    'IpsDnsFilter',
     'IpsHoneypot',
     'IpsSuppression',
     'IpsSuppressionAlert',
@@ -757,6 +756,9 @@ class GuestAccessPortalCustomization(dict):
         :param _builtins.str bg_image_file_id: ID of the background image portal file. File must exist in controller, use `port.AlFile` to manage it.
         :param _builtins.bool bg_image_tile: Tile the background image.
         :param _builtins.str bg_type: Type of portal background. Valid values are:
+               * `color` - Solid color background
+               * `image` - (not yet supported!) Custom image background
+               * `gallery` - Image from Unsplash gallery
         :param _builtins.str box_color: Color of the login box in the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
         :param _builtins.str box_link_color: Color of links in the login box. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
         :param _builtins.int box_opacity: Opacity of the login box (0-100).
@@ -878,6 +880,9 @@ class GuestAccessPortalCustomization(dict):
     def bg_type(self) -> Optional[_builtins.str]:
         """
         Type of portal background. Valid values are:
+        * `color` - Solid color background
+        * `image` - (not yet supported!) Custom image background
+        * `gallery` - Image from Unsplash gallery
         """
         return pulumi.get(self, "bg_type")
 
@@ -1394,123 +1399,6 @@ class GuestAccessWechat(dict):
         WeChat Shop ID for payments.
         """
         return pulumi.get(self, "shop_id")
-
-
-@pulumi.output_type
-class IpsDnsFilter(dict):
-    @staticmethod
-    def __key_warning(key: str):
-        suggest = None
-        if key == "networkId":
-            suggest = "network_id"
-        elif key == "allowedSites":
-            suggest = "allowed_sites"
-        elif key == "blockedSites":
-            suggest = "blocked_sites"
-        elif key == "blockedTlds":
-            suggest = "blocked_tlds"
-
-        if suggest:
-            pulumi.log.warn(f"Key '{key}' not found in IpsDnsFilter. Access the value via the '{suggest}' property getter instead.")
-
-    def __getitem__(self, key: str) -> Any:
-        IpsDnsFilter.__key_warning(key)
-        return super().__getitem__(key)
-
-    def get(self, key: str, default = None) -> Any:
-        IpsDnsFilter.__key_warning(key)
-        return super().get(key, default)
-
-    def __init__(__self__, *,
-                 filter: _builtins.str,
-                 name: _builtins.str,
-                 network_id: _builtins.str,
-                 allowed_sites: Optional[Sequence[_builtins.str]] = None,
-                 blocked_sites: Optional[Sequence[_builtins.str]] = None,
-                 blocked_tlds: Optional[Sequence[_builtins.str]] = None,
-                 description: Optional[_builtins.str] = None):
-        """
-        :param _builtins.str filter: Filter type that determines the predefined filtering level. Valid values are:
-                 * `none` - No predefined filtering
-                 * `work` - Work-appropriate filtering that blocks adult content
-                 * `family` - Family-friendly filtering that blocks adult content and other inappropriate sites
-        :param _builtins.str name: Name of the DNS filter. This is used to identify the filter in the UniFi interface.
-        :param _builtins.str network_id: Network ID this filter applies to. This should be a valid network ID from your UniFi configuration.
-        :param Sequence[_builtins.str] allowed_sites: List of allowed sites for this DNS filter. These domains will always be accessible regardless of other filtering rules. Each entry should be a valid domain name (e.g., `example.com`).
-        :param Sequence[_builtins.str] blocked_sites: List of blocked sites for this DNS filter. These domains will be blocked regardless of other filtering rules. Each entry should be a valid domain name (e.g., `example.com`).
-        :param Sequence[_builtins.str] blocked_tlds: List of blocked top-level domains (TLDs) for this DNS filter. All domains with these TLDs will be blocked. Each entry should be a valid TLD without the dot prefix (e.g., `xyz`, `info`).
-        :param _builtins.str description: Description of the DNS filter. This is used for documentation purposes only and does not affect functionality.
-        """
-        pulumi.set(__self__, "filter", filter)
-        pulumi.set(__self__, "name", name)
-        pulumi.set(__self__, "network_id", network_id)
-        if allowed_sites is not None:
-            pulumi.set(__self__, "allowed_sites", allowed_sites)
-        if blocked_sites is not None:
-            pulumi.set(__self__, "blocked_sites", blocked_sites)
-        if blocked_tlds is not None:
-            pulumi.set(__self__, "blocked_tlds", blocked_tlds)
-        if description is not None:
-            pulumi.set(__self__, "description", description)
-
-    @_builtins.property
-    @pulumi.getter
-    def filter(self) -> _builtins.str:
-        """
-        Filter type that determines the predefined filtering level. Valid values are:
-          * `none` - No predefined filtering
-          * `work` - Work-appropriate filtering that blocks adult content
-          * `family` - Family-friendly filtering that blocks adult content and other inappropriate sites
-        """
-        return pulumi.get(self, "filter")
-
-    @_builtins.property
-    @pulumi.getter
-    def name(self) -> _builtins.str:
-        """
-        Name of the DNS filter. This is used to identify the filter in the UniFi interface.
-        """
-        return pulumi.get(self, "name")
-
-    @_builtins.property
-    @pulumi.getter(name="networkId")
-    def network_id(self) -> _builtins.str:
-        """
-        Network ID this filter applies to. This should be a valid network ID from your UniFi configuration.
-        """
-        return pulumi.get(self, "network_id")
-
-    @_builtins.property
-    @pulumi.getter(name="allowedSites")
-    def allowed_sites(self) -> Optional[Sequence[_builtins.str]]:
-        """
-        List of allowed sites for this DNS filter. These domains will always be accessible regardless of other filtering rules. Each entry should be a valid domain name (e.g., `example.com`).
-        """
-        return pulumi.get(self, "allowed_sites")
-
-    @_builtins.property
-    @pulumi.getter(name="blockedSites")
-    def blocked_sites(self) -> Optional[Sequence[_builtins.str]]:
-        """
-        List of blocked sites for this DNS filter. These domains will be blocked regardless of other filtering rules. Each entry should be a valid domain name (e.g., `example.com`).
-        """
-        return pulumi.get(self, "blocked_sites")
-
-    @_builtins.property
-    @pulumi.getter(name="blockedTlds")
-    def blocked_tlds(self) -> Optional[Sequence[_builtins.str]]:
-        """
-        List of blocked top-level domains (TLDs) for this DNS filter. All domains with these TLDs will be blocked. Each entry should be a valid TLD without the dot prefix (e.g., `xyz`, `info`).
-        """
-        return pulumi.get(self, "blocked_tlds")
-
-    @_builtins.property
-    @pulumi.getter
-    def description(self) -> Optional[_builtins.str]:
-        """
-        Description of the DNS filter. This is used for documentation purposes only and does not affect functionality.
-        """
-        return pulumi.get(self, "description")
 
 
 @pulumi.output_type

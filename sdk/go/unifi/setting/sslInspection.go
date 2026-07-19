@@ -12,33 +12,6 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
-// Manages SSL Inspection settings for a UniFi site. SSL inspection is a security feature that allows the UniFi Security Gateway (USG) to inspect encrypted traffic for security threats.
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/setting"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := setting.NewSslInspection(ctx, "example", &setting.SslInspectionArgs{
-//				State: pulumi.String("advanced"),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
-// ```
 type SslInspection struct {
 	pulumi.CustomResourceState
 

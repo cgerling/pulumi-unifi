@@ -4,9 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
-/**
- * Manages LCD Monitor (LCM) settings for UniFi devices with built-in displays, such as the UniFi Dream Machine Pro (UDM Pro) and UniFi Network Video Recorder (UNVR).
- */
 export class LcdMonitor extends pulumi.CustomResource {
     /**
      * Get an existing LcdMonitor resource's state with the given name, ID, and optional extra
@@ -103,27 +100,27 @@ export interface LcdMonitorState {
     /**
      * The brightness level of the LCD display. Valid values are 1-100.
      */
-    brightness?: pulumi.Input<number | undefined>;
+    brightness?: pulumi.Input<number>;
     /**
      * Whether the LCD display is enabled.
      */
-    enabled?: pulumi.Input<boolean | undefined>;
+    enabled?: pulumi.Input<boolean>;
     /**
      * The time in seconds after which the display turns off when idle. Valid values are 10-3600.
      */
-    idleTimeout?: pulumi.Input<number | undefined>;
+    idleTimeout?: pulumi.Input<number>;
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string | undefined>;
+    site?: pulumi.Input<string>;
     /**
      * Whether to synchronize display settings across multiple devices.
      */
-    sync?: pulumi.Input<boolean | undefined>;
+    sync?: pulumi.Input<boolean>;
     /**
      * Whether touch interactions with the display are enabled.
      */
-    touchEvent?: pulumi.Input<boolean | undefined>;
+    touchEvent?: pulumi.Input<boolean>;
 }
 
 /**
@@ -133,7 +130,7 @@ export interface LcdMonitorArgs {
     /**
      * The brightness level of the LCD display. Valid values are 1-100.
      */
-    brightness?: pulumi.Input<number | undefined>;
+    brightness?: pulumi.Input<number>;
     /**
      * Whether the LCD display is enabled.
      */
@@ -141,17 +138,17 @@ export interface LcdMonitorArgs {
     /**
      * The time in seconds after which the display turns off when idle. Valid values are 10-3600.
      */
-    idleTimeout?: pulumi.Input<number | undefined>;
+    idleTimeout?: pulumi.Input<number>;
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string | undefined>;
+    site?: pulumi.Input<string>;
     /**
      * Whether to synchronize display settings across multiple devices.
      */
-    sync?: pulumi.Input<boolean | undefined>;
+    sync?: pulumi.Input<boolean>;
     /**
      * Whether touch interactions with the display are enabled.
      */
-    touchEvent?: pulumi.Input<boolean | undefined>;
+    touchEvent?: pulumi.Input<boolean>;
 }

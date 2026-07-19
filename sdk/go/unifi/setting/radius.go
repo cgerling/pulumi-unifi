@@ -11,67 +11,24 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
-// The `setting.Radius` resource manages the built-in RADIUS server configuration in the UniFi controller.
-//
-// This resource allows you to configure:
-//   - Authentication settings for network access control
-//   - Accounting settings for tracking user sessions
-//   - Security features like tunneled replies
-//
-// The RADIUS server is commonly used for:
-//   - Enterprise WPA2/WPA3-Enterprise wireless networks
-//   - 802.1X port-based network access control
-//   - Centralized user authentication and accounting
-//
-// When enabled, the RADIUS server can authenticate clients using the UniFi user database or external authentication sources.
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/setting"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := setting.NewRadius(ctx, "example", &setting.RadiusArgs{
-//				Enabled:           pulumi.Bool(true),
-//				Secret:            pulumi.String("your-secure-secret"),
-//				AccountingEnabled: pulumi.Bool(true),
-//				AuthPort:          pulumi.Int(1812),
-//				AccountingPort:    pulumi.Int(1813),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
-// ```
 type Radius struct {
 	pulumi.CustomResourceState
 
-	// Enable RADIUS accounting to track user sessions, including connection time, data usage, and other metrics. This information can be useful for billing, capacity planning, and security auditing. Defaults to `false`.
+	// Enable RADIUS accounting to track user sessions, including connection time, data usage, and other metrics. This information can be useful for billing, capacity planning, and security auditing.
 	AccountingEnabled pulumi.BoolPtrOutput `pulumi:"accountingEnabled"`
-	// The UDP port number for RADIUS accounting communications. The standard port is 1813. Only change this if you need to avoid port conflicts or match specific network requirements. Defaults to `1813`.
+	// The UDP port number for RADIUS accounting communications. The standard port is 1813. Only change this if you need to avoid port conflicts or match specific network requirements.
 	AccountingPort pulumi.IntPtrOutput `pulumi:"accountingPort"`
-	// The UDP port number for RADIUS authentication communications. The standard port is 1812. Only change this if you need to avoid port conflicts or match specific network requirements. Defaults to `1812`.
+	// The UDP port number for RADIUS authentication communications. The standard port is 1812. Only change this if you need to avoid port conflicts or match specific network requirements.
 	AuthPort pulumi.IntPtrOutput `pulumi:"authPort"`
-	// Enable or disable the built-in RADIUS server. When disabled, no RADIUS authentication or accounting services will be provided, affecting any network services that rely on RADIUS (like WPA2-Enterprise networks). Defaults to `true`.
+	// Enable or disable the built-in RADIUS server. When disabled, no RADIUS authentication or accounting services will be provided, affecting any network services that rely on RADIUS (like WPA2-Enterprise networks).
 	Enabled pulumi.BoolPtrOutput `pulumi:"enabled"`
-	// The interval (in seconds) at which the RADIUS server collects and updates statistics from connected clients. Default is 3600 seconds (1 hour). Lower values provide more frequent updates but increase server load. Defaults to `3600`.
+	// The interval (in seconds) at which the RADIUS server collects and updates statistics from connected clients. Default is 3600 seconds (1 hour). Lower values provide more frequent updates but increase server load.
 	InterimUpdateInterval pulumi.IntPtrOutput `pulumi:"interimUpdateInterval"`
-	// The shared secret passphrase used to authenticate RADIUS clients (like wireless access points) with the RADIUS server. This should be a strong, random string known only to the server and its clients. Defaults to ``.
+	// The shared secret passphrase used to authenticate RADIUS clients (like wireless access points) with the RADIUS server. This should be a strong, random string known only to the server and its clients.
 	Secret pulumi.StringPtrOutput `pulumi:"secret"`
 	// The name of the UniFi site where these RADIUS settings should be applied. If not specified, the default site will be used.
 	Site pulumi.StringOutput `pulumi:"site"`
-	// Enable encrypted communication between the RADIUS server and clients using RADIUS tunneling. This adds an extra layer of security by protecting RADIUS attributes in transit. Defaults to `true`.
+	// Enable encrypted communication between the RADIUS server and clients using RADIUS tunneling. This adds an extra layer of security by protecting RADIUS attributes in transit.
 	TunneledReply pulumi.BoolPtrOutput `pulumi:"tunneledReply"`
 }
 
@@ -112,40 +69,40 @@ func GetRadius(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Radius resources.
 type radiusState struct {
-	// Enable RADIUS accounting to track user sessions, including connection time, data usage, and other metrics. This information can be useful for billing, capacity planning, and security auditing. Defaults to `false`.
+	// Enable RADIUS accounting to track user sessions, including connection time, data usage, and other metrics. This information can be useful for billing, capacity planning, and security auditing.
 	AccountingEnabled *bool `pulumi:"accountingEnabled"`
-	// The UDP port number for RADIUS accounting communications. The standard port is 1813. Only change this if you need to avoid port conflicts or match specific network requirements. Defaults to `1813`.
+	// The UDP port number for RADIUS accounting communications. The standard port is 1813. Only change this if you need to avoid port conflicts or match specific network requirements.
 	AccountingPort *int `pulumi:"accountingPort"`
-	// The UDP port number for RADIUS authentication communications. The standard port is 1812. Only change this if you need to avoid port conflicts or match specific network requirements. Defaults to `1812`.
+	// The UDP port number for RADIUS authentication communications. The standard port is 1812. Only change this if you need to avoid port conflicts or match specific network requirements.
 	AuthPort *int `pulumi:"authPort"`
-	// Enable or disable the built-in RADIUS server. When disabled, no RADIUS authentication or accounting services will be provided, affecting any network services that rely on RADIUS (like WPA2-Enterprise networks). Defaults to `true`.
+	// Enable or disable the built-in RADIUS server. When disabled, no RADIUS authentication or accounting services will be provided, affecting any network services that rely on RADIUS (like WPA2-Enterprise networks).
 	Enabled *bool `pulumi:"enabled"`
-	// The interval (in seconds) at which the RADIUS server collects and updates statistics from connected clients. Default is 3600 seconds (1 hour). Lower values provide more frequent updates but increase server load. Defaults to `3600`.
+	// The interval (in seconds) at which the RADIUS server collects and updates statistics from connected clients. Default is 3600 seconds (1 hour). Lower values provide more frequent updates but increase server load.
 	InterimUpdateInterval *int `pulumi:"interimUpdateInterval"`
-	// The shared secret passphrase used to authenticate RADIUS clients (like wireless access points) with the RADIUS server. This should be a strong, random string known only to the server and its clients. Defaults to ``.
+	// The shared secret passphrase used to authenticate RADIUS clients (like wireless access points) with the RADIUS server. This should be a strong, random string known only to the server and its clients.
 	Secret *string `pulumi:"secret"`
 	// The name of the UniFi site where these RADIUS settings should be applied. If not specified, the default site will be used.
 	Site *string `pulumi:"site"`
-	// Enable encrypted communication between the RADIUS server and clients using RADIUS tunneling. This adds an extra layer of security by protecting RADIUS attributes in transit. Defaults to `true`.
+	// Enable encrypted communication between the RADIUS server and clients using RADIUS tunneling. This adds an extra layer of security by protecting RADIUS attributes in transit.
 	TunneledReply *bool `pulumi:"tunneledReply"`
 }
 
 type RadiusState struct {
-	// Enable RADIUS accounting to track user sessions, including connection time, data usage, and other metrics. This information can be useful for billing, capacity planning, and security auditing. Defaults to `false`.
+	// Enable RADIUS accounting to track user sessions, including connection time, data usage, and other metrics. This information can be useful for billing, capacity planning, and security auditing.
 	AccountingEnabled pulumi.BoolPtrInput
-	// The UDP port number for RADIUS accounting communications. The standard port is 1813. Only change this if you need to avoid port conflicts or match specific network requirements. Defaults to `1813`.
+	// The UDP port number for RADIUS accounting communications. The standard port is 1813. Only change this if you need to avoid port conflicts or match specific network requirements.
 	AccountingPort pulumi.IntPtrInput
-	// The UDP port number for RADIUS authentication communications. The standard port is 1812. Only change this if you need to avoid port conflicts or match specific network requirements. Defaults to `1812`.
+	// The UDP port number for RADIUS authentication communications. The standard port is 1812. Only change this if you need to avoid port conflicts or match specific network requirements.
 	AuthPort pulumi.IntPtrInput
-	// Enable or disable the built-in RADIUS server. When disabled, no RADIUS authentication or accounting services will be provided, affecting any network services that rely on RADIUS (like WPA2-Enterprise networks). Defaults to `true`.
+	// Enable or disable the built-in RADIUS server. When disabled, no RADIUS authentication or accounting services will be provided, affecting any network services that rely on RADIUS (like WPA2-Enterprise networks).
 	Enabled pulumi.BoolPtrInput
-	// The interval (in seconds) at which the RADIUS server collects and updates statistics from connected clients. Default is 3600 seconds (1 hour). Lower values provide more frequent updates but increase server load. Defaults to `3600`.
+	// The interval (in seconds) at which the RADIUS server collects and updates statistics from connected clients. Default is 3600 seconds (1 hour). Lower values provide more frequent updates but increase server load.
 	InterimUpdateInterval pulumi.IntPtrInput
-	// The shared secret passphrase used to authenticate RADIUS clients (like wireless access points) with the RADIUS server. This should be a strong, random string known only to the server and its clients. Defaults to ``.
+	// The shared secret passphrase used to authenticate RADIUS clients (like wireless access points) with the RADIUS server. This should be a strong, random string known only to the server and its clients.
 	Secret pulumi.StringPtrInput
 	// The name of the UniFi site where these RADIUS settings should be applied. If not specified, the default site will be used.
 	Site pulumi.StringPtrInput
-	// Enable encrypted communication between the RADIUS server and clients using RADIUS tunneling. This adds an extra layer of security by protecting RADIUS attributes in transit. Defaults to `true`.
+	// Enable encrypted communication between the RADIUS server and clients using RADIUS tunneling. This adds an extra layer of security by protecting RADIUS attributes in transit.
 	TunneledReply pulumi.BoolPtrInput
 }
 
@@ -154,41 +111,41 @@ func (RadiusState) ElementType() reflect.Type {
 }
 
 type radiusArgs struct {
-	// Enable RADIUS accounting to track user sessions, including connection time, data usage, and other metrics. This information can be useful for billing, capacity planning, and security auditing. Defaults to `false`.
+	// Enable RADIUS accounting to track user sessions, including connection time, data usage, and other metrics. This information can be useful for billing, capacity planning, and security auditing.
 	AccountingEnabled *bool `pulumi:"accountingEnabled"`
-	// The UDP port number for RADIUS accounting communications. The standard port is 1813. Only change this if you need to avoid port conflicts or match specific network requirements. Defaults to `1813`.
+	// The UDP port number for RADIUS accounting communications. The standard port is 1813. Only change this if you need to avoid port conflicts or match specific network requirements.
 	AccountingPort *int `pulumi:"accountingPort"`
-	// The UDP port number for RADIUS authentication communications. The standard port is 1812. Only change this if you need to avoid port conflicts or match specific network requirements. Defaults to `1812`.
+	// The UDP port number for RADIUS authentication communications. The standard port is 1812. Only change this if you need to avoid port conflicts or match specific network requirements.
 	AuthPort *int `pulumi:"authPort"`
-	// Enable or disable the built-in RADIUS server. When disabled, no RADIUS authentication or accounting services will be provided, affecting any network services that rely on RADIUS (like WPA2-Enterprise networks). Defaults to `true`.
+	// Enable or disable the built-in RADIUS server. When disabled, no RADIUS authentication or accounting services will be provided, affecting any network services that rely on RADIUS (like WPA2-Enterprise networks).
 	Enabled *bool `pulumi:"enabled"`
-	// The interval (in seconds) at which the RADIUS server collects and updates statistics from connected clients. Default is 3600 seconds (1 hour). Lower values provide more frequent updates but increase server load. Defaults to `3600`.
+	// The interval (in seconds) at which the RADIUS server collects and updates statistics from connected clients. Default is 3600 seconds (1 hour). Lower values provide more frequent updates but increase server load.
 	InterimUpdateInterval *int `pulumi:"interimUpdateInterval"`
-	// The shared secret passphrase used to authenticate RADIUS clients (like wireless access points) with the RADIUS server. This should be a strong, random string known only to the server and its clients. Defaults to ``.
+	// The shared secret passphrase used to authenticate RADIUS clients (like wireless access points) with the RADIUS server. This should be a strong, random string known only to the server and its clients.
 	Secret *string `pulumi:"secret"`
 	// The name of the UniFi site where these RADIUS settings should be applied. If not specified, the default site will be used.
 	Site *string `pulumi:"site"`
-	// Enable encrypted communication between the RADIUS server and clients using RADIUS tunneling. This adds an extra layer of security by protecting RADIUS attributes in transit. Defaults to `true`.
+	// Enable encrypted communication between the RADIUS server and clients using RADIUS tunneling. This adds an extra layer of security by protecting RADIUS attributes in transit.
 	TunneledReply *bool `pulumi:"tunneledReply"`
 }
 
 // The set of arguments for constructing a Radius resource.
 type RadiusArgs struct {
-	// Enable RADIUS accounting to track user sessions, including connection time, data usage, and other metrics. This information can be useful for billing, capacity planning, and security auditing. Defaults to `false`.
+	// Enable RADIUS accounting to track user sessions, including connection time, data usage, and other metrics. This information can be useful for billing, capacity planning, and security auditing.
 	AccountingEnabled pulumi.BoolPtrInput
-	// The UDP port number for RADIUS accounting communications. The standard port is 1813. Only change this if you need to avoid port conflicts or match specific network requirements. Defaults to `1813`.
+	// The UDP port number for RADIUS accounting communications. The standard port is 1813. Only change this if you need to avoid port conflicts or match specific network requirements.
 	AccountingPort pulumi.IntPtrInput
-	// The UDP port number for RADIUS authentication communications. The standard port is 1812. Only change this if you need to avoid port conflicts or match specific network requirements. Defaults to `1812`.
+	// The UDP port number for RADIUS authentication communications. The standard port is 1812. Only change this if you need to avoid port conflicts or match specific network requirements.
 	AuthPort pulumi.IntPtrInput
-	// Enable or disable the built-in RADIUS server. When disabled, no RADIUS authentication or accounting services will be provided, affecting any network services that rely on RADIUS (like WPA2-Enterprise networks). Defaults to `true`.
+	// Enable or disable the built-in RADIUS server. When disabled, no RADIUS authentication or accounting services will be provided, affecting any network services that rely on RADIUS (like WPA2-Enterprise networks).
 	Enabled pulumi.BoolPtrInput
-	// The interval (in seconds) at which the RADIUS server collects and updates statistics from connected clients. Default is 3600 seconds (1 hour). Lower values provide more frequent updates but increase server load. Defaults to `3600`.
+	// The interval (in seconds) at which the RADIUS server collects and updates statistics from connected clients. Default is 3600 seconds (1 hour). Lower values provide more frequent updates but increase server load.
 	InterimUpdateInterval pulumi.IntPtrInput
-	// The shared secret passphrase used to authenticate RADIUS clients (like wireless access points) with the RADIUS server. This should be a strong, random string known only to the server and its clients. Defaults to ``.
+	// The shared secret passphrase used to authenticate RADIUS clients (like wireless access points) with the RADIUS server. This should be a strong, random string known only to the server and its clients.
 	Secret pulumi.StringPtrInput
 	// The name of the UniFi site where these RADIUS settings should be applied. If not specified, the default site will be used.
 	Site pulumi.StringPtrInput
-	// Enable encrypted communication between the RADIUS server and clients using RADIUS tunneling. This adds an extra layer of security by protecting RADIUS attributes in transit. Defaults to `true`.
+	// Enable encrypted communication between the RADIUS server and clients using RADIUS tunneling. This adds an extra layer of security by protecting RADIUS attributes in transit.
 	TunneledReply pulumi.BoolPtrInput
 }
 
@@ -279,32 +236,32 @@ func (o RadiusOutput) ToRadiusOutputWithContext(ctx context.Context) RadiusOutpu
 	return o
 }
 
-// Enable RADIUS accounting to track user sessions, including connection time, data usage, and other metrics. This information can be useful for billing, capacity planning, and security auditing. Defaults to `false`.
+// Enable RADIUS accounting to track user sessions, including connection time, data usage, and other metrics. This information can be useful for billing, capacity planning, and security auditing.
 func (o RadiusOutput) AccountingEnabled() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Radius) pulumi.BoolPtrOutput { return v.AccountingEnabled }).(pulumi.BoolPtrOutput)
 }
 
-// The UDP port number for RADIUS accounting communications. The standard port is 1813. Only change this if you need to avoid port conflicts or match specific network requirements. Defaults to `1813`.
+// The UDP port number for RADIUS accounting communications. The standard port is 1813. Only change this if you need to avoid port conflicts or match specific network requirements.
 func (o RadiusOutput) AccountingPort() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Radius) pulumi.IntPtrOutput { return v.AccountingPort }).(pulumi.IntPtrOutput)
 }
 
-// The UDP port number for RADIUS authentication communications. The standard port is 1812. Only change this if you need to avoid port conflicts or match specific network requirements. Defaults to `1812`.
+// The UDP port number for RADIUS authentication communications. The standard port is 1812. Only change this if you need to avoid port conflicts or match specific network requirements.
 func (o RadiusOutput) AuthPort() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Radius) pulumi.IntPtrOutput { return v.AuthPort }).(pulumi.IntPtrOutput)
 }
 
-// Enable or disable the built-in RADIUS server. When disabled, no RADIUS authentication or accounting services will be provided, affecting any network services that rely on RADIUS (like WPA2-Enterprise networks). Defaults to `true`.
+// Enable or disable the built-in RADIUS server. When disabled, no RADIUS authentication or accounting services will be provided, affecting any network services that rely on RADIUS (like WPA2-Enterprise networks).
 func (o RadiusOutput) Enabled() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Radius) pulumi.BoolPtrOutput { return v.Enabled }).(pulumi.BoolPtrOutput)
 }
 
-// The interval (in seconds) at which the RADIUS server collects and updates statistics from connected clients. Default is 3600 seconds (1 hour). Lower values provide more frequent updates but increase server load. Defaults to `3600`.
+// The interval (in seconds) at which the RADIUS server collects and updates statistics from connected clients. Default is 3600 seconds (1 hour). Lower values provide more frequent updates but increase server load.
 func (o RadiusOutput) InterimUpdateInterval() pulumi.IntPtrOutput {
 	return o.ApplyT(func(v *Radius) pulumi.IntPtrOutput { return v.InterimUpdateInterval }).(pulumi.IntPtrOutput)
 }
 
-// The shared secret passphrase used to authenticate RADIUS clients (like wireless access points) with the RADIUS server. This should be a strong, random string known only to the server and its clients. Defaults to “.
+// The shared secret passphrase used to authenticate RADIUS clients (like wireless access points) with the RADIUS server. This should be a strong, random string known only to the server and its clients.
 func (o RadiusOutput) Secret() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *Radius) pulumi.StringPtrOutput { return v.Secret }).(pulumi.StringPtrOutput)
 }
@@ -314,7 +271,7 @@ func (o RadiusOutput) Site() pulumi.StringOutput {
 	return o.ApplyT(func(v *Radius) pulumi.StringOutput { return v.Site }).(pulumi.StringOutput)
 }
 
-// Enable encrypted communication between the RADIUS server and clients using RADIUS tunneling. This adds an extra layer of security by protecting RADIUS attributes in transit. Defaults to `true`.
+// Enable encrypted communication between the RADIUS server and clients using RADIUS tunneling. This adds an extra layer of security by protecting RADIUS attributes in transit.
 func (o RadiusOutput) TunneledReply() pulumi.BoolPtrOutput {
 	return o.ApplyT(func(v *Radius) pulumi.BoolPtrOutput { return v.TunneledReply }).(pulumi.BoolPtrOutput)
 }

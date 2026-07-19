@@ -12,34 +12,6 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
-// Manages Teleport settings for a UniFi site. Teleport is a secure remote access technology that allows authorized users to connect to UniFi devices from anywhere.
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/setting"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := setting.NewTeleport(ctx, "example", &setting.TeleportArgs{
-//				Enabled: pulumi.Bool(true),
-//				Subnet:  pulumi.String("192.168.100.0/24"),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
-// ```
 type Teleport struct {
 	pulumi.CustomResourceState
 

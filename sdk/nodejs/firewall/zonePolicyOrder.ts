@@ -4,79 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
-/**
- * The `unifi.firewall.ZonePolicyOrder` resource controls the ordering of the custom `unifi.firewall.ZonePolicy` policies within a single source > destination zone pair.
- *
- * This resource manages the relative order of ONLY the custom policies listed in `beforePredefinedIds` and `afterPredefinedIds` within the zone pair. Any other (unlisted) custom policies in the same zone pair are left untouched and ignored — they are neither reordered by this resource nor surfaced in its state.
- *
- * Policies are evaluated top-to-bottom; the order within each list is significant. Policies listed in `beforePredefinedIds` run BEFORE the controller's predefined (built-in) policies for the zone pair, and policies listed in `afterPredefinedIds` run AFTER them. At least one of the two lists must be set; prefer OMITTING an unused list over setting it to an empty list (`[]`).
- *
- * Because `index` on `unifi.firewall.ZonePolicy` is controller-assigned and read-only, this resource is the supported way to make per-zone-pair policy order deterministic. Use `dependsOn` to ensure the referenced policies exist before this resource is applied.
- *
- * > Deleting this resource does NOT change the order on the controller; it only stops Terraform from managing the ordering for the zone pair.
- *
- * > This is experimental feature, that requires UniFi OS 9.0.0 or later and Zone Based Firewall feature enabled. Check [official documentation](https://help.ui.com/hc/en-us/articles/28223082254743-Migrating-to-Zone-Based-Firewalls-in-UniFi) how to migrate to Zone-Based firewalls.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as unifi from "@pulumiverse/unifi";
- *
- * const network = new unifi.Network("network", {
- *     name: "my-network",
- *     purpose: "corporate",
- *     subnet: "10.0.10.0/24",
- *     vlanId: 400,
- * });
- * const src = new unifi.firewall.Zone("src", {
- *     name: "my-source-zone",
- *     networks: [network.id],
- * });
- * const dst = new unifi.firewall.Zone("dst", {name: "my-destination-zone"});
- * const allowWeb = new unifi.firewall.ZonePolicy("allow_web", {
- *     name: "allow-web",
- *     action: "ALLOW",
- *     protocol: "tcp_udp",
- *     source: {
- *         zoneId: src.id,
- *     },
- *     destination: {
- *         zoneId: dst.id,
- *     },
- * });
- * const blockRest = new unifi.firewall.ZonePolicy("block_rest", {
- *     name: "block-rest",
- *     action: "BLOCK",
- *     protocol: "all",
- *     source: {
- *         zoneId: src.id,
- *     },
- *     destination: {
- *         zoneId: dst.id,
- *     },
- * });
- * // Control the evaluation order of the custom policies in the src -> dst zone pair.
- * // `allow_web` runs before the predefined policies; `block_rest` runs after them.
- * // Order within each list is significant.
- * const order = new unifi.firewall.ZonePolicyOrder("order", {
- *     sourceZoneId: src.id,
- *     destinationZoneId: dst.id,
- *     beforePredefinedIds: [allowWeb.id],
- *     afterPredefinedIds: [blockRest.id],
- * });
- * ```
- *
- * ## Import
- *
- * The `pulumi import` command can be used, for example:
- *
- * import the policy order for a zone pair: <site>:<source_zone_id>:<destination_zone_id>
- *
- * ```sh
- * $ pulumi import unifi:firewall/zonePolicyOrder:ZonePolicyOrder order default:5dc28e5e9106d105bdc87217:5dc28e5e9106d105bdc87218
- * ```
- */
 export class ZonePolicyOrder extends pulumi.CustomResource {
     /**
      * Get an existing ZonePolicyOrder resource's state with the given name, ID, and optional extra
@@ -170,23 +97,23 @@ export interface ZonePolicyOrderState {
     /**
      * Ordered IDs of custom `unifi.firewall.ZonePolicy` policies that run AFTER the predefined (built-in) policies for this zone pair. Order within the list is significant. Omit this attribute when it is unused rather than setting it to an empty list (`[]`).
      */
-    afterPredefinedIds?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    afterPredefinedIds?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * Ordered IDs of custom `unifi.firewall.ZonePolicy` policies that run BEFORE the predefined (built-in) policies for this zone pair. Order within the list is significant. Omit this attribute when it is unused rather than setting it to an empty list (`[]`).
      */
-    beforePredefinedIds?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    beforePredefinedIds?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * ID of the destination firewall zone of the pair whose policy order is managed. Changing the zone pair forces a new resource.
      */
-    destinationZoneId?: pulumi.Input<string | undefined>;
+    destinationZoneId?: pulumi.Input<string>;
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string | undefined>;
+    site?: pulumi.Input<string>;
     /**
      * ID of the source firewall zone of the pair whose policy order is managed. Changing the zone pair forces a new resource.
      */
-    sourceZoneId?: pulumi.Input<string | undefined>;
+    sourceZoneId?: pulumi.Input<string>;
 }
 
 /**
@@ -196,11 +123,11 @@ export interface ZonePolicyOrderArgs {
     /**
      * Ordered IDs of custom `unifi.firewall.ZonePolicy` policies that run AFTER the predefined (built-in) policies for this zone pair. Order within the list is significant. Omit this attribute when it is unused rather than setting it to an empty list (`[]`).
      */
-    afterPredefinedIds?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    afterPredefinedIds?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * Ordered IDs of custom `unifi.firewall.ZonePolicy` policies that run BEFORE the predefined (built-in) policies for this zone pair. Order within the list is significant. Omit this attribute when it is unused rather than setting it to an empty list (`[]`).
      */
-    beforePredefinedIds?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    beforePredefinedIds?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * ID of the destination firewall zone of the pair whose policy order is managed. Changing the zone pair forces a new resource.
      */
@@ -208,7 +135,7 @@ export interface ZonePolicyOrderArgs {
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string | undefined>;
+    site?: pulumi.Input<string>;
     /**
      * ID of the source firewall zone of the pair whose policy order is managed. Changing the zone pair forces a new resource.
      */

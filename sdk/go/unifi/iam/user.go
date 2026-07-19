@@ -12,54 +12,6 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
-// The `iam.User` resource manages network clients in the UniFi controller, which are identified by their unique MAC addresses.
-//
-// This resource allows you to manage:
-//   - Fixed IP assignments
-//   - User groups and network access
-//   - Network blocking and restrictions
-//   - Local DNS records
-//
-// Important Notes:
-//   - Users are automatically created in the controller when devices connect to the network
-//   - By default, this resource can take over management of existing users (controlled by `allowExisting`)
-//   - Users can be 'forgotten' on destroy (controlled by `skipForgetOnDestroy`)
-//
-// This resource is particularly useful for:
-//   - Managing static IP assignments
-//   - Implementing access control
-//   - Setting up local DNS records
-//   - Organizing devices into user groups
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/iam"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := iam.NewUser(ctx, "test", &iam.UserArgs{
-//				Mac:       pulumi.String("01:23:45:67:89:AB"),
-//				Name:      pulumi.String("some client"),
-//				Note:      pulumi.String("my note"),
-//				FixedIp:   pulumi.String("10.0.0.50"),
-//				NetworkId: pulumi.Any(myVlan.Id),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
-// ```
 type User struct {
 	pulumi.CustomResourceState
 

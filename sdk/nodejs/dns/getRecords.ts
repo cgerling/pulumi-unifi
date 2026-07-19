@@ -6,18 +6,6 @@ import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 import * as utilities from "../utilities";
 
-/**
- * Retrieves information about a all DNS records.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as unifi from "@pulumiverse/unifi";
- *
- * const _default = unifi.dns.getRecords({});
- * ```
- */
 export function getRecords(args?: GetRecordsArgs, opts?: pulumi.InvokeOptions): Promise<GetRecordsResult> {
     args = args || {};
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
@@ -30,9 +18,6 @@ export function getRecords(args?: GetRecordsArgs, opts?: pulumi.InvokeOptions): 
  * A collection of arguments for invoking getRecords.
  */
 export interface GetRecordsArgs {
-    /**
-     * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
-     */
     site?: string;
 }
 
@@ -44,27 +29,9 @@ export interface GetRecordsResult {
      * The provider-assigned unique ID for this managed resource.
      */
     readonly id: string;
-    /**
-     * The list of DNS records.
-     */
     readonly results: outputs.dns.GetRecordsResult[];
-    /**
-     * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
-     */
     readonly site: string;
 }
-/**
- * Retrieves information about a all DNS records.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as unifi from "@pulumiverse/unifi";
- *
- * const _default = unifi.dns.getRecords({});
- * ```
- */
 export function getRecordsOutput(args?: GetRecordsOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetRecordsResult> {
     args = args || {};
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
@@ -77,8 +44,5 @@ export function getRecordsOutput(args?: GetRecordsOutputArgs, opts?: pulumi.Invo
  * A collection of arguments for invoking getRecords.
  */
 export interface GetRecordsOutputArgs {
-    /**
-     * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
-     */
-    site?: pulumi.Input<string | undefined>;
+    site?: pulumi.Input<string>;
 }

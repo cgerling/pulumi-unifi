@@ -13,7 +13,7 @@ namespace Pulumiverse.Unifi.Firewall
     /// <summary>
     /// The `unifi.firewall.ZonePolicy` resource manages firewall policies between zones in the UniFi controller. This resource allows you to create, update, and delete policies that define allowed or blocked traffic between zones.
     /// 
-    /// &gt; This is experimental feature, that requires UniFi OS 9.0.0 or later and Zone Based Firewall feature enabled. Check [official documentation](https://help.ui.com/hc/en-us/articles/28223082254743-Migrating-to-Zone-Based-Firewalls-in-UniFi) how to migate to Zone-Based firewalls.
+    /// !&gt; This is experimental feature, that requires UniFi OS 9.0.0 or later and Zone Based Firewall feature enabled. Check [official documentation](https://help.ui.com/hc/en-us/articles/28223082254743-Migrating-to-Zone-Based-Firewalls-in-UniFi) how to migate to Zone-Based firewalls.
     /// 
     /// ## Example Usage
     /// 
@@ -110,8 +110,6 @@ namespace Pulumiverse.Unifi.Firewall
     /// 
     /// ## Import
     /// 
-    /// The `pulumi import` command can be used, for example:
-    /// 
     /// import from provider configured site
     /// 
     /// ```sh
@@ -170,7 +168,7 @@ namespace Pulumiverse.Unifi.Firewall
         public Output<bool> Enabled { get; private set; } = null!;
 
         /// <summary>
-        /// Priority index for the policy. This value is assigned by the UniFi controller and cannot be set directly. To control policy ordering, use the `unifi.firewall.ZonePolicyOrder` resource (planned for future release).
+        /// Priority index for the policy.
         /// </summary>
         [Output("index")]
         public Output<int> Index { get; private set; } = null!;
@@ -325,6 +323,12 @@ namespace Pulumiverse.Unifi.Firewall
         public Input<bool>? Enabled { get; set; }
 
         /// <summary>
+        /// Priority index for the policy.
+        /// </summary>
+        [Input("index")]
+        public Input<int>? Index { get; set; }
+
+        /// <summary>
         /// Optionally match on only IPv4 or IPv6. Valid values are `BOTH`, `IPV4`, or `IPV6`.
         /// </summary>
         [Input("ipVersion")]
@@ -435,7 +439,7 @@ namespace Pulumiverse.Unifi.Firewall
         public Input<bool>? Enabled { get; set; }
 
         /// <summary>
-        /// Priority index for the policy. This value is assigned by the UniFi controller and cannot be set directly. To control policy ordering, use the `unifi.firewall.ZonePolicyOrder` resource (planned for future release).
+        /// Priority index for the policy.
         /// </summary>
         [Input("index")]
         public Input<int>? Index { get; set; }

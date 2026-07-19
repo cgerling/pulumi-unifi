@@ -11,90 +11,13 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
-// The `setting.Ips` resource allows you to configure the Intrusion Prevention System (IPS) settings for your UniFi network. IPS provides network threat protection by monitoring, detecting, and preventing malicious traffic based on configured rules and policies. Requires controller version 7.4 or later
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi"
-//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/setting"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			test, err := unifi.NewNetwork(ctx, "test", &unifi.NetworkArgs{
-//				Name:    pulumi.String("My Network"),
-//				Purpose: pulumi.String("corporate"),
-//				Subnet:  pulumi.String("192.168.1.0/24"),
-//				VlanId:  pulumi.Int(10),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			_, err = setting.NewIps(ctx, "example", &setting.IpsArgs{
-//				IpsMode: pulumi.String("ips"),
-//				EnabledNetworks: pulumi.StringArray{
-//					test.ID(),
-//				},
-//				AdvancedFilteringPreference: pulumi.String("manual"),
-//				EnabledCategories: pulumi.StringArray{
-//					pulumi.String("emerging-dos"),
-//					pulumi.String("emerging-exploit"),
-//					pulumi.String("emerging-malware"),
-//				},
-//				AdBlockedNetworks: pulumi.StringArray{
-//					test.ID(),
-//				},
-//				Honeypots: setting.IpsHoneypotArray{
-//					&setting.IpsHoneypotArgs{
-//						IpAddress: pulumi.String("192.168.1.10"),
-//						NetworkId: test.ID(),
-//					},
-//				},
-//				DnsFilters: setting.IpsDnsFilterArray{
-//					&setting.IpsDnsFilterArgs{
-//						Name:        pulumi.String("Work Filter"),
-//						Filter:      pulumi.String("work"),
-//						Description: pulumi.String("Block non-work related sites"),
-//						AllowedSites: pulumi.StringArray{
-//							pulumi.String("example.com"),
-//							pulumi.String("company.com"),
-//						},
-//						BlockedSites: pulumi.StringArray{
-//							pulumi.String("gaming.example.com"),
-//							pulumi.String("social.example.com"),
-//						},
-//						BlockedTld: []string{
-//							"xyz",
-//						},
-//					},
-//				},
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
-// ```
 type Ips struct {
 	pulumi.CustomResourceState
 
-	// List of network IDs to enable ad blocking for. If any networks are configured, ad blocking will be automatically enabled. Each entry should be a valid network ID from your UniFi configuration. Leave empty to disable ad blocking.
-	AdBlockedNetworks pulumi.StringArrayOutput `pulumi:"adBlockedNetworks"`
 	// The advanced filtering preference for IPS. Valid values are:
 	//   * `disabled` - Advanced filtering is disabled
 	//   * `manual` - Advanced filtering is enabled and manually configured
 	AdvancedFilteringPreference pulumi.StringOutput `pulumi:"advancedFilteringPreference"`
-	// DNS filters configuration. If any filters are configured, DNS filtering will be automatically enabled. Each filter can be applied to a specific network and provides content filtering capabilities.
-	DnsFilters IpsDnsFilterArrayOutput `pulumi:"dnsFilters"`
 	// List of enabled IPS threat categories. Each entry enables detection and prevention for a specific type of threat. The list of valid categories includes common threats like malware, exploits, scanning, and policy violations. See the validator for the complete list of available categories.
 	EnabledCategories pulumi.StringArrayOutput `pulumi:"enabledCategories"`
 	// List of network IDs to enable IPS protection for. Each entry should be a valid network ID from your UniFi configuration. IPS will only monitor and protect traffic on these networks.
@@ -147,14 +70,10 @@ func GetIps(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Ips resources.
 type ipsState struct {
-	// List of network IDs to enable ad blocking for. If any networks are configured, ad blocking will be automatically enabled. Each entry should be a valid network ID from your UniFi configuration. Leave empty to disable ad blocking.
-	AdBlockedNetworks []string `pulumi:"adBlockedNetworks"`
 	// The advanced filtering preference for IPS. Valid values are:
 	//   * `disabled` - Advanced filtering is disabled
 	//   * `manual` - Advanced filtering is enabled and manually configured
 	AdvancedFilteringPreference *string `pulumi:"advancedFilteringPreference"`
-	// DNS filters configuration. If any filters are configured, DNS filtering will be automatically enabled. Each filter can be applied to a specific network and provides content filtering capabilities.
-	DnsFilters []IpsDnsFilter `pulumi:"dnsFilters"`
 	// List of enabled IPS threat categories. Each entry enables detection and prevention for a specific type of threat. The list of valid categories includes common threats like malware, exploits, scanning, and policy violations. See the validator for the complete list of available categories.
 	EnabledCategories []string `pulumi:"enabledCategories"`
 	// List of network IDs to enable IPS protection for. Each entry should be a valid network ID from your UniFi configuration. IPS will only monitor and protect traffic on these networks.
@@ -178,14 +97,10 @@ type ipsState struct {
 }
 
 type IpsState struct {
-	// List of network IDs to enable ad blocking for. If any networks are configured, ad blocking will be automatically enabled. Each entry should be a valid network ID from your UniFi configuration. Leave empty to disable ad blocking.
-	AdBlockedNetworks pulumi.StringArrayInput
 	// The advanced filtering preference for IPS. Valid values are:
 	//   * `disabled` - Advanced filtering is disabled
 	//   * `manual` - Advanced filtering is enabled and manually configured
 	AdvancedFilteringPreference pulumi.StringPtrInput
-	// DNS filters configuration. If any filters are configured, DNS filtering will be automatically enabled. Each filter can be applied to a specific network and provides content filtering capabilities.
-	DnsFilters IpsDnsFilterArrayInput
 	// List of enabled IPS threat categories. Each entry enables detection and prevention for a specific type of threat. The list of valid categories includes common threats like malware, exploits, scanning, and policy violations. See the validator for the complete list of available categories.
 	EnabledCategories pulumi.StringArrayInput
 	// List of network IDs to enable IPS protection for. Each entry should be a valid network ID from your UniFi configuration. IPS will only monitor and protect traffic on these networks.
@@ -213,14 +128,10 @@ func (IpsState) ElementType() reflect.Type {
 }
 
 type ipsArgs struct {
-	// List of network IDs to enable ad blocking for. If any networks are configured, ad blocking will be automatically enabled. Each entry should be a valid network ID from your UniFi configuration. Leave empty to disable ad blocking.
-	AdBlockedNetworks []string `pulumi:"adBlockedNetworks"`
 	// The advanced filtering preference for IPS. Valid values are:
 	//   * `disabled` - Advanced filtering is disabled
 	//   * `manual` - Advanced filtering is enabled and manually configured
 	AdvancedFilteringPreference *string `pulumi:"advancedFilteringPreference"`
-	// DNS filters configuration. If any filters are configured, DNS filtering will be automatically enabled. Each filter can be applied to a specific network and provides content filtering capabilities.
-	DnsFilters []IpsDnsFilter `pulumi:"dnsFilters"`
 	// List of enabled IPS threat categories. Each entry enables detection and prevention for a specific type of threat. The list of valid categories includes common threats like malware, exploits, scanning, and policy violations. See the validator for the complete list of available categories.
 	EnabledCategories []string `pulumi:"enabledCategories"`
 	// List of network IDs to enable IPS protection for. Each entry should be a valid network ID from your UniFi configuration. IPS will only monitor and protect traffic on these networks.
@@ -245,14 +156,10 @@ type ipsArgs struct {
 
 // The set of arguments for constructing a Ips resource.
 type IpsArgs struct {
-	// List of network IDs to enable ad blocking for. If any networks are configured, ad blocking will be automatically enabled. Each entry should be a valid network ID from your UniFi configuration. Leave empty to disable ad blocking.
-	AdBlockedNetworks pulumi.StringArrayInput
 	// The advanced filtering preference for IPS. Valid values are:
 	//   * `disabled` - Advanced filtering is disabled
 	//   * `manual` - Advanced filtering is enabled and manually configured
 	AdvancedFilteringPreference pulumi.StringPtrInput
-	// DNS filters configuration. If any filters are configured, DNS filtering will be automatically enabled. Each filter can be applied to a specific network and provides content filtering capabilities.
-	DnsFilters IpsDnsFilterArrayInput
 	// List of enabled IPS threat categories. Each entry enables detection and prevention for a specific type of threat. The list of valid categories includes common threats like malware, exploits, scanning, and policy violations. See the validator for the complete list of available categories.
 	EnabledCategories pulumi.StringArrayInput
 	// List of network IDs to enable IPS protection for. Each entry should be a valid network ID from your UniFi configuration. IPS will only monitor and protect traffic on these networks.
@@ -362,21 +269,11 @@ func (o IpsOutput) ToIpsOutputWithContext(ctx context.Context) IpsOutput {
 	return o
 }
 
-// List of network IDs to enable ad blocking for. If any networks are configured, ad blocking will be automatically enabled. Each entry should be a valid network ID from your UniFi configuration. Leave empty to disable ad blocking.
-func (o IpsOutput) AdBlockedNetworks() pulumi.StringArrayOutput {
-	return o.ApplyT(func(v *Ips) pulumi.StringArrayOutput { return v.AdBlockedNetworks }).(pulumi.StringArrayOutput)
-}
-
 // The advanced filtering preference for IPS. Valid values are:
 //   - `disabled` - Advanced filtering is disabled
 //   - `manual` - Advanced filtering is enabled and manually configured
 func (o IpsOutput) AdvancedFilteringPreference() pulumi.StringOutput {
 	return o.ApplyT(func(v *Ips) pulumi.StringOutput { return v.AdvancedFilteringPreference }).(pulumi.StringOutput)
-}
-
-// DNS filters configuration. If any filters are configured, DNS filtering will be automatically enabled. Each filter can be applied to a specific network and provides content filtering capabilities.
-func (o IpsOutput) DnsFilters() IpsDnsFilterArrayOutput {
-	return o.ApplyT(func(v *Ips) IpsDnsFilterArrayOutput { return v.DnsFilters }).(IpsDnsFilterArrayOutput)
 }
 
 // List of enabled IPS threat categories. Each entry enables detection and prevention for a specific type of threat. The list of valid categories includes common threats like malware, exploits, scanning, and policy violations. See the validator for the complete list of available categories.

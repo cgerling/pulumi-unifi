@@ -40,25 +40,16 @@ class GetRadiusProfileResult:
     @_builtins.property
     @pulumi.getter
     def id(self) -> _builtins.str:
-        """
-        The ID of this AP group.
-        """
         return pulumi.get(self, "id")
 
     @_builtins.property
     @pulumi.getter
     def name(self) -> Optional[_builtins.str]:
-        """
-        The name of the RADIUS profile to look up. Defaults to `Default`.
-        """
         return pulumi.get(self, "name")
 
     @_builtins.property
     @pulumi.getter
     def site(self) -> _builtins.str:
-        """
-        The name of the site the RADIUS profile is associated with.
-        """
         return pulumi.get(self, "site")
 
 
@@ -77,11 +68,7 @@ def get_radius_profile(name: Optional[_builtins.str] = None,
                        site: Optional[_builtins.str] = None,
                        opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetRadiusProfileResult:
     """
-    `RadiusProfile` data source can be used to retrieve the ID for a RADIUS profile by name.
-
-
-    :param _builtins.str name: The name of the RADIUS profile to look up. Defaults to `Default`.
-    :param _builtins.str site: The name of the site the RADIUS profile is associated with.
+    Use this data source to access information about an existing resource.
     """
     __args__ = dict()
     __args__['name'] = name
@@ -93,15 +80,11 @@ def get_radius_profile(name: Optional[_builtins.str] = None,
         id=pulumi.get(__ret__, 'id'),
         name=pulumi.get(__ret__, 'name'),
         site=pulumi.get(__ret__, 'site'))
-def get_radius_profile_output(name: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
-                              site: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
+def get_radius_profile_output(name: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
+                              site: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
                               opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetRadiusProfileResult]:
     """
-    `RadiusProfile` data source can be used to retrieve the ID for a RADIUS profile by name.
-
-
-    :param _builtins.str name: The name of the RADIUS profile to look up. Defaults to `Default`.
-    :param _builtins.str site: The name of the site the RADIUS profile is associated with.
+    Use this data source to access information about an existing resource.
     """
     __args__ = dict()
     __args__['name'] = name

@@ -6,52 +6,6 @@ import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 import * as utilities from "../utilities";
 
-/**
- * The `unifi.setting.Mgmt` resource manages site-wide management settings in the UniFi controller.
- *
- * This resource allows you to configure important management features including:
- *   * Automatic firmware upgrades for UniFi devices
- *   * SSH access for advanced configuration and troubleshooting
- *   * SSH key management for secure remote access
- *
- * These settings affect how the UniFi controller manages devices at the site level. They are particularly important for:
- *   * Maintaining device security through automatic updates
- *   * Enabling secure remote administration
- *   * Implementing SSH key-based authentication
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as unifi from "@pulumiverse/unifi";
- *
- * const example = new unifi.Site("example", {description: "example"});
- * const exampleMgmt = new unifi.setting.Mgmt("example", {
- *     site: example.name,
- *     autoUpgrade: true,
- *     autoUpgradeHour: 3,
- *     advancedFeatureEnabled: true,
- *     alertEnabled: true,
- *     bootSound: false,
- *     debugToolsEnabled: true,
- *     directConnectEnabled: false,
- *     ledEnabled: true,
- *     outdoorModeEnabled: false,
- *     unifiIdpEnabled: false,
- *     wifimanEnabled: true,
- *     sshEnabled: true,
- *     sshAuthPasswordEnabled: true,
- *     sshBindWildcard: false,
- *     sshUsername: "admin",
- *     sshKeys: [{
- *         name: "Admin Key",
- *         type: "ssh-rsa",
- *         key: "AAAAB3NzaC1yc2EAAAADAQABAAABAQCxxx...",
- *         comment: "admin@example.com",
- *     }],
- * });
- * ```
- */
 export class Mgmt extends pulumi.CustomResource {
     /**
      * Get an existing Mgmt resource's state with the given name, ID, and optional extra
@@ -219,75 +173,75 @@ export interface MgmtState {
     /**
      * Enable advanced features for UniFi devices at this site.
      */
-    advancedFeatureEnabled?: pulumi.Input<boolean | undefined>;
+    advancedFeatureEnabled?: pulumi.Input<boolean>;
     /**
      * Enable alerts for UniFi devices at this site.
      */
-    alertEnabled?: pulumi.Input<boolean | undefined>;
+    alertEnabled?: pulumi.Input<boolean>;
     /**
      * Enable automatic firmware upgrades for all UniFi devices at this site. When enabled, devices will automatically update to the latest stable firmware version approved for your controller version.
      */
-    autoUpgrade?: pulumi.Input<boolean | undefined>;
+    autoUpgrade?: pulumi.Input<boolean>;
     /**
      * The hour of the day (0-23) when automatic firmware upgrades will occur.
      */
-    autoUpgradeHour?: pulumi.Input<number | undefined>;
+    autoUpgradeHour?: pulumi.Input<number>;
     /**
      * Enable the boot sound for UniFi devices at this site.
      */
-    bootSound?: pulumi.Input<boolean | undefined>;
+    bootSound?: pulumi.Input<boolean>;
     /**
      * Enable debug tools for UniFi devices at this site. Requires controller version 7.3 or later.
      */
-    debugToolsEnabled?: pulumi.Input<boolean | undefined>;
+    debugToolsEnabled?: pulumi.Input<boolean>;
     /**
      * Enable direct connect for UniFi devices at this site.
      */
-    directConnectEnabled?: pulumi.Input<boolean | undefined>;
+    directConnectEnabled?: pulumi.Input<boolean>;
     /**
      * Enable the LED light for UniFi devices at this site.
      */
-    ledEnabled?: pulumi.Input<boolean | undefined>;
+    ledEnabled?: pulumi.Input<boolean>;
     /**
      * Enable outdoor mode for UniFi devices at this site.
      */
-    outdoorModeEnabled?: pulumi.Input<boolean | undefined>;
+    outdoorModeEnabled?: pulumi.Input<boolean>;
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string | undefined>;
+    site?: pulumi.Input<string>;
     /**
      * Enable SSH password authentication for UniFi devices at this site.
      */
-    sshAuthPasswordEnabled?: pulumi.Input<boolean | undefined>;
+    sshAuthPasswordEnabled?: pulumi.Input<boolean>;
     /**
      * Enable SSH bind wildcard for UniFi devices at this site.
      */
-    sshBindWildcard?: pulumi.Input<boolean | undefined>;
+    sshBindWildcard?: pulumi.Input<boolean>;
     /**
      * Enable SSH access to UniFi devices at this site. When enabled, you can connect to devices using SSH for advanced configuration and troubleshooting. It's recommended to only enable this temporarily when needed.
      */
-    sshEnabled?: pulumi.Input<boolean | undefined>;
+    sshEnabled?: pulumi.Input<boolean>;
     /**
      * List of SSH public keys that are allowed to connect to UniFi devices when SSH is enabled. Using SSH keys is more secure than password authentication.
      */
-    sshKeys?: pulumi.Input<pulumi.Input<inputs.setting.MgmtSshKey>[] | undefined>;
+    sshKeys?: pulumi.Input<pulumi.Input<inputs.setting.MgmtSshKey>[]>;
     /**
      * The SSH password for UniFi devices at this site.
      */
-    sshPassword?: pulumi.Input<string | undefined>;
+    sshPassword?: pulumi.Input<string>;
     /**
      * The SSH username for UniFi devices at this site.
      */
-    sshUsername?: pulumi.Input<string | undefined>;
+    sshUsername?: pulumi.Input<string>;
     /**
      * Enable UniFi IDP for UniFi devices at this site.
      */
-    unifiIdpEnabled?: pulumi.Input<boolean | undefined>;
+    unifiIdpEnabled?: pulumi.Input<boolean>;
     /**
      * Enable WiFiman for UniFi devices at this site.
      */
-    wifimanEnabled?: pulumi.Input<boolean | undefined>;
+    wifimanEnabled?: pulumi.Input<boolean>;
 }
 
 /**
@@ -297,73 +251,73 @@ export interface MgmtArgs {
     /**
      * Enable advanced features for UniFi devices at this site.
      */
-    advancedFeatureEnabled?: pulumi.Input<boolean | undefined>;
+    advancedFeatureEnabled?: pulumi.Input<boolean>;
     /**
      * Enable alerts for UniFi devices at this site.
      */
-    alertEnabled?: pulumi.Input<boolean | undefined>;
+    alertEnabled?: pulumi.Input<boolean>;
     /**
      * Enable automatic firmware upgrades for all UniFi devices at this site. When enabled, devices will automatically update to the latest stable firmware version approved for your controller version.
      */
-    autoUpgrade?: pulumi.Input<boolean | undefined>;
+    autoUpgrade?: pulumi.Input<boolean>;
     /**
      * The hour of the day (0-23) when automatic firmware upgrades will occur.
      */
-    autoUpgradeHour?: pulumi.Input<number | undefined>;
+    autoUpgradeHour?: pulumi.Input<number>;
     /**
      * Enable the boot sound for UniFi devices at this site.
      */
-    bootSound?: pulumi.Input<boolean | undefined>;
+    bootSound?: pulumi.Input<boolean>;
     /**
      * Enable debug tools for UniFi devices at this site. Requires controller version 7.3 or later.
      */
-    debugToolsEnabled?: pulumi.Input<boolean | undefined>;
+    debugToolsEnabled?: pulumi.Input<boolean>;
     /**
      * Enable direct connect for UniFi devices at this site.
      */
-    directConnectEnabled?: pulumi.Input<boolean | undefined>;
+    directConnectEnabled?: pulumi.Input<boolean>;
     /**
      * Enable the LED light for UniFi devices at this site.
      */
-    ledEnabled?: pulumi.Input<boolean | undefined>;
+    ledEnabled?: pulumi.Input<boolean>;
     /**
      * Enable outdoor mode for UniFi devices at this site.
      */
-    outdoorModeEnabled?: pulumi.Input<boolean | undefined>;
+    outdoorModeEnabled?: pulumi.Input<boolean>;
     /**
      * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string | undefined>;
+    site?: pulumi.Input<string>;
     /**
      * Enable SSH password authentication for UniFi devices at this site.
      */
-    sshAuthPasswordEnabled?: pulumi.Input<boolean | undefined>;
+    sshAuthPasswordEnabled?: pulumi.Input<boolean>;
     /**
      * Enable SSH bind wildcard for UniFi devices at this site.
      */
-    sshBindWildcard?: pulumi.Input<boolean | undefined>;
+    sshBindWildcard?: pulumi.Input<boolean>;
     /**
      * Enable SSH access to UniFi devices at this site. When enabled, you can connect to devices using SSH for advanced configuration and troubleshooting. It's recommended to only enable this temporarily when needed.
      */
-    sshEnabled?: pulumi.Input<boolean | undefined>;
+    sshEnabled?: pulumi.Input<boolean>;
     /**
      * List of SSH public keys that are allowed to connect to UniFi devices when SSH is enabled. Using SSH keys is more secure than password authentication.
      */
-    sshKeys?: pulumi.Input<pulumi.Input<inputs.setting.MgmtSshKey>[] | undefined>;
+    sshKeys?: pulumi.Input<pulumi.Input<inputs.setting.MgmtSshKey>[]>;
     /**
      * The SSH password for UniFi devices at this site.
      */
-    sshPassword?: pulumi.Input<string | undefined>;
+    sshPassword?: pulumi.Input<string>;
     /**
      * The SSH username for UniFi devices at this site.
      */
-    sshUsername?: pulumi.Input<string | undefined>;
+    sshUsername?: pulumi.Input<string>;
     /**
      * Enable UniFi IDP for UniFi devices at this site.
      */
-    unifiIdpEnabled?: pulumi.Input<boolean | undefined>;
+    unifiIdpEnabled?: pulumi.Input<boolean>;
     /**
      * Enable WiFiman for UniFi devices at this site.
      */
-    wifimanEnabled?: pulumi.Input<boolean | undefined>;
+    wifimanEnabled?: pulumi.Input<boolean>;
 }

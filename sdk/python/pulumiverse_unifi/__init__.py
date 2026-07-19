@@ -7,6 +7,7 @@ from . import _utilities
 import typing
 # Export this package's modules as members:
 from .account import *
+from .ap_group import *
 from .device import *
 from .dynamic_dns import *
 from .get_account import *
@@ -128,6 +129,14 @@ _utilities.register(
   "fqn": "pulumiverse_unifi",
   "classes": {
    "unifi:index/account:Account": "Account"
+  }
+ },
+ {
+  "pkg": "unifi",
+  "mod": "index/apGroup",
+  "fqn": "pulumiverse_unifi",
+  "classes": {
+   "unifi:index/apGroup:ApGroup": "ApGroup"
   }
  },
  {

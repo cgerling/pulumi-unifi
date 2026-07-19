@@ -4,32 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
-/**
- * The `unifi.firewall.Zone` datsources allows retrieving existing firewall zone details from the UniFi controller by the zone name.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as unifi from "@pulumiverse/unifi";
- *
- * const vpn = unifi.firewall.getZone({
- *     name: "Vpn",
- * });
- * const gateway = unifi.firewall.getZone({
- *     name: "Gateway",
- * });
- * const internal = unifi.firewall.getZone({
- *     name: "Internal",
- * });
- * const external = unifi.firewall.getZone({
- *     name: "External",
- * });
- * const hotspot = unifi.firewall.getZone({
- *     name: "Hotspot",
- * });
- * ```
- */
 export function getZone(args: GetZoneArgs, opts?: pulumi.InvokeOptions): Promise<GetZoneResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invoke("unifi:firewall/getZone:getZone", {
@@ -42,13 +16,7 @@ export function getZone(args: GetZoneArgs, opts?: pulumi.InvokeOptions): Promise
  * A collection of arguments for invoking getZone.
  */
 export interface GetZoneArgs {
-    /**
-     * The name of the firewall zone.
-     */
     name: string;
-    /**
-     * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
-     */
     site?: string;
 }
 
@@ -56,49 +24,11 @@ export interface GetZoneArgs {
  * A collection of values returned by getZone.
  */
 export interface GetZoneResult {
-    /**
-     * The unique identifier of this resource.
-     */
     readonly id: string;
-    /**
-     * The name of the firewall zone.
-     */
     readonly name: string;
-    /**
-     * List of network IDs that this firewall zone contains.
-     */
     readonly networks: string[];
-    /**
-     * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
-     */
     readonly site: string;
 }
-/**
- * The `unifi.firewall.Zone` datsources allows retrieving existing firewall zone details from the UniFi controller by the zone name.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as unifi from "@pulumiverse/unifi";
- *
- * const vpn = unifi.firewall.getZone({
- *     name: "Vpn",
- * });
- * const gateway = unifi.firewall.getZone({
- *     name: "Gateway",
- * });
- * const internal = unifi.firewall.getZone({
- *     name: "Internal",
- * });
- * const external = unifi.firewall.getZone({
- *     name: "External",
- * });
- * const hotspot = unifi.firewall.getZone({
- *     name: "Hotspot",
- * });
- * ```
- */
 export function getZoneOutput(args: GetZoneOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetZoneResult> {
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
     return pulumi.runtime.invokeOutput("unifi:firewall/getZone:getZone", {
@@ -111,12 +41,6 @@ export function getZoneOutput(args: GetZoneOutputArgs, opts?: pulumi.InvokeOutpu
  * A collection of arguments for invoking getZone.
  */
 export interface GetZoneOutputArgs {
-    /**
-     * The name of the firewall zone.
-     */
     name: pulumi.Input<string>;
-    /**
-     * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
-     */
-    site?: pulumi.Input<string | undefined>;
+    site?: pulumi.Input<string>;
 }

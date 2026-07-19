@@ -12,54 +12,6 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
-// The `ap.Group` resource manages Access Point groups in the UniFi controller.
-//
-// AP groups allow you to organize and manage multiple access points together. This resource allows you to create, update, and delete AP groups.
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/ap"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := ap.NewGroup(ctx, "example", &ap.GroupArgs{
-//				Name: pulumi.String("my-ap-group"),
-//				DeviceMacs: pulumi.StringArray{
-//					pulumi.String("00:11:22:33:44:55"),
-//				},
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
-// ```
-//
-// ## Import
-//
-// The `pulumi import` command can be used, for example:
-//
-// import from provider configured site
-//
-// ```sh
-// $ pulumi import unifi:ap/group:Group example 5dc28e5e9106d105bdc87217
-// ```
-//
-// import from another site
-//
-// ```sh
-// $ pulumi import unifi:ap/group:Group example another-site:5dc28e5e9106d105bdc87217
-// ```
 type Group struct {
 	pulumi.CustomResourceState
 
@@ -81,6 +33,12 @@ func NewGroup(ctx *pulumi.Context,
 	if args.DeviceMacs == nil {
 		return nil, errors.New("invalid value for required argument 'DeviceMacs'")
 	}
+	aliases := pulumi.Aliases([]pulumi.Alias{
+		{
+			Type: pulumi.String("unifi:index/apGroup:ApGroup"),
+		},
+	})
+	opts = append(opts, aliases)
 	opts = internal.PkgResourceDefaultOpts(opts)
 	var resource Group
 	err := ctx.RegisterResource("unifi:ap/group:Group", name, args, &resource, opts...)

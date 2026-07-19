@@ -9,19 +9,19 @@ export interface DeviceEtherLighting {
     /**
      * LED animation: `steady` or `breath`.
      */
-    behavior?: pulumi.Input<string | undefined>;
+    behavior?: pulumi.Input<string>;
     /**
      * LED brightness, 1-100.
      */
-    brightness?: pulumi.Input<number | undefined>;
+    brightness?: pulumi.Input<number>;
     /**
      * `etherlighting` (colored per-port LEDs) or `standard` (plain status LEDs).
      */
-    ledMode?: pulumi.Input<string | undefined>;
+    ledMode?: pulumi.Input<string>;
     /**
      * Color scheme: `network` (color by VLAN/network) or `speed` (color by link speed).
      */
-    mode?: pulumi.Input<string | undefined>;
+    mode?: pulumi.Input<string>;
 }
 
 export interface DevicePortOverride {
@@ -32,11 +32,11 @@ export interface DevicePortOverride {
      * * Connecting to servers requiring more bandwidth
      * Note: All ports in the LAG must be sequential and have matching configurations.
      */
-    aggregateNumPorts?: pulumi.Input<number | undefined>;
+    aggregateNumPorts?: pulumi.Input<number>;
     /**
      * Set of network IDs to exclude when `forward = "customize"`. Tagged traffic on the port is *all* networks minus the ones listed here, so an empty set means "trunk everything". Computed when not set, so the controller's current exclusions are preserved without producing a diff.
      */
-    excludedNetworkIds?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+    excludedNetworkIds?: pulumi.Input<pulumi.Input<string>[]>;
     /**
      * VLAN forwarding mode for the port. Valid values are:
      *   * `all` - Forward all VLANs (trunk port)
@@ -46,7 +46,7 @@ export interface DevicePortOverride {
      *
      * This attribute has NO default: leaving it unset keeps the port's existing forwarding behavior (the value is computed from the controller). Note: the underlying field uses `omitempty`, so once set it cannot be cleared back to empty through Terraform — change it to another value instead.
      */
-    forward?: pulumi.Input<string | undefined>;
+    forward?: pulumi.Input<string>;
     /**
      * A friendly name for the port that will be displayed in the UniFi controller UI. Examples:
      *   * 'Uplink to Core Switch'
@@ -54,7 +54,7 @@ export interface DevicePortOverride {
      *   * 'Server LACP Group 1'
      *   * 'VoIP Phone Port'
      */
-    name?: pulumi.Input<string | undefined>;
+    name?: pulumi.Input<string>;
     /**
      * The ID of the network to use as the native (untagged) network on this port. This is typically used for:
      * * Access ports where devices need untagged access
@@ -63,7 +63,7 @@ export interface DevicePortOverride {
      *
      * Computed when not set, so the controller's current value (which it may auto-populate on a port) is preserved without producing a diff. Note: the underlying field uses `omitempty`, so once set it cannot be cleared back to empty through Terraform — change it to another network ID instead.
      */
-    nativeNetworkconfId?: pulumi.Input<string | undefined>;
+    nativeNetworkconfId?: pulumi.Input<string>;
     /**
      * The physical port number on the switch to configure.
      */
@@ -80,7 +80,7 @@ export interface DevicePortOverride {
      *     - Combines multiple ports for increased bandwidth
      *     - Used for switch uplinks or high-bandwidth servers
      */
-    opMode?: pulumi.Input<string | undefined>;
+    opMode?: pulumi.Input<string>;
     /**
      * The Power over Ethernet (PoE) mode for the port. Valid values are:
      * * `auto` - Automatically detect and power PoE devices (recommended)
@@ -96,15 +96,15 @@ export interface DevicePortOverride {
      *   - For non-PoE devices
      *   - To prevent unwanted power delivery
      */
-    poeMode?: pulumi.Input<string | undefined>;
+    poeMode?: pulumi.Input<string>;
     /**
      * The ID of a pre-configured port profile to apply to this port. Port profiles define settings like VLANs, PoE, and other port-specific configurations.
      */
-    portProfileId?: pulumi.Input<string | undefined>;
+    portProfileId?: pulumi.Input<string>;
     /**
      * Whether the port's settings are taken from a profile (`auto`) or set per-port (`manual`). Valid values are `auto` and `manual`. Per-port VLAN overrides (`nativeNetworkconfId`, `taggedVlanMgmt`, `forward`, `excludedNetworkIds`) generally require `settingPreference = "manual"` to persist on the controller; with `auto` the controller may revert inline overrides to profile/auto behavior. Setting this to `manual` also overrides any `portProfileId` on the same port. Computed when not set, so the value the controller attaches to the port is preserved without producing a diff.
      */
-    settingPreference?: pulumi.Input<string | undefined>;
+    settingPreference?: pulumi.Input<string>;
     /**
      * VLAN tagging behavior for the port. Valid values are:
      * * `auto` - Automatically handle VLAN tags (recommended)
@@ -113,32 +113,32 @@ export interface DevicePortOverride {
      *
      * Computed when not set, so the controller's current value is preserved without producing a diff. Note: the underlying field uses `omitempty`, so once set it cannot be cleared back to empty through Terraform — change it to another value instead.
      */
-    taggedVlanMgmt?: pulumi.Input<string | undefined>;
+    taggedVlanMgmt?: pulumi.Input<string>;
     /**
      * The ID of the network to use for Voice over IP (VoIP) traffic on this port, for automatic voice-VLAN assignment in conjunction with LLDP-MED.
      *
      * Computed when not set, so the controller's current value is preserved without producing a diff. Note: the underlying field uses `omitempty`, so once set it cannot be cleared back to empty through Terraform — change it to another network ID instead.
      */
-    voiceNetworkconfId?: pulumi.Input<string | undefined>;
+    voiceNetworkconfId?: pulumi.Input<string>;
 }
 
 export interface DeviceRadio {
     /**
      * The channel for this radio (band-specific), or `auto` to let the controller choose.
      */
-    channel?: pulumi.Input<string | undefined>;
+    channel?: pulumi.Input<string>;
     /**
      * Channel width in MHz for this radio (e.g. 20, 40, 80, 160, 320).
      */
-    ht?: pulumi.Input<number | undefined>;
+    ht?: pulumi.Input<number>;
     /**
      * Minimum RSSI in dBm (negative) below which clients are disconnected, when `minRssiEnabled` is true.
      */
-    minRssi?: pulumi.Input<number | undefined>;
+    minRssi?: pulumi.Input<number>;
     /**
      * Whether the minimum-RSSI client-disconnect threshold is enabled on this radio. Applied together with `minRssi`.
      */
-    minRssiEnabled?: pulumi.Input<boolean | undefined>;
+    minRssiEnabled?: pulumi.Input<boolean>;
     /**
      * The radio band this block configures: `ng` (2.4GHz), `na` (5GHz), or `6e` (6GHz).
      */
@@ -146,11 +146,11 @@ export interface DeviceRadio {
     /**
      * Custom transmit power in dBm, used when `txPowerMode = "custom"`; otherwise leave unset.
      */
-    txPower?: pulumi.Input<string | undefined>;
+    txPower?: pulumi.Input<string>;
     /**
      * Transmit-power mode: `auto`, `low`, `medium`, `high`, `custom`, or `disabled`. `disabled` turns the radio off (e.g. to suppress an unused 2.4GHz band on an in-wall AP).
      */
-    txPowerMode?: pulumi.Input<string | undefined>;
+    txPowerMode?: pulumi.Input<string>;
 }
 
 export interface RadiusProfileAcctServer {
@@ -161,7 +161,7 @@ export interface RadiusProfileAcctServer {
     /**
      * The UDP port number where the RADIUS accounting service is listening. The standard port is 1813, but this can be changed if needed to match your server configuration.
      */
-    port?: pulumi.Input<number | undefined>;
+    port?: pulumi.Input<number>;
     /**
      * The shared secret key used to secure communication between the UniFi controller and the RADIUS server. This must match the secret configured on your RADIUS server.
      */
@@ -176,7 +176,7 @@ export interface RadiusProfileAuthServer {
     /**
      * The UDP port number where the RADIUS authentication service is listening. The standard port is 1812, but this can be changed if needed to match your server configuration.
      */
-    port?: pulumi.Input<number | undefined>;
+    port?: pulumi.Input<number>;
     /**
      * The shared secret key used to secure communication between the UniFi controller and the RADIUS server. This must match the secret configured on your RADIUS server.
      */
@@ -195,7 +195,7 @@ export interface WlanSchedule {
     /**
      * Friendly name for this schedule block (e.g., 'Business Hours', 'Weekend Access').
      */
-    name?: pulumi.Input<string | undefined>;
+    name?: pulumi.Input<string>;
     /**
      * Start hour in 24-hour format (0-23).
      */
@@ -203,7 +203,7 @@ export interface WlanSchedule {
     /**
      * Start minute (0-59).
      */
-    startMinute?: pulumi.Input<number | undefined>;
+    startMinute?: pulumi.Input<number>;
 }
 export namespace dns {
 }
@@ -213,51 +213,51 @@ export namespace firewall {
         /**
          * List of application category IDs.
          */
-        appCategoryIds?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+        appCategoryIds?: pulumi.Input<pulumi.Input<string>[]>;
         /**
          * List of application IDs.
          */
-        appIds?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+        appIds?: pulumi.Input<pulumi.Input<string>[]>;
         /**
          * ID of the source IP group.
          */
-        ipGroupId?: pulumi.Input<string | undefined>;
+        ipGroupId?: pulumi.Input<string>;
         /**
          * List of source IPs.
          */
-        ips?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+        ips?: pulumi.Input<pulumi.Input<string>[]>;
         /**
          * Whether to match opposite IPs.
          */
-        matchOppositeIps?: pulumi.Input<boolean | undefined>;
+        matchOppositeIps?: pulumi.Input<boolean>;
         /**
          * Whether to match opposite networks.
          */
-        matchOppositeNetworks?: pulumi.Input<boolean | undefined>;
+        matchOppositeNetworks?: pulumi.Input<boolean>;
         /**
          * Whether to match opposite ports.
          */
-        matchOppositePorts?: pulumi.Input<boolean | undefined>;
+        matchOppositePorts?: pulumi.Input<boolean>;
         /**
          * List of network IDs.
          */
-        networkIds?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+        networkIds?: pulumi.Input<pulumi.Input<string>[]>;
         /**
          * Source port.
          */
-        port?: pulumi.Input<number | undefined>;
+        port?: pulumi.Input<number>;
         /**
          * ID of the source port group.
          */
-        portGroupId?: pulumi.Input<string | undefined>;
+        portGroupId?: pulumi.Input<string>;
         /**
          * List of regions.
          */
-        regions?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+        regions?: pulumi.Input<pulumi.Input<string>[]>;
         /**
          * List of web domains.
          */
-        webDomains?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+        webDomains?: pulumi.Input<pulumi.Input<string>[]>;
         /**
          * ID of the firewall zone.
          */
@@ -268,82 +268,82 @@ export namespace firewall {
         /**
          * Date for the schedule.
          */
-        date?: pulumi.Input<string | undefined>;
+        date?: pulumi.Input<string>;
         /**
          * End date for the schedule.
          */
-        dateEnd?: pulumi.Input<string | undefined>;
+        dateEnd?: pulumi.Input<string>;
         /**
          * Start date for the schedule.
          */
-        dateStart?: pulumi.Input<string | undefined>;
+        dateStart?: pulumi.Input<string>;
         /**
          * Schedule mode. Valid values are `ALWAYS`, `EVERY_DAY`, `EVERY_WEEK`, `ONE_TIME_ONLY`, or `CUSTOM`.
          */
-        mode?: pulumi.Input<string | undefined>;
+        mode?: pulumi.Input<string>;
         /**
          * Days of the week when schedule repeats. Valid values include `mon`, `tue`, `wed`, `thu`, `fri`, `sat`, and `sun`.
          */
-        repeatOnDays?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+        repeatOnDays?: pulumi.Input<pulumi.Input<string>[]>;
         /**
          * Whether the schedule applies all day.
          */
-        timeAllDay?: pulumi.Input<boolean | undefined>;
+        timeAllDay?: pulumi.Input<boolean>;
         /**
          * Schedule starting time in 24-hour format (HH:MM).
          */
-        timeFrom?: pulumi.Input<string | undefined>;
+        timeFrom?: pulumi.Input<string>;
         /**
          * Schedule ending time in 24-hour format (HH:MM).
          */
-        timeTo?: pulumi.Input<string | undefined>;
+        timeTo?: pulumi.Input<string>;
     }
 
     export interface ZonePolicySource {
         /**
          * List of client MAC addresses.
          */
-        clientMacs?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+        clientMacs?: pulumi.Input<pulumi.Input<string>[]>;
         /**
          * ID of the source IP group.
          */
-        ipGroupId?: pulumi.Input<string | undefined>;
+        ipGroupId?: pulumi.Input<string>;
         /**
          * List of source IPs.
          */
-        ips?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+        ips?: pulumi.Input<pulumi.Input<string>[]>;
         /**
          * Source MAC address.
          */
-        mac?: pulumi.Input<string | undefined>;
+        mac?: pulumi.Input<string>;
         /**
          * List of MAC addresses.
          */
-        macs?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+        macs?: pulumi.Input<pulumi.Input<string>[]>;
         /**
          * Whether to match opposite IPs.
          */
-        matchOppositeIps?: pulumi.Input<boolean | undefined>;
+        matchOppositeIps?: pulumi.Input<boolean>;
         /**
          * Whether to match opposite networks.
          */
-        matchOppositeNetworks?: pulumi.Input<boolean | undefined>;
+        matchOppositeNetworks?: pulumi.Input<boolean>;
         /**
          * Whether to match opposite ports.
          */
-        matchOppositePorts?: pulumi.Input<boolean | undefined>;
+        matchOppositePorts?: pulumi.Input<boolean>;
         /**
          * List of network IDs.
          */
-        networkIds?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+        networkIds?: pulumi.Input<pulumi.Input<string>[]>;
         /**
          * Source port.
          */
-        port?: pulumi.Input<number | undefined>;
+        port?: pulumi.Input<number>;
         /**
          * ID of the source port group.
          */
-        portGroupId?: pulumi.Input<string | undefined>;
+        portGroupId?: pulumi.Input<string>;
         /**
          * ID of the firewall zone.
          */
@@ -397,7 +397,7 @@ export namespace setting {
         /**
          * Use sandbox mode for Authorize.net payments.
          */
-        useSandbox?: pulumi.Input<boolean | undefined>;
+        useSandbox?: pulumi.Input<boolean>;
     }
 
     export interface GuestAccessFacebook {
@@ -412,14 +412,14 @@ export namespace setting {
         /**
          * Request email scope for Facebook authentication.
          */
-        scopeEmail?: pulumi.Input<boolean | undefined>;
+        scopeEmail?: pulumi.Input<boolean>;
     }
 
     export interface GuestAccessFacebookWifi {
         /**
          * Mode HTTPS for Facebook WiFi.
          */
-        blockHttps?: pulumi.Input<boolean | undefined>;
+        blockHttps?: pulumi.Input<boolean>;
         /**
          * Facebook WiFi gateway ID.
          */
@@ -446,11 +446,11 @@ export namespace setting {
         /**
          * Restrict Google authentication to specific domain.
          */
-        domain?: pulumi.Input<string | undefined>;
+        domain?: pulumi.Input<string>;
         /**
          * Request email scope for Google authentication.
          */
-        scopeEmail?: pulumi.Input<boolean | undefined>;
+        scopeEmail?: pulumi.Input<boolean>;
     }
 
     export interface GuestAccessIppay {
@@ -461,7 +461,7 @@ export namespace setting {
         /**
          * Whether to use sandbox mode for IPPay payments.
          */
-        useSandbox?: pulumi.Input<boolean | undefined>;
+        useSandbox?: pulumi.Input<boolean>;
     }
 
     export interface GuestAccessMerchantWarrior {
@@ -480,7 +480,7 @@ export namespace setting {
         /**
          * Whether to use sandbox mode for MerchantWarrior payments.
          */
-        useSandbox?: pulumi.Input<boolean | undefined>;
+        useSandbox?: pulumi.Input<boolean>;
     }
 
     export interface GuestAccessPaypal {
@@ -495,7 +495,7 @@ export namespace setting {
         /**
          * Whether to use sandbox mode for PayPal payments.
          */
-        useSandbox?: pulumi.Input<boolean | undefined>;
+        useSandbox?: pulumi.Input<boolean>;
         /**
          * PayPal username. Must be a valid email address.
          */
@@ -506,119 +506,122 @@ export namespace setting {
         /**
          * Custom authentication text for the portal.
          */
-        authenticationText?: pulumi.Input<string | undefined>;
+        authenticationText?: pulumi.Input<string>;
         /**
          * Background color for the custom portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
          */
-        bgColor?: pulumi.Input<string | undefined>;
+        bgColor?: pulumi.Input<string>;
         /**
          * ID of the background image portal file. File must exist in controller, use `unifi.port.AlFile` to manage it.
          */
-        bgImageFileId?: pulumi.Input<string | undefined>;
+        bgImageFileId?: pulumi.Input<string>;
         /**
          * Tile the background image.
          */
-        bgImageTile?: pulumi.Input<boolean | undefined>;
+        bgImageTile?: pulumi.Input<boolean>;
         /**
          * Type of portal background. Valid values are:
+         * * `color` - Solid color background
+         * * `image` - (not yet supported!) Custom image background
+         * * `gallery` - Image from Unsplash gallery
          */
-        bgType?: pulumi.Input<string | undefined>;
+        bgType?: pulumi.Input<string>;
         /**
          * Color of the login box in the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
          */
-        boxColor?: pulumi.Input<string | undefined>;
+        boxColor?: pulumi.Input<string>;
         /**
          * Color of links in the login box. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
          */
-        boxLinkColor?: pulumi.Input<string | undefined>;
+        boxLinkColor?: pulumi.Input<string>;
         /**
          * Opacity of the login box (0-100).
          */
-        boxOpacity?: pulumi.Input<number | undefined>;
+        boxOpacity?: pulumi.Input<number>;
         /**
          * Border radius of the login box in pixels.
          */
-        boxRadius?: pulumi.Input<number | undefined>;
+        boxRadius?: pulumi.Input<number>;
         /**
          * Text color in the login box. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
          */
-        boxTextColor?: pulumi.Input<string | undefined>;
+        boxTextColor?: pulumi.Input<string>;
         /**
          * Button color in the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
          */
-        buttonColor?: pulumi.Input<string | undefined>;
+        buttonColor?: pulumi.Input<string>;
         /**
          * Custom text for the login button.
          */
-        buttonText?: pulumi.Input<string | undefined>;
+        buttonText?: pulumi.Input<string>;
         /**
          * Button text color. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
          */
-        buttonTextColor?: pulumi.Input<string | undefined>;
+        buttonTextColor?: pulumi.Input<string>;
         /**
          * Whether the portal is customized.
          */
-        customized?: pulumi.Input<boolean | undefined>;
+        customized?: pulumi.Input<boolean>;
         /**
          * List of enabled languages for the portal.
          */
-        languages?: pulumi.Input<pulumi.Input<string>[] | undefined>;
+        languages?: pulumi.Input<pulumi.Input<string>[]>;
         /**
          * Color for links in the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
          */
-        linkColor?: pulumi.Input<string | undefined>;
+        linkColor?: pulumi.Input<string>;
         /**
          * ID of the logo image portal file. File must exist in controller, use `unifi.port.AlFile` to manage it.
          */
-        logoFileId?: pulumi.Input<string | undefined>;
+        logoFileId?: pulumi.Input<string>;
         /**
          * Position of the logo in the portal. Valid values are: left, center, right.
          */
-        logoPosition?: pulumi.Input<string | undefined>;
+        logoPosition?: pulumi.Input<string>;
         /**
          * Size of the logo in pixels.
          */
-        logoSize?: pulumi.Input<number | undefined>;
+        logoSize?: pulumi.Input<number>;
         /**
          * Text displayed after successful authentication.
          */
-        successText?: pulumi.Input<string | undefined>;
+        successText?: pulumi.Input<string>;
         /**
          * Main text color for the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
          */
-        textColor?: pulumi.Input<string | undefined>;
+        textColor?: pulumi.Input<string>;
         /**
          * Title of the portal page.
          */
-        title?: pulumi.Input<string | undefined>;
+        title?: pulumi.Input<string>;
         /**
          * Terms of service text.
          */
-        tos?: pulumi.Input<string | undefined>;
+        tos?: pulumi.Input<string>;
         /**
          * Enable terms of service acceptance requirement.
          */
-        tosEnabled?: pulumi.Input<boolean | undefined>;
+        tosEnabled?: pulumi.Input<boolean>;
         /**
          * Name of the Unsplash author for gallery background.
          */
-        unsplashAuthorName?: pulumi.Input<string | undefined>;
+        unsplashAuthorName?: pulumi.Input<string>;
         /**
          * Username of the Unsplash author for gallery background.
          */
-        unsplashAuthorUsername?: pulumi.Input<string | undefined>;
+        unsplashAuthorUsername?: pulumi.Input<string>;
         /**
          * Welcome text displayed on the portal.
          */
-        welcomeText?: pulumi.Input<string | undefined>;
+        welcomeText?: pulumi.Input<string>;
         /**
          * Enable welcome text display.
          */
-        welcomeTextEnabled?: pulumi.Input<boolean | undefined>;
+        welcomeTextEnabled?: pulumi.Input<boolean>;
         /**
          * Position of the welcome text. Valid values are: `underLogo`, `aboveBoxes`.
          */
-        welcomeTextPosition?: pulumi.Input<string | undefined>;
+        welcomeTextPosition?: pulumi.Input<string>;
     }
 
     export interface GuestAccessQuickpay {
@@ -637,7 +640,7 @@ export namespace setting {
         /**
          * Enable sandbox mode for QuickPay payments.
          */
-        useSandbox?: pulumi.Input<boolean | undefined>;
+        useSandbox?: pulumi.Input<boolean>;
     }
 
     export interface GuestAccessRadius {
@@ -648,11 +651,11 @@ export namespace setting {
         /**
          * Enable RADIUS disconnect messages.
          */
-        disconnectEnabled?: pulumi.Input<boolean | undefined>;
+        disconnectEnabled?: pulumi.Input<boolean>;
         /**
          * Port for RADIUS disconnect messages.
          */
-        disconnectPort?: pulumi.Input<number | undefined>;
+        disconnectPort?: pulumi.Input<number>;
         /**
          * ID of the RADIUS profile to use.
          */
@@ -663,7 +666,7 @@ export namespace setting {
         /**
          * Redirect HTTP requests to HTTPS.
          */
-        toHttps?: pulumi.Input<boolean | undefined>;
+        toHttps?: pulumi.Input<boolean>;
         /**
          * URL to redirect to after authentication. Must be a valid URL.
          */
@@ -671,7 +674,7 @@ export namespace setting {
         /**
          * Use HTTPS for the redirect URL.
          */
-        useHttps?: pulumi.Input<boolean | undefined>;
+        useHttps?: pulumi.Input<boolean>;
     }
 
     export interface GuestAccessStripe {
@@ -697,41 +700,7 @@ export namespace setting {
         /**
          * WeChat Shop ID for payments.
          */
-        shopId?: pulumi.Input<string | undefined>;
-    }
-
-    export interface IpsDnsFilter {
-        /**
-         * List of allowed sites for this DNS filter. These domains will always be accessible regardless of other filtering rules. Each entry should be a valid domain name (e.g., `example.com`).
-         */
-        allowedSites?: pulumi.Input<pulumi.Input<string>[] | undefined>;
-        /**
-         * List of blocked sites for this DNS filter. These domains will be blocked regardless of other filtering rules. Each entry should be a valid domain name (e.g., `example.com`).
-         */
-        blockedSites?: pulumi.Input<pulumi.Input<string>[] | undefined>;
-        /**
-         * List of blocked top-level domains (TLDs) for this DNS filter. All domains with these TLDs will be blocked. Each entry should be a valid TLD without the dot prefix (e.g., `xyz`, `info`).
-         */
-        blockedTlds?: pulumi.Input<pulumi.Input<string>[] | undefined>;
-        /**
-         * Description of the DNS filter. This is used for documentation purposes only and does not affect functionality.
-         */
-        description?: pulumi.Input<string | undefined>;
-        /**
-         * Filter type that determines the predefined filtering level. Valid values are:
-         *   * `none` - No predefined filtering
-         *   * `work` - Work-appropriate filtering that blocks adult content
-         *   * `family` - Family-friendly filtering that blocks adult content and other inappropriate sites
-         */
-        filter: pulumi.Input<string>;
-        /**
-         * Name of the DNS filter. This is used to identify the filter in the UniFi interface.
-         */
-        name: pulumi.Input<string>;
-        /**
-         * Network ID this filter applies to. This should be a valid network ID from your UniFi configuration.
-         */
-        networkId: pulumi.Input<string>;
+        shopId?: pulumi.Input<string>;
     }
 
     export interface IpsHoneypot {
@@ -749,11 +718,11 @@ export namespace setting {
         /**
          * Alert suppressions. Each entry defines a specific IPS alert that should be suppressed or tracked differently from the default behavior.
          */
-        alerts?: pulumi.Input<pulumi.Input<inputs.setting.IpsSuppressionAlert>[] | undefined>;
+        alerts?: pulumi.Input<pulumi.Input<inputs.setting.IpsSuppressionAlert>[]>;
         /**
          * Whitelist configuration. Each entry defines traffic that should never trigger IPS alerts, regardless of other rules.
          */
-        whitelists?: pulumi.Input<pulumi.Input<inputs.setting.IpsSuppressionWhitelist>[] | undefined>;
+        whitelists?: pulumi.Input<pulumi.Input<inputs.setting.IpsSuppressionWhitelist>[]>;
     }
 
     export interface IpsSuppressionAlert {
@@ -768,7 +737,7 @@ export namespace setting {
         /**
          * Tracking configuration for the alert. This defines how the system should track occurrences of this alert based on source/destination addresses.
          */
-        trackings?: pulumi.Input<pulumi.Input<inputs.setting.IpsSuppressionAlertTracking>[] | undefined>;
+        trackings?: pulumi.Input<pulumi.Input<inputs.setting.IpsSuppressionAlertTracking>[]>;
         /**
          * Type of suppression. Valid values are:
          *   * `all` - Suppress all occurrences of this alert
@@ -829,11 +798,11 @@ export namespace setting {
         /**
          * An optional comment to provide additional context about the key (e.g., 'generated on 2024-01-01' or 'expires 2025-12-31').
          */
-        comment?: pulumi.Input<string | undefined>;
+        comment?: pulumi.Input<string>;
         /**
          * The public key string. This is the content that would normally go in an authorizedKeys file, excluding the type and comment (e.g., 'AAAAB3NzaC1yc2EA...').
          */
-        key?: pulumi.Input<string | undefined>;
+        key?: pulumi.Input<string>;
         /**
          * A friendly name for the SSH key to help identify its owner or purpose (e.g., 'admin-laptop' or 'backup-server').
          */
@@ -855,34 +824,34 @@ export namespace setting {
          *   * `forward` - Forward packets regardless of relay agent information
          *   * `replace` - Replace existing relay agent information with the gateway's information
          */
-        agentsPackets?: pulumi.Input<string | undefined>;
+        agentsPackets?: pulumi.Input<string>;
         /**
          * Maximum number of relay agents that can forward the DHCP packet before it is discarded. This prevents DHCP packets from being forwarded indefinitely in complex network topologies. Valid values range from 1 to 255, with lower values recommended for simpler networks.
          */
-        hopCount?: pulumi.Input<number | undefined>;
+        hopCount?: pulumi.Input<number>;
         /**
          * Maximum size (in bytes) of DHCP relay packets that will be forwarded. Packets exceeding this size will be truncated or dropped. Valid values range from 64 to 1400 bytes. The default is typically sufficient for most DHCP implementations, but may need adjustment if using extensive DHCP options or vendor-specific information.
          */
-        maxSize?: pulumi.Input<number | undefined>;
+        maxSize?: pulumi.Input<number>;
         /**
          * UDP port number for the DHCP relay service to listen on. The standard DHCP server port is 67, but this can be customized if needed for specific network configurations. Valid values range from 1 to 65535. Ensure this doesn't conflict with other services running on the gateway.
          */
-        port?: pulumi.Input<number | undefined>;
+        port?: pulumi.Input<number>;
     }
 
     export interface USGDnsVerification {
         /**
          * The domain name to use for DNS verification tests. The gateway will query this domain when testing DNS server responses. This should be a reliable domain that is unlikely to change frequently. Required when `settingPreference` is set to `manual`.
          */
-        domain?: pulumi.Input<string | undefined>;
+        domain?: pulumi.Input<string>;
         /**
          * The IP address of the primary trusted DNS server to use for verification. DNS responses will be compared against responses from this server to detect potential DNS spoofing. Required when `settingPreference` is set to `manual`. Must be a valid IPv4 address.
          */
-        primaryDnsServer?: pulumi.Input<string | undefined>;
+        primaryDnsServer?: pulumi.Input<string>;
         /**
          * The IP address of the secondary trusted DNS server to use for verification. This server will be used if the primary server is unavailable. Optional even when `settingPreference` is set to `manual`. Must be a valid IPv4 address if specified.
          */
-        secondaryDnsServer?: pulumi.Input<string | undefined>;
+        secondaryDnsServer?: pulumi.Input<string>;
         /**
          * Determines how DNS verification servers are configured. Valid values are:
          *   * `auto` - The gateway will automatically select DNS servers for verification
@@ -890,7 +859,7 @@ export namespace setting {
          *
          * When set to `manual`, you must also specify `primaryDnsServer` and `domain` values.
          */
-        settingPreference?: pulumi.Input<string | undefined>;
+        settingPreference?: pulumi.Input<string>;
     }
 
     export interface USGGeoIpFiltering {
@@ -910,7 +879,7 @@ export namespace setting {
          *
          * This setting effectively determines whether the `countries` list functions as a blocklist or an allowlist.
          */
-        mode?: pulumi.Input<string | undefined>;
+        mode?: pulumi.Input<string>;
         /**
          * Specifies which traffic direction the geo IP filtering applies to. Valid values are:
          *   * `both` (default) - Filters traffic in both directions (incoming and outgoing)
@@ -919,53 +888,53 @@ export namespace setting {
          *
          * This setting is useful for creating more granular filtering policies. For example, you might want to block incoming traffic from certain countries while still allowing outgoing connections to those same countries.
          */
-        trafficDirection?: pulumi.Input<string | undefined>;
+        trafficDirection?: pulumi.Input<string>;
     }
 
     export interface USGTcpTimeouts {
         /**
          * Timeout (in seconds) for TCP connections in the CLOSE state. The CLOSE state occurs when a connection is being terminated but may still have packets in transit. Lower values reclaim resources more quickly, while higher values ensure all packets are properly processed during connection termination.
          */
-        closeTimeout?: pulumi.Input<number | undefined>;
+        closeTimeout?: pulumi.Input<number>;
         /**
          * Timeout (in seconds) for TCP connections in the CLOSE_WAIT state. The CLOSE_WAIT state occurs when the remote end has initiated connection termination, but the local application hasn't closed the connection yet. This timeout prevents resources from being held indefinitely if a local application fails to properly close its connection.
          */
-        closeWaitTimeout?: pulumi.Input<number | undefined>;
+        closeWaitTimeout?: pulumi.Input<number>;
         /**
          * Timeout (in seconds) for TCP connections in the ESTABLISHED state. This is the most important TCP timeout as it determines how long idle but established connections are maintained in the connection tracking table. Higher values (e.g., 86400 = 24 hours) are suitable for long-lived connections, while lower values conserve resources but may cause issues with applications that maintain idle connections.
          */
-        establishedTimeout?: pulumi.Input<number | undefined>;
+        establishedTimeout?: pulumi.Input<number>;
         /**
          * Timeout (in seconds) for TCP connections in the FIN_WAIT state. The FIN_WAIT states occur during the normal TCP connection termination process after a FIN packet has been sent. This timeout prevents resources from being held if the connection termination process doesn't complete properly.
          */
-        finWaitTimeout?: pulumi.Input<number | undefined>;
+        finWaitTimeout?: pulumi.Input<number>;
         /**
          * Timeout (in seconds) for TCP connections in the LAST_ACK state. The LAST_ACK state occurs during connection termination when the remote end has sent a FIN, the local end has responded with a FIN and ACK, and is waiting for the final ACK from the remote end to complete the connection termination.
          */
-        lastAckTimeout?: pulumi.Input<number | undefined>;
+        lastAckTimeout?: pulumi.Input<number>;
         /**
          * Timeout (in seconds) for TCP connections in the SYN_RECV state. This state occurs during connection establishment after receiving a SYN packet and sending a SYN-ACK, but before receiving the final ACK to complete the three-way handshake. A lower timeout helps mitigate SYN flood attacks by releasing resources for incomplete connections more quickly.
          */
-        synRecvTimeout?: pulumi.Input<number | undefined>;
+        synRecvTimeout?: pulumi.Input<number>;
         /**
          * Timeout (in seconds) for TCP connections in the SYN_SENT state. This state occurs during connection establishment after sending a SYN packet but before receiving a SYN-ACK response. This timeout determines how long the system will wait for a response to connection attempts before giving up.
          */
-        synSentTimeout?: pulumi.Input<number | undefined>;
+        synSentTimeout?: pulumi.Input<number>;
         /**
          * Timeout (in seconds) for TCP connections in the TIME_WAIT state. The TIME_WAIT state occurs after a connection has been closed but is maintained to ensure any delayed packets are properly handled. The standard recommendation is 2 minutes (120 seconds), but can be reduced in high-connection environments to free resources more quickly at the risk of potential connection issues if delayed packets arrive.
          */
-        timeWaitTimeout?: pulumi.Input<number | undefined>;
+        timeWaitTimeout?: pulumi.Input<number>;
     }
 
     export interface USGUpnp {
         /**
          * Enable NAT-PMP (NAT Port Mapping Protocol) support alongside UPNP. NAT-PMP is Apple's alternative to UPNP, providing similar automatic port mapping capabilities. When enabled, Apple devices like Macs, iPhones, and iPads can automatically configure port forwarding for services like AirPlay, FaceTime, iMessage, and other Apple services. Defaults to `false`.
          */
-        natPmpEnabled?: pulumi.Input<boolean | undefined>;
+        natPmpEnabled?: pulumi.Input<boolean>;
         /**
          * Enable secure mode for UPNP. In secure mode, the gateway only forwards ports to the device that specifically requested them, enhancing security. This prevents malicious applications from redirecting ports to different devices than intended. It's strongly recommended to enable this setting when using UPNP to minimize security risks. Defaults to `false`.
          */
-        secureMode?: pulumi.Input<boolean | undefined>;
+        secureMode?: pulumi.Input<boolean>;
         /**
          * Specify which WAN interface to use for UPNP service. Valid values are:
          *   * `WAN` (default) - Use the primary WAN interface for UPNP port forwarding
@@ -973,6 +942,6 @@ export namespace setting {
          *
          * This setting is particularly relevant for dual-WAN setups where you may want to direct UPNP traffic through a specific WAN connection. If your gateway only has a single WAN interface, use the default `WAN` setting.
          */
-        wanInterface?: pulumi.Input<string | undefined>;
+        wanInterface?: pulumi.Input<string>;
     }
 }

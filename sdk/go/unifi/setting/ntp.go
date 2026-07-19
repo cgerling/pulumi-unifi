@@ -11,43 +11,14 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
-// The `setting.Ntp` resource allows you to configure Network Time Protocol (NTP) server settings for your UniFi network.
-//
-// NTP servers provide time synchronization for your network devices. This resource supports both automatic and manual NTP configuration modes.
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/setting"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := setting.NewNtp(ctx, "example", &setting.NtpArgs{
-//				Mode:       pulumi.String("manual"),
-//				NtpServer1: pulumi.String("time.cloudflare.com"),
-//				NtpServer2: pulumi.String("pool.ntp.org"),
-//				NtpServer3: pulumi.String("time.google.com"),
-//				NtpServer4: pulumi.String("0.pool.ntp.org"),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
-// ```
 type Ntp struct {
 	pulumi.CustomResourceState
 
 	// NTP server configuration mode. Valid values are:
+	// * `auto` - Use NTP servers configured on the controller
+	// * `manual` - Use custom NTP servers specified in this resource
+	//
+	// When set to `auto`, all NTP server fields will be cleared. When set to `manual`, at least one NTP server must be specified.
 	Mode pulumi.StringOutput `pulumi:"mode"`
 	// Primary NTP server hostname or IP address. Must be a valid hostname (e.g., `pool.ntp.org`) or IPv4 address. Only applicable when `mode` is set to `manual`.
 	NtpServer1 pulumi.StringOutput `pulumi:"ntpServer1"`
@@ -92,6 +63,10 @@ func GetNtp(ctx *pulumi.Context,
 // Input properties used for looking up and filtering Ntp resources.
 type ntpState struct {
 	// NTP server configuration mode. Valid values are:
+	// * `auto` - Use NTP servers configured on the controller
+	// * `manual` - Use custom NTP servers specified in this resource
+	//
+	// When set to `auto`, all NTP server fields will be cleared. When set to `manual`, at least one NTP server must be specified.
 	Mode *string `pulumi:"mode"`
 	// Primary NTP server hostname or IP address. Must be a valid hostname (e.g., `pool.ntp.org`) or IPv4 address. Only applicable when `mode` is set to `manual`.
 	NtpServer1 *string `pulumi:"ntpServer1"`
@@ -107,6 +82,10 @@ type ntpState struct {
 
 type NtpState struct {
 	// NTP server configuration mode. Valid values are:
+	// * `auto` - Use NTP servers configured on the controller
+	// * `manual` - Use custom NTP servers specified in this resource
+	//
+	// When set to `auto`, all NTP server fields will be cleared. When set to `manual`, at least one NTP server must be specified.
 	Mode pulumi.StringPtrInput
 	// Primary NTP server hostname or IP address. Must be a valid hostname (e.g., `pool.ntp.org`) or IPv4 address. Only applicable when `mode` is set to `manual`.
 	NtpServer1 pulumi.StringPtrInput
@@ -126,6 +105,10 @@ func (NtpState) ElementType() reflect.Type {
 
 type ntpArgs struct {
 	// NTP server configuration mode. Valid values are:
+	// * `auto` - Use NTP servers configured on the controller
+	// * `manual` - Use custom NTP servers specified in this resource
+	//
+	// When set to `auto`, all NTP server fields will be cleared. When set to `manual`, at least one NTP server must be specified.
 	Mode *string `pulumi:"mode"`
 	// Primary NTP server hostname or IP address. Must be a valid hostname (e.g., `pool.ntp.org`) or IPv4 address. Only applicable when `mode` is set to `manual`.
 	NtpServer1 *string `pulumi:"ntpServer1"`
@@ -142,6 +125,10 @@ type ntpArgs struct {
 // The set of arguments for constructing a Ntp resource.
 type NtpArgs struct {
 	// NTP server configuration mode. Valid values are:
+	// * `auto` - Use NTP servers configured on the controller
+	// * `manual` - Use custom NTP servers specified in this resource
+	//
+	// When set to `auto`, all NTP server fields will be cleared. When set to `manual`, at least one NTP server must be specified.
 	Mode pulumi.StringPtrInput
 	// Primary NTP server hostname or IP address. Must be a valid hostname (e.g., `pool.ntp.org`) or IPv4 address. Only applicable when `mode` is set to `manual`.
 	NtpServer1 pulumi.StringPtrInput
@@ -243,6 +230,10 @@ func (o NtpOutput) ToNtpOutputWithContext(ctx context.Context) NtpOutput {
 }
 
 // NTP server configuration mode. Valid values are:
+// * `auto` - Use NTP servers configured on the controller
+// * `manual` - Use custom NTP servers specified in this resource
+//
+// When set to `auto`, all NTP server fields will be cleared. When set to `manual`, at least one NTP server must be specified.
 func (o NtpOutput) Mode() pulumi.StringOutput {
 	return o.ApplyT(func(v *Ntp) pulumi.StringOutput { return v.Mode }).(pulumi.StringOutput)
 }

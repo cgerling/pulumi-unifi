@@ -11,7 +11,6 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
-// `iam.Group` data source can be used to retrieve the ID for a user group by name.
 func LookupGroup(ctx *pulumi.Context, args *LookupGroupArgs, opts ...pulumi.InvokeOption) (*LookupGroupResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupGroupResult
@@ -24,22 +23,17 @@ func LookupGroup(ctx *pulumi.Context, args *LookupGroupArgs, opts ...pulumi.Invo
 
 // A collection of arguments for invoking getGroup.
 type LookupGroupArgs struct {
-	// The name of the user group to look up. Defaults to `Default`.
 	Name *string `pulumi:"name"`
-	// The name of the site the user group is associated with.
 	Site *string `pulumi:"site"`
 }
 
 // A collection of values returned by getGroup.
 type LookupGroupResult struct {
-	// The ID of this AP group.
-	Id string `pulumi:"id"`
-	// The name of the user group to look up. Defaults to `Default`.
+	Id             string  `pulumi:"id"`
 	Name           *string `pulumi:"name"`
 	QosRateMaxDown int     `pulumi:"qosRateMaxDown"`
 	QosRateMaxUp   int     `pulumi:"qosRateMaxUp"`
-	// The name of the site the user group is associated with.
-	Site string `pulumi:"site"`
+	Site           string  `pulumi:"site"`
 }
 
 func LookupGroupOutput(ctx *pulumi.Context, args LookupGroupOutputArgs, opts ...pulumi.InvokeOption) LookupGroupResultOutput {
@@ -53,9 +47,7 @@ func LookupGroupOutput(ctx *pulumi.Context, args LookupGroupOutputArgs, opts ...
 
 // A collection of arguments for invoking getGroup.
 type LookupGroupOutputArgs struct {
-	// The name of the user group to look up. Defaults to `Default`.
 	Name pulumi.StringPtrInput `pulumi:"name"`
-	// The name of the site the user group is associated with.
 	Site pulumi.StringPtrInput `pulumi:"site"`
 }
 
@@ -78,12 +70,10 @@ func (o LookupGroupResultOutput) ToLookupGroupResultOutputWithContext(ctx contex
 	return o
 }
 
-// The ID of this AP group.
 func (o LookupGroupResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupGroupResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
-// The name of the user group to look up. Defaults to `Default`.
 func (o LookupGroupResultOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LookupGroupResult) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
@@ -96,7 +86,6 @@ func (o LookupGroupResultOutput) QosRateMaxUp() pulumi.IntOutput {
 	return o.ApplyT(func(v LookupGroupResult) int { return v.QosRateMaxUp }).(pulumi.IntOutput)
 }
 
-// The name of the site the user group is associated with.
 func (o LookupGroupResultOutput) Site() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupGroupResult) string { return v.Site }).(pulumi.StringOutput)
 }

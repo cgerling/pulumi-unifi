@@ -21,18 +21,17 @@ __all__ = ['DeviceArgs', 'Device']
 @pulumi.input_type
 class DeviceArgs:
     def __init__(__self__, *,
-                 allow_adoption: pulumi.Input[Optional[_builtins.bool]] = None,
-                 ether_lighting: pulumi.Input[Optional['DeviceEtherLightingArgs']] = None,
-                 forget_on_destroy: pulumi.Input[Optional[_builtins.bool]] = None,
-                 mac: pulumi.Input[Optional[_builtins.str]] = None,
-                 name: pulumi.Input[Optional[_builtins.str]] = None,
-                 port_overrides: pulumi.Input[Optional[Sequence[pulumi.Input['DevicePortOverrideArgs']]]] = None,
-                 radios: pulumi.Input[Optional[Sequence[pulumi.Input['DeviceRadioArgs']]]] = None,
-                 site: pulumi.Input[Optional[_builtins.str]] = None,
-                 switch_vlan_enabled: pulumi.Input[Optional[_builtins.bool]] = None):
+                 allow_adoption: Optional[pulumi.Input[_builtins.bool]] = None,
+                 ether_lighting: Optional[pulumi.Input['DeviceEtherLightingArgs']] = None,
+                 forget_on_destroy: Optional[pulumi.Input[_builtins.bool]] = None,
+                 mac: Optional[pulumi.Input[_builtins.str]] = None,
+                 name: Optional[pulumi.Input[_builtins.str]] = None,
+                 port_overrides: Optional[pulumi.Input[Sequence[pulumi.Input['DevicePortOverrideArgs']]]] = None,
+                 radios: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceRadioArgs']]]] = None,
+                 site: Optional[pulumi.Input[_builtins.str]] = None,
+                 switch_vlan_enabled: Optional[pulumi.Input[_builtins.bool]] = None):
         """
         The set of arguments for constructing a Device resource.
-
         :param pulumi.Input[_builtins.bool] allow_adoption: Whether to automatically adopt the device when creating this resource. When true:
                * The controller will attempt to adopt the device
                * Device must be in a pending adoption state
@@ -92,7 +91,7 @@ class DeviceArgs:
 
     @_builtins.property
     @pulumi.getter(name="allowAdoption")
-    def allow_adoption(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def allow_adoption(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Whether to automatically adopt the device when creating this resource. When true:
         * The controller will attempt to adopt the device
@@ -103,24 +102,24 @@ class DeviceArgs:
         return pulumi.get(self, "allow_adoption")
 
     @allow_adoption.setter
-    def allow_adoption(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def allow_adoption(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "allow_adoption", value)
 
     @_builtins.property
     @pulumi.getter(name="etherLighting")
-    def ether_lighting(self) -> pulumi.Input[Optional['DeviceEtherLightingArgs']]:
+    def ether_lighting(self) -> Optional[pulumi.Input['DeviceEtherLightingArgs']]:
         """
         Etherlighting configuration for switches with per-port LEDs (e.g. USW Pro Max). `mode = "network"` colors each port's LED by the VLAN/network it serves (per-network colors come from the site-level Etherlighting palette); `mode = "speed"` colors by link speed. Only the fields you set are written — unset fields keep their controller-side values (read-modify-write overlay). Devices without Etherlighting hardware ignore this object.
         """
         return pulumi.get(self, "ether_lighting")
 
     @ether_lighting.setter
-    def ether_lighting(self, value: pulumi.Input[Optional['DeviceEtherLightingArgs']]):
+    def ether_lighting(self, value: Optional[pulumi.Input['DeviceEtherLightingArgs']]):
         pulumi.set(self, "ether_lighting", value)
 
     @_builtins.property
     @pulumi.getter(name="forgetOnDestroy")
-    def forget_on_destroy(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def forget_on_destroy(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Whether to forget (un-adopt) the device when this resource is destroyed. When true:
         * The device will be removed from the controller
@@ -131,24 +130,24 @@ class DeviceArgs:
         return pulumi.get(self, "forget_on_destroy")
 
     @forget_on_destroy.setter
-    def forget_on_destroy(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def forget_on_destroy(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "forget_on_destroy", value)
 
     @_builtins.property
     @pulumi.getter
-    def mac(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def mac(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The MAC address of the device in standard format (e.g., 'aa:bb:cc:dd:ee:ff'). This is used to identify and manage specific devices that have already been adopted by the controller.
         """
         return pulumi.get(self, "mac")
 
     @mac.setter
-    def mac(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def mac(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "mac", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         A friendly name for the device that will be displayed in the UniFi controller UI. Examples:
         * 'Office-AP-1' for an access point
@@ -159,12 +158,12 @@ class DeviceArgs:
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="portOverrides")
-    def port_overrides(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['DevicePortOverrideArgs']]]]:
+    def port_overrides(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['DevicePortOverrideArgs']]]]:
         """
         A list of port-specific configuration overrides for UniFi switches. This allows you to customize individual port settings such as:
           * Port names and labels for easy identification
@@ -185,12 +184,12 @@ class DeviceArgs:
         return pulumi.get(self, "port_overrides")
 
     @port_overrides.setter
-    def port_overrides(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['DevicePortOverrideArgs']]]]):
+    def port_overrides(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['DevicePortOverrideArgs']]]]):
         pulumi.set(self, "port_overrides", value)
 
     @_builtins.property
     @pulumi.getter
-    def radios(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['DeviceRadioArgs']]]]:
+    def radios(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['DeviceRadioArgs']]]]:
         """
         Per-band radio configuration for access points. Each block configures ONE band (`ng` = 2.4GHz, `na` = 5GHz, `6e` = 6GHz). Only the bands you declare are managed — undeclared bands are left untouched (the provider read-modify-writes the device's full radio table to preserve them, so declaring just one band will not wipe the others). Common uses: disable a band (`tx_power_mode = "disabled"`), pin a channel/width, or set a minimum-RSSI client kick. Applies to access points; has no effect on switches.
 
@@ -199,50 +198,49 @@ class DeviceArgs:
         return pulumi.get(self, "radios")
 
     @radios.setter
-    def radios(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['DeviceRadioArgs']]]]):
+    def radios(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceRadioArgs']]]]):
         pulumi.set(self, "radios", value)
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The name of the UniFi site where the device is located. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "site", value)
 
     @_builtins.property
     @pulumi.getter(name="switchVlanEnabled")
-    def switch_vlan_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def switch_vlan_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Whether per-port VLAN configuration is enabled on the device. Required for `port_override` blocks with VLAN-tagging profiles (e.g. an IoT-VLAN `port_profile_id`) to actually take effect on access points that expose passthrough Ethernet ports (UAP-UHDIW and similar in-wall units). Switches honor port profile VLAN bindings unconditionally; APs ignore them unless this flag is true. Note: the underlying field uses `omitempty` so setting this to `false` has no effect — once enabled on a device, it can only be disabled via the UI.
         """
         return pulumi.get(self, "switch_vlan_enabled")
 
     @switch_vlan_enabled.setter
-    def switch_vlan_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def switch_vlan_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "switch_vlan_enabled", value)
 
 
 @pulumi.input_type
 class _DeviceState:
     def __init__(__self__, *,
-                 allow_adoption: pulumi.Input[Optional[_builtins.bool]] = None,
-                 disabled: pulumi.Input[Optional[_builtins.bool]] = None,
-                 ether_lighting: pulumi.Input[Optional['DeviceEtherLightingArgs']] = None,
-                 forget_on_destroy: pulumi.Input[Optional[_builtins.bool]] = None,
-                 mac: pulumi.Input[Optional[_builtins.str]] = None,
-                 name: pulumi.Input[Optional[_builtins.str]] = None,
-                 port_overrides: pulumi.Input[Optional[Sequence[pulumi.Input['DevicePortOverrideArgs']]]] = None,
-                 radios: pulumi.Input[Optional[Sequence[pulumi.Input['DeviceRadioArgs']]]] = None,
-                 site: pulumi.Input[Optional[_builtins.str]] = None,
-                 switch_vlan_enabled: pulumi.Input[Optional[_builtins.bool]] = None):
+                 allow_adoption: Optional[pulumi.Input[_builtins.bool]] = None,
+                 disabled: Optional[pulumi.Input[_builtins.bool]] = None,
+                 ether_lighting: Optional[pulumi.Input['DeviceEtherLightingArgs']] = None,
+                 forget_on_destroy: Optional[pulumi.Input[_builtins.bool]] = None,
+                 mac: Optional[pulumi.Input[_builtins.str]] = None,
+                 name: Optional[pulumi.Input[_builtins.str]] = None,
+                 port_overrides: Optional[pulumi.Input[Sequence[pulumi.Input['DevicePortOverrideArgs']]]] = None,
+                 radios: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceRadioArgs']]]] = None,
+                 site: Optional[pulumi.Input[_builtins.str]] = None,
+                 switch_vlan_enabled: Optional[pulumi.Input[_builtins.bool]] = None):
         """
         Input properties used for looking up and filtering Device resources.
-
         :param pulumi.Input[_builtins.bool] allow_adoption: Whether to automatically adopt the device when creating this resource. When true:
                * The controller will attempt to adopt the device
                * Device must be in a pending adoption state
@@ -305,7 +303,7 @@ class _DeviceState:
 
     @_builtins.property
     @pulumi.getter(name="allowAdoption")
-    def allow_adoption(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def allow_adoption(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Whether to automatically adopt the device when creating this resource. When true:
         * The controller will attempt to adopt the device
@@ -316,36 +314,36 @@ class _DeviceState:
         return pulumi.get(self, "allow_adoption")
 
     @allow_adoption.setter
-    def allow_adoption(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def allow_adoption(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "allow_adoption", value)
 
     @_builtins.property
     @pulumi.getter
-    def disabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def disabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Whether the device is administratively disabled. When true, the device will not forward traffic or provide services.
         """
         return pulumi.get(self, "disabled")
 
     @disabled.setter
-    def disabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def disabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "disabled", value)
 
     @_builtins.property
     @pulumi.getter(name="etherLighting")
-    def ether_lighting(self) -> pulumi.Input[Optional['DeviceEtherLightingArgs']]:
+    def ether_lighting(self) -> Optional[pulumi.Input['DeviceEtherLightingArgs']]:
         """
         Etherlighting configuration for switches with per-port LEDs (e.g. USW Pro Max). `mode = "network"` colors each port's LED by the VLAN/network it serves (per-network colors come from the site-level Etherlighting palette); `mode = "speed"` colors by link speed. Only the fields you set are written — unset fields keep their controller-side values (read-modify-write overlay). Devices without Etherlighting hardware ignore this object.
         """
         return pulumi.get(self, "ether_lighting")
 
     @ether_lighting.setter
-    def ether_lighting(self, value: pulumi.Input[Optional['DeviceEtherLightingArgs']]):
+    def ether_lighting(self, value: Optional[pulumi.Input['DeviceEtherLightingArgs']]):
         pulumi.set(self, "ether_lighting", value)
 
     @_builtins.property
     @pulumi.getter(name="forgetOnDestroy")
-    def forget_on_destroy(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def forget_on_destroy(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Whether to forget (un-adopt) the device when this resource is destroyed. When true:
         * The device will be removed from the controller
@@ -356,24 +354,24 @@ class _DeviceState:
         return pulumi.get(self, "forget_on_destroy")
 
     @forget_on_destroy.setter
-    def forget_on_destroy(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def forget_on_destroy(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "forget_on_destroy", value)
 
     @_builtins.property
     @pulumi.getter
-    def mac(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def mac(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The MAC address of the device in standard format (e.g., 'aa:bb:cc:dd:ee:ff'). This is used to identify and manage specific devices that have already been adopted by the controller.
         """
         return pulumi.get(self, "mac")
 
     @mac.setter
-    def mac(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def mac(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "mac", value)
 
     @_builtins.property
     @pulumi.getter
-    def name(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def name(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         A friendly name for the device that will be displayed in the UniFi controller UI. Examples:
         * 'Office-AP-1' for an access point
@@ -384,12 +382,12 @@ class _DeviceState:
         return pulumi.get(self, "name")
 
     @name.setter
-    def name(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def name(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "name", value)
 
     @_builtins.property
     @pulumi.getter(name="portOverrides")
-    def port_overrides(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['DevicePortOverrideArgs']]]]:
+    def port_overrides(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['DevicePortOverrideArgs']]]]:
         """
         A list of port-specific configuration overrides for UniFi switches. This allows you to customize individual port settings such as:
           * Port names and labels for easy identification
@@ -410,12 +408,12 @@ class _DeviceState:
         return pulumi.get(self, "port_overrides")
 
     @port_overrides.setter
-    def port_overrides(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['DevicePortOverrideArgs']]]]):
+    def port_overrides(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['DevicePortOverrideArgs']]]]):
         pulumi.set(self, "port_overrides", value)
 
     @_builtins.property
     @pulumi.getter
-    def radios(self) -> pulumi.Input[Optional[Sequence[pulumi.Input['DeviceRadioArgs']]]]:
+    def radios(self) -> Optional[pulumi.Input[Sequence[pulumi.Input['DeviceRadioArgs']]]]:
         """
         Per-band radio configuration for access points. Each block configures ONE band (`ng` = 2.4GHz, `na` = 5GHz, `6e` = 6GHz). Only the bands you declare are managed — undeclared bands are left untouched (the provider read-modify-writes the device's full radio table to preserve them, so declaring just one band will not wipe the others). Common uses: disable a band (`tx_power_mode = "disabled"`), pin a channel/width, or set a minimum-RSSI client kick. Applies to access points; has no effect on switches.
 
@@ -424,31 +422,31 @@ class _DeviceState:
         return pulumi.get(self, "radios")
 
     @radios.setter
-    def radios(self, value: pulumi.Input[Optional[Sequence[pulumi.Input['DeviceRadioArgs']]]]):
+    def radios(self, value: Optional[pulumi.Input[Sequence[pulumi.Input['DeviceRadioArgs']]]]):
         pulumi.set(self, "radios", value)
 
     @_builtins.property
     @pulumi.getter
-    def site(self) -> pulumi.Input[Optional[_builtins.str]]:
+    def site(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         The name of the UniFi site where the device is located. If not specified, the default site will be used.
         """
         return pulumi.get(self, "site")
 
     @site.setter
-    def site(self, value: pulumi.Input[Optional[_builtins.str]]):
+    def site(self, value: Optional[pulumi.Input[_builtins.str]]):
         pulumi.set(self, "site", value)
 
     @_builtins.property
     @pulumi.getter(name="switchVlanEnabled")
-    def switch_vlan_enabled(self) -> pulumi.Input[Optional[_builtins.bool]]:
+    def switch_vlan_enabled(self) -> Optional[pulumi.Input[_builtins.bool]]:
         """
         Whether per-port VLAN configuration is enabled on the device. Required for `port_override` blocks with VLAN-tagging profiles (e.g. an IoT-VLAN `port_profile_id`) to actually take effect on access points that expose passthrough Ethernet ports (UAP-UHDIW and similar in-wall units). Switches honor port profile VLAN bindings unconditionally; APs ignore them unless this flag is true. Note: the underlying field uses `omitempty` so setting this to `false` has no effect — once enabled on a device, it can only be disabled via the UI.
         """
         return pulumi.get(self, "switch_vlan_enabled")
 
     @switch_vlan_enabled.setter
-    def switch_vlan_enabled(self, value: pulumi.Input[Optional[_builtins.bool]]):
+    def switch_vlan_enabled(self, value: Optional[pulumi.Input[_builtins.bool]]):
         pulumi.set(self, "switch_vlan_enabled", value)
 
 
@@ -458,75 +456,18 @@ class Device(pulumi.CustomResource):
     def __init__(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 allow_adoption: pulumi.Input[Optional[_builtins.bool]] = None,
-                 ether_lighting: pulumi.Input[Optional[Union['DeviceEtherLightingArgs', 'DeviceEtherLightingArgsDict']]] = None,
-                 forget_on_destroy: pulumi.Input[Optional[_builtins.bool]] = None,
-                 mac: pulumi.Input[Optional[_builtins.str]] = None,
-                 name: pulumi.Input[Optional[_builtins.str]] = None,
-                 port_overrides: pulumi.Input[Optional[Sequence[pulumi.Input[Union['DevicePortOverrideArgs', 'DevicePortOverrideArgsDict']]]]] = None,
-                 radios: pulumi.Input[Optional[Sequence[pulumi.Input[Union['DeviceRadioArgs', 'DeviceRadioArgsDict']]]]] = None,
-                 site: pulumi.Input[Optional[_builtins.str]] = None,
-                 switch_vlan_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 allow_adoption: Optional[pulumi.Input[_builtins.bool]] = None,
+                 ether_lighting: Optional[pulumi.Input[Union['DeviceEtherLightingArgs', 'DeviceEtherLightingArgsDict']]] = None,
+                 forget_on_destroy: Optional[pulumi.Input[_builtins.bool]] = None,
+                 mac: Optional[pulumi.Input[_builtins.str]] = None,
+                 name: Optional[pulumi.Input[_builtins.str]] = None,
+                 port_overrides: Optional[pulumi.Input[Sequence[pulumi.Input[Union['DevicePortOverrideArgs', 'DevicePortOverrideArgsDict']]]]] = None,
+                 radios: Optional[pulumi.Input[Sequence[pulumi.Input[Union['DeviceRadioArgs', 'DeviceRadioArgsDict']]]]] = None,
+                 site: Optional[pulumi.Input[_builtins.str]] = None,
+                 switch_vlan_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  __props__=None):
         """
-        The `Device` resource manages UniFi network devices such as access points, switches, gateways, etc.
-
-        Devices must first be adopted by the UniFi controller before they can be managed through Terraform. This resource cannot create new devices, but instead allows you to manage existing devices that have already been adopted. The recommended approach is to adopt devices through the UniFi controller UI first, then import them into Terraform using the device's MAC address.
-
-        This resource supports managing device names, port configurations, and other device-specific settings.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_unifi as unifi
-        import pulumiverse_unifi as unifi
-
-        disabled = unifi.port.get_profile(name="Disabled")
-        poe = unifi.port.Profile("poe",
-            name="poe",
-            forward="customize",
-            native_networkconf_id=native_network_id,
-            excluded_network_ids=[some_vlan_network_id],
-            poe_mode="auto")
-        us24_poe = unifi.Device("us_24_poe",
-            mac="01:23:45:67:89:AB",
-            name="Switch with POE",
-            port_overrides=[
-                {
-                    "number": 1,
-                    "name": "port w/ poe",
-                    "port_profile_id": poe.id,
-                },
-                {
-                    "number": 2,
-                    "name": "disabled",
-                    "port_profile_id": disabled.id,
-                },
-                {
-                    "number": 3,
-                    "name": "access vlan",
-                    "forward": "customize",
-                    "native_networkconf_id": native_network_id,
-                    "setting_preference": "manual",
-                },
-                {
-                    "number": 4,
-                    "name": "trunk except guest",
-                    "forward": "customize",
-                    "tagged_vlan_mgmt": "custom",
-                    "excluded_network_ids": [some_vlan_network_id],
-                    "setting_preference": "manual",
-                },
-                {
-                    "number": 11,
-                    "op_mode": "aggregate",
-                    "aggregate_num_ports": 2,
-                },
-            ])
-        ```
-
-
+        Create a Device resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] allow_adoption: Whether to automatically adopt the device when creating this resource. When true:
@@ -574,64 +515,7 @@ class Device(pulumi.CustomResource):
                  args: Optional[DeviceArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        The `Device` resource manages UniFi network devices such as access points, switches, gateways, etc.
-
-        Devices must first be adopted by the UniFi controller before they can be managed through Terraform. This resource cannot create new devices, but instead allows you to manage existing devices that have already been adopted. The recommended approach is to adopt devices through the UniFi controller UI first, then import them into Terraform using the device's MAC address.
-
-        This resource supports managing device names, port configurations, and other device-specific settings.
-
-        ## Example Usage
-
-        ```python
-        import pulumi
-        import pulumi_unifi as unifi
-        import pulumiverse_unifi as unifi
-
-        disabled = unifi.port.get_profile(name="Disabled")
-        poe = unifi.port.Profile("poe",
-            name="poe",
-            forward="customize",
-            native_networkconf_id=native_network_id,
-            excluded_network_ids=[some_vlan_network_id],
-            poe_mode="auto")
-        us24_poe = unifi.Device("us_24_poe",
-            mac="01:23:45:67:89:AB",
-            name="Switch with POE",
-            port_overrides=[
-                {
-                    "number": 1,
-                    "name": "port w/ poe",
-                    "port_profile_id": poe.id,
-                },
-                {
-                    "number": 2,
-                    "name": "disabled",
-                    "port_profile_id": disabled.id,
-                },
-                {
-                    "number": 3,
-                    "name": "access vlan",
-                    "forward": "customize",
-                    "native_networkconf_id": native_network_id,
-                    "setting_preference": "manual",
-                },
-                {
-                    "number": 4,
-                    "name": "trunk except guest",
-                    "forward": "customize",
-                    "tagged_vlan_mgmt": "custom",
-                    "excluded_network_ids": [some_vlan_network_id],
-                    "setting_preference": "manual",
-                },
-                {
-                    "number": 11,
-                    "op_mode": "aggregate",
-                    "aggregate_num_ports": 2,
-                },
-            ])
-        ```
-
-
+        Create a Device resource with the given unique name, props, and options.
         :param str resource_name: The name of the resource.
         :param DeviceArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -647,15 +531,15 @@ class Device(pulumi.CustomResource):
     def _internal_init(__self__,
                  resource_name: str,
                  opts: Optional[pulumi.ResourceOptions] = None,
-                 allow_adoption: pulumi.Input[Optional[_builtins.bool]] = None,
-                 ether_lighting: pulumi.Input[Optional[Union['DeviceEtherLightingArgs', 'DeviceEtherLightingArgsDict']]] = None,
-                 forget_on_destroy: pulumi.Input[Optional[_builtins.bool]] = None,
-                 mac: pulumi.Input[Optional[_builtins.str]] = None,
-                 name: pulumi.Input[Optional[_builtins.str]] = None,
-                 port_overrides: pulumi.Input[Optional[Sequence[pulumi.Input[Union['DevicePortOverrideArgs', 'DevicePortOverrideArgsDict']]]]] = None,
-                 radios: pulumi.Input[Optional[Sequence[pulumi.Input[Union['DeviceRadioArgs', 'DeviceRadioArgsDict']]]]] = None,
-                 site: pulumi.Input[Optional[_builtins.str]] = None,
-                 switch_vlan_enabled: pulumi.Input[Optional[_builtins.bool]] = None,
+                 allow_adoption: Optional[pulumi.Input[_builtins.bool]] = None,
+                 ether_lighting: Optional[pulumi.Input[Union['DeviceEtherLightingArgs', 'DeviceEtherLightingArgsDict']]] = None,
+                 forget_on_destroy: Optional[pulumi.Input[_builtins.bool]] = None,
+                 mac: Optional[pulumi.Input[_builtins.str]] = None,
+                 name: Optional[pulumi.Input[_builtins.str]] = None,
+                 port_overrides: Optional[pulumi.Input[Sequence[pulumi.Input[Union['DevicePortOverrideArgs', 'DevicePortOverrideArgsDict']]]]] = None,
+                 radios: Optional[pulumi.Input[Sequence[pulumi.Input[Union['DeviceRadioArgs', 'DeviceRadioArgsDict']]]]] = None,
+                 site: Optional[pulumi.Input[_builtins.str]] = None,
+                 switch_vlan_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  __props__=None):
         opts = pulumi.ResourceOptions.merge(_utilities.get_resource_opts_defaults(), opts)
         if not isinstance(opts, pulumi.ResourceOptions):
@@ -685,16 +569,16 @@ class Device(pulumi.CustomResource):
     def get(resource_name: str,
             id: pulumi.Input[str],
             opts: Optional[pulumi.ResourceOptions] = None,
-            allow_adoption: pulumi.Input[Optional[_builtins.bool]] = None,
-            disabled: pulumi.Input[Optional[_builtins.bool]] = None,
-            ether_lighting: pulumi.Input[Optional[Union['DeviceEtherLightingArgs', 'DeviceEtherLightingArgsDict']]] = None,
-            forget_on_destroy: pulumi.Input[Optional[_builtins.bool]] = None,
-            mac: pulumi.Input[Optional[_builtins.str]] = None,
-            name: pulumi.Input[Optional[_builtins.str]] = None,
-            port_overrides: pulumi.Input[Optional[Sequence[pulumi.Input[Union['DevicePortOverrideArgs', 'DevicePortOverrideArgsDict']]]]] = None,
-            radios: pulumi.Input[Optional[Sequence[pulumi.Input[Union['DeviceRadioArgs', 'DeviceRadioArgsDict']]]]] = None,
-            site: pulumi.Input[Optional[_builtins.str]] = None,
-            switch_vlan_enabled: pulumi.Input[Optional[_builtins.bool]] = None) -> 'Device':
+            allow_adoption: Optional[pulumi.Input[_builtins.bool]] = None,
+            disabled: Optional[pulumi.Input[_builtins.bool]] = None,
+            ether_lighting: Optional[pulumi.Input[Union['DeviceEtherLightingArgs', 'DeviceEtherLightingArgsDict']]] = None,
+            forget_on_destroy: Optional[pulumi.Input[_builtins.bool]] = None,
+            mac: Optional[pulumi.Input[_builtins.str]] = None,
+            name: Optional[pulumi.Input[_builtins.str]] = None,
+            port_overrides: Optional[pulumi.Input[Sequence[pulumi.Input[Union['DevicePortOverrideArgs', 'DevicePortOverrideArgsDict']]]]] = None,
+            radios: Optional[pulumi.Input[Sequence[pulumi.Input[Union['DeviceRadioArgs', 'DeviceRadioArgsDict']]]]] = None,
+            site: Optional[pulumi.Input[_builtins.str]] = None,
+            switch_vlan_enabled: Optional[pulumi.Input[_builtins.bool]] = None) -> 'Device':
         """
         Get an existing Device resource's state with the given name, id, and optional extra
         properties used to qualify the lookup.

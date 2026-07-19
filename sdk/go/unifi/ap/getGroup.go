@@ -11,31 +11,6 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
-// The `ap.Group` data source can be used to retrieve the ID for an AP group by name.
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/ap"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := ap.LookupGroup(ctx, &ap.LookupGroupArgs{}, nil)
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
-// ```
 func LookupGroup(ctx *pulumi.Context, args *LookupGroupArgs, opts ...pulumi.InvokeOption) (*LookupGroupResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupGroupResult
@@ -48,20 +23,15 @@ func LookupGroup(ctx *pulumi.Context, args *LookupGroupArgs, opts ...pulumi.Invo
 
 // A collection of arguments for invoking getGroup.
 type LookupGroupArgs struct {
-	// The name of the AP group to look up, leave blank to look up the default AP group.
 	Name *string `pulumi:"name"`
-	// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
 	Site *string `pulumi:"site"`
 }
 
 // A collection of values returned by getGroup.
 type LookupGroupResult struct {
-	// The unique identifier of this resource.
-	Id string `pulumi:"id"`
-	// The name of the AP group to look up, leave blank to look up the default AP group.
+	Id   string  `pulumi:"id"`
 	Name *string `pulumi:"name"`
-	// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
-	Site string `pulumi:"site"`
+	Site string  `pulumi:"site"`
 }
 
 func LookupGroupOutput(ctx *pulumi.Context, args LookupGroupOutputArgs, opts ...pulumi.InvokeOption) LookupGroupResultOutput {
@@ -75,9 +45,7 @@ func LookupGroupOutput(ctx *pulumi.Context, args LookupGroupOutputArgs, opts ...
 
 // A collection of arguments for invoking getGroup.
 type LookupGroupOutputArgs struct {
-	// The name of the AP group to look up, leave blank to look up the default AP group.
 	Name pulumi.StringPtrInput `pulumi:"name"`
-	// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
 	Site pulumi.StringPtrInput `pulumi:"site"`
 }
 
@@ -100,17 +68,14 @@ func (o LookupGroupResultOutput) ToLookupGroupResultOutputWithContext(ctx contex
 	return o
 }
 
-// The unique identifier of this resource.
 func (o LookupGroupResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupGroupResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
-// The name of the AP group to look up, leave blank to look up the default AP group.
 func (o LookupGroupResultOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LookupGroupResult) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
 func (o LookupGroupResultOutput) Site() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupGroupResult) string { return v.Site }).(pulumi.StringOutput)
 }

@@ -12,35 +12,6 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
-// The `port.AlFile` resource manages files uploaded to the UniFi guest portal. This resource allows you to upload images that can be used in customizing the UniFi guest portal interface.
-//
-// **Note:** This resource uploads files to the UniFi controller. The file must exist on the local filesystem where Terraform is executed.
-//
-// ## Example Usage
-//
-// ```go
-// package main
-//
-// import (
-//
-//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
-//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/port"
-//
-// )
-//
-//	func main() {
-//		pulumi.Run(func(ctx *pulumi.Context) error {
-//			_, err := port.NewAlFile(ctx, "file", &port.AlFileArgs{
-//				FilePath: pulumi.String("/Users/username/Downloads/portal.png"),
-//			})
-//			if err != nil {
-//				return err
-//			}
-//			return nil
-//		})
-//	}
-//
-// ```
 type AlFile struct {
 	pulumi.CustomResourceState
 

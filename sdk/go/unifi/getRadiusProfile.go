@@ -11,7 +11,6 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
-// `RadiusProfile` data source can be used to retrieve the ID for a RADIUS profile by name.
 func LookupRadiusProfile(ctx *pulumi.Context, args *LookupRadiusProfileArgs, opts ...pulumi.InvokeOption) (*LookupRadiusProfileResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupRadiusProfileResult
@@ -24,20 +23,15 @@ func LookupRadiusProfile(ctx *pulumi.Context, args *LookupRadiusProfileArgs, opt
 
 // A collection of arguments for invoking getRadiusProfile.
 type LookupRadiusProfileArgs struct {
-	// The name of the RADIUS profile to look up. Defaults to `Default`.
 	Name *string `pulumi:"name"`
-	// The name of the site the RADIUS profile is associated with.
 	Site *string `pulumi:"site"`
 }
 
 // A collection of values returned by getRadiusProfile.
 type LookupRadiusProfileResult struct {
-	// The ID of this AP group.
-	Id string `pulumi:"id"`
-	// The name of the RADIUS profile to look up. Defaults to `Default`.
+	Id   string  `pulumi:"id"`
 	Name *string `pulumi:"name"`
-	// The name of the site the RADIUS profile is associated with.
-	Site string `pulumi:"site"`
+	Site string  `pulumi:"site"`
 }
 
 func LookupRadiusProfileOutput(ctx *pulumi.Context, args LookupRadiusProfileOutputArgs, opts ...pulumi.InvokeOption) LookupRadiusProfileResultOutput {
@@ -51,9 +45,7 @@ func LookupRadiusProfileOutput(ctx *pulumi.Context, args LookupRadiusProfileOutp
 
 // A collection of arguments for invoking getRadiusProfile.
 type LookupRadiusProfileOutputArgs struct {
-	// The name of the RADIUS profile to look up. Defaults to `Default`.
 	Name pulumi.StringPtrInput `pulumi:"name"`
-	// The name of the site the RADIUS profile is associated with.
 	Site pulumi.StringPtrInput `pulumi:"site"`
 }
 
@@ -76,17 +68,14 @@ func (o LookupRadiusProfileResultOutput) ToLookupRadiusProfileResultOutputWithCo
 	return o
 }
 
-// The ID of this AP group.
 func (o LookupRadiusProfileResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupRadiusProfileResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
-// The name of the RADIUS profile to look up. Defaults to `Default`.
 func (o LookupRadiusProfileResultOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LookupRadiusProfileResult) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
-// The name of the site the RADIUS profile is associated with.
 func (o LookupRadiusProfileResultOutput) Site() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupRadiusProfileResult) string { return v.Site }).(pulumi.StringOutput)
 }

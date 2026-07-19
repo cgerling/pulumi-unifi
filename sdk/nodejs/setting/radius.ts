@@ -4,36 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
-/**
- * The `unifi.setting.Radius` resource manages the built-in RADIUS server configuration in the UniFi controller.
- *
- * This resource allows you to configure:
- *   * Authentication settings for network access control
- *   * Accounting settings for tracking user sessions
- *   * Security features like tunneled replies
- *
- * The RADIUS server is commonly used for:
- *   * Enterprise WPA2/WPA3-Enterprise wireless networks
- *   * 802.1X port-based network access control
- *   * Centralized user authentication and accounting
- *
- * When enabled, the RADIUS server can authenticate clients using the UniFi user database or external authentication sources.
- *
- * ## Example Usage
- *
- * ```typescript
- * import * as pulumi from "@pulumi/pulumi";
- * import * as unifi from "@pulumiverse/unifi";
- *
- * const example = new unifi.setting.Radius("example", {
- *     enabled: true,
- *     secret: "your-secure-secret",
- *     accountingEnabled: true,
- *     authPort: 1812,
- *     accountingPort: 1813,
- * });
- * ```
- */
 export class Radius extends pulumi.CustomResource {
     /**
      * Get an existing Radius resource's state with the given name, ID, and optional extra
@@ -63,27 +33,27 @@ export class Radius extends pulumi.CustomResource {
     }
 
     /**
-     * Enable RADIUS accounting to track user sessions, including connection time, data usage, and other metrics. This information can be useful for billing, capacity planning, and security auditing. Defaults to `false`.
+     * Enable RADIUS accounting to track user sessions, including connection time, data usage, and other metrics. This information can be useful for billing, capacity planning, and security auditing.
      */
     declare public readonly accountingEnabled: pulumi.Output<boolean | undefined>;
     /**
-     * The UDP port number for RADIUS accounting communications. The standard port is 1813. Only change this if you need to avoid port conflicts or match specific network requirements. Defaults to `1813`.
+     * The UDP port number for RADIUS accounting communications. The standard port is 1813. Only change this if you need to avoid port conflicts or match specific network requirements.
      */
     declare public readonly accountingPort: pulumi.Output<number | undefined>;
     /**
-     * The UDP port number for RADIUS authentication communications. The standard port is 1812. Only change this if you need to avoid port conflicts or match specific network requirements. Defaults to `1812`.
+     * The UDP port number for RADIUS authentication communications. The standard port is 1812. Only change this if you need to avoid port conflicts or match specific network requirements.
      */
     declare public readonly authPort: pulumi.Output<number | undefined>;
     /**
-     * Enable or disable the built-in RADIUS server. When disabled, no RADIUS authentication or accounting services will be provided, affecting any network services that rely on RADIUS (like WPA2-Enterprise networks). Defaults to `true`.
+     * Enable or disable the built-in RADIUS server. When disabled, no RADIUS authentication or accounting services will be provided, affecting any network services that rely on RADIUS (like WPA2-Enterprise networks).
      */
     declare public readonly enabled: pulumi.Output<boolean | undefined>;
     /**
-     * The interval (in seconds) at which the RADIUS server collects and updates statistics from connected clients. Default is 3600 seconds (1 hour). Lower values provide more frequent updates but increase server load. Defaults to `3600`.
+     * The interval (in seconds) at which the RADIUS server collects and updates statistics from connected clients. Default is 3600 seconds (1 hour). Lower values provide more frequent updates but increase server load.
      */
     declare public readonly interimUpdateInterval: pulumi.Output<number | undefined>;
     /**
-     * The shared secret passphrase used to authenticate RADIUS clients (like wireless access points) with the RADIUS server. This should be a strong, random string known only to the server and its clients. Defaults to ``.
+     * The shared secret passphrase used to authenticate RADIUS clients (like wireless access points) with the RADIUS server. This should be a strong, random string known only to the server and its clients.
      */
     declare public readonly secret: pulumi.Output<string | undefined>;
     /**
@@ -91,7 +61,7 @@ export class Radius extends pulumi.CustomResource {
      */
     declare public readonly site: pulumi.Output<string>;
     /**
-     * Enable encrypted communication between the RADIUS server and clients using RADIUS tunneling. This adds an extra layer of security by protecting RADIUS attributes in transit. Defaults to `true`.
+     * Enable encrypted communication between the RADIUS server and clients using RADIUS tunneling. This adds an extra layer of security by protecting RADIUS attributes in transit.
      */
     declare public readonly tunneledReply: pulumi.Output<boolean | undefined>;
 
@@ -139,37 +109,37 @@ export class Radius extends pulumi.CustomResource {
  */
 export interface RadiusState {
     /**
-     * Enable RADIUS accounting to track user sessions, including connection time, data usage, and other metrics. This information can be useful for billing, capacity planning, and security auditing. Defaults to `false`.
+     * Enable RADIUS accounting to track user sessions, including connection time, data usage, and other metrics. This information can be useful for billing, capacity planning, and security auditing.
      */
-    accountingEnabled?: pulumi.Input<boolean | undefined>;
+    accountingEnabled?: pulumi.Input<boolean>;
     /**
-     * The UDP port number for RADIUS accounting communications. The standard port is 1813. Only change this if you need to avoid port conflicts or match specific network requirements. Defaults to `1813`.
+     * The UDP port number for RADIUS accounting communications. The standard port is 1813. Only change this if you need to avoid port conflicts or match specific network requirements.
      */
-    accountingPort?: pulumi.Input<number | undefined>;
+    accountingPort?: pulumi.Input<number>;
     /**
-     * The UDP port number for RADIUS authentication communications. The standard port is 1812. Only change this if you need to avoid port conflicts or match specific network requirements. Defaults to `1812`.
+     * The UDP port number for RADIUS authentication communications. The standard port is 1812. Only change this if you need to avoid port conflicts or match specific network requirements.
      */
-    authPort?: pulumi.Input<number | undefined>;
+    authPort?: pulumi.Input<number>;
     /**
-     * Enable or disable the built-in RADIUS server. When disabled, no RADIUS authentication or accounting services will be provided, affecting any network services that rely on RADIUS (like WPA2-Enterprise networks). Defaults to `true`.
+     * Enable or disable the built-in RADIUS server. When disabled, no RADIUS authentication or accounting services will be provided, affecting any network services that rely on RADIUS (like WPA2-Enterprise networks).
      */
-    enabled?: pulumi.Input<boolean | undefined>;
+    enabled?: pulumi.Input<boolean>;
     /**
-     * The interval (in seconds) at which the RADIUS server collects and updates statistics from connected clients. Default is 3600 seconds (1 hour). Lower values provide more frequent updates but increase server load. Defaults to `3600`.
+     * The interval (in seconds) at which the RADIUS server collects and updates statistics from connected clients. Default is 3600 seconds (1 hour). Lower values provide more frequent updates but increase server load.
      */
-    interimUpdateInterval?: pulumi.Input<number | undefined>;
+    interimUpdateInterval?: pulumi.Input<number>;
     /**
-     * The shared secret passphrase used to authenticate RADIUS clients (like wireless access points) with the RADIUS server. This should be a strong, random string known only to the server and its clients. Defaults to ``.
+     * The shared secret passphrase used to authenticate RADIUS clients (like wireless access points) with the RADIUS server. This should be a strong, random string known only to the server and its clients.
      */
-    secret?: pulumi.Input<string | undefined>;
+    secret?: pulumi.Input<string>;
     /**
      * The name of the UniFi site where these RADIUS settings should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string | undefined>;
+    site?: pulumi.Input<string>;
     /**
-     * Enable encrypted communication between the RADIUS server and clients using RADIUS tunneling. This adds an extra layer of security by protecting RADIUS attributes in transit. Defaults to `true`.
+     * Enable encrypted communication between the RADIUS server and clients using RADIUS tunneling. This adds an extra layer of security by protecting RADIUS attributes in transit.
      */
-    tunneledReply?: pulumi.Input<boolean | undefined>;
+    tunneledReply?: pulumi.Input<boolean>;
 }
 
 /**
@@ -177,35 +147,35 @@ export interface RadiusState {
  */
 export interface RadiusArgs {
     /**
-     * Enable RADIUS accounting to track user sessions, including connection time, data usage, and other metrics. This information can be useful for billing, capacity planning, and security auditing. Defaults to `false`.
+     * Enable RADIUS accounting to track user sessions, including connection time, data usage, and other metrics. This information can be useful for billing, capacity planning, and security auditing.
      */
-    accountingEnabled?: pulumi.Input<boolean | undefined>;
+    accountingEnabled?: pulumi.Input<boolean>;
     /**
-     * The UDP port number for RADIUS accounting communications. The standard port is 1813. Only change this if you need to avoid port conflicts or match specific network requirements. Defaults to `1813`.
+     * The UDP port number for RADIUS accounting communications. The standard port is 1813. Only change this if you need to avoid port conflicts or match specific network requirements.
      */
-    accountingPort?: pulumi.Input<number | undefined>;
+    accountingPort?: pulumi.Input<number>;
     /**
-     * The UDP port number for RADIUS authentication communications. The standard port is 1812. Only change this if you need to avoid port conflicts or match specific network requirements. Defaults to `1812`.
+     * The UDP port number for RADIUS authentication communications. The standard port is 1812. Only change this if you need to avoid port conflicts or match specific network requirements.
      */
-    authPort?: pulumi.Input<number | undefined>;
+    authPort?: pulumi.Input<number>;
     /**
-     * Enable or disable the built-in RADIUS server. When disabled, no RADIUS authentication or accounting services will be provided, affecting any network services that rely on RADIUS (like WPA2-Enterprise networks). Defaults to `true`.
+     * Enable or disable the built-in RADIUS server. When disabled, no RADIUS authentication or accounting services will be provided, affecting any network services that rely on RADIUS (like WPA2-Enterprise networks).
      */
-    enabled?: pulumi.Input<boolean | undefined>;
+    enabled?: pulumi.Input<boolean>;
     /**
-     * The interval (in seconds) at which the RADIUS server collects and updates statistics from connected clients. Default is 3600 seconds (1 hour). Lower values provide more frequent updates but increase server load. Defaults to `3600`.
+     * The interval (in seconds) at which the RADIUS server collects and updates statistics from connected clients. Default is 3600 seconds (1 hour). Lower values provide more frequent updates but increase server load.
      */
-    interimUpdateInterval?: pulumi.Input<number | undefined>;
+    interimUpdateInterval?: pulumi.Input<number>;
     /**
-     * The shared secret passphrase used to authenticate RADIUS clients (like wireless access points) with the RADIUS server. This should be a strong, random string known only to the server and its clients. Defaults to ``.
+     * The shared secret passphrase used to authenticate RADIUS clients (like wireless access points) with the RADIUS server. This should be a strong, random string known only to the server and its clients.
      */
-    secret?: pulumi.Input<string | undefined>;
+    secret?: pulumi.Input<string>;
     /**
      * The name of the UniFi site where these RADIUS settings should be applied. If not specified, the default site will be used.
      */
-    site?: pulumi.Input<string | undefined>;
+    site?: pulumi.Input<string>;
     /**
-     * Enable encrypted communication between the RADIUS server and clients using RADIUS tunneling. This adds an extra layer of security by protecting RADIUS attributes in transit. Defaults to `true`.
+     * Enable encrypted communication between the RADIUS server and clients using RADIUS tunneling. This adds an extra layer of security by protecting RADIUS attributes in transit.
      */
-    tunneledReply?: pulumi.Input<boolean | undefined>;
+    tunneledReply?: pulumi.Input<boolean>;
 }

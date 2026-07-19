@@ -4,9 +4,6 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
-/**
- * `unifi.RadiusProfile` data source can be used to retrieve the ID for a RADIUS profile by name.
- */
 export function getRadiusProfile(args?: GetRadiusProfileArgs, opts?: pulumi.InvokeOptions): Promise<GetRadiusProfileResult> {
     args = args || {};
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
@@ -20,13 +17,7 @@ export function getRadiusProfile(args?: GetRadiusProfileArgs, opts?: pulumi.Invo
  * A collection of arguments for invoking getRadiusProfile.
  */
 export interface GetRadiusProfileArgs {
-    /**
-     * The name of the RADIUS profile to look up. Defaults to `Default`.
-     */
     name?: string;
-    /**
-     * The name of the site the RADIUS profile is associated with.
-     */
     site?: string;
 }
 
@@ -34,22 +25,10 @@ export interface GetRadiusProfileArgs {
  * A collection of values returned by getRadiusProfile.
  */
 export interface GetRadiusProfileResult {
-    /**
-     * The ID of this AP group.
-     */
     readonly id: string;
-    /**
-     * The name of the RADIUS profile to look up. Defaults to `Default`.
-     */
     readonly name?: string;
-    /**
-     * The name of the site the RADIUS profile is associated with.
-     */
     readonly site: string;
 }
-/**
- * `unifi.RadiusProfile` data source can be used to retrieve the ID for a RADIUS profile by name.
- */
 export function getRadiusProfileOutput(args?: GetRadiusProfileOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetRadiusProfileResult> {
     args = args || {};
     opts = pulumi.mergeOptions(utilities.resourceOptsDefaults(), opts || {});
@@ -63,12 +42,6 @@ export function getRadiusProfileOutput(args?: GetRadiusProfileOutputArgs, opts?:
  * A collection of arguments for invoking getRadiusProfile.
  */
 export interface GetRadiusProfileOutputArgs {
-    /**
-     * The name of the RADIUS profile to look up. Defaults to `Default`.
-     */
-    name?: pulumi.Input<string | undefined>;
-    /**
-     * The name of the site the RADIUS profile is associated with.
-     */
-    site?: pulumi.Input<string | undefined>;
+    name?: pulumi.Input<string>;
+    site?: pulumi.Input<string>;
 }

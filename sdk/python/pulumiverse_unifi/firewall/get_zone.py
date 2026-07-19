@@ -43,33 +43,21 @@ class GetZoneResult:
     @_builtins.property
     @pulumi.getter
     def id(self) -> _builtins.str:
-        """
-        The unique identifier of this resource.
-        """
         return pulumi.get(self, "id")
 
     @_builtins.property
     @pulumi.getter
     def name(self) -> _builtins.str:
-        """
-        The name of the firewall zone.
-        """
         return pulumi.get(self, "name")
 
     @_builtins.property
     @pulumi.getter
     def networks(self) -> Sequence[_builtins.str]:
-        """
-        List of network IDs that this firewall zone contains.
-        """
         return pulumi.get(self, "networks")
 
     @_builtins.property
     @pulumi.getter
     def site(self) -> _builtins.str:
-        """
-        The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
-        """
         return pulumi.get(self, "site")
 
 
@@ -89,24 +77,7 @@ def get_zone(name: Optional[_builtins.str] = None,
              site: Optional[_builtins.str] = None,
              opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetZoneResult:
     """
-    The `firewall.Zone` datsources allows retrieving existing firewall zone details from the UniFi controller by the zone name.
-
-    ## Example Usage
-
-    ```python
-    import pulumi
-    import pulumi_unifi as unifi
-
-    vpn = unifi.firewall.get_zone(name="Vpn")
-    gateway = unifi.firewall.get_zone(name="Gateway")
-    internal = unifi.firewall.get_zone(name="Internal")
-    external = unifi.firewall.get_zone(name="External")
-    hotspot = unifi.firewall.get_zone(name="Hotspot")
-    ```
-
-
-    :param _builtins.str name: The name of the firewall zone.
-    :param _builtins.str site: The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
+    Use this data source to access information about an existing resource.
     """
     __args__ = dict()
     __args__['name'] = name
@@ -119,28 +90,11 @@ def get_zone(name: Optional[_builtins.str] = None,
         name=pulumi.get(__ret__, 'name'),
         networks=pulumi.get(__ret__, 'networks'),
         site=pulumi.get(__ret__, 'site'))
-def get_zone_output(name: pulumi.Input[Optional[_builtins.str]] = None,
-                    site: pulumi.Input[Optional[Optional[_builtins.str]]] = None,
+def get_zone_output(name: Optional[pulumi.Input[_builtins.str]] = None,
+                    site: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
                     opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetZoneResult]:
     """
-    The `firewall.Zone` datsources allows retrieving existing firewall zone details from the UniFi controller by the zone name.
-
-    ## Example Usage
-
-    ```python
-    import pulumi
-    import pulumi_unifi as unifi
-
-    vpn = unifi.firewall.get_zone(name="Vpn")
-    gateway = unifi.firewall.get_zone(name="Gateway")
-    internal = unifi.firewall.get_zone(name="Internal")
-    external = unifi.firewall.get_zone(name="External")
-    hotspot = unifi.firewall.get_zone(name="Hotspot")
-    ```
-
-
-    :param _builtins.str name: The name of the firewall zone.
-    :param _builtins.str site: The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
+    Use this data source to access information about an existing resource.
     """
     __args__ = dict()
     __args__['name'] = name
