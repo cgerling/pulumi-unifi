@@ -4,6 +4,21 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
+/**
+ * Manages Deep Packet Inspection (DPI) settings for a UniFi site. DPI is a feature that allows the UniFi controller to analyze network traffic and identify applications and services being used on the network.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as unifi from "@pulumiverse/unifi";
+ *
+ * const example = new unifi.setting.Dpi("example", {
+ *     enabled: true,
+ *     fingerprintingEnabled: true,
+ * });
+ * ```
+ */
 export class Dpi extends pulumi.CustomResource {
     /**
      * Get an existing Dpi resource's state with the given name, ID, and optional extra

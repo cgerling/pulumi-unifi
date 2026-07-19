@@ -12,6 +12,36 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
+// The `setting.AutoSpeedtest` resource manages the automatic speedtest settings in the UniFi controller.Automatic speedtests can be scheduled to run at regular intervals to monitor the network performance.
+//
+// **NOTE:** Automatic speedtests where not verified and tested on all UniFi controller versions due to limitations of controller used in acceptance testing.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/setting"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := setting.NewAutoSpeedtest(ctx, "example", &setting.AutoSpeedtestArgs{
+//				Cron:    pulumi.String("0 0 * * *"),
+//				Enabled: pulumi.Bool(true),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 type AutoSpeedtest struct {
 	pulumi.CustomResourceState
 

@@ -4,6 +4,18 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
+/**
+ * Manages the site Connectivity settings for a UniFi site. The `enabled` flag controls **wireless meshing** (shown as "Wireless Meshing" in the controller UI): when on, access points can uplink to the network over a hidden wireless backhaul instead of Ethernet, and each AP keeps a standby mesh radio running for failover. Disable it on a fully wired site to reclaim that radio/airtime; APs that lose their wired uplink then go offline rather than re-joining over mesh. The controller-generated mesh SSID and PSK are intentionally not managed by this resource.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as unifi from "@pulumiverse/unifi";
+ *
+ * const example = new unifi.setting.Connectivity("example", {enabled: false});
+ * ```
+ */
 export class Connectivity extends pulumi.CustomResource {
     /**
      * Get an existing Connectivity resource's state with the given name, ID, and optional extra

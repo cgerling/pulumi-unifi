@@ -12,6 +12,33 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
+// Manages Network Optimization settings for a UniFi site. UniFi network optimization is a feature designed to automatically enhance the performance of a UniFi network by making automatic adjustments to various settings such as channel selection, transmit power, or frequency usage
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/setting"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := setting.NewNetworkOptimization(ctx, "example", &setting.NetworkOptimizationArgs{
+//				Enabled: pulumi.Bool(true),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 type NetworkOptimization struct {
 	pulumi.CustomResourceState
 

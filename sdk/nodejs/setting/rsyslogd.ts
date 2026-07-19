@@ -4,6 +4,31 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
+/**
+ * Manages Remote Syslog (rsyslogd) settings for UniFi devices. Controller version 8.5 or later is required.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as unifi from "@pulumiverse/unifi";
+ *
+ * const example = new unifi.setting.Rsyslogd("example", {
+ *     contents: [
+ *         "device",
+ *         "client",
+ *         "admin_activity",
+ *     ],
+ *     debug: true,
+ *     enabled: true,
+ *     ip: "192.168.1.200",
+ *     netconsoleEnabled: true,
+ *     netconsoleHost: "192.168.1.150",
+ *     netconsolePort: 1514,
+ *     port: 514,
+ * });
+ * ```
+ */
 export class Rsyslogd extends pulumi.CustomResource {
     /**
      * Get an existing Rsyslogd resource's state with the given name, ID, and optional extra
@@ -33,7 +58,7 @@ export class Rsyslogd extends pulumi.CustomResource {
     }
 
     /**
-     * List of log types to include in the remote syslog. Valid values: device, client, firewall_default_policy, triggers, updates, admin_activity, critical, security_detections, vpn.
+     * List of log types to include in the remote syslog. Valid values: device, client, firewall*default*policy, triggers, updates, admin*activity, critical, security*detections, vpn.
      */
     declare public readonly contents: pulumi.Output<string[]>;
     /**
@@ -134,7 +159,7 @@ export class Rsyslogd extends pulumi.CustomResource {
  */
 export interface RsyslogdState {
     /**
-     * List of log types to include in the remote syslog. Valid values: device, client, firewall_default_policy, triggers, updates, admin_activity, critical, security_detections, vpn.
+     * List of log types to include in the remote syslog. Valid values: device, client, firewall*default*policy, triggers, updates, admin*activity, critical, security*detections, vpn.
      */
     contents?: pulumi.Input<pulumi.Input<string>[]>;
     /**
@@ -188,7 +213,7 @@ export interface RsyslogdState {
  */
 export interface RsyslogdArgs {
     /**
-     * List of log types to include in the remote syslog. Valid values: device, client, firewall_default_policy, triggers, updates, admin_activity, critical, security_detections, vpn.
+     * List of log types to include in the remote syslog. Valid values: device, client, firewall*default*policy, triggers, updates, admin*activity, critical, security*detections, vpn.
      */
     contents?: pulumi.Input<pulumi.Input<string>[]>;
     /**

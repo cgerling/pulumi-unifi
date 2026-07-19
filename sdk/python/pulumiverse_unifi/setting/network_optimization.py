@@ -105,7 +105,17 @@ class NetworkOptimization(pulumi.CustomResource):
                  site: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        Create a NetworkOptimization resource with the given unique name, props, and options.
+        Manages Network Optimization settings for a UniFi site. UniFi network optimization is a feature designed to automatically enhance the performance of a UniFi network by making automatic adjustments to various settings such as channel selection, transmit power, or frequency usage
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        example = unifi.setting.NetworkOptimization("example", enabled=True)
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] enabled: Whether the Network Optimization is enabled.
@@ -118,7 +128,17 @@ class NetworkOptimization(pulumi.CustomResource):
                  args: NetworkOptimizationArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a NetworkOptimization resource with the given unique name, props, and options.
+        Manages Network Optimization settings for a UniFi site. UniFi network optimization is a feature designed to automatically enhance the performance of a UniFi network by making automatic adjustments to various settings such as channel selection, transmit power, or frequency usage
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        example = unifi.setting.NetworkOptimization("example", enabled=True)
+        ```
+
         :param str resource_name: The name of the resource.
         :param NetworkOptimizationArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

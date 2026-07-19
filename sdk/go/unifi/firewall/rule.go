@@ -12,6 +12,54 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
+// The `firewall.Rule` resource manages firewall rules.
+//
+// This resource allows you to create and manage firewall rules that control traffic flow between different network segments (WAN, LAN, Guest) for both IPv4 and IPv6 traffic. Rules can be configured to allow, drop, or reject traffic based on various criteria including protocols, ports, and IP addresses.
+//
+// Rules are processed in order based on their `ruleIndex`, with lower numbers being processed first. Custom rules should use indices between 2000-2999 or 4000-4999 to avoid conflicts with system rules.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/firewall"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			cfg := config.New(ctx, "")
+//			ipAddress := cfg.Require("ipAddress")
+//			_, err := firewall.NewRule(ctx, "dropAll", &firewall.RuleArgs{
+//				Action:     pulumi.String("drop"),
+//				Ruleset:    pulumi.String("LAN_IN"),
+//				RuleIndex:  pulumi.Int(2011),
+//				Protocol:   pulumi.String("all"),
+//				DstAddress: pulumi.String(ipAddress),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
+//
+// ## Import
+//
+// The `pulumi import` command can be used, for example:
+//
+// import using the ID from the controller API/UI
+//
+// ```sh
+// $ pulumi import unifi:firewall/rule:Rule my_rule 5f7080eb6b8969064f80494f
+// ```
 type Rule struct {
 	pulumi.CustomResourceState
 

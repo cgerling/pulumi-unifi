@@ -6,6 +6,65 @@ import * as inputs from "./types/input";
 import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
+/**
+ * The `unifi.Device` resource manages UniFi network devices such as access points, switches, gateways, etc.
+ *
+ * Devices must first be adopted by the UniFi controller before they can be managed through Terraform. This resource cannot create new devices, but instead allows you to manage existing devices that have already been adopted. The recommended approach is to adopt devices through the UniFi controller UI first, then import them into Terraform using the device's MAC address.
+ *
+ * This resource supports managing device names, port configurations, and other device-specific settings.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as unifi from "@pulumiverse/unifi";
+ *
+ * const disabled = unifi.port.getProfile({
+ *     name: "Disabled",
+ * });
+ * const poe = new unifi.port.Profile("poe", {
+ *     forward: "customize",
+ *     nativeNetworkconfId: _var.native_network_id,
+ *     excludedNetworkIds: [_var.some_vlan_network_id],
+ *     poeMode: "auto",
+ * });
+ * const us24Poe = new unifi.Device("us24Poe", {
+ *     mac: "01:23:45:67:89:AB",
+ *     portOverrides: [
+ *         {
+ *             number: 1,
+ *             name: "port w/ poe",
+ *             portProfileId: poe.id,
+ *         },
+ *         {
+ *             number: 2,
+ *             name: "disabled",
+ *             portProfileId: disabled.then(disabled => disabled.id),
+ *         },
+ *         {
+ *             number: 3,
+ *             name: "access vlan",
+ *             forward: "customize",
+ *             nativeNetworkconfId: _var.native_network_id,
+ *             settingPreference: "manual",
+ *         },
+ *         {
+ *             number: 4,
+ *             name: "trunk except guest",
+ *             forward: "customize",
+ *             taggedVlanMgmt: "custom",
+ *             excludedNetworkIds: [_var.some_vlan_network_id],
+ *             settingPreference: "manual",
+ *         },
+ *         {
+ *             number: 11,
+ *             opMode: "aggregate",
+ *             aggregateNumPorts: 2,
+ *         },
+ *     ],
+ * });
+ * ```
+ */
 export class Device extends pulumi.CustomResource {
     /**
      * Get an existing Device resource's state with the given name, ID, and optional extra

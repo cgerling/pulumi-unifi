@@ -12,6 +12,47 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
+// The `dns.Record` resource manages DNS records in the UniFi controller's DNS server.
+//
+// This resource allows you to configure various types of DNS records for local name resolution. Common use cases include:
+//   - Creating A records for local servers and devices
+//   - Setting up CNAME aliases for internal services
+//   - Configuring MX records for local mail servers
+//   - Adding TXT records for service verification
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/dns"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := dns.NewRecord(ctx, "aRecord", &dns.RecordArgs{
+//				Value: pulumi.String("192.168.1.190"),
+//				Type:  pulumi.String("A"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = dns.NewRecord(ctx, "cnameRecord", &dns.RecordArgs{
+//				Value: pulumi.String("example.com"),
+//				Type:  pulumi.String("CNAME"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 type Record struct {
 	pulumi.CustomResourceState
 

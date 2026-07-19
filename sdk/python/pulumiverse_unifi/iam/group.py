@@ -26,8 +26,8 @@ class GroupArgs:
         """
         The set of arguments for constructing a Group resource.
         :param pulumi.Input[_builtins.str] name: A descriptive name for the user group (e.g., 'Staff', 'Guests', 'IoT Devices'). This name will be displayed in the UniFi controller interface and used when assigning clients to the group.
-        :param pulumi.Input[_builtins.int] qos_rate_max_down: The maximum allowed download speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed.
-        :param pulumi.Input[_builtins.int] qos_rate_max_up: The maximum allowed upload speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed.
+        :param pulumi.Input[_builtins.int] qos_rate_max_down: The maximum allowed download speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed. Defaults to `-1`.
+        :param pulumi.Input[_builtins.int] qos_rate_max_up: The maximum allowed upload speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed. Defaults to `-1`.
         :param pulumi.Input[_builtins.str] site: The name of the UniFi site where this user group should be created. If not specified, the default site will be used.
         """
         if name is not None:
@@ -55,7 +55,7 @@ class GroupArgs:
     @pulumi.getter(name="qosRateMaxDown")
     def qos_rate_max_down(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The maximum allowed download speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed.
+        The maximum allowed download speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed. Defaults to `-1`.
         """
         return pulumi.get(self, "qos_rate_max_down")
 
@@ -67,7 +67,7 @@ class GroupArgs:
     @pulumi.getter(name="qosRateMaxUp")
     def qos_rate_max_up(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The maximum allowed upload speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed.
+        The maximum allowed upload speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed. Defaults to `-1`.
         """
         return pulumi.get(self, "qos_rate_max_up")
 
@@ -98,8 +98,8 @@ class _GroupState:
         """
         Input properties used for looking up and filtering Group resources.
         :param pulumi.Input[_builtins.str] name: A descriptive name for the user group (e.g., 'Staff', 'Guests', 'IoT Devices'). This name will be displayed in the UniFi controller interface and used when assigning clients to the group.
-        :param pulumi.Input[_builtins.int] qos_rate_max_down: The maximum allowed download speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed.
-        :param pulumi.Input[_builtins.int] qos_rate_max_up: The maximum allowed upload speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed.
+        :param pulumi.Input[_builtins.int] qos_rate_max_down: The maximum allowed download speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed. Defaults to `-1`.
+        :param pulumi.Input[_builtins.int] qos_rate_max_up: The maximum allowed upload speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed. Defaults to `-1`.
         :param pulumi.Input[_builtins.str] site: The name of the UniFi site where this user group should be created. If not specified, the default site will be used.
         """
         if name is not None:
@@ -127,7 +127,7 @@ class _GroupState:
     @pulumi.getter(name="qosRateMaxDown")
     def qos_rate_max_down(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The maximum allowed download speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed.
+        The maximum allowed download speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed. Defaults to `-1`.
         """
         return pulumi.get(self, "qos_rate_max_down")
 
@@ -139,7 +139,7 @@ class _GroupState:
     @pulumi.getter(name="qosRateMaxUp")
     def qos_rate_max_up(self) -> Optional[pulumi.Input[_builtins.int]]:
         """
-        The maximum allowed upload speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed.
+        The maximum allowed upload speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed. Defaults to `-1`.
         """
         return pulumi.get(self, "qos_rate_max_up")
 
@@ -172,12 +172,50 @@ class Group(pulumi.CustomResource):
                  site: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        Create a Group resource with the given unique name, props, and options.
+        The `iam.Group` resource manages client groups in the UniFi controller, which allow you to apply common settings and restrictions to multiple network clients.
+
+        User groups are primarily used for:
+          * Implementing Quality of Service (QoS) policies
+          * Setting bandwidth limits for different types of users
+          * Organizing clients into logical groups (e.g., Staff, Guests, IoT devices)
+
+        Key features include:
+          * Download rate limiting
+          * Upload rate limiting
+          * Group-based policy application
+
+        User groups are particularly useful in:
+          * Educational environments (different policies for staff and students)
+          * Guest networks (limiting guest bandwidth)
+          * Shared office spaces (managing different tenant groups)
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        wifi = unifi.iam.Group("wifi",
+            qos_rate_max_down=2000,
+            qos_rate_max_up=10)
+        # 10kbps
+        ```
+
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        import using the ID
+
+        ```sh
+        $ pulumi import unifi:iam/group:Group wifi 5fe6261995fe130013456a36
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] name: A descriptive name for the user group (e.g., 'Staff', 'Guests', 'IoT Devices'). This name will be displayed in the UniFi controller interface and used when assigning clients to the group.
-        :param pulumi.Input[_builtins.int] qos_rate_max_down: The maximum allowed download speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed.
-        :param pulumi.Input[_builtins.int] qos_rate_max_up: The maximum allowed upload speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed.
+        :param pulumi.Input[_builtins.int] qos_rate_max_down: The maximum allowed download speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed. Defaults to `-1`.
+        :param pulumi.Input[_builtins.int] qos_rate_max_up: The maximum allowed upload speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed. Defaults to `-1`.
         :param pulumi.Input[_builtins.str] site: The name of the UniFi site where this user group should be created. If not specified, the default site will be used.
         """
         ...
@@ -187,7 +225,45 @@ class Group(pulumi.CustomResource):
                  args: Optional[GroupArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a Group resource with the given unique name, props, and options.
+        The `iam.Group` resource manages client groups in the UniFi controller, which allow you to apply common settings and restrictions to multiple network clients.
+
+        User groups are primarily used for:
+          * Implementing Quality of Service (QoS) policies
+          * Setting bandwidth limits for different types of users
+          * Organizing clients into logical groups (e.g., Staff, Guests, IoT devices)
+
+        Key features include:
+          * Download rate limiting
+          * Upload rate limiting
+          * Group-based policy application
+
+        User groups are particularly useful in:
+          * Educational environments (different policies for staff and students)
+          * Guest networks (limiting guest bandwidth)
+          * Shared office spaces (managing different tenant groups)
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        wifi = unifi.iam.Group("wifi",
+            qos_rate_max_down=2000,
+            qos_rate_max_up=10)
+        # 10kbps
+        ```
+
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        import using the ID
+
+        ```sh
+        $ pulumi import unifi:iam/group:Group wifi 5fe6261995fe130013456a36
+        ```
+
         :param str resource_name: The name of the resource.
         :param GroupArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -242,8 +318,8 @@ class Group(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] name: A descriptive name for the user group (e.g., 'Staff', 'Guests', 'IoT Devices'). This name will be displayed in the UniFi controller interface and used when assigning clients to the group.
-        :param pulumi.Input[_builtins.int] qos_rate_max_down: The maximum allowed download speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed.
-        :param pulumi.Input[_builtins.int] qos_rate_max_up: The maximum allowed upload speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed.
+        :param pulumi.Input[_builtins.int] qos_rate_max_down: The maximum allowed download speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed. Defaults to `-1`.
+        :param pulumi.Input[_builtins.int] qos_rate_max_up: The maximum allowed upload speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed. Defaults to `-1`.
         :param pulumi.Input[_builtins.str] site: The name of the UniFi site where this user group should be created. If not specified, the default site will be used.
         """
         opts = pulumi.ResourceOptions.merge(opts, pulumi.ResourceOptions(id=id))
@@ -268,7 +344,7 @@ class Group(pulumi.CustomResource):
     @pulumi.getter(name="qosRateMaxDown")
     def qos_rate_max_down(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
-        The maximum allowed download speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed.
+        The maximum allowed download speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed. Defaults to `-1`.
         """
         return pulumi.get(self, "qos_rate_max_down")
 
@@ -276,7 +352,7 @@ class Group(pulumi.CustomResource):
     @pulumi.getter(name="qosRateMaxUp")
     def qos_rate_max_up(self) -> pulumi.Output[Optional[_builtins.int]]:
         """
-        The maximum allowed upload speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed.
+        The maximum allowed upload speed in Kbps (kilobits per second) for clients in this group. Set to -1 for unlimited. Note: Values of 0 or 1 are not allowed. Defaults to `-1`.
         """
         return pulumi.get(self, "qos_rate_max_up")
 

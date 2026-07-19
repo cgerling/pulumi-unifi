@@ -4,6 +4,99 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * The `unifi.Network` resource manages networks in your UniFi environment, including WAN, LAN, and VLAN networks. This resource enables you to:
+ *
+ * * Create and manage different types of networks (corporate, guest, WAN, VLAN-only)
+ * * Configure network addressing and DHCP settings
+ * * Set up IPv6 networking features
+ * * Manage DHCP relay and DNS settings
+ * * Configure network groups and VLANs
+ *
+ * Common use cases include:
+ * * Setting up corporate and guest networks with different security policies
+ * * Configuring WAN connectivity with various authentication methods
+ * * Creating VLANs for network segmentation
+ * * Managing DHCP and DNS services for network clients
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as unifi from "@pulumiverse/unifi";
+ *
+ * const config = new pulumi.Config();
+ * const vlanId = config.getNumber("vlanId") || 10;
+ * const vlan = new unifi.Network("vlan", {
+ *     purpose: "corporate",
+ *     subnet: "10.0.0.1/24",
+ *     vlanId: vlanId,
+ *     dhcpStart: "10.0.0.6",
+ *     dhcpStop: "10.0.0.254",
+ *     dhcpEnabled: true,
+ * });
+ * const wan = new unifi.Network("wan", {
+ *     purpose: "wan",
+ *     wanNetworkgroup: "WAN",
+ *     wanType: "pppoe",
+ *     wanIp: "192.168.1.1",
+ *     wanEgressQos: 1,
+ *     wanUsername: "username",
+ *     xWanPassword: "password",
+ * });
+ * // Zone-Based Firewall (UniFi OS 9.x): pin a network to a firewall zone from the
+ * // network side. Use EITHER this `firewall_zone_id` lever OR the zone-side
+ * // `unifi_firewall_zone.networks` argument for a given network — not both, or the two
+ * // resources will fight over the association.
+ * const iotZone = new unifi.firewall.Zone("iotZone", {});
+ * // `networks` intentionally omitted: membership is managed from the network side
+ * // via `firewall_zone_id` below. Listing the network here too would make the two
+ * // resources fight over the association.
+ * const iotNetwork = new unifi.Network("iotNetwork", {
+ *     purpose: "corporate",
+ *     subnet: "10.0.20.1/24",
+ *     vlanId: 20,
+ *     firewallZoneId: iotZone.id,
+ * });
+ * // Override the DHCP-advertised default gateway. By default UniFi advertises the
+ * // network's own interface IP as the gateway (DHCP option 3); setting
+ * // `dhcpd_gateway_enabled = true` switches that to "manual" and hands clients the
+ * // address in `dhcpd_gateway` instead. Here clients are pointed at a Tailscale
+ * // subnet-router node (10.0.30.10) so their traffic can reach a remote tailnet.
+ * const tailscaleLan = new unifi.Network("tailscaleLan", {
+ *     purpose: "corporate",
+ *     subnet: "10.0.30.1/24",
+ *     vlanId: 30,
+ *     dhcpStart: "10.0.30.100",
+ *     dhcpStop: "10.0.30.254",
+ *     dhcpEnabled: true,
+ *     dhcpdGatewayEnabled: true,
+ *     dhcpdGateway: "10.0.30.10",
+ * });
+ * ```
+ *
+ * ## Import
+ *
+ * The `pulumi import` command can be used, for example:
+ *
+ * import from provider configured site
+ *
+ * ```sh
+ * $ pulumi import unifi:index/network:Network mynetwork 5dc28e5e9106d105bdc87217
+ * ```
+ *
+ * import from another site
+ *
+ * ```sh
+ * $ pulumi import unifi:index/network:Network mynetwork bfa2l6i7:5dc28e5e9106d105bdc87217
+ * ```
+ *
+ * import network by name
+ *
+ * ```sh
+ * $ pulumi import unifi:index/network:Network mynetwork name=LAN
+ * ```
+ */
 export class Network extends pulumi.CustomResource {
     /**
      * Get an existing Network resource's state with the given name, ID, and optional extra

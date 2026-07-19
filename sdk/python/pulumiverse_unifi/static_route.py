@@ -292,7 +292,38 @@ class StaticRoute(pulumi.CustomResource):
                  type: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        Create a StaticRoute resource with the given unique name, props, and options.
+        The `StaticRoute` resource manages static routes on UniFi Security Gateways (USG) and UniFi Dream Machines (UDM/UDM-Pro).
+
+        Static routes allow you to manually configure routing paths for specific networks. This is useful for:
+          * Connecting to networks not directly connected to your UniFi gateway
+          * Creating backup routes for redundancy
+          * Implementing policy-based routing
+          * Blocking traffic to specific networks using blackhole routes
+
+        Routes can be configured to use either a next-hop IP address, a specific interface, or as a blackhole route.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        nexthop = unifi.StaticRoute("nexthop",
+            type="nexthop-route",
+            network="172.17.0.0/16",
+            distance=1,
+            next_hop="172.16.0.1")
+        blackhole = unifi.StaticRoute("blackhole",
+            type="blackhole",
+            network=var["blackhole_cidr"],
+            distance=1)
+        interface = unifi.StaticRoute("interface",
+            type="interface-route",
+            network=var["wan2_cidr"],
+            distance=1,
+            interface="WAN2")
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.int] distance: The administrative distance for this route. Lower values are preferred. Use this to control route selection when multiple routes to the same destination exist.
@@ -316,7 +347,38 @@ class StaticRoute(pulumi.CustomResource):
                  args: StaticRouteArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a StaticRoute resource with the given unique name, props, and options.
+        The `StaticRoute` resource manages static routes on UniFi Security Gateways (USG) and UniFi Dream Machines (UDM/UDM-Pro).
+
+        Static routes allow you to manually configure routing paths for specific networks. This is useful for:
+          * Connecting to networks not directly connected to your UniFi gateway
+          * Creating backup routes for redundancy
+          * Implementing policy-based routing
+          * Blocking traffic to specific networks using blackhole routes
+
+        Routes can be configured to use either a next-hop IP address, a specific interface, or as a blackhole route.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        nexthop = unifi.StaticRoute("nexthop",
+            type="nexthop-route",
+            network="172.17.0.0/16",
+            distance=1,
+            next_hop="172.16.0.1")
+        blackhole = unifi.StaticRoute("blackhole",
+            type="blackhole",
+            network=var["blackhole_cidr"],
+            distance=1)
+        interface = unifi.StaticRoute("interface",
+            type="interface-route",
+            network=var["wan2_cidr"],
+            distance=1,
+            interface="WAN2")
+        ```
+
         :param str resource_name: The name of the resource.
         :param StaticRouteArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

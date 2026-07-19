@@ -636,7 +636,50 @@ class Mgmt(pulumi.CustomResource):
                  wifiman_enabled: Optional[pulumi.Input[_builtins.bool]] = None,
                  __props__=None):
         """
-        Create a Mgmt resource with the given unique name, props, and options.
+        The `setting.Mgmt` resource manages site-wide management settings in the UniFi controller.
+
+        This resource allows you to configure important management features including:
+          * Automatic firmware upgrades for UniFi devices
+          * SSH access for advanced configuration and troubleshooting
+          * SSH key management for secure remote access
+
+        These settings affect how the UniFi controller manages devices at the site level. They are particularly important for:
+          * Maintaining device security through automatic updates
+          * Enabling secure remote administration
+          * Implementing SSH key-based authentication
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        example_site = unifi.Site("exampleSite", description="example")
+        example_mgmt = unifi.setting.Mgmt("exampleMgmt",
+            site=example_site.name,
+            auto_upgrade=True,
+            auto_upgrade_hour=3,
+            advanced_feature_enabled=True,
+            alert_enabled=True,
+            boot_sound=False,
+            debug_tools_enabled=True,
+            direct_connect_enabled=False,
+            led_enabled=True,
+            outdoor_mode_enabled=False,
+            unifi_idp_enabled=False,
+            wifiman_enabled=True,
+            ssh_enabled=True,
+            ssh_auth_password_enabled=True,
+            ssh_bind_wildcard=False,
+            ssh_username="admin",
+            ssh_keys=[{
+                "name": "Admin Key",
+                "type": "ssh-rsa",
+                "key": "AAAAB3NzaC1yc2EAAAADAQABAAABAQCxxx...",
+                "comment": "admin@example.com",
+            }])
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] advanced_feature_enabled: Enable advanced features for UniFi devices at this site.
@@ -665,7 +708,50 @@ class Mgmt(pulumi.CustomResource):
                  args: Optional[MgmtArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a Mgmt resource with the given unique name, props, and options.
+        The `setting.Mgmt` resource manages site-wide management settings in the UniFi controller.
+
+        This resource allows you to configure important management features including:
+          * Automatic firmware upgrades for UniFi devices
+          * SSH access for advanced configuration and troubleshooting
+          * SSH key management for secure remote access
+
+        These settings affect how the UniFi controller manages devices at the site level. They are particularly important for:
+          * Maintaining device security through automatic updates
+          * Enabling secure remote administration
+          * Implementing SSH key-based authentication
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        example_site = unifi.Site("exampleSite", description="example")
+        example_mgmt = unifi.setting.Mgmt("exampleMgmt",
+            site=example_site.name,
+            auto_upgrade=True,
+            auto_upgrade_hour=3,
+            advanced_feature_enabled=True,
+            alert_enabled=True,
+            boot_sound=False,
+            debug_tools_enabled=True,
+            direct_connect_enabled=False,
+            led_enabled=True,
+            outdoor_mode_enabled=False,
+            unifi_idp_enabled=False,
+            wifiman_enabled=True,
+            ssh_enabled=True,
+            ssh_auth_password_enabled=True,
+            ssh_bind_wildcard=False,
+            ssh_username="admin",
+            ssh_keys=[{
+                "name": "Admin Key",
+                "type": "ssh-rsa",
+                "key": "AAAAB3NzaC1yc2EAAAADAQABAAABAQCxxx...",
+                "comment": "admin@example.com",
+            }])
+        ```
+
         :param str resource_name: The name of the resource.
         :param MgmtArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

@@ -4,6 +4,18 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * The `unifi.ap.Group` data source can be used to retrieve the ID for an AP group by name.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as unifi from "@pulumiverse/unifi";
+ *
+ * const _default = unifi.ap.getGroup({});
+ * ```
+ */
 /** @deprecated unifi.index/getapgroup.getApGroup has been deprecated in favor of unifi.ap/getgroup.getGroup */
 export function getApGroup(args?: GetApGroupArgs, opts?: pulumi.InvokeOptions): Promise<GetApGroupResult> {
     pulumi.log.warn("getApGroup is deprecated: unifi.index/getapgroup.getApGroup has been deprecated in favor of unifi.ap/getgroup.getGroup")
@@ -19,7 +31,13 @@ export function getApGroup(args?: GetApGroupArgs, opts?: pulumi.InvokeOptions): 
  * A collection of arguments for invoking getApGroup.
  */
 export interface GetApGroupArgs {
+    /**
+     * The name of the AP group to look up, leave blank to look up the default AP group.
+     */
     name?: string;
+    /**
+     * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
+     */
     site?: string;
 }
 
@@ -27,10 +45,31 @@ export interface GetApGroupArgs {
  * A collection of values returned by getApGroup.
  */
 export interface GetApGroupResult {
+    /**
+     * The unique identifier of this resource.
+     */
     readonly id: string;
+    /**
+     * The name of the AP group to look up, leave blank to look up the default AP group.
+     */
     readonly name?: string;
+    /**
+     * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
+     */
     readonly site: string;
 }
+/**
+ * The `unifi.ap.Group` data source can be used to retrieve the ID for an AP group by name.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as unifi from "@pulumiverse/unifi";
+ *
+ * const _default = unifi.ap.getGroup({});
+ * ```
+ */
 /** @deprecated unifi.index/getapgroup.getApGroup has been deprecated in favor of unifi.ap/getgroup.getGroup */
 export function getApGroupOutput(args?: GetApGroupOutputArgs, opts?: pulumi.InvokeOutputOptions): pulumi.Output<GetApGroupResult> {
     pulumi.log.warn("getApGroup is deprecated: unifi.index/getapgroup.getApGroup has been deprecated in favor of unifi.ap/getgroup.getGroup")
@@ -46,6 +85,12 @@ export function getApGroupOutput(args?: GetApGroupOutputArgs, opts?: pulumi.Invo
  * A collection of arguments for invoking getApGroup.
  */
 export interface GetApGroupOutputArgs {
+    /**
+     * The name of the AP group to look up, leave blank to look up the default AP group.
+     */
     name?: pulumi.Input<string>;
+    /**
+     * The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
+     */
     site?: pulumi.Input<string>;
 }

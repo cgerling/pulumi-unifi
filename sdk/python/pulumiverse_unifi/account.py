@@ -310,7 +310,28 @@ class Account(pulumi.CustomResource):
                  vlan: Optional[pulumi.Input[_builtins.int]] = None,
                  __props__=None):
         """
-        Create a Account resource with the given unique name, props, and options.
+        The `Account` resource manages RADIUS user accounts in the UniFi controller's built-in RADIUS server.
+
+        This resource is used for:
+          * WPA2/WPA3-Enterprise wireless authentication
+          * 802.1X wired authentication
+          * MAC-based device authentication
+          * Dynamic VLAN assignment through RADIUS attributes (see the `vlan` attribute)
+
+        Important Notes:
+        1. For MAC-based authentication:
+           * Use the device's MAC address as both username and password
+           * Convert MAC address to uppercase with no separators (e.g., '00:11:22:33:44:55' becomes '001122334455')
+        2. VLAN Assignment:
+           * Set the `vlan` attribute to the 802.1Q VLAN ID the controller should assign to authenticated clients
+           * VLAN assignment is delivered using the standard RADIUS tunnel attributes (`tunnel_type`/`tunnel_medium_type`)
+           * If no VLAN is specified, clients will use the network's untagged VLAN
+
+        Limitations:
+          * MAC-based authentication works only for wireless and wired clients
+          * L2TP remote access VPN is not supported with MAC authentication
+          * Accounts must be unique within a site
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] name: The username for this RADIUS account. For regular users, this can be any unique identifier. For MAC-based authentication, this must be the device's MAC address in uppercase with no separators (e.g., '001122334455').
@@ -338,7 +359,28 @@ class Account(pulumi.CustomResource):
                  args: AccountArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a Account resource with the given unique name, props, and options.
+        The `Account` resource manages RADIUS user accounts in the UniFi controller's built-in RADIUS server.
+
+        This resource is used for:
+          * WPA2/WPA3-Enterprise wireless authentication
+          * 802.1X wired authentication
+          * MAC-based device authentication
+          * Dynamic VLAN assignment through RADIUS attributes (see the `vlan` attribute)
+
+        Important Notes:
+        1. For MAC-based authentication:
+           * Use the device's MAC address as both username and password
+           * Convert MAC address to uppercase with no separators (e.g., '00:11:22:33:44:55' becomes '001122334455')
+        2. VLAN Assignment:
+           * Set the `vlan` attribute to the 802.1Q VLAN ID the controller should assign to authenticated clients
+           * VLAN assignment is delivered using the standard RADIUS tunnel attributes (`tunnel_type`/`tunnel_medium_type`)
+           * If no VLAN is specified, clients will use the network's untagged VLAN
+
+        Limitations:
+          * MAC-based authentication works only for wireless and wired clients
+          * L2TP remote access VPN is not supported with MAC authentication
+          * Accounts must be unique within a site
+
         :param str resource_name: The name of the resource.
         :param AccountArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

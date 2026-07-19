@@ -105,7 +105,17 @@ class Connectivity(pulumi.CustomResource):
                  site: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        Create a Connectivity resource with the given unique name, props, and options.
+        Manages the site Connectivity settings for a UniFi site. The `enabled` flag controls **wireless meshing** (shown as "Wireless Meshing" in the controller UI): when on, access points can uplink to the network over a hidden wireless backhaul instead of Ethernet, and each AP keeps a standby mesh radio running for failover. Disable it on a fully wired site to reclaim that radio/airtime; APs that lose their wired uplink then go offline rather than re-joining over mesh. The controller-generated mesh SSID and PSK are intentionally not managed by this resource.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        example = unifi.setting.Connectivity("example", enabled=False)
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] enabled: Whether wireless meshing is enabled for the site.
@@ -118,7 +128,17 @@ class Connectivity(pulumi.CustomResource):
                  args: ConnectivityArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a Connectivity resource with the given unique name, props, and options.
+        Manages the site Connectivity settings for a UniFi site. The `enabled` flag controls **wireless meshing** (shown as "Wireless Meshing" in the controller UI): when on, access points can uplink to the network over a hidden wireless backhaul instead of Ethernet, and each AP keeps a standby mesh radio running for failover. Disable it on a fully wired site to reclaim that radio/airtime; APs that lose their wired uplink then go offline rather than re-joining over mesh. The controller-generated mesh SSID and PSK are intentionally not managed by this resource.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        example = unifi.setting.Connectivity("example", enabled=False)
+        ```
+
         :param str resource_name: The name of the resource.
         :param ConnectivityArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

@@ -12,6 +12,33 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
+// Manages the site Connectivity settings for a UniFi site. The `enabled` flag controls **wireless meshing** (shown as "Wireless Meshing" in the controller UI): when on, access points can uplink to the network over a hidden wireless backhaul instead of Ethernet, and each AP keeps a standby mesh radio running for failover. Disable it on a fully wired site to reclaim that radio/airtime; APs that lose their wired uplink then go offline rather than re-joining over mesh. The controller-generated mesh SSID and PSK are intentionally not managed by this resource.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/setting"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := setting.NewConnectivity(ctx, "example", &setting.ConnectivityArgs{
+//				Enabled: pulumi.Bool(false),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 type Connectivity struct {
 	pulumi.CustomResourceState
 

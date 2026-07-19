@@ -57,14 +57,6 @@ class GuestAccessArgs:
         The set of arguments for constructing a GuestAccess resource.
         :param pulumi.Input[_builtins.str] allowed_subnet: Subnet allowed for guest access.
         :param pulumi.Input[_builtins.str] auth: Authentication method for guest access. Valid values are:
-               * `none` - No authentication required
-               * `hotspot` - Password authentication
-               * `facebook_wifi` - Facebook auth entication
-               * `custom` - Custom authentication
-               
-               For password authentication, set `auth` to `hotspot` and `password_enabled` to `true`.
-               For voucher authentication, set `auth` to `hotspot` and `voucher_enabled` to `true`.
-               For payment authentication, set `auth` to `hotspot` and `payment_enabled` to `true`.
         :param pulumi.Input[_builtins.str] auth_url: URL for authentication. Must be a valid URL including the protocol.
         :param pulumi.Input['GuestAccessAuthorizeArgs'] authorize: Authorize.net payment settings.
         :param pulumi.Input[_builtins.str] custom_ip: Custom IP address. Must be a valid IPv4 address (e.g., `192.168.1.1`).
@@ -77,7 +69,7 @@ class GuestAccessArgs:
                * `1440` - Day
                * `10080` - Week
         :param pulumi.Input['GuestAccessFacebookArgs'] facebook: Facebook authentication settings.
-        :param pulumi.Input['GuestAccessFacebookWifiArgs'] facebook_wifi: Facebook WiFi authentication settings.
+        :param pulumi.Input['GuestAccessFacebookWifiArgs'] facebook_wifi: - Facebook auth entication
         :param pulumi.Input['GuestAccessGoogleArgs'] google: Google authentication settings.
         :param pulumi.Input['GuestAccessIppayArgs'] ippay: IPpay Payments settings.
         :param pulumi.Input['GuestAccessMerchantWarriorArgs'] merchant_warrior: MerchantWarrior payment settings.
@@ -188,14 +180,6 @@ class GuestAccessArgs:
     def auth(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         Authentication method for guest access. Valid values are:
-        * `none` - No authentication required
-        * `hotspot` - Password authentication
-        * `facebook_wifi` - Facebook auth entication
-        * `custom` - Custom authentication
-
-        For password authentication, set `auth` to `hotspot` and `password_enabled` to `true`.
-        For voucher authentication, set `auth` to `hotspot` and `voucher_enabled` to `true`.
-        For payment authentication, set `auth` to `hotspot` and `payment_enabled` to `true`.
         """
         return pulumi.get(self, "auth")
 
@@ -307,7 +291,7 @@ class GuestAccessArgs:
     @pulumi.getter(name="facebookWifi")
     def facebook_wifi(self) -> Optional[pulumi.Input['GuestAccessFacebookWifiArgs']]:
         """
-        Facebook WiFi authentication settings.
+        - Facebook auth entication
         """
         return pulumi.get(self, "facebook_wifi")
 
@@ -621,14 +605,6 @@ class _GuestAccessState:
         Input properties used for looking up and filtering GuestAccess resources.
         :param pulumi.Input[_builtins.str] allowed_subnet: Subnet allowed for guest access.
         :param pulumi.Input[_builtins.str] auth: Authentication method for guest access. Valid values are:
-               * `none` - No authentication required
-               * `hotspot` - Password authentication
-               * `facebook_wifi` - Facebook auth entication
-               * `custom` - Custom authentication
-               
-               For password authentication, set `auth` to `hotspot` and `password_enabled` to `true`.
-               For voucher authentication, set `auth` to `hotspot` and `voucher_enabled` to `true`.
-               For payment authentication, set `auth` to `hotspot` and `payment_enabled` to `true`.
         :param pulumi.Input[_builtins.str] auth_url: URL for authentication. Must be a valid URL including the protocol.
         :param pulumi.Input['GuestAccessAuthorizeArgs'] authorize: Authorize.net payment settings.
         :param pulumi.Input[_builtins.str] custom_ip: Custom IP address. Must be a valid IPv4 address (e.g., `192.168.1.1`).
@@ -642,7 +618,7 @@ class _GuestAccessState:
                * `10080` - Week
         :param pulumi.Input['GuestAccessFacebookArgs'] facebook: Facebook authentication settings.
         :param pulumi.Input[_builtins.bool] facebook_enabled: Whether Facebook authentication for guest access is enabled.
-        :param pulumi.Input['GuestAccessFacebookWifiArgs'] facebook_wifi: Facebook WiFi authentication settings.
+        :param pulumi.Input['GuestAccessFacebookWifiArgs'] facebook_wifi: - Facebook auth entication
         :param pulumi.Input['GuestAccessGoogleArgs'] google: Google authentication settings.
         :param pulumi.Input[_builtins.bool] google_enabled: Whether Google authentication for guest access is enabled.
         :param pulumi.Input['GuestAccessIppayArgs'] ippay: IPpay Payments settings.
@@ -776,14 +752,6 @@ class _GuestAccessState:
     def auth(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         Authentication method for guest access. Valid values are:
-        * `none` - No authentication required
-        * `hotspot` - Password authentication
-        * `facebook_wifi` - Facebook auth entication
-        * `custom` - Custom authentication
-
-        For password authentication, set `auth` to `hotspot` and `password_enabled` to `true`.
-        For voucher authentication, set `auth` to `hotspot` and `voucher_enabled` to `true`.
-        For payment authentication, set `auth` to `hotspot` and `payment_enabled` to `true`.
         """
         return pulumi.get(self, "auth")
 
@@ -907,7 +875,7 @@ class _GuestAccessState:
     @pulumi.getter(name="facebookWifi")
     def facebook_wifi(self) -> Optional[pulumi.Input['GuestAccessFacebookWifiArgs']]:
         """
-        Facebook WiFi authentication settings.
+        - Facebook auth entication
         """
         return pulumi.get(self, "facebook_wifi")
 
@@ -1298,19 +1266,80 @@ class GuestAccess(pulumi.CustomResource):
                  wechat: Optional[pulumi.Input[Union['GuestAccessWechatArgs', 'GuestAccessWechatArgsDict']]] = None,
                  __props__=None):
         """
-        Create a GuestAccess resource with the given unique name, props, and options.
+        The `setting.GuestAccess` resource manages the guest access settings in the UniFi controller.
+
+        This resource allows you to configure all aspects of guest network access including authentication methods, portal customization, and payment options.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        # Configure guest access settings for your UniFi network
+        # This example demonstrates a comprehensive guest portal setup with various authentication options
+        logo = unifi.port.AlFile("logo", file_path="logo.png")
+        guest_portal = unifi.setting.GuestAccess("guestPortal",
+            auth="hotspot",
+            portal_enabled=True,
+            portal_use_hostname=True,
+            portal_hostname="guest.example.com",
+            template_engine="angular",
+            expire=1440,
+            expire_number=1,
+            expire_unit=1440,
+            ec_enabled=True,
+            password="guest-access-password",
+            google=[{
+                "clientId": "your-google-client-id",
+                "clientSecret": "your-google-client-secret",
+                "domain": "example.com",
+                "scopeEmail": True,
+            }],
+            payment_gateway="paypal",
+            paypal=[{
+                "username": "business@example.com",
+                "password": "paypal-api-password",
+                "signature": "paypal-api-signature",
+                "useSandbox": True,
+            }],
+            redirect=[{
+                "url": "https://example.com/welcome",
+                "useHttps": True,
+                "toHttps": True,
+            }],
+            restricted_dns_servers=[
+                "1.1.1.1",
+                "8.8.8.8",
+            ],
+            portal_customization=[{
+                "customized": True,
+                "title": "Welcome to Our Guest Network",
+                "welcomeText": "Thanks for visiting our location. Please enjoy our complimentary WiFi.",
+                "welcomeTextEnabled": True,
+                "welcomeTextPosition": "top",
+                "bgColor": "#f5f5f5",
+                "textColor": "#333333",
+                "linkColor": "#0078d4",
+                "boxColor": "#ffffff",
+                "boxTextColor": "#333333",
+                "boxLinkColor": "#0078d4",
+                "boxOpacity": 90,
+                "boxRadius": 5,
+                "logoFileId": logo.id,
+                "buttonColor": "#0078d4",
+                "buttonTextColor": "#ffffff",
+                "buttonText": "Connect",
+                "tosEnabled": True,
+                "tos": "By using this service, you agree to our terms and conditions. Unauthorized use is prohibited.",
+                "languages": ["PL"],
+            }])
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] allowed_subnet: Subnet allowed for guest access.
         :param pulumi.Input[_builtins.str] auth: Authentication method for guest access. Valid values are:
-               * `none` - No authentication required
-               * `hotspot` - Password authentication
-               * `facebook_wifi` - Facebook auth entication
-               * `custom` - Custom authentication
-               
-               For password authentication, set `auth` to `hotspot` and `password_enabled` to `true`.
-               For voucher authentication, set `auth` to `hotspot` and `voucher_enabled` to `true`.
-               For payment authentication, set `auth` to `hotspot` and `payment_enabled` to `true`.
         :param pulumi.Input[_builtins.str] auth_url: URL for authentication. Must be a valid URL including the protocol.
         :param pulumi.Input[Union['GuestAccessAuthorizeArgs', 'GuestAccessAuthorizeArgsDict']] authorize: Authorize.net payment settings.
         :param pulumi.Input[_builtins.str] custom_ip: Custom IP address. Must be a valid IPv4 address (e.g., `192.168.1.1`).
@@ -1323,7 +1352,7 @@ class GuestAccess(pulumi.CustomResource):
                * `1440` - Day
                * `10080` - Week
         :param pulumi.Input[Union['GuestAccessFacebookArgs', 'GuestAccessFacebookArgsDict']] facebook: Facebook authentication settings.
-        :param pulumi.Input[Union['GuestAccessFacebookWifiArgs', 'GuestAccessFacebookWifiArgsDict']] facebook_wifi: Facebook WiFi authentication settings.
+        :param pulumi.Input[Union['GuestAccessFacebookWifiArgs', 'GuestAccessFacebookWifiArgsDict']] facebook_wifi: - Facebook auth entication
         :param pulumi.Input[Union['GuestAccessGoogleArgs', 'GuestAccessGoogleArgsDict']] google: Google authentication settings.
         :param pulumi.Input[Union['GuestAccessIppayArgs', 'GuestAccessIppayArgsDict']] ippay: IPpay Payments settings.
         :param pulumi.Input[Union['GuestAccessMerchantWarriorArgs', 'GuestAccessMerchantWarriorArgsDict']] merchant_warrior: MerchantWarrior payment settings.
@@ -1359,7 +1388,76 @@ class GuestAccess(pulumi.CustomResource):
                  args: Optional[GuestAccessArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a GuestAccess resource with the given unique name, props, and options.
+        The `setting.GuestAccess` resource manages the guest access settings in the UniFi controller.
+
+        This resource allows you to configure all aspects of guest network access including authentication methods, portal customization, and payment options.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        # Configure guest access settings for your UniFi network
+        # This example demonstrates a comprehensive guest portal setup with various authentication options
+        logo = unifi.port.AlFile("logo", file_path="logo.png")
+        guest_portal = unifi.setting.GuestAccess("guestPortal",
+            auth="hotspot",
+            portal_enabled=True,
+            portal_use_hostname=True,
+            portal_hostname="guest.example.com",
+            template_engine="angular",
+            expire=1440,
+            expire_number=1,
+            expire_unit=1440,
+            ec_enabled=True,
+            password="guest-access-password",
+            google=[{
+                "clientId": "your-google-client-id",
+                "clientSecret": "your-google-client-secret",
+                "domain": "example.com",
+                "scopeEmail": True,
+            }],
+            payment_gateway="paypal",
+            paypal=[{
+                "username": "business@example.com",
+                "password": "paypal-api-password",
+                "signature": "paypal-api-signature",
+                "useSandbox": True,
+            }],
+            redirect=[{
+                "url": "https://example.com/welcome",
+                "useHttps": True,
+                "toHttps": True,
+            }],
+            restricted_dns_servers=[
+                "1.1.1.1",
+                "8.8.8.8",
+            ],
+            portal_customization=[{
+                "customized": True,
+                "title": "Welcome to Our Guest Network",
+                "welcomeText": "Thanks for visiting our location. Please enjoy our complimentary WiFi.",
+                "welcomeTextEnabled": True,
+                "welcomeTextPosition": "top",
+                "bgColor": "#f5f5f5",
+                "textColor": "#333333",
+                "linkColor": "#0078d4",
+                "boxColor": "#ffffff",
+                "boxTextColor": "#333333",
+                "boxLinkColor": "#0078d4",
+                "boxOpacity": 90,
+                "boxRadius": 5,
+                "logoFileId": logo.id,
+                "buttonColor": "#0078d4",
+                "buttonTextColor": "#ffffff",
+                "buttonText": "Connect",
+                "tosEnabled": True,
+                "tos": "By using this service, you agree to our terms and conditions. Unauthorized use is prohibited.",
+                "languages": ["PL"],
+            }])
+        ```
+
         :param str resource_name: The name of the resource.
         :param GuestAccessArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -1517,14 +1615,6 @@ class GuestAccess(pulumi.CustomResource):
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] allowed_subnet: Subnet allowed for guest access.
         :param pulumi.Input[_builtins.str] auth: Authentication method for guest access. Valid values are:
-               * `none` - No authentication required
-               * `hotspot` - Password authentication
-               * `facebook_wifi` - Facebook auth entication
-               * `custom` - Custom authentication
-               
-               For password authentication, set `auth` to `hotspot` and `password_enabled` to `true`.
-               For voucher authentication, set `auth` to `hotspot` and `voucher_enabled` to `true`.
-               For payment authentication, set `auth` to `hotspot` and `payment_enabled` to `true`.
         :param pulumi.Input[_builtins.str] auth_url: URL for authentication. Must be a valid URL including the protocol.
         :param pulumi.Input[Union['GuestAccessAuthorizeArgs', 'GuestAccessAuthorizeArgsDict']] authorize: Authorize.net payment settings.
         :param pulumi.Input[_builtins.str] custom_ip: Custom IP address. Must be a valid IPv4 address (e.g., `192.168.1.1`).
@@ -1538,7 +1628,7 @@ class GuestAccess(pulumi.CustomResource):
                * `10080` - Week
         :param pulumi.Input[Union['GuestAccessFacebookArgs', 'GuestAccessFacebookArgsDict']] facebook: Facebook authentication settings.
         :param pulumi.Input[_builtins.bool] facebook_enabled: Whether Facebook authentication for guest access is enabled.
-        :param pulumi.Input[Union['GuestAccessFacebookWifiArgs', 'GuestAccessFacebookWifiArgsDict']] facebook_wifi: Facebook WiFi authentication settings.
+        :param pulumi.Input[Union['GuestAccessFacebookWifiArgs', 'GuestAccessFacebookWifiArgsDict']] facebook_wifi: - Facebook auth entication
         :param pulumi.Input[Union['GuestAccessGoogleArgs', 'GuestAccessGoogleArgsDict']] google: Google authentication settings.
         :param pulumi.Input[_builtins.bool] google_enabled: Whether Google authentication for guest access is enabled.
         :param pulumi.Input[Union['GuestAccessIppayArgs', 'GuestAccessIppayArgsDict']] ippay: IPpay Payments settings.
@@ -1633,14 +1723,6 @@ class GuestAccess(pulumi.CustomResource):
     def auth(self) -> pulumi.Output[_builtins.str]:
         """
         Authentication method for guest access. Valid values are:
-        * `none` - No authentication required
-        * `hotspot` - Password authentication
-        * `facebook_wifi` - Facebook auth entication
-        * `custom` - Custom authentication
-
-        For password authentication, set `auth` to `hotspot` and `password_enabled` to `true`.
-        For voucher authentication, set `auth` to `hotspot` and `voucher_enabled` to `true`.
-        For payment authentication, set `auth` to `hotspot` and `payment_enabled` to `true`.
         """
         return pulumi.get(self, "auth")
 
@@ -1724,7 +1806,7 @@ class GuestAccess(pulumi.CustomResource):
     @pulumi.getter(name="facebookWifi")
     def facebook_wifi(self) -> pulumi.Output[Optional['outputs.GuestAccessFacebookWifi']]:
         """
-        Facebook WiFi authentication settings.
+        - Facebook auth entication
         """
         return pulumi.get(self, "facebook_wifi")
 

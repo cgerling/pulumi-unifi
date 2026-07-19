@@ -11,6 +11,57 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
+// The `firewall.Zone` datsources allows retrieving existing firewall zone details from the UniFi controller by the zone name.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/firewall"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := firewall.LookupZone(ctx, &firewall.LookupZoneArgs{
+//				Name: "Vpn",
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			_, err = firewall.LookupZone(ctx, &firewall.LookupZoneArgs{
+//				Name: "Gateway",
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			_, err = firewall.LookupZone(ctx, &firewall.LookupZoneArgs{
+//				Name: "Internal",
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			_, err = firewall.LookupZone(ctx, &firewall.LookupZoneArgs{
+//				Name: "External",
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			_, err = firewall.LookupZone(ctx, &firewall.LookupZoneArgs{
+//				Name: "Hotspot",
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 func LookupZone(ctx *pulumi.Context, args *LookupZoneArgs, opts ...pulumi.InvokeOption) (*LookupZoneResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupZoneResult
@@ -23,16 +74,22 @@ func LookupZone(ctx *pulumi.Context, args *LookupZoneArgs, opts ...pulumi.Invoke
 
 // A collection of arguments for invoking getZone.
 type LookupZoneArgs struct {
-	Name string  `pulumi:"name"`
+	// The name of the firewall zone.
+	Name string `pulumi:"name"`
+	// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
 	Site *string `pulumi:"site"`
 }
 
 // A collection of values returned by getZone.
 type LookupZoneResult struct {
-	Id       string   `pulumi:"id"`
-	Name     string   `pulumi:"name"`
+	// The unique identifier of this resource.
+	Id string `pulumi:"id"`
+	// The name of the firewall zone.
+	Name string `pulumi:"name"`
+	// List of network IDs that this firewall zone contains.
 	Networks []string `pulumi:"networks"`
-	Site     string   `pulumi:"site"`
+	// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
+	Site string `pulumi:"site"`
 }
 
 func LookupZoneOutput(ctx *pulumi.Context, args LookupZoneOutputArgs, opts ...pulumi.InvokeOption) LookupZoneResultOutput {
@@ -46,7 +103,9 @@ func LookupZoneOutput(ctx *pulumi.Context, args LookupZoneOutputArgs, opts ...pu
 
 // A collection of arguments for invoking getZone.
 type LookupZoneOutputArgs struct {
-	Name pulumi.StringInput    `pulumi:"name"`
+	// The name of the firewall zone.
+	Name pulumi.StringInput `pulumi:"name"`
+	// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
 	Site pulumi.StringPtrInput `pulumi:"site"`
 }
 
@@ -69,18 +128,22 @@ func (o LookupZoneResultOutput) ToLookupZoneResultOutputWithContext(ctx context.
 	return o
 }
 
+// The unique identifier of this resource.
 func (o LookupZoneResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupZoneResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
+// The name of the firewall zone.
 func (o LookupZoneResultOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupZoneResult) string { return v.Name }).(pulumi.StringOutput)
 }
 
+// List of network IDs that this firewall zone contains.
 func (o LookupZoneResultOutput) Networks() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v LookupZoneResult) []string { return v.Networks }).(pulumi.StringArrayOutput)
 }
 
+// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
 func (o LookupZoneResultOutput) Site() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupZoneResult) string { return v.Site }).(pulumi.StringOutput)
 }

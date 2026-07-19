@@ -4,6 +4,40 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
+/**
+ * The `unifi.port.Profile` resource manages port profiles that can be applied to UniFi switch ports.
+ *
+ * Port profiles define a collection of settings that can be applied to one or more switch ports, including:
+ *   * Network and VLAN settings
+ *   * Port speed and duplex settings
+ *   * Security features like 802.1X authentication and port isolation
+ *   * Rate limiting and QoS settings
+ *   * Network protocols like LLDP and STP
+ *
+ * Creating port profiles allows for consistent configuration across multiple switch ports and easier management of port settings.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as unifi from "@pulumiverse/unifi";
+ *
+ * const config = new pulumi.Config();
+ * const vlanId = config.getNumber("vlanId") || 10;
+ * const vlan = new unifi.Network("vlan", {
+ *     purpose: "corporate",
+ *     subnet: "10.0.0.1/24",
+ *     vlanId: vlanId,
+ *     dhcpStart: "10.0.0.6",
+ *     dhcpStop: "10.0.0.254",
+ *     dhcpEnabled: true,
+ * });
+ * const poeDisabled = new unifi.port.Profile("poeDisabled", {
+ *     nativeNetworkconfId: vlan.id,
+ *     poeMode: "off",
+ * });
+ * ```
+ */
 export class Profile extends pulumi.CustomResource {
     /**
      * Get an existing Profile resource's state with the given name, ID, and optional extra

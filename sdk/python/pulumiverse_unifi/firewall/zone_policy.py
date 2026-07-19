@@ -583,7 +583,77 @@ class ZonePolicy(pulumi.CustomResource):
                  source: Optional[pulumi.Input[Union['ZonePolicySourceArgs', 'ZonePolicySourceArgsDict']]] = None,
                  __props__=None):
         """
-        Create a ZonePolicy resource with the given unique name, props, and options.
+        The `firewall.ZonePolicy` resource manages firewall policies between zones in the UniFi controller. This resource allows you to create, update, and delete policies that define allowed or blocked traffic between zones.
+
+        > This is experimental feature, that requires UniFi OS 9.0.0 or later and Zone Based Firewall feature enabled. Check [official documentation](https://help.ui.com/hc/en-us/articles/28223082254743-Migrating-to-Zone-Based-Firewalls-in-UniFi) how to migate to Zone-Based firewalls.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        network = unifi.Network("network",
+            purpose="corporate",
+            subnet="10.0.10.0/24",
+            vlan_id=400)
+        src = unifi.firewall.Zone("src", networks=[network.id])
+        dst = unifi.firewall.Zone("dst")
+        # Allow TCP/UDP traffic from any ip and port other than 192.168.1.1 and 443 in `src` zone to `dst` zone
+        policy = unifi.firewall.ZonePolicy("policy",
+            action="ALLOW",
+            protocol="tcp_udp",
+            source={
+                "zone_id": src.id,
+                "ips": ["192.168.1.1"],
+                "port": 443,
+                "match_opposite_ips": True,
+                "match_opposite_ports": True,
+            },
+            destination={
+                "zone_id": dst.id,
+            },
+            schedule={
+                "mode": "EVERY_DAY",
+                "time_all_day": False,
+                "time_from": "08:00",
+                "time_to": "17:00",
+            })
+        web_ports = unifi.firewall.Group("web-ports",
+            type="port-group",
+            members=[
+                "80",
+                "443",
+            ])
+        # Block TCP/UDP traffic from any ip and port in `src` zone to `dst` zone ports 80 and 443 defined in port group
+        policy2 = unifi.firewall.ZonePolicy("policy2",
+            action="BLOCK",
+            protocol="tcp_udp",
+            source={
+                "zone_id": src.id,
+            },
+            destination={
+                "zone_id": dst.id,
+                "port_group_id": web_ports.id,
+            })
+        ```
+
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        import from provider configured site
+
+        ```sh
+        $ pulumi import unifi:firewall/zonePolicy:ZonePolicy mynetwork 5dc28e5e9106d105bdc87217
+        ```
+
+        import from another site
+
+        ```sh
+        $ pulumi import unifi:firewall/zonePolicy:ZonePolicy mynetwork zone:5dc28e5e9106d105bdc87217
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] action: Determines which action to take on matching traffic. Must be one of `BLOCK`, `ALLOW`, or `REJECT`.
@@ -610,7 +680,77 @@ class ZonePolicy(pulumi.CustomResource):
                  args: ZonePolicyArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a ZonePolicy resource with the given unique name, props, and options.
+        The `firewall.ZonePolicy` resource manages firewall policies between zones in the UniFi controller. This resource allows you to create, update, and delete policies that define allowed or blocked traffic between zones.
+
+        > This is experimental feature, that requires UniFi OS 9.0.0 or later and Zone Based Firewall feature enabled. Check [official documentation](https://help.ui.com/hc/en-us/articles/28223082254743-Migrating-to-Zone-Based-Firewalls-in-UniFi) how to migate to Zone-Based firewalls.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        network = unifi.Network("network",
+            purpose="corporate",
+            subnet="10.0.10.0/24",
+            vlan_id=400)
+        src = unifi.firewall.Zone("src", networks=[network.id])
+        dst = unifi.firewall.Zone("dst")
+        # Allow TCP/UDP traffic from any ip and port other than 192.168.1.1 and 443 in `src` zone to `dst` zone
+        policy = unifi.firewall.ZonePolicy("policy",
+            action="ALLOW",
+            protocol="tcp_udp",
+            source={
+                "zone_id": src.id,
+                "ips": ["192.168.1.1"],
+                "port": 443,
+                "match_opposite_ips": True,
+                "match_opposite_ports": True,
+            },
+            destination={
+                "zone_id": dst.id,
+            },
+            schedule={
+                "mode": "EVERY_DAY",
+                "time_all_day": False,
+                "time_from": "08:00",
+                "time_to": "17:00",
+            })
+        web_ports = unifi.firewall.Group("web-ports",
+            type="port-group",
+            members=[
+                "80",
+                "443",
+            ])
+        # Block TCP/UDP traffic from any ip and port in `src` zone to `dst` zone ports 80 and 443 defined in port group
+        policy2 = unifi.firewall.ZonePolicy("policy2",
+            action="BLOCK",
+            protocol="tcp_udp",
+            source={
+                "zone_id": src.id,
+            },
+            destination={
+                "zone_id": dst.id,
+                "port_group_id": web_ports.id,
+            })
+        ```
+
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        import from provider configured site
+
+        ```sh
+        $ pulumi import unifi:firewall/zonePolicy:ZonePolicy mynetwork 5dc28e5e9106d105bdc87217
+        ```
+
+        import from another site
+
+        ```sh
+        $ pulumi import unifi:firewall/zonePolicy:ZonePolicy mynetwork zone:5dc28e5e9106d105bdc87217
+        ```
+
         :param str resource_name: The name of the resource.
         :param ZonePolicyArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

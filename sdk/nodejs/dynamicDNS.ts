@@ -4,6 +4,37 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * The `unifi.DynamicDNS` resource manages Dynamic DNS (DDNS).
+ *
+ * Dynamic DNS allows you to access your network using a domain name even when your public IP address changes. This is useful for:
+ *   * Remote access to your network
+ *   * Hosting services from your home/office network
+ *   * VPN connections to your network
+ *
+ * The resource supports various DDNS providers including:
+ *   * DynDNS
+ *   * No-IP
+ *   * Duck DNS
+ *   * And many others
+ *
+ * Each DDNS configuration can be associated with either the primary (WAN) or secondary (WAN2) interface.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as unifi from "@pulumiverse/unifi";
+ *
+ * const test = new unifi.DynamicDNS("test", {
+ *     service: "dyndns",
+ *     hostName: "my-network.example.com",
+ *     server: "domains.google.com",
+ *     login: _var.dns_login,
+ *     password: _var.dns_password,
+ * });
+ * ```
+ */
 export class DynamicDNS extends pulumi.CustomResource {
     /**
      * Get an existing DynamicDNS resource's state with the given name, ID, and optional extra

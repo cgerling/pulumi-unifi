@@ -12,10 +12,48 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
+// Manages Remote Syslog (rsyslogd) settings for UniFi devices. Controller version 8.5 or later is required.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/setting"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := setting.NewRsyslogd(ctx, "example", &setting.RsyslogdArgs{
+//				Contents: pulumi.StringArray{
+//					pulumi.String("device"),
+//					pulumi.String("client"),
+//					pulumi.String("admin_activity"),
+//				},
+//				Debug:             pulumi.Bool(true),
+//				Enabled:           pulumi.Bool(true),
+//				Ip:                pulumi.String("192.168.1.200"),
+//				NetconsoleEnabled: pulumi.Bool(true),
+//				NetconsoleHost:    pulumi.String("192.168.1.150"),
+//				NetconsolePort:    pulumi.Int(1514),
+//				Port:              pulumi.Int(514),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 type Rsyslogd struct {
 	pulumi.CustomResourceState
 
-	// List of log types to include in the remote syslog. Valid values: device, client, firewall_default_policy, triggers, updates, admin_activity, critical, security_detections, vpn.
+	// List of log types to include in the remote syslog. Valid values: device, client, firewall*default*policy, triggers, updates, admin*activity, critical, security*detections, vpn.
 	Contents pulumi.StringArrayOutput `pulumi:"contents"`
 	// Whether debug logging is enabled.
 	Debug pulumi.BoolOutput `pulumi:"debug"`
@@ -74,7 +112,7 @@ func GetRsyslogd(ctx *pulumi.Context,
 
 // Input properties used for looking up and filtering Rsyslogd resources.
 type rsyslogdState struct {
-	// List of log types to include in the remote syslog. Valid values: device, client, firewall_default_policy, triggers, updates, admin_activity, critical, security_detections, vpn.
+	// List of log types to include in the remote syslog. Valid values: device, client, firewall*default*policy, triggers, updates, admin*activity, critical, security*detections, vpn.
 	Contents []string `pulumi:"contents"`
 	// Whether debug logging is enabled.
 	Debug *bool `pulumi:"debug"`
@@ -101,7 +139,7 @@ type rsyslogdState struct {
 }
 
 type RsyslogdState struct {
-	// List of log types to include in the remote syslog. Valid values: device, client, firewall_default_policy, triggers, updates, admin_activity, critical, security_detections, vpn.
+	// List of log types to include in the remote syslog. Valid values: device, client, firewall*default*policy, triggers, updates, admin*activity, critical, security*detections, vpn.
 	Contents pulumi.StringArrayInput
 	// Whether debug logging is enabled.
 	Debug pulumi.BoolPtrInput
@@ -132,7 +170,7 @@ func (RsyslogdState) ElementType() reflect.Type {
 }
 
 type rsyslogdArgs struct {
-	// List of log types to include in the remote syslog. Valid values: device, client, firewall_default_policy, triggers, updates, admin_activity, critical, security_detections, vpn.
+	// List of log types to include in the remote syslog. Valid values: device, client, firewall*default*policy, triggers, updates, admin*activity, critical, security*detections, vpn.
 	Contents []string `pulumi:"contents"`
 	// Whether debug logging is enabled.
 	Debug *bool `pulumi:"debug"`
@@ -160,7 +198,7 @@ type rsyslogdArgs struct {
 
 // The set of arguments for constructing a Rsyslogd resource.
 type RsyslogdArgs struct {
-	// List of log types to include in the remote syslog. Valid values: device, client, firewall_default_policy, triggers, updates, admin_activity, critical, security_detections, vpn.
+	// List of log types to include in the remote syslog. Valid values: device, client, firewall*default*policy, triggers, updates, admin*activity, critical, security*detections, vpn.
 	Contents pulumi.StringArrayInput
 	// Whether debug logging is enabled.
 	Debug pulumi.BoolPtrInput
@@ -273,7 +311,7 @@ func (o RsyslogdOutput) ToRsyslogdOutputWithContext(ctx context.Context) Rsyslog
 	return o
 }
 
-// List of log types to include in the remote syslog. Valid values: device, client, firewall_default_policy, triggers, updates, admin_activity, critical, security_detections, vpn.
+// List of log types to include in the remote syslog. Valid values: device, client, firewall*default*policy, triggers, updates, admin*activity, critical, security*detections, vpn.
 func (o RsyslogdOutput) Contents() pulumi.StringArrayOutput {
 	return o.ApplyT(func(v *Rsyslogd) pulumi.StringArrayOutput { return v.Contents }).(pulumi.StringArrayOutput)
 }

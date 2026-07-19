@@ -6,6 +6,51 @@ import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 import * as utilities from "../utilities";
 
+/**
+ * The `unifi.setting.GlobalSwitch` resource manages the switch isolation settings (device isolation and ACL-based layer-3 isolation) for a UniFi site, exposed in the controller UI under **Settings → Network → Switch Isolation Settings**.
+ *
+ * This resource is intentionally narrow: it manages only the isolation-related fields of the controller's `globalSwitch` setting object. All other fields of that object (such as DHCP snooping, 802.1X, STP, jumbo frames, and flow control) are preserved untouched using a read-modify-write write path, so this resource can be adopted without clobbering settings managed elsewhere (for example, DHCP snooping via `unifi.setting.Usw`).
+ *
+ * > **Requires controller version 7.2 or later.** The Switch Isolation Settings are only available on UniFi Network controllers from version 7.2 onward.
+ *
+ * > **Clearing collections is not supported.** Because the underlying controller fields are `omitempty`, setting any of `aclDeviceIsolation`, `aclL3Isolation`, or `switchExclusions` to an empty value cannot reliably clear it via the API. Configure at least one element. Removing theattribute does not unmanage or clear it: the last applied value is retained and kept in sync. Empty values are rejected at plan time.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as unifi from "@pulumiverse/unifi";
+ *
+ * // Define the networks used by the layer-3 isolation rules. The isolation
+ * // settings reference networks by their UniFi network ID (the `id` attribute),
+ * // not by name or CIDR.
+ * const engineering = new unifi.Network("engineering", {
+ *     purpose: "corporate",
+ *     subnet: "10.0.10.1/24",
+ *     vlanId: 10,
+ * });
+ * const guest = new unifi.Network("guest", {
+ *     purpose: "corporate",
+ *     subnet: "10.0.20.1/24",
+ *     vlanId: 20,
+ * });
+ * // Manage the site's switch isolation settings
+ * // (Settings -> Network -> Switch Isolation Settings).
+ * //
+ * // Only the isolation-related fields are managed; all other global switch
+ * // settings (DHCP snooping, STP, jumbo frames, etc.) are preserved untouched.
+ * const example = new unifi.setting.GlobalSwitch("example", {
+ *     aclL3Isolations: [{
+ *         source_network: guest.id,
+ *         destination_networks: [engineering.id],
+ *     }],
+ *     switchExclusions: ["00:11:22:33:44:55"],
+ * });
+ * // Specify the site (optional, defaults to the site configured in the provider,
+ * // otherwise "default").
+ * // site = "default"
+ * ```
+ */
 export class GlobalSwitch extends pulumi.CustomResource {
     /**
      * Get an existing GlobalSwitch resource's state with the given name, ID, and optional extra

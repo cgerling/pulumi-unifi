@@ -143,7 +143,35 @@ class ApGroup(pulumi.CustomResource):
                  site: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        Create a ApGroup resource with the given unique name, props, and options.
+        The `ap.Group` resource manages Access Point groups in the UniFi controller.
+
+        AP groups allow you to organize and manage multiple access points together. This resource allows you to create, update, and delete AP groups.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        example = unifi.ap.Group("example", device_macs=["00:11:22:33:44:55"])
+        ```
+
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        import from provider configured site
+
+        ```sh
+        $ pulumi import unifi:index/apGroup:ApGroup example 5dc28e5e9106d105bdc87217
+        ```
+
+        import from another site
+
+        ```sh
+        $ pulumi import unifi:index/apGroup:ApGroup example another-site:5dc28e5e9106d105bdc87217
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] device_macs: Set of AP device MAC addresses to include in this AP group. MAC addresses are case-insensitive and may use `:` or `-` separators (e.g. `aa:bb:cc:dd:ee:ff` and `AA-BB-CC-DD-EE-FF` are treated as the same address and produce no diff); the value is kept as written.
@@ -157,7 +185,35 @@ class ApGroup(pulumi.CustomResource):
                  args: ApGroupArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a ApGroup resource with the given unique name, props, and options.
+        The `ap.Group` resource manages Access Point groups in the UniFi controller.
+
+        AP groups allow you to organize and manage multiple access points together. This resource allows you to create, update, and delete AP groups.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        example = unifi.ap.Group("example", device_macs=["00:11:22:33:44:55"])
+        ```
+
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        import from provider configured site
+
+        ```sh
+        $ pulumi import unifi:index/apGroup:ApGroup example 5dc28e5e9106d105bdc87217
+        ```
+
+        import from another site
+
+        ```sh
+        $ pulumi import unifi:index/apGroup:ApGroup example another-site:5dc28e5e9106d105bdc87217
+        ```
+
         :param str resource_name: The name of the resource.
         :param ApGroupArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

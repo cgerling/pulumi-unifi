@@ -11,6 +11,33 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
+// `iam.User` retrieves properties of a user (or "client" in the UI) of the network by MAC address.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/iam"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := iam.LookupUser(ctx, &iam.LookupUserArgs{
+//				Mac: "01:23:45:67:89:ab",
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 func LookupUser(ctx *pulumi.Context, args *LookupUserArgs, opts ...pulumi.InvokeOption) (*LookupUserResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupUserResult
@@ -23,25 +50,40 @@ func LookupUser(ctx *pulumi.Context, args *LookupUserArgs, opts ...pulumi.Invoke
 
 // A collection of arguments for invoking getUser.
 type LookupUserArgs struct {
-	Mac  string  `pulumi:"mac"`
+	// The MAC address of the user.
+	Mac string `pulumi:"mac"`
+	// The name of the site the user is associated with.
 	Site *string `pulumi:"site"`
 }
 
 // A collection of values returned by getUser.
 type LookupUserResult struct {
-	Blocked        bool   `pulumi:"blocked"`
-	DevIdOverride  int    `pulumi:"devIdOverride"`
-	FixedIp        string `pulumi:"fixedIp"`
-	Hostname       string `pulumi:"hostname"`
-	Id             string `pulumi:"id"`
-	Ip             string `pulumi:"ip"`
+	// Specifies whether this user should be blocked from the network.
+	Blocked bool `pulumi:"blocked"`
+	// Override the device fingerprint.
+	DevIdOverride int `pulumi:"devIdOverride"`
+	// Fixed IPv4 address set for this user.
+	FixedIp string `pulumi:"fixedIp"`
+	// The hostname of the user.
+	Hostname string `pulumi:"hostname"`
+	// The ID of the user.
+	Id string `pulumi:"id"`
+	// The IP address of the user.
+	Ip string `pulumi:"ip"`
+	// The local DNS record for this user.
 	LocalDnsRecord string `pulumi:"localDnsRecord"`
-	Mac            string `pulumi:"mac"`
-	Name           string `pulumi:"name"`
-	NetworkId      string `pulumi:"networkId"`
-	Note           string `pulumi:"note"`
-	Site           string `pulumi:"site"`
-	UserGroupId    string `pulumi:"userGroupId"`
+	// The MAC address of the user.
+	Mac string `pulumi:"mac"`
+	// The name of the user.
+	Name string `pulumi:"name"`
+	// The network ID for this user.
+	NetworkId string `pulumi:"networkId"`
+	// A note with additional information for the user.
+	Note string `pulumi:"note"`
+	// The name of the site the user is associated with.
+	Site string `pulumi:"site"`
+	// The user group ID for the user.
+	UserGroupId string `pulumi:"userGroupId"`
 }
 
 func LookupUserOutput(ctx *pulumi.Context, args LookupUserOutputArgs, opts ...pulumi.InvokeOption) LookupUserResultOutput {
@@ -55,7 +97,9 @@ func LookupUserOutput(ctx *pulumi.Context, args LookupUserOutputArgs, opts ...pu
 
 // A collection of arguments for invoking getUser.
 type LookupUserOutputArgs struct {
-	Mac  pulumi.StringInput    `pulumi:"mac"`
+	// The MAC address of the user.
+	Mac pulumi.StringInput `pulumi:"mac"`
+	// The name of the site the user is associated with.
 	Site pulumi.StringPtrInput `pulumi:"site"`
 }
 
@@ -78,54 +122,67 @@ func (o LookupUserResultOutput) ToLookupUserResultOutputWithContext(ctx context.
 	return o
 }
 
+// Specifies whether this user should be blocked from the network.
 func (o LookupUserResultOutput) Blocked() pulumi.BoolOutput {
 	return o.ApplyT(func(v LookupUserResult) bool { return v.Blocked }).(pulumi.BoolOutput)
 }
 
+// Override the device fingerprint.
 func (o LookupUserResultOutput) DevIdOverride() pulumi.IntOutput {
 	return o.ApplyT(func(v LookupUserResult) int { return v.DevIdOverride }).(pulumi.IntOutput)
 }
 
+// Fixed IPv4 address set for this user.
 func (o LookupUserResultOutput) FixedIp() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupUserResult) string { return v.FixedIp }).(pulumi.StringOutput)
 }
 
+// The hostname of the user.
 func (o LookupUserResultOutput) Hostname() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupUserResult) string { return v.Hostname }).(pulumi.StringOutput)
 }
 
+// The ID of the user.
 func (o LookupUserResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupUserResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
+// The IP address of the user.
 func (o LookupUserResultOutput) Ip() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupUserResult) string { return v.Ip }).(pulumi.StringOutput)
 }
 
+// The local DNS record for this user.
 func (o LookupUserResultOutput) LocalDnsRecord() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupUserResult) string { return v.LocalDnsRecord }).(pulumi.StringOutput)
 }
 
+// The MAC address of the user.
 func (o LookupUserResultOutput) Mac() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupUserResult) string { return v.Mac }).(pulumi.StringOutput)
 }
 
+// The name of the user.
 func (o LookupUserResultOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupUserResult) string { return v.Name }).(pulumi.StringOutput)
 }
 
+// The network ID for this user.
 func (o LookupUserResultOutput) NetworkId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupUserResult) string { return v.NetworkId }).(pulumi.StringOutput)
 }
 
+// A note with additional information for the user.
 func (o LookupUserResultOutput) Note() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupUserResult) string { return v.Note }).(pulumi.StringOutput)
 }
 
+// The name of the site the user is associated with.
 func (o LookupUserResultOutput) Site() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupUserResult) string { return v.Site }).(pulumi.StringOutput)
 }
 
+// The user group ID for the user.
 func (o LookupUserResultOutput) UserGroupId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupUserResult) string { return v.UserGroupId }).(pulumi.StringOutput)
 }

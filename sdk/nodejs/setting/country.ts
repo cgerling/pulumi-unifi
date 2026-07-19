@@ -4,6 +4,18 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
+/**
+ * The `unifi.setting.Country` resource allows you to configure the country settings for your UniFi network.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as unifi from "@pulumiverse/unifi";
+ *
+ * const example = new unifi.setting.Country("example", {code: "US"});
+ * ```
+ */
 export class Country extends pulumi.CustomResource {
     /**
      * Get an existing Country resource's state with the given name, ID, and optional extra

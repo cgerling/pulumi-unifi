@@ -201,7 +201,19 @@ class AlFile(pulumi.CustomResource):
                  site: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        Create a AlFile resource with the given unique name, props, and options.
+        The `port.AlFile` resource manages files uploaded to the UniFi guest portal. This resource allows you to upload images that can be used in customizing the UniFi guest portal interface.
+
+        **Note:** This resource uploads files to the UniFi controller. The file must exist on the local filesystem where Terraform is executed.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        file = unifi.port.AlFile("file", file_path="/Users/username/Downloads/portal.png")
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] file_path: Path to the file on the local filesystem to upload to the UniFi controller. The file must exist and be readable.
@@ -214,7 +226,19 @@ class AlFile(pulumi.CustomResource):
                  args: AlFileArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a AlFile resource with the given unique name, props, and options.
+        The `port.AlFile` resource manages files uploaded to the UniFi guest portal. This resource allows you to upload images that can be used in customizing the UniFi guest portal interface.
+
+        **Note:** This resource uploads files to the UniFi controller. The file must exist on the local filesystem where Terraform is executed.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        file = unifi.port.AlFile("file", file_path="/Users/username/Downloads/portal.png")
+        ```
+
         :param str resource_name: The name of the resource.
         :param AlFileArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

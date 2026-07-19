@@ -11,6 +11,89 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
+// The `Device` resource manages UniFi network devices such as access points, switches, gateways, etc.
+//
+// Devices must first be adopted by the UniFi controller before they can be managed through Terraform. This resource cannot create new devices, but instead allows you to manage existing devices that have already been adopted. The recommended approach is to adopt devices through the UniFi controller UI first, then import them into Terraform using the device's MAC address.
+//
+// This resource supports managing device names, port configurations, and other device-specific settings.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/port"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			disabled, err := port.LookupProfile(ctx, &port.LookupProfileArgs{
+//				Name: pulumi.StringRef("Disabled"),
+//			}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			poe, err := port.NewProfile(ctx, "poe", &port.ProfileArgs{
+//				Forward:             pulumi.String("customize"),
+//				NativeNetworkconfId: pulumi.Any(_var.Native_network_id),
+//				ExcludedNetworkIds: pulumi.StringArray{
+//					_var.Some_vlan_network_id,
+//				},
+//				PoeMode: pulumi.String("auto"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = unifi.NewDevice(ctx, "us24Poe", &unifi.DeviceArgs{
+//				Mac: pulumi.String("01:23:45:67:89:AB"),
+//				PortOverrides: unifi.DevicePortOverrideArray{
+//					&unifi.DevicePortOverrideArgs{
+//						Number:        pulumi.Int(1),
+//						Name:          pulumi.String("port w/ poe"),
+//						PortProfileId: poe.ID(),
+//					},
+//					&unifi.DevicePortOverrideArgs{
+//						Number:        pulumi.Int(2),
+//						Name:          pulumi.String("disabled"),
+//						PortProfileId: pulumi.String(disabled.Id),
+//					},
+//					&unifi.DevicePortOverrideArgs{
+//						Number:              pulumi.Int(3),
+//						Name:                pulumi.String("access vlan"),
+//						Forward:             pulumi.String("customize"),
+//						NativeNetworkconfId: pulumi.Any(_var.Native_network_id),
+//						SettingPreference:   pulumi.String("manual"),
+//					},
+//					&unifi.DevicePortOverrideArgs{
+//						Number:         pulumi.Int(4),
+//						Name:           pulumi.String("trunk except guest"),
+//						Forward:        pulumi.String("customize"),
+//						TaggedVlanMgmt: pulumi.String("custom"),
+//						ExcludedNetworkIds: pulumi.StringArray{
+//							_var.Some_vlan_network_id,
+//						},
+//						SettingPreference: pulumi.String("manual"),
+//					},
+//					&unifi.DevicePortOverrideArgs{
+//						Number:            pulumi.Int(11),
+//						OpMode:            pulumi.String("aggregate"),
+//						AggregateNumPorts: pulumi.Int(2),
+//					},
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 type Device struct {
 	pulumi.CustomResourceState
 

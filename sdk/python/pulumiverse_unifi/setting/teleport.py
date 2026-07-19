@@ -138,7 +138,19 @@ class Teleport(pulumi.CustomResource):
                  subnet: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        Create a Teleport resource with the given unique name, props, and options.
+        Manages Teleport settings for a UniFi site. Teleport is a secure remote access technology that allows authorized users to connect to UniFi devices from anywhere.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        example = unifi.setting.Teleport("example",
+            enabled=True,
+            subnet="192.168.100.0/24")
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] enabled: Whether Teleport is enabled.
@@ -152,7 +164,19 @@ class Teleport(pulumi.CustomResource):
                  args: TeleportArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a Teleport resource with the given unique name, props, and options.
+        Manages Teleport settings for a UniFi site. Teleport is a secure remote access technology that allows authorized users to connect to UniFi devices from anywhere.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        example = unifi.setting.Teleport("example",
+            enabled=True,
+            subnet="192.168.100.0/24")
+        ```
+
         :param str resource_name: The name of the resource.
         :param TeleportArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

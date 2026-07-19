@@ -11,6 +11,31 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
+// `port.Profile` data source can be used to retrieve port profile configurations from your UniFi network. Port profiles define settings and behaviors for switch ports, including VLANs, PoE settings, and other port-specific configurations. This data source is particularly useful when you need to reference existing port profiles in switch port configurations.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/port"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := port.LookupProfile(ctx, &port.LookupProfileArgs{}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 func LookupProfile(ctx *pulumi.Context, args *LookupProfileArgs, opts ...pulumi.InvokeOption) (*LookupProfileResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupProfileResult
@@ -23,15 +48,20 @@ func LookupProfile(ctx *pulumi.Context, args *LookupProfileArgs, opts ...pulumi.
 
 // A collection of arguments for invoking getProfile.
 type LookupProfileArgs struct {
+	// The name of the port profile to look up. This is the friendly name assigned to the profile in the UniFi controller. Defaults to "All" if not specified, which is the default port profile in UniFi. Defaults to `All`.
 	Name *string `pulumi:"name"`
+	// The name of the UniFi site where the port profile is configured. If not specified, the default site will be used.
 	Site *string `pulumi:"site"`
 }
 
 // A collection of values returned by getProfile.
 type LookupProfileResult struct {
-	Id   string  `pulumi:"id"`
+	// The unique identifier of the port profile. This is automatically assigned by UniFi and can be used to reference this port profile in other resources.
+	Id string `pulumi:"id"`
+	// The name of the port profile to look up. This is the friendly name assigned to the profile in the UniFi controller. Defaults to "All" if not specified, which is the default port profile in UniFi. Defaults to `All`.
 	Name *string `pulumi:"name"`
-	Site string  `pulumi:"site"`
+	// The name of the UniFi site where the port profile is configured. If not specified, the default site will be used.
+	Site string `pulumi:"site"`
 }
 
 func LookupProfileOutput(ctx *pulumi.Context, args LookupProfileOutputArgs, opts ...pulumi.InvokeOption) LookupProfileResultOutput {
@@ -45,7 +75,9 @@ func LookupProfileOutput(ctx *pulumi.Context, args LookupProfileOutputArgs, opts
 
 // A collection of arguments for invoking getProfile.
 type LookupProfileOutputArgs struct {
+	// The name of the port profile to look up. This is the friendly name assigned to the profile in the UniFi controller. Defaults to "All" if not specified, which is the default port profile in UniFi. Defaults to `All`.
 	Name pulumi.StringPtrInput `pulumi:"name"`
+	// The name of the UniFi site where the port profile is configured. If not specified, the default site will be used.
 	Site pulumi.StringPtrInput `pulumi:"site"`
 }
 
@@ -68,14 +100,17 @@ func (o LookupProfileResultOutput) ToLookupProfileResultOutputWithContext(ctx co
 	return o
 }
 
+// The unique identifier of the port profile. This is automatically assigned by UniFi and can be used to reference this port profile in other resources.
 func (o LookupProfileResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupProfileResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
+// The name of the port profile to look up. This is the friendly name assigned to the profile in the UniFi controller. Defaults to "All" if not specified, which is the default port profile in UniFi. Defaults to `All`.
 func (o LookupProfileResultOutput) Name() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v LookupProfileResult) *string { return v.Name }).(pulumi.StringPtrOutput)
 }
 
+// The name of the UniFi site where the port profile is configured. If not specified, the default site will be used.
 func (o LookupProfileResultOutput) Site() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupProfileResult) string { return v.Site }).(pulumi.StringOutput)
 }

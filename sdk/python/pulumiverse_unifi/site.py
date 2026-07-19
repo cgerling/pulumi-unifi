@@ -88,7 +88,46 @@ class Site(pulumi.CustomResource):
                  description: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        Create a Site resource with the given unique name, props, and options.
+        The `Site` resource manages UniFi sites, which are logical groupings of UniFi devices and their configurations.
+
+        Sites in UniFi are used to:
+          * Organize network devices and settings for different physical locations
+          * Isolate configurations between different networks or customers
+          * Apply different policies and configurations to different groups of devices
+
+        Each site maintains its own:
+          * Network configurations
+          * Wireless networks (WLANs)
+          * Security policies
+          * Device configurations
+
+        A UniFi controller can manage multiple sites, making it ideal for multi-tenant or distributed network deployments.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        mysite = unifi.Site("mysite", description="mysite")
+        ```
+
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        import using the API/UI ID
+
+        ```sh
+        $ pulumi import unifi:index/site:Site mysite 5fe6261995fe130013456a36
+        ```
+
+        import using the name (short ID)
+
+        ```sh
+        $ pulumi import unifi:index/site:Site mysite vq98kwez
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] description: A human-readable description of the site (e.g., 'Main Office', 'Remote Branch', 'Client A Network'). This is used as the display name in the UniFi controller interface.
@@ -100,7 +139,46 @@ class Site(pulumi.CustomResource):
                  args: SiteArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a Site resource with the given unique name, props, and options.
+        The `Site` resource manages UniFi sites, which are logical groupings of UniFi devices and their configurations.
+
+        Sites in UniFi are used to:
+          * Organize network devices and settings for different physical locations
+          * Isolate configurations between different networks or customers
+          * Apply different policies and configurations to different groups of devices
+
+        Each site maintains its own:
+          * Network configurations
+          * Wireless networks (WLANs)
+          * Security policies
+          * Device configurations
+
+        A UniFi controller can manage multiple sites, making it ideal for multi-tenant or distributed network deployments.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        mysite = unifi.Site("mysite", description="mysite")
+        ```
+
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        import using the API/UI ID
+
+        ```sh
+        $ pulumi import unifi:index/site:Site mysite 5fe6261995fe130013456a36
+        ```
+
+        import using the name (short ID)
+
+        ```sh
+        $ pulumi import unifi:index/site:Site mysite vq98kwez
+        ```
+
         :param str resource_name: The name of the resource.
         :param SiteArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

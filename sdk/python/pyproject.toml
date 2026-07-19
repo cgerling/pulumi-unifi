@@ -9,8 +9,8 @@
   [project.license]
     text = "Apache-2.0"
   [project.urls]
-    Homepage = "https://github.com/pulumiverse"
-    Repository = "https://github.com/pulumiverse/pulumi-unifi"
+    Homepage = "https://github.com/cgerling"
+    Repository = "https://github.com/cgerling/pulumi-unifi"
 
 [build-system]
   requires = ["setuptools>=61.0"]

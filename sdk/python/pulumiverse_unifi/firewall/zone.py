@@ -139,7 +139,41 @@ class Zone(pulumi.CustomResource):
                  site: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        Create a Zone resource with the given unique name, props, and options.
+        The `firewall.Zone` resource manages firewall zones in the UniFi controller.
+
+        Firewall zones allow you to group networks together for firewall rule application. This resource allows you to create, update, and delete firewall zones.
+
+        > This is experimental feature, that requires UniFi OS 9.0.0 or later and Zone Based Firewall feature enabled. Check [official documentation](https://help.ui.com/hc/en-us/articles/28223082254743-Migrating-to-Zone-Based-Firewalls-in-UniFi) how to migate to Zone-Based firewalls.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        network = unifi.Network("network",
+            purpose="corporate",
+            subnet="10.0.10.0/24",
+            vlan_id=400)
+        zone = unifi.firewall.Zone("zone", networks=[network.id])
+        ```
+
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        import from provider configured site
+
+        ```sh
+        $ pulumi import unifi:firewall/zone:Zone myzone 5dc28e5e9106d105bdc87217
+        ```
+
+        import from another site
+
+        ```sh
+        $ pulumi import unifi:firewall/zone:Zone myzone another-site:5dc28e5e9106d105bdc87217
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] name: The name of the firewall zone.
@@ -153,7 +187,41 @@ class Zone(pulumi.CustomResource):
                  args: Optional[ZoneArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a Zone resource with the given unique name, props, and options.
+        The `firewall.Zone` resource manages firewall zones in the UniFi controller.
+
+        Firewall zones allow you to group networks together for firewall rule application. This resource allows you to create, update, and delete firewall zones.
+
+        > This is experimental feature, that requires UniFi OS 9.0.0 or later and Zone Based Firewall feature enabled. Check [official documentation](https://help.ui.com/hc/en-us/articles/28223082254743-Migrating-to-Zone-Based-Firewalls-in-UniFi) how to migate to Zone-Based firewalls.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        network = unifi.Network("network",
+            purpose="corporate",
+            subnet="10.0.10.0/24",
+            vlan_id=400)
+        zone = unifi.firewall.Zone("zone", networks=[network.id])
+        ```
+
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        import from provider configured site
+
+        ```sh
+        $ pulumi import unifi:firewall/zone:Zone myzone 5dc28e5e9106d105bdc87217
+        ```
+
+        import from another site
+
+        ```sh
+        $ pulumi import unifi:firewall/zone:Zone myzone another-site:5dc28e5e9106d105bdc87217
+        ```
+
         :param str resource_name: The name of the resource.
         :param ZoneArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

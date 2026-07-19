@@ -6,6 +6,52 @@ import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 import * as utilities from "../utilities";
 
+/**
+ * The `unifi.setting.Mgmt` resource manages site-wide management settings in the UniFi controller.
+ *
+ * This resource allows you to configure important management features including:
+ *   * Automatic firmware upgrades for UniFi devices
+ *   * SSH access for advanced configuration and troubleshooting
+ *   * SSH key management for secure remote access
+ *
+ * These settings affect how the UniFi controller manages devices at the site level. They are particularly important for:
+ *   * Maintaining device security through automatic updates
+ *   * Enabling secure remote administration
+ *   * Implementing SSH key-based authentication
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as unifi from "@pulumiverse/unifi";
+ *
+ * const exampleSite = new unifi.Site("exampleSite", {description: "example"});
+ * const exampleMgmt = new unifi.setting.Mgmt("exampleMgmt", {
+ *     site: exampleSite.name,
+ *     autoUpgrade: true,
+ *     autoUpgradeHour: 3,
+ *     advancedFeatureEnabled: true,
+ *     alertEnabled: true,
+ *     bootSound: false,
+ *     debugToolsEnabled: true,
+ *     directConnectEnabled: false,
+ *     ledEnabled: true,
+ *     outdoorModeEnabled: false,
+ *     unifiIdpEnabled: false,
+ *     wifimanEnabled: true,
+ *     sshEnabled: true,
+ *     sshAuthPasswordEnabled: true,
+ *     sshBindWildcard: false,
+ *     sshUsername: "admin",
+ *     sshKeys: [{
+ *         name: "Admin Key",
+ *         type: "ssh-rsa",
+ *         key: "AAAAB3NzaC1yc2EAAAADAQABAAABAQCxxx...",
+ *         comment: "admin@example.com",
+ *     }],
+ * });
+ * ```
+ */
 export class Mgmt extends pulumi.CustomResource {
     /**
      * Get an existing Mgmt resource's state with the given name, ID, and optional extra

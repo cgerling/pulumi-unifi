@@ -293,7 +293,35 @@ class DynamicDNS(pulumi.CustomResource):
                  site: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        Create a DynamicDNS resource with the given unique name, props, and options.
+        The `DynamicDNS` resource manages Dynamic DNS (DDNS).
+
+        Dynamic DNS allows you to access your network using a domain name even when your public IP address changes. This is useful for:
+          * Remote access to your network
+          * Hosting services from your home/office network
+          * VPN connections to your network
+
+        The resource supports various DDNS providers including:
+          * DynDNS
+          * No-IP
+          * Duck DNS
+          * And many others
+
+        Each DDNS configuration can be associated with either the primary (WAN) or secondary (WAN2) interface.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        test = unifi.DynamicDNS("test",
+            service="dyndns",
+            host_name="my-network.example.com",
+            server="domains.google.com",
+            login=var["dns_login"],
+            password=var["dns_password"])
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] host_name: The fully qualified domain name to update with your current public IP address (e.g., 'myhouse.dyndns.org' or 'myoffice.no-ip.com').
@@ -317,7 +345,35 @@ class DynamicDNS(pulumi.CustomResource):
                  args: DynamicDNSArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a DynamicDNS resource with the given unique name, props, and options.
+        The `DynamicDNS` resource manages Dynamic DNS (DDNS).
+
+        Dynamic DNS allows you to access your network using a domain name even when your public IP address changes. This is useful for:
+          * Remote access to your network
+          * Hosting services from your home/office network
+          * VPN connections to your network
+
+        The resource supports various DDNS providers including:
+          * DynDNS
+          * No-IP
+          * Duck DNS
+          * And many others
+
+        Each DDNS configuration can be associated with either the primary (WAN) or secondary (WAN2) interface.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        test = unifi.DynamicDNS("test",
+            service="dyndns",
+            host_name="my-network.example.com",
+            server="domains.google.com",
+            login=var["dns_login"],
+            password=var["dns_password"])
+        ```
+
         :param str resource_name: The name of the resource.
         :param DynamicDNSArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

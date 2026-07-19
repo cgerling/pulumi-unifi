@@ -12,6 +12,50 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
+// The `DynamicDNS` resource manages Dynamic DNS (DDNS).
+//
+// Dynamic DNS allows you to access your network using a domain name even when your public IP address changes. This is useful for:
+//   - Remote access to your network
+//   - Hosting services from your home/office network
+//   - VPN connections to your network
+//
+// The resource supports various DDNS providers including:
+//   - DynDNS
+//   - No-IP
+//   - Duck DNS
+//   - And many others
+//
+// Each DDNS configuration can be associated with either the primary (WAN) or secondary (WAN2) interface.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := unifi.NewDynamicDNS(ctx, "test", &unifi.DynamicDNSArgs{
+//				Service:  pulumi.String("dyndns"),
+//				HostName: pulumi.String("my-network.example.com"),
+//				Server:   pulumi.String("domains.google.com"),
+//				Login:    pulumi.Any(_var.Dns_login),
+//				Password: pulumi.Any(_var.Dns_password),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 type DynamicDNS struct {
 	pulumi.CustomResourceState
 

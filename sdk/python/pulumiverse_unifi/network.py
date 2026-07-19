@@ -3036,7 +3036,96 @@ class Network(pulumi.CustomResource):
                  x_wireguard_private_key: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        Create a Network resource with the given unique name, props, and options.
+        The `Network` resource manages networks in your UniFi environment, including WAN, LAN, and VLAN networks. This resource enables you to:
+
+        * Create and manage different types of networks (corporate, guest, WAN, VLAN-only)
+        * Configure network addressing and DHCP settings
+        * Set up IPv6 networking features
+        * Manage DHCP relay and DNS settings
+        * Configure network groups and VLANs
+
+        Common use cases include:
+        * Setting up corporate and guest networks with different security policies
+        * Configuring WAN connectivity with various authentication methods
+        * Creating VLANs for network segmentation
+        * Managing DHCP and DNS services for network clients
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        config = pulumi.Config()
+        vlan_id = config.get_int("vlanId")
+        if vlan_id is None:
+            vlan_id = 10
+        vlan = unifi.Network("vlan",
+            purpose="corporate",
+            subnet="10.0.0.1/24",
+            vlan_id=vlan_id,
+            dhcp_start="10.0.0.6",
+            dhcp_stop="10.0.0.254",
+            dhcp_enabled=True)
+        wan = unifi.Network("wan",
+            purpose="wan",
+            wan_networkgroup="WAN",
+            wan_type="pppoe",
+            wan_ip="192.168.1.1",
+            wan_egress_qos=1,
+            wan_username="username",
+            x_wan_password="password")
+        # Zone-Based Firewall (UniFi OS 9.x): pin a network to a firewall zone from the
+        # network side. Use EITHER this `firewall_zone_id` lever OR the zone-side
+        # `unifi_firewall_zone.networks` argument for a given network — not both, or the two
+        # resources will fight over the association.
+        iot_zone = unifi.firewall.Zone("iotZone")
+        # `networks` intentionally omitted: membership is managed from the network side
+        # via `firewall_zone_id` below. Listing the network here too would make the two
+        # resources fight over the association.
+        iot_network = unifi.Network("iotNetwork",
+            purpose="corporate",
+            subnet="10.0.20.1/24",
+            vlan_id=20,
+            firewall_zone_id=iot_zone.id)
+        # Override the DHCP-advertised default gateway. By default UniFi advertises the
+        # network's own interface IP as the gateway (DHCP option 3); setting
+        # `dhcpd_gateway_enabled = true` switches that to "manual" and hands clients the
+        # address in `dhcpd_gateway` instead. Here clients are pointed at a Tailscale
+        # subnet-router node (10.0.30.10) so their traffic can reach a remote tailnet.
+        tailscale_lan = unifi.Network("tailscaleLan",
+            purpose="corporate",
+            subnet="10.0.30.1/24",
+            vlan_id=30,
+            dhcp_start="10.0.30.100",
+            dhcp_stop="10.0.30.254",
+            dhcp_enabled=True,
+            dhcpd_gateway_enabled=True,
+            dhcpd_gateway="10.0.30.10")
+        ```
+
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        import from provider configured site
+
+        ```sh
+        $ pulumi import unifi:index/network:Network mynetwork 5dc28e5e9106d105bdc87217
+        ```
+
+        import from another site
+
+        ```sh
+        $ pulumi import unifi:index/network:Network mynetwork bfa2l6i7:5dc28e5e9106d105bdc87217
+        ```
+
+        import network by name
+
+        ```sh
+        $ pulumi import unifi:index/network:Network mynetwork name=LAN
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] dhcp_dns: List of IPv4 DNS server addresses to be provided to DHCP clients. Examples:
@@ -3292,7 +3381,96 @@ class Network(pulumi.CustomResource):
                  args: NetworkArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a Network resource with the given unique name, props, and options.
+        The `Network` resource manages networks in your UniFi environment, including WAN, LAN, and VLAN networks. This resource enables you to:
+
+        * Create and manage different types of networks (corporate, guest, WAN, VLAN-only)
+        * Configure network addressing and DHCP settings
+        * Set up IPv6 networking features
+        * Manage DHCP relay and DNS settings
+        * Configure network groups and VLANs
+
+        Common use cases include:
+        * Setting up corporate and guest networks with different security policies
+        * Configuring WAN connectivity with various authentication methods
+        * Creating VLANs for network segmentation
+        * Managing DHCP and DNS services for network clients
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        config = pulumi.Config()
+        vlan_id = config.get_int("vlanId")
+        if vlan_id is None:
+            vlan_id = 10
+        vlan = unifi.Network("vlan",
+            purpose="corporate",
+            subnet="10.0.0.1/24",
+            vlan_id=vlan_id,
+            dhcp_start="10.0.0.6",
+            dhcp_stop="10.0.0.254",
+            dhcp_enabled=True)
+        wan = unifi.Network("wan",
+            purpose="wan",
+            wan_networkgroup="WAN",
+            wan_type="pppoe",
+            wan_ip="192.168.1.1",
+            wan_egress_qos=1,
+            wan_username="username",
+            x_wan_password="password")
+        # Zone-Based Firewall (UniFi OS 9.x): pin a network to a firewall zone from the
+        # network side. Use EITHER this `firewall_zone_id` lever OR the zone-side
+        # `unifi_firewall_zone.networks` argument for a given network — not both, or the two
+        # resources will fight over the association.
+        iot_zone = unifi.firewall.Zone("iotZone")
+        # `networks` intentionally omitted: membership is managed from the network side
+        # via `firewall_zone_id` below. Listing the network here too would make the two
+        # resources fight over the association.
+        iot_network = unifi.Network("iotNetwork",
+            purpose="corporate",
+            subnet="10.0.20.1/24",
+            vlan_id=20,
+            firewall_zone_id=iot_zone.id)
+        # Override the DHCP-advertised default gateway. By default UniFi advertises the
+        # network's own interface IP as the gateway (DHCP option 3); setting
+        # `dhcpd_gateway_enabled = true` switches that to "manual" and hands clients the
+        # address in `dhcpd_gateway` instead. Here clients are pointed at a Tailscale
+        # subnet-router node (10.0.30.10) so their traffic can reach a remote tailnet.
+        tailscale_lan = unifi.Network("tailscaleLan",
+            purpose="corporate",
+            subnet="10.0.30.1/24",
+            vlan_id=30,
+            dhcp_start="10.0.30.100",
+            dhcp_stop="10.0.30.254",
+            dhcp_enabled=True,
+            dhcpd_gateway_enabled=True,
+            dhcpd_gateway="10.0.30.10")
+        ```
+
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        import from provider configured site
+
+        ```sh
+        $ pulumi import unifi:index/network:Network mynetwork 5dc28e5e9106d105bdc87217
+        ```
+
+        import from another site
+
+        ```sh
+        $ pulumi import unifi:index/network:Network mynetwork bfa2l6i7:5dc28e5e9106d105bdc87217
+        ```
+
+        import network by name
+
+        ```sh
+        $ pulumi import unifi:index/network:Network mynetwork name=LAN
+        ```
+
         :param str resource_name: The name of the resource.
         :param NetworkArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

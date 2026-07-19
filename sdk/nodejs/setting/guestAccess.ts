@@ -6,6 +6,78 @@ import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 import * as utilities from "../utilities";
 
+/**
+ * The `unifi.setting.GuestAccess` resource manages the guest access settings in the UniFi controller.
+ *
+ * This resource allows you to configure all aspects of guest network access including authentication methods, portal customization, and payment options.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as unifi from "@pulumiverse/unifi";
+ *
+ * // Configure guest access settings for your UniFi network
+ * // This example demonstrates a comprehensive guest portal setup with various authentication options
+ * const logo = new unifi.port.AlFile("logo", {filePath: "logo.png"});
+ * const guestPortal = new unifi.setting.GuestAccess("guestPortal", {
+ *     auth: "hotspot",
+ *     portalEnabled: true,
+ *     portalUseHostname: true,
+ *     portalHostname: "guest.example.com",
+ *     templateEngine: "angular",
+ *     expire: 1440,
+ *     expireNumber: 1,
+ *     expireUnit: 1440,
+ *     ecEnabled: true,
+ *     password: "guest-access-password",
+ *     google: [{
+ *         clientId: "your-google-client-id",
+ *         clientSecret: "your-google-client-secret",
+ *         domain: "example.com",
+ *         scopeEmail: true,
+ *     }],
+ *     paymentGateway: "paypal",
+ *     paypal: [{
+ *         username: "business@example.com",
+ *         password: "paypal-api-password",
+ *         signature: "paypal-api-signature",
+ *         useSandbox: true,
+ *     }],
+ *     redirect: [{
+ *         url: "https://example.com/welcome",
+ *         useHttps: true,
+ *         toHttps: true,
+ *     }],
+ *     restrictedDnsServers: [
+ *         "1.1.1.1",
+ *         "8.8.8.8",
+ *     ],
+ *     portalCustomization: [{
+ *         customized: true,
+ *         title: "Welcome to Our Guest Network",
+ *         welcomeText: "Thanks for visiting our location. Please enjoy our complimentary WiFi.",
+ *         welcomeTextEnabled: true,
+ *         welcomeTextPosition: "top",
+ *         bgColor: "#f5f5f5",
+ *         textColor: "#333333",
+ *         linkColor: "#0078d4",
+ *         boxColor: "#ffffff",
+ *         boxTextColor: "#333333",
+ *         boxLinkColor: "#0078d4",
+ *         boxOpacity: 90,
+ *         boxRadius: 5,
+ *         logoFileId: logo.id,
+ *         buttonColor: "#0078d4",
+ *         buttonTextColor: "#ffffff",
+ *         buttonText: "Connect",
+ *         tosEnabled: true,
+ *         tos: "By using this service, you agree to our terms and conditions. Unauthorized use is prohibited.",
+ *         languages: ["PL"],
+ *     }],
+ * });
+ * ```
+ */
 export class GuestAccess extends pulumi.CustomResource {
     /**
      * Get an existing GuestAccess resource's state with the given name, ID, and optional extra
@@ -40,14 +112,6 @@ export class GuestAccess extends pulumi.CustomResource {
     declare public readonly allowedSubnet: pulumi.Output<string>;
     /**
      * Authentication method for guest access. Valid values are:
-     * * `none` - No authentication required
-     * * `hotspot` - Password authentication
-     * * `facebookWifi` - Facebook auth entication
-     * * `custom` - Custom authentication
-     *
-     * For password authentication, set `auth` to `hotspot` and `passwordEnabled` to `true`.
-     * For voucher authentication, set `auth` to `hotspot` and `voucherEnabled` to `true`.
-     * For payment authentication, set `auth` to `hotspot` and `paymentEnabled` to `true`.
      */
     declare public readonly auth: pulumi.Output<string>;
     /**
@@ -91,7 +155,7 @@ export class GuestAccess extends pulumi.CustomResource {
      */
     declare public /*out*/ readonly facebookEnabled: pulumi.Output<boolean>;
     /**
-     * Facebook WiFi authentication settings.
+     * - Facebook auth entication
      */
     declare public readonly facebookWifi: pulumi.Output<outputs.setting.GuestAccessFacebookWifi | undefined>;
     /**
@@ -326,14 +390,6 @@ export interface GuestAccessState {
     allowedSubnet?: pulumi.Input<string>;
     /**
      * Authentication method for guest access. Valid values are:
-     * * `none` - No authentication required
-     * * `hotspot` - Password authentication
-     * * `facebookWifi` - Facebook auth entication
-     * * `custom` - Custom authentication
-     *
-     * For password authentication, set `auth` to `hotspot` and `passwordEnabled` to `true`.
-     * For voucher authentication, set `auth` to `hotspot` and `voucherEnabled` to `true`.
-     * For payment authentication, set `auth` to `hotspot` and `paymentEnabled` to `true`.
      */
     auth?: pulumi.Input<string>;
     /**
@@ -377,7 +433,7 @@ export interface GuestAccessState {
      */
     facebookEnabled?: pulumi.Input<boolean>;
     /**
-     * Facebook WiFi authentication settings.
+     * - Facebook auth entication
      */
     facebookWifi?: pulumi.Input<inputs.setting.GuestAccessFacebookWifi>;
     /**
@@ -510,14 +566,6 @@ export interface GuestAccessArgs {
     allowedSubnet?: pulumi.Input<string>;
     /**
      * Authentication method for guest access. Valid values are:
-     * * `none` - No authentication required
-     * * `hotspot` - Password authentication
-     * * `facebookWifi` - Facebook auth entication
-     * * `custom` - Custom authentication
-     *
-     * For password authentication, set `auth` to `hotspot` and `passwordEnabled` to `true`.
-     * For voucher authentication, set `auth` to `hotspot` and `voucherEnabled` to `true`.
-     * For payment authentication, set `auth` to `hotspot` and `paymentEnabled` to `true`.
      */
     auth?: pulumi.Input<string>;
     /**
@@ -557,7 +605,7 @@ export interface GuestAccessArgs {
      */
     facebook?: pulumi.Input<inputs.setting.GuestAccessFacebook>;
     /**
-     * Facebook WiFi authentication settings.
+     * - Facebook auth entication
      */
     facebookWifi?: pulumi.Input<inputs.setting.GuestAccessFacebookWifi>;
     /**

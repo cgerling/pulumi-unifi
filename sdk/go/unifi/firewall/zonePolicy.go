@@ -12,6 +12,117 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
+// The `firewall.ZonePolicy` resource manages firewall policies between zones in the UniFi controller. This resource allows you to create, update, and delete policies that define allowed or blocked traffic between zones.
+//
+// > This is experimental feature, that requires UniFi OS 9.0.0 or later and Zone Based Firewall feature enabled. Check [official documentation](https://help.ui.com/hc/en-us/articles/28223082254743-Migrating-to-Zone-Based-Firewalls-in-UniFi) how to migate to Zone-Based firewalls.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/firewall"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			network, err := unifi.NewNetwork(ctx, "network", &unifi.NetworkArgs{
+//				Purpose: pulumi.String("corporate"),
+//				Subnet:  pulumi.String("10.0.10.0/24"),
+//				VlanId:  pulumi.Int(400),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			src, err := firewall.NewZone(ctx, "src", &firewall.ZoneArgs{
+//				Networks: pulumi.StringArray{
+//					network.ID(),
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			dst, err := firewall.NewZone(ctx, "dst", nil)
+//			if err != nil {
+//				return err
+//			}
+//			// Allow TCP/UDP traffic from any ip and port other than 192.168.1.1 and 443 in `src` zone to `dst` zone
+//			_, err = firewall.NewZonePolicy(ctx, "policy", &firewall.ZonePolicyArgs{
+//				Action:   pulumi.String("ALLOW"),
+//				Protocol: pulumi.String("tcp_udp"),
+//				Source: &firewall.ZonePolicySourceArgs{
+//					Zone_id: src.ID(),
+//					Ips: pulumi.StringArray{
+//						pulumi.String("192.168.1.1"),
+//					},
+//					Port:                 pulumi.Int(443),
+//					Match_opposite_ips:   true,
+//					Match_opposite_ports: true,
+//				},
+//				Destination: &firewall.ZonePolicyDestinationArgs{
+//					Zone_id: dst.ID(),
+//				},
+//				Schedule: &firewall.ZonePolicyScheduleArgs{
+//					Mode:         pulumi.String("EVERY_DAY"),
+//					Time_all_day: false,
+//					Time_from:    "08:00",
+//					Time_to:      "17:00",
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			web_ports, err := firewall.NewGroup(ctx, "web-ports", &firewall.GroupArgs{
+//				Type: pulumi.String("port-group"),
+//				Members: pulumi.StringArray{
+//					pulumi.String("80"),
+//					pulumi.String("443"),
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			// Block TCP/UDP traffic from any ip and port in `src` zone to `dst` zone ports 80 and 443 defined in port group
+//			_, err = firewall.NewZonePolicy(ctx, "policy2", &firewall.ZonePolicyArgs{
+//				Action:   pulumi.String("BLOCK"),
+//				Protocol: pulumi.String("tcp_udp"),
+//				Source: &firewall.ZonePolicySourceArgs{
+//					Zone_id: src.ID(),
+//				},
+//				Destination: &firewall.ZonePolicyDestinationArgs{
+//					Zone_id:       dst.ID(),
+//					Port_group_id: web_ports.ID(),
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
+//
+// ## Import
+//
+// The `pulumi import` command can be used, for example:
+//
+// import from provider configured site
+//
+// ```sh
+// $ pulumi import unifi:firewall/zonePolicy:ZonePolicy mynetwork 5dc28e5e9106d105bdc87217
+// ```
+//
+// import from another site
+//
+// ```sh
+// $ pulumi import unifi:firewall/zonePolicy:ZonePolicy mynetwork zone:5dc28e5e9106d105bdc87217
+// ```
 type ZonePolicy struct {
 	pulumi.CustomResourceState
 

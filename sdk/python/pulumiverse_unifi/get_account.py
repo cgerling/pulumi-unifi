@@ -55,41 +55,65 @@ class GetAccountResult:
     @_builtins.property
     @pulumi.getter
     def id(self) -> _builtins.str:
+        """
+        The ID of this account.
+        """
         return pulumi.get(self, "id")
 
     @_builtins.property
     @pulumi.getter
     def name(self) -> _builtins.str:
+        """
+        The name of the account to look up
+        """
         return pulumi.get(self, "name")
 
     @_builtins.property
     @pulumi.getter(name="networkId")
     def network_id(self) -> _builtins.str:
+        """
+        The ID of the UniFi network configuration (the controller's `networkconf_id`) associated with this account. This is distinct from the `vlan` attribute, which is the 802.1Q VLAN ID delivered via RADIUS.
+        """
         return pulumi.get(self, "network_id")
 
     @_builtins.property
     @pulumi.getter
     def password(self) -> _builtins.str:
+        """
+        The password of the account.
+        """
         return pulumi.get(self, "password")
 
     @_builtins.property
     @pulumi.getter
     def site(self) -> _builtins.str:
+        """
+        The name of the site the account is associated with.
+        """
         return pulumi.get(self, "site")
 
     @_builtins.property
     @pulumi.getter(name="tunnelMediumType")
     def tunnel_medium_type(self) -> _builtins.int:
+        """
+        See RFC2868 section 3.2
+        """
         return pulumi.get(self, "tunnel_medium_type")
 
     @_builtins.property
     @pulumi.getter(name="tunnelType")
     def tunnel_type(self) -> _builtins.int:
+        """
+        See RFC2868 section 3.1
+        """
         return pulumi.get(self, "tunnel_type")
 
     @_builtins.property
     @pulumi.getter
     def vlan(self) -> _builtins.int:
+        """
+        The 802.1Q VLAN ID assigned to clients authenticating with this account via RADIUS dynamic VLAN assignment. `0` means no VLAN is assigned.
+        """
         return pulumi.get(self, "vlan")
 
 
@@ -113,7 +137,11 @@ def get_account(name: Optional[_builtins.str] = None,
                 site: Optional[_builtins.str] = None,
                 opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetAccountResult:
     """
-    Use this data source to access information about an existing resource.
+    unifi_account data source can be used to retrieve RADIUS user accounts
+
+
+    :param _builtins.str name: The name of the account to look up
+    :param _builtins.str site: The name of the site the account is associated with.
     """
     __args__ = dict()
     __args__['name'] = name
@@ -134,7 +162,11 @@ def get_account_output(name: Optional[pulumi.Input[_builtins.str]] = None,
                        site: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
                        opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetAccountResult]:
     """
-    Use this data source to access information about an existing resource.
+    unifi_account data source can be used to retrieve RADIUS user accounts
+
+
+    :param _builtins.str name: The name of the account to look up
+    :param _builtins.str site: The name of the site the account is associated with.
     """
     __args__ = dict()
     __args__['name'] = name

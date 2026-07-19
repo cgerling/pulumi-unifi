@@ -402,7 +402,15 @@ class Forward(pulumi.CustomResource):
                  src_ip: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        Create a Forward resource with the given unique name, props, and options.
+        The `port.Forward` resource manages port forwarding rules on UniFi controllers.
+
+        Port forwarding allows external traffic to reach services hosted on your internal network by mapping external ports to internal IP addresses and ports. This is commonly used for:
+          * Hosting web servers, game servers, or other services
+          * Remote access to internal services
+          * Application-specific requirements
+
+        Each rule can be configured with source IP restrictions, protocol selection, and logging options for enhanced security and monitoring.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] dst_port: The external port(s) that will be forwarded. Can be a single port (e.g., '80') or a port range (e.g., '8080:8090').
@@ -429,7 +437,15 @@ class Forward(pulumi.CustomResource):
                  args: Optional[ForwardArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a Forward resource with the given unique name, props, and options.
+        The `port.Forward` resource manages port forwarding rules on UniFi controllers.
+
+        Port forwarding allows external traffic to reach services hosted on your internal network by mapping external ports to internal IP addresses and ports. This is commonly used for:
+          * Hosting web servers, game servers, or other services
+          * Remote access to internal services
+          * Application-specific requirements
+
+        Each rule can be configured with source IP restrictions, protocol selection, and logging options for enhanced security and monitoring.
+
         :param str resource_name: The name of the resource.
         :param ForwardArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

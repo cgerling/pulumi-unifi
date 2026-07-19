@@ -4,6 +4,18 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
+/**
+ * Manages SSL Inspection settings for a UniFi site. SSL inspection is a security feature that allows the UniFi Security Gateway (USG) to inspect encrypted traffic for security threats.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as unifi from "@pulumiverse/unifi";
+ *
+ * const example = new unifi.setting.SslInspection("example", {state: "advanced"});
+ * ```
+ */
 export class SslInspection extends pulumi.CustomResource {
     /**
      * Get an existing SslInspection resource's state with the given name, ID, and optional extra

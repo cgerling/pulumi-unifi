@@ -363,7 +363,50 @@ class Ips(pulumi.CustomResource):
                  suppression: Optional[pulumi.Input[Union['IpsSuppressionArgs', 'IpsSuppressionArgsDict']]] = None,
                  __props__=None):
         """
-        Create a Ips resource with the given unique name, props, and options.
+        The `setting.Ips` resource allows you to configure the Intrusion Prevention System (IPS) settings for your UniFi network. IPS provides network threat protection by monitoring, detecting, and preventing malicious traffic based on configured rules and policies. Requires controller version 7.4 or later
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        test = unifi.Network("test",
+            purpose="corporate",
+            subnet="192.168.1.0/24",
+            vlan_id=10)
+        example = unifi.setting.Ips("example",
+            ips_mode="ips",
+            enabled_networks=[test.id],
+            advanced_filtering_preference="manual",
+            enabled_categories=[
+                "emerging-dos",
+                "emerging-exploit",
+                "emerging-malware",
+            ],
+            ad_blocked_networks=[test.id],
+            honeypots=[{
+                "ip_address": "192.168.1.10",
+                "network_id": test.id,
+            }],
+            dns_filters=[{
+                "name": "Work Filter",
+                "filter": "work",
+                "description": "Block non-work related sites",
+                "allowedSites": [
+                    "example.com",
+                    "company.com",
+                ],
+                "blockedSites": [
+                    "gaming.example.com",
+                    "social.example.com",
+                ],
+                "blockedTld": ["xyz"],
+            }])
+        # Specify the site (optional, defaults to site configured in provider, otherwise "default")
+        # site = "default"
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] advanced_filtering_preference: The advanced filtering preference for IPS. Valid values are:
@@ -389,7 +432,50 @@ class Ips(pulumi.CustomResource):
                  args: Optional[IpsArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a Ips resource with the given unique name, props, and options.
+        The `setting.Ips` resource allows you to configure the Intrusion Prevention System (IPS) settings for your UniFi network. IPS provides network threat protection by monitoring, detecting, and preventing malicious traffic based on configured rules and policies. Requires controller version 7.4 or later
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        test = unifi.Network("test",
+            purpose="corporate",
+            subnet="192.168.1.0/24",
+            vlan_id=10)
+        example = unifi.setting.Ips("example",
+            ips_mode="ips",
+            enabled_networks=[test.id],
+            advanced_filtering_preference="manual",
+            enabled_categories=[
+                "emerging-dos",
+                "emerging-exploit",
+                "emerging-malware",
+            ],
+            ad_blocked_networks=[test.id],
+            honeypots=[{
+                "ip_address": "192.168.1.10",
+                "network_id": test.id,
+            }],
+            dns_filters=[{
+                "name": "Work Filter",
+                "filter": "work",
+                "description": "Block non-work related sites",
+                "allowedSites": [
+                    "example.com",
+                    "company.com",
+                ],
+                "blockedSites": [
+                    "gaming.example.com",
+                    "social.example.com",
+                ],
+                "blockedTld": ["xyz"],
+            }])
+        # Specify the site (optional, defaults to site configured in provider, otherwise "default")
+        # site = "default"
+        ```
+
         :param str resource_name: The name of the resource.
         :param IpsArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

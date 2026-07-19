@@ -6,6 +6,29 @@ import * as inputs from "./types/input";
 import * as outputs from "./types/output";
 import * as utilities from "./utilities";
 
+/**
+ * The `unifi.Wlan` resource manages wireless networks (SSIDs) on UniFi access points.
+ *
+ * This resource allows you to create and manage WiFi networks with various security options including WPA2, WPA3, and enterprise authentication. You can configure features such as guest policies, minimum data rates, band steering, and scheduled availability.
+ *
+ * Each WLAN can be customized with different security settings, VLAN assignments, and client options to meet specific networking requirements.
+ *
+ * ## Import
+ *
+ * The `pulumi import` command can be used, for example:
+ *
+ * import from provider configured site
+ *
+ * ```sh
+ * $ pulumi import unifi:index/wlan:Wlan mywlan 5dc28e5e9106d105bdc87217
+ * ```
+ *
+ * import from another site
+ *
+ * ```sh
+ * $ pulumi import unifi:index/wlan:Wlan mywlan bfa2l6i7:5dc28e5e9106d105bdc87217
+ * ```
+ */
 export class Wlan extends pulumi.CustomResource {
     /**
      * Get an existing Wlan resource's state with the given name, ID, and optional extra

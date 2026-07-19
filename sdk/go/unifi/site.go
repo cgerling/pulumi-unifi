@@ -12,6 +12,62 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
+// The `Site` resource manages UniFi sites, which are logical groupings of UniFi devices and their configurations.
+//
+// Sites in UniFi are used to:
+//   - Organize network devices and settings for different physical locations
+//   - Isolate configurations between different networks or customers
+//   - Apply different policies and configurations to different groups of devices
+//
+// Each site maintains its own:
+//   - Network configurations
+//   - Wireless networks (WLANs)
+//   - Security policies
+//   - Device configurations
+//
+// A UniFi controller can manage multiple sites, making it ideal for multi-tenant or distributed network deployments.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := unifi.NewSite(ctx, "mysite", &unifi.SiteArgs{
+//				Description: pulumi.String("mysite"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
+//
+// ## Import
+//
+// The `pulumi import` command can be used, for example:
+//
+// import using the API/UI ID
+//
+// ```sh
+// $ pulumi import unifi:index/site:Site mysite 5fe6261995fe130013456a36
+// ```
+//
+// import using the name (short ID)
+//
+// ```sh
+// $ pulumi import unifi:index/site:Site mysite vq98kwez
+// ```
 type Site struct {
 	pulumi.CustomResourceState
 

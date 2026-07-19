@@ -11,6 +11,61 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
+// The `port.Profile` resource manages port profiles that can be applied to UniFi switch ports.
+//
+// Port profiles define a collection of settings that can be applied to one or more switch ports, including:
+//   - Network and VLAN settings
+//   - Port speed and duplex settings
+//   - Security features like 802.1X authentication and port isolation
+//   - Rate limiting and QoS settings
+//   - Network protocols like LLDP and STP
+//
+// Creating port profiles allows for consistent configuration across multiple switch ports and easier management of port settings.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/port"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			cfg := config.New(ctx, "")
+//			vlanId := 10
+//			if param := cfg.GetInt("vlanId"); param != 0 {
+//				vlanId = param
+//			}
+//			vlan, err := unifi.NewNetwork(ctx, "vlan", &unifi.NetworkArgs{
+//				Purpose:     pulumi.String("corporate"),
+//				Subnet:      pulumi.String("10.0.0.1/24"),
+//				VlanId:      pulumi.Int(vlanId),
+//				DhcpStart:   pulumi.String("10.0.0.6"),
+//				DhcpStop:    pulumi.String("10.0.0.254"),
+//				DhcpEnabled: pulumi.Bool(true),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = port.NewProfile(ctx, "poeDisabled", &port.ProfileArgs{
+//				NativeNetworkconfId: vlan.ID(),
+//				PoeMode:             pulumi.String("off"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 type Profile struct {
 	pulumi.CustomResourceState
 

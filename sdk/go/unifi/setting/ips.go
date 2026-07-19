@@ -11,6 +11,78 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
+// The `setting.Ips` resource allows you to configure the Intrusion Prevention System (IPS) settings for your UniFi network. IPS provides network threat protection by monitoring, detecting, and preventing malicious traffic based on configured rules and policies. Requires controller version 7.4 or later
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/setting"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			test, err := unifi.NewNetwork(ctx, "test", &unifi.NetworkArgs{
+//				Purpose: pulumi.String("corporate"),
+//				Subnet:  pulumi.String("192.168.1.0/24"),
+//				VlanId:  pulumi.Int(10),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = setting.NewIps(ctx, "example", &setting.IpsArgs{
+//				IpsMode: pulumi.String("ips"),
+//				EnabledNetworks: pulumi.StringArray{
+//					test.ID(),
+//				},
+//				AdvancedFilteringPreference: pulumi.String("manual"),
+//				EnabledCategories: pulumi.StringArray{
+//					pulumi.String("emerging-dos"),
+//					pulumi.String("emerging-exploit"),
+//					pulumi.String("emerging-malware"),
+//				},
+//				AdBlockedNetworks: pulumi.StringArray{
+//					test.ID(),
+//				},
+//				Honeypots: setting.IpsHoneypotArray{
+//					&setting.IpsHoneypotArgs{
+//						Ip_address: "192.168.1.10",
+//						Network_id: test.ID(),
+//					},
+//				},
+//				DnsFilters: []map[string]interface{}{
+//					map[string]interface{}{
+//						"name":        "Work Filter",
+//						"filter":      "work",
+//						"description": "Block non-work related sites",
+//						"allowedSites": []string{
+//							"example.com",
+//							"company.com",
+//						},
+//						"blockedSites": []string{
+//							"gaming.example.com",
+//							"social.example.com",
+//						},
+//						"blockedTld": []string{
+//							"xyz",
+//						},
+//					},
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 type Ips struct {
 	pulumi.CustomResourceState
 

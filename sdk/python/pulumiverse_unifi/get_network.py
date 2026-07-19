@@ -187,261 +187,417 @@ class GetNetworkResult:
     @_builtins.property
     @pulumi.getter(name="dhcpDns")
     def dhcp_dns(self) -> Sequence[_builtins.str]:
+        """
+        IPv4 addresses for the DNS server to be returned from the DHCP server.
+        """
         return pulumi.get(self, "dhcp_dns")
 
     @_builtins.property
     @pulumi.getter(name="dhcpEnabled")
     def dhcp_enabled(self) -> _builtins.bool:
+        """
+        whether DHCP is enabled or not on this network.
+        """
         return pulumi.get(self, "dhcp_enabled")
 
     @_builtins.property
     @pulumi.getter(name="dhcpGuarding")
     def dhcp_guarding(self) -> _builtins.bool:
+        """
+        Specifies whether DHCP Guarding (rogue/untrusted DHCP server protection) is enabled or not.
+        """
         return pulumi.get(self, "dhcp_guarding")
 
     @_builtins.property
     @pulumi.getter(name="dhcpLease")
     def dhcp_lease(self) -> _builtins.int:
+        """
+        lease time for DHCP addresses.
+        """
         return pulumi.get(self, "dhcp_lease")
 
     @_builtins.property
     @pulumi.getter(name="dhcpStart")
     def dhcp_start(self) -> _builtins.str:
+        """
+        The IPv4 address where the DHCP range of addresses starts.
+        """
         return pulumi.get(self, "dhcp_start")
 
     @_builtins.property
     @pulumi.getter(name="dhcpStop")
     def dhcp_stop(self) -> _builtins.str:
+        """
+        The IPv4 address where the DHCP range of addresses stops.
+        """
         return pulumi.get(self, "dhcp_stop")
 
     @_builtins.property
     @pulumi.getter(name="dhcpV6Dns")
     def dhcp_v6_dns(self) -> Sequence[_builtins.str]:
+        """
+        Specifies the IPv6 addresses for the DNS server to be returned from the DHCP server. Used if `dhcp_v6_dns_auto` is set to `false`.
+        """
         return pulumi.get(self, "dhcp_v6_dns")
 
     @_builtins.property
     @pulumi.getter(name="dhcpV6DnsAuto")
     def dhcp_v6_dns_auto(self) -> _builtins.bool:
+        """
+        Specifies DNS source to propagate. If set `false` the entries in `dhcp_v6_dns` are used, the upstream entries otherwise
+        """
         return pulumi.get(self, "dhcp_v6_dns_auto")
 
     @_builtins.property
     @pulumi.getter(name="dhcpV6Enabled")
     def dhcp_v6_enabled(self) -> _builtins.bool:
+        """
+        Enable stateful DHCPv6 for static configuration.
+        """
         return pulumi.get(self, "dhcp_v6_enabled")
 
     @_builtins.property
     @pulumi.getter(name="dhcpV6Lease")
     def dhcp_v6_lease(self) -> _builtins.int:
+        """
+        Specifies the lease time for DHCPv6 addresses.
+        """
         return pulumi.get(self, "dhcp_v6_lease")
 
     @_builtins.property
     @pulumi.getter(name="dhcpV6Start")
     def dhcp_v6_start(self) -> _builtins.str:
+        """
+        start address of the DHCPv6 range. Used in static DHCPv6 configuration.
+        """
         return pulumi.get(self, "dhcp_v6_start")
 
     @_builtins.property
     @pulumi.getter(name="dhcpV6Stop")
     def dhcp_v6_stop(self) -> _builtins.str:
+        """
+        End address of the DHCPv6 range. Used in static DHCPv6 configuration.
+        """
         return pulumi.get(self, "dhcp_v6_stop")
 
     @_builtins.property
     @pulumi.getter(name="dhcpdBootEnabled")
     def dhcpd_boot_enabled(self) -> _builtins.bool:
+        """
+        Toggles on the DHCP boot options. will be set to true if you have dhcpd*boot*filename, and dhcpd*boot*server set.
+        """
         return pulumi.get(self, "dhcpd_boot_enabled")
 
     @_builtins.property
     @pulumi.getter(name="dhcpdBootFilename")
     def dhcpd_boot_filename(self) -> _builtins.str:
+        """
+        the file to PXE boot from on the dhcpd*boot*server.
+        """
         return pulumi.get(self, "dhcpd_boot_filename")
 
     @_builtins.property
     @pulumi.getter(name="dhcpdBootServer")
     def dhcpd_boot_server(self) -> _builtins.str:
+        """
+        IPv4 address of a TFTP server to network boot from.
+        """
         return pulumi.get(self, "dhcpd_boot_server")
 
     @_builtins.property
     @pulumi.getter(name="dhcpdGateway")
     def dhcpd_gateway(self) -> _builtins.str:
+        """
+        The IPv4 default gateway advertised to DHCP clients when the override is enabled.
+        """
         return pulumi.get(self, "dhcpd_gateway")
 
     @_builtins.property
     @pulumi.getter(name="dhcpdGatewayEnabled")
     def dhcpd_gateway_enabled(self) -> _builtins.bool:
+        """
+        Whether the DHCP default gateway is manually overridden (true) or auto (false).
+        """
         return pulumi.get(self, "dhcpd_gateway_enabled")
 
     @_builtins.property
     @pulumi.getter(name="domainName")
     def domain_name(self) -> _builtins.str:
+        """
+        The domain name of this network.
+        """
         return pulumi.get(self, "domain_name")
 
     @_builtins.property
     @pulumi.getter(name="firewallZoneId")
     def firewall_zone_id(self) -> _builtins.str:
+        """
+        The ID of the Zone-Based Firewall (ZBF) zone this network belongs to. Only meaningful on UniFi OS 9.x controllers with Zone-Based Firewall enabled; empty otherwise. The zone ID is site-scoped.
+        """
         return pulumi.get(self, "firewall_zone_id")
 
     @_builtins.property
     @pulumi.getter
     def id(self) -> _builtins.str:
+        """
+        The ID of the network.
+        """
         return pulumi.get(self, "id")
 
     @_builtins.property
     @pulumi.getter(name="igmpSnooping")
     def igmp_snooping(self) -> _builtins.bool:
+        """
+        Specifies whether IGMP snooping is enabled or not.
+        """
         return pulumi.get(self, "igmp_snooping")
 
     @_builtins.property
     @pulumi.getter(name="ipv6InterfaceType")
     def ipv6_interface_type(self) -> _builtins.str:
+        """
+        Specifies which type of IPv6 connection to use. Must be one of either `static`, `pd`, `single_network`, or `none`.
+        """
         return pulumi.get(self, "ipv6_interface_type")
 
     @_builtins.property
     @pulumi.getter(name="ipv6PdInterface")
     def ipv6_pd_interface(self) -> _builtins.str:
+        """
+        Specifies which WAN interface to use for IPv6 PD. Must be one of either `wan` or `wan2`.
+        """
         return pulumi.get(self, "ipv6_pd_interface")
 
     @_builtins.property
     @pulumi.getter(name="ipv6PdPrefixid")
     def ipv6_pd_prefixid(self) -> _builtins.str:
+        """
+        Specifies the IPv6 Prefix ID.
+        """
         return pulumi.get(self, "ipv6_pd_prefixid")
 
     @_builtins.property
     @pulumi.getter(name="ipv6PdStart")
     def ipv6_pd_start(self) -> _builtins.str:
+        """
+        start address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
+        """
         return pulumi.get(self, "ipv6_pd_start")
 
     @_builtins.property
     @pulumi.getter(name="ipv6PdStop")
     def ipv6_pd_stop(self) -> _builtins.str:
+        """
+        End address of the DHCPv6 range. Used if `ipv6_interface_type` is set to `pd`.
+        """
         return pulumi.get(self, "ipv6_pd_stop")
 
     @_builtins.property
     @pulumi.getter(name="ipv6RaEnable")
     def ipv6_ra_enable(self) -> _builtins.bool:
+        """
+        Specifies whether to enable router advertisements or not.
+        """
         return pulumi.get(self, "ipv6_ra_enable")
 
     @_builtins.property
     @pulumi.getter(name="ipv6RaPreferredLifetime")
     def ipv6_ra_preferred_lifetime(self) -> _builtins.int:
+        """
+        Lifetime in which the address can be used. Address becomes deprecated afterwards. Must be lower than or equal to `ipv6_ra_valid_lifetime`
+        """
         return pulumi.get(self, "ipv6_ra_preferred_lifetime")
 
     @_builtins.property
     @pulumi.getter(name="ipv6RaPriority")
     def ipv6_ra_priority(self) -> _builtins.str:
+        """
+        IPv6 router advertisement priority. Must be one of either `high`, `medium`, or `low`
+        """
         return pulumi.get(self, "ipv6_ra_priority")
 
     @_builtins.property
     @pulumi.getter(name="ipv6RaValidLifetime")
     def ipv6_ra_valid_lifetime(self) -> _builtins.int:
+        """
+        Total lifetime in which the address can be used. Must be equal to or greater than `ipv6_ra_preferred_lifetime`.
+        """
         return pulumi.get(self, "ipv6_ra_valid_lifetime")
 
     @_builtins.property
     @pulumi.getter(name="ipv6StaticSubnet")
     def ipv6_static_subnet(self) -> _builtins.str:
+        """
+        Specifies the static IPv6 subnet (when ipv6*interface*type is 'static').
+        """
         return pulumi.get(self, "ipv6_static_subnet")
 
     @_builtins.property
     @pulumi.getter(name="multicastDns")
     def multicast_dns(self) -> _builtins.bool:
+        """
+        Specifies whether Multicast DNS (mDNS) is enabled or not on the network (Controller >=v7).
+        """
         return pulumi.get(self, "multicast_dns")
 
     @_builtins.property
     @pulumi.getter
     def name(self) -> _builtins.str:
+        """
+        The name of the network.
+        """
         return pulumi.get(self, "name")
 
     @_builtins.property
     @pulumi.getter(name="networkGroup")
     def network_group(self) -> _builtins.str:
+        """
+        The group of the network.
+        """
         return pulumi.get(self, "network_group")
 
     @_builtins.property
     @pulumi.getter
     def purpose(self) -> _builtins.str:
+        """
+        The purpose of the network. One of `corporate`, `guest`, `wan`, or `vlan-only`.
+        """
         return pulumi.get(self, "purpose")
 
     @_builtins.property
     @pulumi.getter
     def site(self) -> _builtins.str:
+        """
+        The name of the site to associate the network with.
+        """
         return pulumi.get(self, "site")
 
     @_builtins.property
     @pulumi.getter
     def subnet(self) -> _builtins.str:
+        """
+        The subnet of the network (CIDR address).
+        """
         return pulumi.get(self, "subnet")
 
     @_builtins.property
     @pulumi.getter(name="vlanId")
     def vlan_id(self) -> _builtins.int:
+        """
+        The VLAN ID of the network.
+        """
         return pulumi.get(self, "vlan_id")
 
     @_builtins.property
     @pulumi.getter(name="wanDhcpV6PdSize")
     def wan_dhcp_v6_pd_size(self) -> _builtins.int:
+        """
+        Specifies the IPv6 prefix size to request from ISP. Must be a number between 48 and 64.
+        """
         return pulumi.get(self, "wan_dhcp_v6_pd_size")
 
     @_builtins.property
     @pulumi.getter(name="wanDns")
     def wan_dns(self) -> Sequence[_builtins.str]:
+        """
+        DNS servers IPs of the WAN.
+        """
         return pulumi.get(self, "wan_dns")
 
     @_builtins.property
     @pulumi.getter(name="wanEgressQos")
     def wan_egress_qos(self) -> _builtins.int:
+        """
+        Specifies the WAN egress quality of service.
+        """
         return pulumi.get(self, "wan_egress_qos")
 
     @_builtins.property
     @pulumi.getter(name="wanGateway")
     def wan_gateway(self) -> _builtins.str:
+        """
+        The IPv4 gateway of the WAN.
+        """
         return pulumi.get(self, "wan_gateway")
 
     @_builtins.property
     @pulumi.getter(name="wanGatewayV6")
     def wan_gateway_v6(self) -> _builtins.str:
+        """
+        The IPv6 gateway of the WAN.
+        """
         return pulumi.get(self, "wan_gateway_v6")
 
     @_builtins.property
     @pulumi.getter(name="wanIp")
     def wan_ip(self) -> _builtins.str:
+        """
+        The IPv4 address of the WAN.
+        """
         return pulumi.get(self, "wan_ip")
 
     @_builtins.property
     @pulumi.getter(name="wanIpv6")
     def wan_ipv6(self) -> _builtins.str:
+        """
+        The IPv6 address of the WAN.
+        """
         return pulumi.get(self, "wan_ipv6")
 
     @_builtins.property
     @pulumi.getter(name="wanNetmask")
     def wan_netmask(self) -> _builtins.str:
+        """
+        The IPv4 netmask of the WAN.
+        """
         return pulumi.get(self, "wan_netmask")
 
     @_builtins.property
     @pulumi.getter(name="wanNetworkgroup")
     def wan_networkgroup(self) -> _builtins.str:
+        """
+        Specifies the WAN network group. One of either `WAN`, `WAN2` or `WAN_LTE_FAILOVER`.
+        """
         return pulumi.get(self, "wan_networkgroup")
 
     @_builtins.property
     @pulumi.getter(name="wanPrefixlen")
     def wan_prefixlen(self) -> _builtins.int:
+        """
+        The IPv6 prefix length of the WAN. Must be between 1 and 128.
+        """
         return pulumi.get(self, "wan_prefixlen")
 
     @_builtins.property
     @pulumi.getter(name="wanType")
     def wan_type(self) -> _builtins.str:
+        """
+        Specifies the IPV4 WAN connection type. One of either `disabled`, `static`, `dhcp`, or `pppoe`.
+        """
         return pulumi.get(self, "wan_type")
 
     @_builtins.property
     @pulumi.getter(name="wanTypeV6")
     def wan_type_v6(self) -> _builtins.str:
+        """
+        Specifies the IPV6 WAN connection type. Must be one of either `disabled`, `static`, or `dhcpv6`.
+        """
         return pulumi.get(self, "wan_type_v6")
 
     @_builtins.property
     @pulumi.getter(name="wanUsername")
     def wan_username(self) -> _builtins.str:
+        """
+        Specifies the IPV4 WAN username.
+        """
         return pulumi.get(self, "wan_username")
 
     @_builtins.property
     @pulumi.getter(name="xWanPassword")
     def x_wan_password(self) -> _builtins.str:
+        """
+        Specifies the IPV4 WAN password.
+        """
         return pulumi.get(self, "x_wan_password")
 
 
@@ -510,7 +666,23 @@ def get_network(id: Optional[_builtins.str] = None,
                 site: Optional[_builtins.str] = None,
                 opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetNetworkResult:
     """
-    Use this data source to access information about an existing resource.
+    `Network` data source can be used to retrieve settings for a network by name or ID.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_unifi as unifi
+
+    lan_network = unifi.get_network(name="Default")
+    my_device = unifi.iam.get_user(mac="01:23:45:67:89:ab")
+    my_network = unifi.get_network(id=my_device.network_id)
+    ```
+
+
+    :param _builtins.str id: The ID of the network.
+    :param _builtins.str name: The name of the network.
+    :param _builtins.str site: The name of the site to associate the network with.
     """
     __args__ = dict()
     __args__['id'] = id
@@ -577,7 +749,23 @@ def get_network_output(id: Optional[pulumi.Input[Optional[_builtins.str]]] = Non
                        site: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
                        opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetNetworkResult]:
     """
-    Use this data source to access information about an existing resource.
+    `Network` data source can be used to retrieve settings for a network by name or ID.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_unifi as unifi
+
+    lan_network = unifi.get_network(name="Default")
+    my_device = unifi.iam.get_user(mac="01:23:45:67:89:ab")
+    my_network = unifi.get_network(id=my_device.network_id)
+    ```
+
+
+    :param _builtins.str id: The ID of the network.
+    :param _builtins.str name: The name of the network.
+    :param _builtins.str site: The name of the site to associate the network with.
     """
     __args__ = dict()
     __args__['id'] = id

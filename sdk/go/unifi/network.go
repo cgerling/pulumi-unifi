@@ -12,6 +12,126 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
+// The `Network` resource manages networks in your UniFi environment, including WAN, LAN, and VLAN networks. This resource enables you to:
+//
+// * Create and manage different types of networks (corporate, guest, WAN, VLAN-only)
+// * Configure network addressing and DHCP settings
+// * Set up IPv6 networking features
+// * Manage DHCP relay and DNS settings
+// * Configure network groups and VLANs
+//
+// Common use cases include:
+// * Setting up corporate and guest networks with different security policies
+// * Configuring WAN connectivity with various authentication methods
+// * Creating VLANs for network segmentation
+// * Managing DHCP and DNS services for network clients
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi/config"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/firewall"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			cfg := config.New(ctx, "")
+//			vlanId := 10
+//			if param := cfg.GetInt("vlanId"); param != 0 {
+//				vlanId = param
+//			}
+//			_, err := unifi.NewNetwork(ctx, "vlan", &unifi.NetworkArgs{
+//				Purpose:     pulumi.String("corporate"),
+//				Subnet:      pulumi.String("10.0.0.1/24"),
+//				VlanId:      pulumi.Int(vlanId),
+//				DhcpStart:   pulumi.String("10.0.0.6"),
+//				DhcpStop:    pulumi.String("10.0.0.254"),
+//				DhcpEnabled: pulumi.Bool(true),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = unifi.NewNetwork(ctx, "wan", &unifi.NetworkArgs{
+//				Purpose:         pulumi.String("wan"),
+//				WanNetworkgroup: pulumi.String("WAN"),
+//				WanType:         pulumi.String("pppoe"),
+//				WanIp:           pulumi.String("192.168.1.1"),
+//				WanEgressQos:    pulumi.Int(1),
+//				WanUsername:     pulumi.String("username"),
+//				XWanPassword:    pulumi.String("password"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			// Zone-Based Firewall (UniFi OS 9.x): pin a network to a firewall zone from the
+//			// network side. Use EITHER this `firewall_zone_id` lever OR the zone-side
+//			// `unifi_firewall_zone.networks` argument for a given network — not both, or the two
+//			// resources will fight over the association.
+//			iotZone, err := firewall.NewZone(ctx, "iotZone", nil)
+//			if err != nil {
+//				return err
+//			}
+//			_, err = unifi.NewNetwork(ctx, "iotNetwork", &unifi.NetworkArgs{
+//				Purpose:        pulumi.String("corporate"),
+//				Subnet:         pulumi.String("10.0.20.1/24"),
+//				VlanId:         pulumi.Int(20),
+//				FirewallZoneId: iotZone.ID(),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			// Override the DHCP-advertised default gateway. By default UniFi advertises the
+//			// network's own interface IP as the gateway (DHCP option 3); setting
+//			// `dhcpd_gateway_enabled = true` switches that to "manual" and hands clients the
+//			// address in `dhcpd_gateway` instead. Here clients are pointed at a Tailscale
+//			// subnet-router node (10.0.30.10) so their traffic can reach a remote tailnet.
+//			_, err = unifi.NewNetwork(ctx, "tailscaleLan", &unifi.NetworkArgs{
+//				Purpose:             pulumi.String("corporate"),
+//				Subnet:              pulumi.String("10.0.30.1/24"),
+//				VlanId:              pulumi.Int(30),
+//				DhcpStart:           pulumi.String("10.0.30.100"),
+//				DhcpStop:            pulumi.String("10.0.30.254"),
+//				DhcpEnabled:         pulumi.Bool(true),
+//				DhcpdGatewayEnabled: pulumi.Bool(true),
+//				DhcpdGateway:        pulumi.String("10.0.30.10"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
+//
+// ## Import
+//
+// The `pulumi import` command can be used, for example:
+//
+// import from provider configured site
+//
+// ```sh
+// $ pulumi import unifi:index/network:Network mynetwork 5dc28e5e9106d105bdc87217
+// ```
+//
+// import from another site
+//
+// ```sh
+// $ pulumi import unifi:index/network:Network mynetwork bfa2l6i7:5dc28e5e9106d105bdc87217
+// ```
+//
+// import network by name
+//
+// ```sh
+// $ pulumi import unifi:index/network:Network mynetwork name=LAN
+// ```
 type Network struct {
 	pulumi.CustomResourceState
 

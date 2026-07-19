@@ -105,7 +105,17 @@ class Locale(pulumi.CustomResource):
                  timezone: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        Create a Locale resource with the given unique name, props, and options.
+        Manages locale settings for a UniFi site.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        example = unifi.setting.Locale("example", timezone="America/New_York")
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] site: The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
@@ -118,7 +128,17 @@ class Locale(pulumi.CustomResource):
                  args: LocaleArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a Locale resource with the given unique name, props, and options.
+        Manages locale settings for a UniFi site.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        example = unifi.setting.Locale("example", timezone="America/New_York")
+        ```
+
         :param str resource_name: The name of the resource.
         :param LocaleArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

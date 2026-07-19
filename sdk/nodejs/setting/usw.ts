@@ -4,6 +4,18 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
+/**
+ * Manages UniFi Switch (USW) settings for a UniFi site. These settings control global switch behaviors such as DHCP snooping.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as unifi from "@pulumiverse/unifi";
+ *
+ * const example = new unifi.setting.Usw("example", {dhcpSnoop: true});
+ * ```
+ */
 export class Usw extends pulumi.CustomResource {
     /**
      * Get an existing Usw resource's state with the given name, ID, and optional extra

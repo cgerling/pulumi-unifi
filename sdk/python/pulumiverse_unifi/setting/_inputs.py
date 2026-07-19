@@ -759,9 +759,6 @@ class GuestAccessPortalCustomizationArgsDict(TypedDict):
     bg_type: NotRequired[pulumi.Input[_builtins.str]]
     """
     Type of portal background. Valid values are:
-    * `color` - Solid color background
-    * `image` - (not yet supported!) Custom image background
-    * `gallery` - Image from Unsplash gallery
     """
     box_color: NotRequired[pulumi.Input[_builtins.str]]
     """
@@ -898,9 +895,6 @@ class GuestAccessPortalCustomizationArgs:
         :param pulumi.Input[_builtins.str] bg_image_file_id: ID of the background image portal file. File must exist in controller, use `port.AlFile` to manage it.
         :param pulumi.Input[_builtins.bool] bg_image_tile: Tile the background image.
         :param pulumi.Input[_builtins.str] bg_type: Type of portal background. Valid values are:
-               * `color` - Solid color background
-               * `image` - (not yet supported!) Custom image background
-               * `gallery` - Image from Unsplash gallery
         :param pulumi.Input[_builtins.str] box_color: Color of the login box in the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
         :param pulumi.Input[_builtins.str] box_link_color: Color of links in the login box. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
         :param pulumi.Input[_builtins.int] box_opacity: Opacity of the login box (0-100).
@@ -1038,9 +1032,6 @@ class GuestAccessPortalCustomizationArgs:
     def bg_type(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         Type of portal background. Valid values are:
-        * `color` - Solid color background
-        * `image` - (not yet supported!) Custom image background
-        * `gallery` - Image from Unsplash gallery
         """
         return pulumi.get(self, "bg_type")
 

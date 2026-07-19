@@ -4,6 +4,18 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
+/**
+ * Manages Magic Site to Site VPN settings for a UniFi site.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as unifi from "@pulumiverse/unifi";
+ *
+ * const example = new unifi.setting.MagicSiteToSiteVpn("example", {enabled: true});
+ * ```
+ */
 export class MagicSiteToSiteVpn extends pulumi.CustomResource {
     /**
      * Get an existing MagicSiteToSiteVpn resource's state with the given name, ID, and optional extra

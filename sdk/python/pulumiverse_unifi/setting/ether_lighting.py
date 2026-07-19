@@ -141,7 +141,8 @@ class EtherLighting(pulumi.CustomResource):
                  speed_overrides: Optional[pulumi.Input[Sequence[pulumi.Input[Union['EtherLightingSpeedOverrideArgs', 'EtherLightingSpeedOverrideArgsDict']]]]] = None,
                  __props__=None):
         """
-        Create a EtherLighting resource with the given unique name, props, and options.
+        Manages the site-level Etherlighting palette — the colors that switches with per-port LEDs (USW Pro Max line) use when a device's `ether_lighting` block selects a scheme. `network_overrides` assigns a color per network/VLAN (used by `mode = "network"`); `speed_overrides` assigns a color per link-speed class (used by `mode = "speed"`). Overrides take precedence over the controller's built-in default palette; networks or speeds without an override keep their default color. NOTE: the controller silently drops any override whose color equals that network's built-in default — declare only colors that actually differ from the defaults, or the entry will not round-trip.
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Sequence[pulumi.Input[Union['EtherLightingNetworkOverrideArgs', 'EtherLightingNetworkOverrideArgsDict']]]] network_overrides: Per-network LED colors, used when a device's Etherlighting `mode` is `network`.
@@ -155,7 +156,8 @@ class EtherLighting(pulumi.CustomResource):
                  args: Optional[EtherLightingArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a EtherLighting resource with the given unique name, props, and options.
+        Manages the site-level Etherlighting palette — the colors that switches with per-port LEDs (USW Pro Max line) use when a device's `ether_lighting` block selects a scheme. `network_overrides` assigns a color per network/VLAN (used by `mode = "network"`); `speed_overrides` assigns a color per link-speed class (used by `mode = "speed"`). Overrides take precedence over the controller's built-in default palette; networks or speeds without an override keep their default color. NOTE: the controller silently drops any override whose color equals that network's built-in default — declare only colors that actually differ from the defaults, or the entry will not round-trip.
+
         :param str resource_name: The name of the resource.
         :param EtherLightingArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

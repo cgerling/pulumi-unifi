@@ -5,6 +5,35 @@ import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
 /**
+ * The `unifi.ap.Group` resource manages Access Point groups in the UniFi controller.
+ *
+ * AP groups allow you to organize and manage multiple access points together. This resource allows you to create, update, and delete AP groups.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as unifi from "@pulumiverse/unifi";
+ *
+ * const example = new unifi.ap.Group("example", {deviceMacs: ["00:11:22:33:44:55"]});
+ * ```
+ *
+ * ## Import
+ *
+ * The `pulumi import` command can be used, for example:
+ *
+ * import from provider configured site
+ *
+ * ```sh
+ * $ pulumi import unifi:index/apGroup:ApGroup example 5dc28e5e9106d105bdc87217
+ * ```
+ *
+ * import from another site
+ *
+ * ```sh
+ * $ pulumi import unifi:index/apGroup:ApGroup example another-site:5dc28e5e9106d105bdc87217
+ * ```
+ *
  * @deprecated unifi.index/apgroup.ApGroup has been deprecated in favor of unifi.ap/group.Group
  */
 export class ApGroup extends pulumi.CustomResource {

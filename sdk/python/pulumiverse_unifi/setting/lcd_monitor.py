@@ -237,7 +237,8 @@ class LcdMonitor(pulumi.CustomResource):
                  touch_event: Optional[pulumi.Input[_builtins.bool]] = None,
                  __props__=None):
         """
-        Create a LcdMonitor resource with the given unique name, props, and options.
+        Manages LCD Monitor (LCM) settings for UniFi devices with built-in displays, such as the UniFi Dream Machine Pro (UDM Pro) and UniFi Network Video Recorder (UNVR).
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.int] brightness: The brightness level of the LCD display. Valid values are 1-100.
@@ -254,7 +255,8 @@ class LcdMonitor(pulumi.CustomResource):
                  args: LcdMonitorArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a LcdMonitor resource with the given unique name, props, and options.
+        Manages LCD Monitor (LCM) settings for UniFi devices with built-in displays, such as the UniFi Dream Machine Pro (UDM Pro) and UniFi Network Video Recorder (UNVR).
+
         :param str resource_name: The name of the resource.
         :param LcdMonitorArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

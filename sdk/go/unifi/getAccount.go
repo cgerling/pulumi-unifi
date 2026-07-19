@@ -11,6 +11,7 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
+// unifi_account data source can be used to retrieve RADIUS user accounts
 func LookupAccount(ctx *pulumi.Context, args *LookupAccountArgs, opts ...pulumi.InvokeOption) (*LookupAccountResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupAccountResult
@@ -23,20 +24,30 @@ func LookupAccount(ctx *pulumi.Context, args *LookupAccountArgs, opts ...pulumi.
 
 // A collection of arguments for invoking getAccount.
 type LookupAccountArgs struct {
-	Name string  `pulumi:"name"`
+	// The name of the account to look up
+	Name string `pulumi:"name"`
+	// The name of the site the account is associated with.
 	Site *string `pulumi:"site"`
 }
 
 // A collection of values returned by getAccount.
 type LookupAccountResult struct {
-	Id               string `pulumi:"id"`
-	Name             string `pulumi:"name"`
-	NetworkId        string `pulumi:"networkId"`
-	Password         string `pulumi:"password"`
-	Site             string `pulumi:"site"`
-	TunnelMediumType int    `pulumi:"tunnelMediumType"`
-	TunnelType       int    `pulumi:"tunnelType"`
-	Vlan             int    `pulumi:"vlan"`
+	// The ID of this account.
+	Id string `pulumi:"id"`
+	// The name of the account to look up
+	Name string `pulumi:"name"`
+	// The ID of the UniFi network configuration (the controller's `networkconfId`) associated with this account. This is distinct from the `vlan` attribute, which is the 802.1Q VLAN ID delivered via RADIUS.
+	NetworkId string `pulumi:"networkId"`
+	// The password of the account.
+	Password string `pulumi:"password"`
+	// The name of the site the account is associated with.
+	Site string `pulumi:"site"`
+	// See RFC2868 section 3.2
+	TunnelMediumType int `pulumi:"tunnelMediumType"`
+	// See RFC2868 section 3.1
+	TunnelType int `pulumi:"tunnelType"`
+	// The 802.1Q VLAN ID assigned to clients authenticating with this account via RADIUS dynamic VLAN assignment. `0` means no VLAN is assigned.
+	Vlan int `pulumi:"vlan"`
 }
 
 func LookupAccountOutput(ctx *pulumi.Context, args LookupAccountOutputArgs, opts ...pulumi.InvokeOption) LookupAccountResultOutput {
@@ -50,7 +61,9 @@ func LookupAccountOutput(ctx *pulumi.Context, args LookupAccountOutputArgs, opts
 
 // A collection of arguments for invoking getAccount.
 type LookupAccountOutputArgs struct {
-	Name pulumi.StringInput    `pulumi:"name"`
+	// The name of the account to look up
+	Name pulumi.StringInput `pulumi:"name"`
+	// The name of the site the account is associated with.
 	Site pulumi.StringPtrInput `pulumi:"site"`
 }
 
@@ -73,34 +86,42 @@ func (o LookupAccountResultOutput) ToLookupAccountResultOutputWithContext(ctx co
 	return o
 }
 
+// The ID of this account.
 func (o LookupAccountResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupAccountResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
+// The name of the account to look up
 func (o LookupAccountResultOutput) Name() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupAccountResult) string { return v.Name }).(pulumi.StringOutput)
 }
 
+// The ID of the UniFi network configuration (the controller's `networkconfId`) associated with this account. This is distinct from the `vlan` attribute, which is the 802.1Q VLAN ID delivered via RADIUS.
 func (o LookupAccountResultOutput) NetworkId() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupAccountResult) string { return v.NetworkId }).(pulumi.StringOutput)
 }
 
+// The password of the account.
 func (o LookupAccountResultOutput) Password() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupAccountResult) string { return v.Password }).(pulumi.StringOutput)
 }
 
+// The name of the site the account is associated with.
 func (o LookupAccountResultOutput) Site() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupAccountResult) string { return v.Site }).(pulumi.StringOutput)
 }
 
+// See RFC2868 section 3.2
 func (o LookupAccountResultOutput) TunnelMediumType() pulumi.IntOutput {
 	return o.ApplyT(func(v LookupAccountResult) int { return v.TunnelMediumType }).(pulumi.IntOutput)
 }
 
+// See RFC2868 section 3.1
 func (o LookupAccountResultOutput) TunnelType() pulumi.IntOutput {
 	return o.ApplyT(func(v LookupAccountResult) int { return v.TunnelType }).(pulumi.IntOutput)
 }
 
+// The 802.1Q VLAN ID assigned to clients authenticating with this account via RADIUS dynamic VLAN assignment. `0` means no VLAN is assigned.
 func (o LookupAccountResultOutput) Vlan() pulumi.IntOutput {
 	return o.ApplyT(func(v LookupAccountResult) int { return v.Vlan }).(pulumi.IntOutput)
 }

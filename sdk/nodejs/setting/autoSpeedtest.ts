@@ -4,6 +4,23 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
+/**
+ * The `unifi.setting.AutoSpeedtest` resource manages the automatic speedtest settings in the UniFi controller.Automatic speedtests can be scheduled to run at regular intervals to monitor the network performance.
+ *
+ * **NOTE:** Automatic speedtests where not verified and tested on all UniFi controller versions due to limitations of controller used in acceptance testing.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as unifi from "@pulumiverse/unifi";
+ *
+ * const example = new unifi.setting.AutoSpeedtest("example", {
+ *     cron: "0 0 * * *",
+ *     enabled: true,
+ * });
+ * ```
+ */
 export class AutoSpeedtest extends pulumi.CustomResource {
     /**
      * Get an existing AutoSpeedtest resource's state with the given name, ID, and optional extra

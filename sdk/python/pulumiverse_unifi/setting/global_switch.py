@@ -174,7 +174,47 @@ class GlobalSwitch(pulumi.CustomResource):
                  switch_exclusions: Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]] = None,
                  __props__=None):
         """
-        Create a GlobalSwitch resource with the given unique name, props, and options.
+        The `setting.GlobalSwitch` resource manages the switch isolation settings (device isolation and ACL-based layer-3 isolation) for a UniFi site, exposed in the controller UI under **Settings → Network → Switch Isolation Settings**.
+
+        This resource is intentionally narrow: it manages only the isolation-related fields of the controller's `global_switch` setting object. All other fields of that object (such as DHCP snooping, 802.1X, STP, jumbo frames, and flow control) are preserved untouched using a read-modify-write write path, so this resource can be adopted without clobbering settings managed elsewhere (for example, DHCP snooping via `setting.Usw`).
+
+        > **Requires controller version 7.2 or later.** The Switch Isolation Settings are only available on UniFi Network controllers from version 7.2 onward.
+
+        > **Clearing collections is not supported.** Because the underlying controller fields are `omitempty`, setting any of `acl_device_isolation`, `acl_l3_isolation`, or `switch_exclusions` to an empty value cannot reliably clear it via the API. Configure at least one element. Removing theattribute does not unmanage or clear it: the last applied value is retained and kept in sync. Empty values are rejected at plan time.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        # Define the networks used by the layer-3 isolation rules. The isolation
+        # settings reference networks by their UniFi network ID (the `id` attribute),
+        # not by name or CIDR.
+        engineering = unifi.Network("engineering",
+            purpose="corporate",
+            subnet="10.0.10.1/24",
+            vlan_id=10)
+        guest = unifi.Network("guest",
+            purpose="corporate",
+            subnet="10.0.20.1/24",
+            vlan_id=20)
+        # Manage the site's switch isolation settings
+        # (Settings -> Network -> Switch Isolation Settings).
+        #
+        # Only the isolation-related fields are managed; all other global switch
+        # settings (DHCP snooping, STP, jumbo frames, etc.) are preserved untouched.
+        example = unifi.setting.GlobalSwitch("example",
+            acl_l3_isolations=[{
+                "source_network": guest.id,
+                "destination_networks": [engineering.id],
+            }],
+            switch_exclusions=["00:11:22:33:44:55"])
+        # Specify the site (optional, defaults to the site configured in the provider,
+        # otherwise "default").
+        # site = "default"
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] acl_device_isolations: Set of device identifiers to isolate (the controller's **Device Isolation** control). Each element is sent to the controller verbatim, with no validation or normalization: the UniFi `global_switch` API does not constrain this field's format, so supply the identifiers exactly as the controller expects them (refer to the controller UI). Reordering has no effect (this is an unordered set). At least one element is required when set; the value cannot be cleared and is retained even if the attribute is later removed.
@@ -189,7 +229,47 @@ class GlobalSwitch(pulumi.CustomResource):
                  args: Optional[GlobalSwitchArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a GlobalSwitch resource with the given unique name, props, and options.
+        The `setting.GlobalSwitch` resource manages the switch isolation settings (device isolation and ACL-based layer-3 isolation) for a UniFi site, exposed in the controller UI under **Settings → Network → Switch Isolation Settings**.
+
+        This resource is intentionally narrow: it manages only the isolation-related fields of the controller's `global_switch` setting object. All other fields of that object (such as DHCP snooping, 802.1X, STP, jumbo frames, and flow control) are preserved untouched using a read-modify-write write path, so this resource can be adopted without clobbering settings managed elsewhere (for example, DHCP snooping via `setting.Usw`).
+
+        > **Requires controller version 7.2 or later.** The Switch Isolation Settings are only available on UniFi Network controllers from version 7.2 onward.
+
+        > **Clearing collections is not supported.** Because the underlying controller fields are `omitempty`, setting any of `acl_device_isolation`, `acl_l3_isolation`, or `switch_exclusions` to an empty value cannot reliably clear it via the API. Configure at least one element. Removing theattribute does not unmanage or clear it: the last applied value is retained and kept in sync. Empty values are rejected at plan time.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        # Define the networks used by the layer-3 isolation rules. The isolation
+        # settings reference networks by their UniFi network ID (the `id` attribute),
+        # not by name or CIDR.
+        engineering = unifi.Network("engineering",
+            purpose="corporate",
+            subnet="10.0.10.1/24",
+            vlan_id=10)
+        guest = unifi.Network("guest",
+            purpose="corporate",
+            subnet="10.0.20.1/24",
+            vlan_id=20)
+        # Manage the site's switch isolation settings
+        # (Settings -> Network -> Switch Isolation Settings).
+        #
+        # Only the isolation-related fields are managed; all other global switch
+        # settings (DHCP snooping, STP, jumbo frames, etc.) are preserved untouched.
+        example = unifi.setting.GlobalSwitch("example",
+            acl_l3_isolations=[{
+                "source_network": guest.id,
+                "destination_networks": [engineering.id],
+            }],
+            switch_exclusions=["00:11:22:33:44:55"])
+        # Specify the site (optional, defaults to the site configured in the provider,
+        # otherwise "default").
+        # site = "default"
+        ```
+
         :param str resource_name: The name of the resource.
         :param GlobalSwitchArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

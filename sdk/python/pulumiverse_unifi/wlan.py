@@ -1016,7 +1016,28 @@ class Wlan(pulumi.CustomResource):
                  wpa3_transition: Optional[pulumi.Input[_builtins.bool]] = None,
                  __props__=None):
         """
-        Create a Wlan resource with the given unique name, props, and options.
+        The `Wlan` resource manages wireless networks (SSIDs) on UniFi access points.
+
+        This resource allows you to create and manage WiFi networks with various security options including WPA2, WPA3, and enterprise authentication. You can configure features such as guest policies, minimum data rates, band steering, and scheduled availability.
+
+        Each WLAN can be customized with different security settings, VLAN assignments, and client options to meet specific networking requirements.
+
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        import from provider configured site
+
+        ```sh
+        $ pulumi import unifi:index/wlan:Wlan mywlan 5dc28e5e9106d105bdc87217
+        ```
+
+        import from another site
+
+        ```sh
+        $ pulumi import unifi:index/wlan:Wlan mywlan bfa2l6i7:5dc28e5e9106d105bdc87217
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] ap_group_ids: IDs of the AP groups that should broadcast this SSID. Used to control which access points broadcast this network.
@@ -1068,7 +1089,28 @@ class Wlan(pulumi.CustomResource):
                  args: WlanArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a Wlan resource with the given unique name, props, and options.
+        The `Wlan` resource manages wireless networks (SSIDs) on UniFi access points.
+
+        This resource allows you to create and manage WiFi networks with various security options including WPA2, WPA3, and enterprise authentication. You can configure features such as guest policies, minimum data rates, band steering, and scheduled availability.
+
+        Each WLAN can be customized with different security settings, VLAN assignments, and client options to meet specific networking requirements.
+
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        import from provider configured site
+
+        ```sh
+        $ pulumi import unifi:index/wlan:Wlan mywlan 5dc28e5e9106d105bdc87217
+        ```
+
+        import from another site
+
+        ```sh
+        $ pulumi import unifi:index/wlan:Wlan mywlan bfa2l6i7:5dc28e5e9106d105bdc87217
+        ```
+
         :param str resource_name: The name of the resource.
         :param WlanArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

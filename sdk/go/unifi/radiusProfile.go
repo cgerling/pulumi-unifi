@@ -11,6 +11,18 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
+// The `RadiusProfile` resource manages RADIUS authentication profiles for UniFi networks.
+//
+// RADIUS (Remote Authentication Dial-In User Service) profiles enable enterprise-grade authentication and authorization for:
+//   - 802.1X network access control
+//   - WPA2/WPA3-Enterprise wireless networks
+//   - Dynamic VLAN assignment
+//   - User activity accounting
+//
+// Each profile can be configured with:
+//   - Multiple authentication and accounting servers
+//   - VLAN assignment settings
+//   - Accounting update intervals
 type RadiusProfile struct {
 	pulumi.CustomResourceState
 

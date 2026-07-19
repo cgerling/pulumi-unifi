@@ -105,7 +105,17 @@ class Usw(pulumi.CustomResource):
                  site: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        Create a Usw resource with the given unique name, props, and options.
+        Manages UniFi Switch (USW) settings for a UniFi site. These settings control global switch behaviors such as DHCP snooping.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        example = unifi.setting.Usw("example", dhcp_snoop=True)
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] dhcp_snoop: Whether DHCP snooping is enabled. DHCP snooping is a security feature that filters untrusted DHCP messages and builds a binding database of valid hosts.
@@ -118,7 +128,17 @@ class Usw(pulumi.CustomResource):
                  args: UswArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a Usw resource with the given unique name, props, and options.
+        Manages UniFi Switch (USW) settings for a UniFi site. These settings control global switch behaviors such as DHCP snooping.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        example = unifi.setting.Usw("example", dhcp_snoop=True)
+        ```
+
         :param str resource_name: The name of the resource.
         :param UswArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

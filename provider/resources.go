@@ -134,15 +134,15 @@ func Provider() tfbridge.ProviderInfo {
 		// PluginDownloadURL is an optional URL used to download the Provider
 		// for use in Pulumi programs
 		// https://www.pulumi.com/docs/guides/pulumi-packages/how-to-author/#support-for-github-releases
-		PluginDownloadURL: "github://api.github.com/pulumiverse",
+		PluginDownloadURL: "github://api.github.com/cgerling",
 		Description:       "A Pulumi package for creating and managing Unifi network resources.",
 		// category/cloud tag helps with categorizing the package in the Pulumi Registry.
 		// For all available categories, see `Keywords` in
 		// https://www.pulumi.com/docs/guides/pulumi-packages/schema/#package.
 		Keywords:   []string{"pulumi", "unifi", "category/network"},
 		License:    "Apache-2.0",
-		Homepage:   "https://github.com/pulumiverse",
-		Repository: "https://github.com/pulumiverse/pulumi-unifi",
+		Homepage:   "https://github.com/cgerling",
+		Repository: "https://github.com/cgerling/pulumi-unifi",
 		Version:    version.Version,
 
 		// The GitHub Org for the provider - defaults to `terraform-providers`

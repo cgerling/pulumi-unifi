@@ -1238,7 +1238,38 @@ class Rule(pulumi.CustomResource):
                  state_related: Optional[pulumi.Input[_builtins.bool]] = None,
                  __props__=None):
         """
-        Create a Rule resource with the given unique name, props, and options.
+        The `firewall.Rule` resource manages firewall rules.
+
+        This resource allows you to create and manage firewall rules that control traffic flow between different network segments (WAN, LAN, Guest) for both IPv4 and IPv6 traffic. Rules can be configured to allow, drop, or reject traffic based on various criteria including protocols, ports, and IP addresses.
+
+        Rules are processed in order based on their `rule_index`, with lower numbers being processed first. Custom rules should use indices between 2000-2999 or 4000-4999 to avoid conflicts with system rules.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        config = pulumi.Config()
+        ip_address = config.require("ipAddress")
+        drop_all = unifi.firewall.Rule("dropAll",
+            action="drop",
+            ruleset="LAN_IN",
+            rule_index=2011,
+            protocol="all",
+            dst_address=ip_address)
+        ```
+
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        import using the ID from the controller API/UI
+
+        ```sh
+        $ pulumi import unifi:firewall/rule:Rule my_rule 5f7080eb6b8969064f80494f
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] action: The action to take when traffic matches this rule. Valid values are:
@@ -1339,7 +1370,38 @@ class Rule(pulumi.CustomResource):
                  args: RuleArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a Rule resource with the given unique name, props, and options.
+        The `firewall.Rule` resource manages firewall rules.
+
+        This resource allows you to create and manage firewall rules that control traffic flow between different network segments (WAN, LAN, Guest) for both IPv4 and IPv6 traffic. Rules can be configured to allow, drop, or reject traffic based on various criteria including protocols, ports, and IP addresses.
+
+        Rules are processed in order based on their `rule_index`, with lower numbers being processed first. Custom rules should use indices between 2000-2999 or 4000-4999 to avoid conflicts with system rules.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        config = pulumi.Config()
+        ip_address = config.require("ipAddress")
+        drop_all = unifi.firewall.Rule("dropAll",
+            action="drop",
+            ruleset="LAN_IN",
+            rule_index=2011,
+            protocol="all",
+            dst_address=ip_address)
+        ```
+
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        import using the ID from the controller API/UI
+
+        ```sh
+        $ pulumi import unifi:firewall/rule:Rule my_rule 5f7080eb6b8969064f80494f
+        ```
+
         :param str resource_name: The name of the resource.
         :param RuleArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

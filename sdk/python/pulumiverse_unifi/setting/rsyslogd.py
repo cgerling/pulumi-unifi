@@ -34,7 +34,7 @@ class RsyslogdArgs:
         """
         The set of arguments for constructing a Rsyslogd resource.
         :param pulumi.Input[_builtins.bool] enabled: Whether remote syslog is enabled.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] contents: List of log types to include in the remote syslog. Valid values: device, client, firewall_default_policy, triggers, updates, admin_activity, critical, security_detections, vpn.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] contents: List of log types to include in the remote syslog. Valid values: device, client, firewall*default*policy, triggers, updates, admin*activity, critical, security*detections, vpn.
         :param pulumi.Input[_builtins.bool] debug: Whether debug logging is enabled.
         :param pulumi.Input[_builtins.str] ip: IP address of the remote syslog server.
         :param pulumi.Input[_builtins.bool] log_all_contents: Whether to log all content types.
@@ -86,7 +86,7 @@ class RsyslogdArgs:
     @pulumi.getter
     def contents(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        List of log types to include in the remote syslog. Valid values: device, client, firewall_default_policy, triggers, updates, admin_activity, critical, security_detections, vpn.
+        List of log types to include in the remote syslog. Valid values: device, client, firewall*default*policy, triggers, updates, admin*activity, critical, security*detections, vpn.
         """
         return pulumi.get(self, "contents")
 
@@ -232,7 +232,7 @@ class _RsyslogdState:
                  this_controller_encrypted_only: Optional[pulumi.Input[_builtins.bool]] = None):
         """
         Input properties used for looking up and filtering Rsyslogd resources.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] contents: List of log types to include in the remote syslog. Valid values: device, client, firewall_default_policy, triggers, updates, admin_activity, critical, security_detections, vpn.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] contents: List of log types to include in the remote syslog. Valid values: device, client, firewall*default*policy, triggers, updates, admin*activity, critical, security*detections, vpn.
         :param pulumi.Input[_builtins.bool] debug: Whether debug logging is enabled.
         :param pulumi.Input[_builtins.bool] enabled: Whether remote syslog is enabled.
         :param pulumi.Input[_builtins.str] ip: IP address of the remote syslog server.
@@ -274,7 +274,7 @@ class _RsyslogdState:
     @pulumi.getter
     def contents(self) -> Optional[pulumi.Input[Sequence[pulumi.Input[_builtins.str]]]]:
         """
-        List of log types to include in the remote syslog. Valid values: device, client, firewall_default_policy, triggers, updates, admin_activity, critical, security_detections, vpn.
+        List of log types to include in the remote syslog. Valid values: device, client, firewall*default*policy, triggers, updates, admin*activity, critical, security*detections, vpn.
         """
         return pulumi.get(self, "contents")
 
@@ -435,10 +435,32 @@ class Rsyslogd(pulumi.CustomResource):
                  this_controller_encrypted_only: Optional[pulumi.Input[_builtins.bool]] = None,
                  __props__=None):
         """
-        Create a Rsyslogd resource with the given unique name, props, and options.
+        Manages Remote Syslog (rsyslogd) settings for UniFi devices. Controller version 8.5 or later is required.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        example = unifi.setting.Rsyslogd("example",
+            contents=[
+                "device",
+                "client",
+                "admin_activity",
+            ],
+            debug=True,
+            enabled=True,
+            ip="192.168.1.200",
+            netconsole_enabled=True,
+            netconsole_host="192.168.1.150",
+            netconsole_port=1514,
+            port=514)
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] contents: List of log types to include in the remote syslog. Valid values: device, client, firewall_default_policy, triggers, updates, admin_activity, critical, security_detections, vpn.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] contents: List of log types to include in the remote syslog. Valid values: device, client, firewall*default*policy, triggers, updates, admin*activity, critical, security*detections, vpn.
         :param pulumi.Input[_builtins.bool] debug: Whether debug logging is enabled.
         :param pulumi.Input[_builtins.bool] enabled: Whether remote syslog is enabled.
         :param pulumi.Input[_builtins.str] ip: IP address of the remote syslog server.
@@ -458,7 +480,29 @@ class Rsyslogd(pulumi.CustomResource):
                  args: RsyslogdArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a Rsyslogd resource with the given unique name, props, and options.
+        Manages Remote Syslog (rsyslogd) settings for UniFi devices. Controller version 8.5 or later is required.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        example = unifi.setting.Rsyslogd("example",
+            contents=[
+                "device",
+                "client",
+                "admin_activity",
+            ],
+            debug=True,
+            enabled=True,
+            ip="192.168.1.200",
+            netconsole_enabled=True,
+            netconsole_host="192.168.1.150",
+            netconsole_port=1514,
+            port=514)
+        ```
+
         :param str resource_name: The name of the resource.
         :param RsyslogdArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -538,7 +582,7 @@ class Rsyslogd(pulumi.CustomResource):
         :param str resource_name: The unique name of the resulting resource.
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
-        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] contents: List of log types to include in the remote syslog. Valid values: device, client, firewall_default_policy, triggers, updates, admin_activity, critical, security_detections, vpn.
+        :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] contents: List of log types to include in the remote syslog. Valid values: device, client, firewall*default*policy, triggers, updates, admin*activity, critical, security*detections, vpn.
         :param pulumi.Input[_builtins.bool] debug: Whether debug logging is enabled.
         :param pulumi.Input[_builtins.bool] enabled: Whether remote syslog is enabled.
         :param pulumi.Input[_builtins.str] ip: IP address of the remote syslog server.
@@ -573,7 +617,7 @@ class Rsyslogd(pulumi.CustomResource):
     @pulumi.getter
     def contents(self) -> pulumi.Output[Sequence[_builtins.str]]:
         """
-        List of log types to include in the remote syslog. Valid values: device, client, firewall_default_policy, triggers, updates, admin_activity, critical, security_detections, vpn.
+        List of log types to include in the remote syslog. Valid values: device, client, firewall*default*policy, triggers, updates, admin*activity, critical, security*detections, vpn.
         """
         return pulumi.get(self, "contents")
 

@@ -391,7 +391,28 @@ class Record(pulumi.CustomResource):
                  weight: Optional[pulumi.Input[_builtins.int]] = None,
                  __props__=None):
         """
-        Create a Record resource with the given unique name, props, and options.
+        The `dns.Record` resource manages DNS records in the UniFi controller's DNS server.
+
+        This resource allows you to configure various types of DNS records for local name resolution. Common use cases include:
+          * Creating A records for local servers and devices
+          * Setting up CNAME aliases for internal services
+          * Configuring MX records for local mail servers
+          * Adding TXT records for service verification
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        a_record = unifi.dns.Record("aRecord",
+            value="192.168.1.190",
+            type="A")
+        cname_record = unifi.dns.Record("cnameRecord",
+            value="example.com",
+            type="CNAME")
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] enabled: Whether the DNS record is active. Defaults to true. Set to false to temporarily disable resolution without removing the record.
@@ -425,7 +446,28 @@ class Record(pulumi.CustomResource):
                  args: RecordArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a Record resource with the given unique name, props, and options.
+        The `dns.Record` resource manages DNS records in the UniFi controller's DNS server.
+
+        This resource allows you to configure various types of DNS records for local name resolution. Common use cases include:
+          * Creating A records for local servers and devices
+          * Setting up CNAME aliases for internal services
+          * Configuring MX records for local mail servers
+          * Adding TXT records for service verification
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        a_record = unifi.dns.Record("aRecord",
+            value="192.168.1.190",
+            type="A")
+        cname_record = unifi.dns.Record("cnameRecord",
+            value="example.com",
+            type="CNAME")
+        ```
+
         :param str resource_name: The name of the resource.
         :param RecordArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

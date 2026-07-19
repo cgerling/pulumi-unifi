@@ -137,7 +137,19 @@ class Dpi(pulumi.CustomResource):
                  site: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        Create a Dpi resource with the given unique name, props, and options.
+        Manages Deep Packet Inspection (DPI) settings for a UniFi site. DPI is a feature that allows the UniFi controller to analyze network traffic and identify applications and services being used on the network.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        example = unifi.setting.Dpi("example",
+            enabled=True,
+            fingerprinting_enabled=True)
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] enabled: Whether Deep Packet Inspection is enabled.
@@ -151,7 +163,19 @@ class Dpi(pulumi.CustomResource):
                  args: DpiArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a Dpi resource with the given unique name, props, and options.
+        Manages Deep Packet Inspection (DPI) settings for a UniFi site. DPI is a feature that allows the UniFi controller to analyze network traffic and identify applications and services being used on the network.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        example = unifi.setting.Dpi("example",
+            enabled=True,
+            fingerprinting_enabled=True)
+        ```
+
         :param str resource_name: The name of the resource.
         :param DpiArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

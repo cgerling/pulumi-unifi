@@ -1623,9 +1623,6 @@ type GuestAccessPortalCustomization struct {
 	// Tile the background image.
 	BgImageTile *bool `pulumi:"bgImageTile"`
 	// Type of portal background. Valid values are:
-	// * `color` - Solid color background
-	// * `image` - (not yet supported!) Custom image background
-	// * `gallery` - Image from Unsplash gallery
 	BgType *string `pulumi:"bgType"`
 	// Color of the login box in the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
 	BoxColor *string `pulumi:"boxColor"`
@@ -1698,9 +1695,6 @@ type GuestAccessPortalCustomizationArgs struct {
 	// Tile the background image.
 	BgImageTile pulumi.BoolPtrInput `pulumi:"bgImageTile"`
 	// Type of portal background. Valid values are:
-	// * `color` - Solid color background
-	// * `image` - (not yet supported!) Custom image background
-	// * `gallery` - Image from Unsplash gallery
 	BgType pulumi.StringPtrInput `pulumi:"bgType"`
 	// Color of the login box in the portal. Must be a valid hex color code (e.g., #FFF or #FFFFFF).
 	BoxColor pulumi.StringPtrInput `pulumi:"boxColor"`
@@ -1850,9 +1844,6 @@ func (o GuestAccessPortalCustomizationOutput) BgImageTile() pulumi.BoolPtrOutput
 }
 
 // Type of portal background. Valid values are:
-// * `color` - Solid color background
-// * `image` - (not yet supported!) Custom image background
-// * `gallery` - Image from Unsplash gallery
 func (o GuestAccessPortalCustomizationOutput) BgType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v GuestAccessPortalCustomization) *string { return v.BgType }).(pulumi.StringPtrOutput)
 }
@@ -2042,9 +2033,6 @@ func (o GuestAccessPortalCustomizationPtrOutput) BgImageTile() pulumi.BoolPtrOut
 }
 
 // Type of portal background. Valid values are:
-// * `color` - Solid color background
-// * `image` - (not yet supported!) Custom image background
-// * `gallery` - Image from Unsplash gallery
 func (o GuestAccessPortalCustomizationPtrOutput) BgType() pulumi.StringPtrOutput {
 	return o.ApplyT(func(v *GuestAccessPortalCustomization) *string {
 		if v == nil {

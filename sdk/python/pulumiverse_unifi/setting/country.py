@@ -121,7 +121,17 @@ class Country(pulumi.CustomResource):
                  site: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        Create a Country resource with the given unique name, props, and options.
+        The `setting.Country` resource allows you to configure the country settings for your UniFi network.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        example = unifi.setting.Country("example", code="US")
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] code: The country code to set for the UniFi site. The country code must be a valid ISO 3166-1 alpha-2 code.
@@ -134,7 +144,17 @@ class Country(pulumi.CustomResource):
                  args: CountryArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a Country resource with the given unique name, props, and options.
+        The `setting.Country` resource allows you to configure the country settings for your UniFi network.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        example = unifi.setting.Country("example", code="US")
+        ```
+
         :param str resource_name: The name of the resource.
         :param CountryArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

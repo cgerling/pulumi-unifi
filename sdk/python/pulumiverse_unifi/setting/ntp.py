@@ -28,10 +28,6 @@ class NtpArgs:
         """
         The set of arguments for constructing a Ntp resource.
         :param pulumi.Input[_builtins.str] mode: NTP server configuration mode. Valid values are:
-               * `auto` - Use NTP servers configured on the controller
-               * `manual` - Use custom NTP servers specified in this resource
-               
-               When set to `auto`, all NTP server fields will be cleared. When set to `manual`, at least one NTP server must be specified.
         :param pulumi.Input[_builtins.str] ntp_server1: Primary NTP server hostname or IP address. Must be a valid hostname (e.g., `pool.ntp.org`) or IPv4 address. Only applicable when `mode` is set to `manual`.
         :param pulumi.Input[_builtins.str] ntp_server2: Secondary NTP server hostname or IP address. Must be a valid hostname (e.g., `time.google.com`) or IPv4 address. Only applicable when `mode` is set to `manual`.
         :param pulumi.Input[_builtins.str] ntp_server3: Tertiary NTP server hostname or IP address. Must be a valid hostname or IPv4 address. Only applicable when `mode` is set to `manual`.
@@ -56,10 +52,6 @@ class NtpArgs:
     def mode(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         NTP server configuration mode. Valid values are:
-        * `auto` - Use NTP servers configured on the controller
-        * `manual` - Use custom NTP servers specified in this resource
-
-        When set to `auto`, all NTP server fields will be cleared. When set to `manual`, at least one NTP server must be specified.
         """
         return pulumi.get(self, "mode")
 
@@ -140,10 +132,6 @@ class _NtpState:
         """
         Input properties used for looking up and filtering Ntp resources.
         :param pulumi.Input[_builtins.str] mode: NTP server configuration mode. Valid values are:
-               * `auto` - Use NTP servers configured on the controller
-               * `manual` - Use custom NTP servers specified in this resource
-               
-               When set to `auto`, all NTP server fields will be cleared. When set to `manual`, at least one NTP server must be specified.
         :param pulumi.Input[_builtins.str] ntp_server1: Primary NTP server hostname or IP address. Must be a valid hostname (e.g., `pool.ntp.org`) or IPv4 address. Only applicable when `mode` is set to `manual`.
         :param pulumi.Input[_builtins.str] ntp_server2: Secondary NTP server hostname or IP address. Must be a valid hostname (e.g., `time.google.com`) or IPv4 address. Only applicable when `mode` is set to `manual`.
         :param pulumi.Input[_builtins.str] ntp_server3: Tertiary NTP server hostname or IP address. Must be a valid hostname or IPv4 address. Only applicable when `mode` is set to `manual`.
@@ -168,10 +156,6 @@ class _NtpState:
     def mode(self) -> Optional[pulumi.Input[_builtins.str]]:
         """
         NTP server configuration mode. Valid values are:
-        * `auto` - Use NTP servers configured on the controller
-        * `manual` - Use custom NTP servers specified in this resource
-
-        When set to `auto`, all NTP server fields will be cleared. When set to `manual`, at least one NTP server must be specified.
         """
         return pulumi.get(self, "mode")
 
@@ -254,14 +238,27 @@ class Ntp(pulumi.CustomResource):
                  site: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        Create a Ntp resource with the given unique name, props, and options.
+        The `setting.Ntp` resource allows you to configure Network Time Protocol (NTP) server settings for your UniFi network.
+
+        NTP servers provide time synchronization for your network devices. This resource supports both automatic and manual NTP configuration modes.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        example = unifi.setting.Ntp("example",
+            mode="manual",
+            ntp_server1="time.cloudflare.com",
+            ntp_server2="pool.ntp.org",
+            ntp_server3="time.google.com",
+            ntp_server4="0.pool.ntp.org")
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] mode: NTP server configuration mode. Valid values are:
-               * `auto` - Use NTP servers configured on the controller
-               * `manual` - Use custom NTP servers specified in this resource
-               
-               When set to `auto`, all NTP server fields will be cleared. When set to `manual`, at least one NTP server must be specified.
         :param pulumi.Input[_builtins.str] ntp_server1: Primary NTP server hostname or IP address. Must be a valid hostname (e.g., `pool.ntp.org`) or IPv4 address. Only applicable when `mode` is set to `manual`.
         :param pulumi.Input[_builtins.str] ntp_server2: Secondary NTP server hostname or IP address. Must be a valid hostname (e.g., `time.google.com`) or IPv4 address. Only applicable when `mode` is set to `manual`.
         :param pulumi.Input[_builtins.str] ntp_server3: Tertiary NTP server hostname or IP address. Must be a valid hostname or IPv4 address. Only applicable when `mode` is set to `manual`.
@@ -275,7 +272,24 @@ class Ntp(pulumi.CustomResource):
                  args: Optional[NtpArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a Ntp resource with the given unique name, props, and options.
+        The `setting.Ntp` resource allows you to configure Network Time Protocol (NTP) server settings for your UniFi network.
+
+        NTP servers provide time synchronization for your network devices. This resource supports both automatic and manual NTP configuration modes.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        example = unifi.setting.Ntp("example",
+            mode="manual",
+            ntp_server1="time.cloudflare.com",
+            ntp_server2="pool.ntp.org",
+            ntp_server3="time.google.com",
+            ntp_server4="0.pool.ntp.org")
+        ```
+
         :param str resource_name: The name of the resource.
         :param NtpArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.
@@ -336,10 +350,6 @@ class Ntp(pulumi.CustomResource):
         :param pulumi.Input[str] id: The unique provider ID of the resource to lookup.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] mode: NTP server configuration mode. Valid values are:
-               * `auto` - Use NTP servers configured on the controller
-               * `manual` - Use custom NTP servers specified in this resource
-               
-               When set to `auto`, all NTP server fields will be cleared. When set to `manual`, at least one NTP server must be specified.
         :param pulumi.Input[_builtins.str] ntp_server1: Primary NTP server hostname or IP address. Must be a valid hostname (e.g., `pool.ntp.org`) or IPv4 address. Only applicable when `mode` is set to `manual`.
         :param pulumi.Input[_builtins.str] ntp_server2: Secondary NTP server hostname or IP address. Must be a valid hostname (e.g., `time.google.com`) or IPv4 address. Only applicable when `mode` is set to `manual`.
         :param pulumi.Input[_builtins.str] ntp_server3: Tertiary NTP server hostname or IP address. Must be a valid hostname or IPv4 address. Only applicable when `mode` is set to `manual`.
@@ -363,10 +373,6 @@ class Ntp(pulumi.CustomResource):
     def mode(self) -> pulumi.Output[_builtins.str]:
         """
         NTP server configuration mode. Valid values are:
-        * `auto` - Use NTP servers configured on the controller
-        * `manual` - Use custom NTP servers specified in this resource
-
-        When set to `auto`, all NTP server fields will be cleared. When set to `manual`, at least one NTP server must be specified.
         """
         return pulumi.get(self, "mode")
 

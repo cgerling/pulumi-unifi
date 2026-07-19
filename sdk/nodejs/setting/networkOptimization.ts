@@ -4,6 +4,18 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
+/**
+ * Manages Network Optimization settings for a UniFi site. UniFi network optimization is a feature designed to automatically enhance the performance of a UniFi network by making automatic adjustments to various settings such as channel selection, transmit power, or frequency usage
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as unifi from "@pulumiverse/unifi";
+ *
+ * const example = new unifi.setting.NetworkOptimization("example", {enabled: true});
+ * ```
+ */
 export class NetworkOptimization extends pulumi.CustomResource {
     /**
      * Get an existing NetworkOptimization resource's state with the given name, ID, and optional extra

@@ -11,6 +11,73 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
+// The `setting.Mgmt` resource manages site-wide management settings in the UniFi controller.
+//
+// This resource allows you to configure important management features including:
+//   - Automatic firmware upgrades for UniFi devices
+//   - SSH access for advanced configuration and troubleshooting
+//   - SSH key management for secure remote access
+//
+// These settings affect how the UniFi controller manages devices at the site level. They are particularly important for:
+//   - Maintaining device security through automatic updates
+//   - Enabling secure remote administration
+//   - Implementing SSH key-based authentication
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/setting"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			exampleSite, err := unifi.NewSite(ctx, "exampleSite", &unifi.SiteArgs{
+//				Description: pulumi.String("example"),
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			_, err = setting.NewMgmt(ctx, "exampleMgmt", &setting.MgmtArgs{
+//				Site:                   exampleSite.Name,
+//				AutoUpgrade:            pulumi.Bool(true),
+//				AutoUpgradeHour:        pulumi.Int(3),
+//				AdvancedFeatureEnabled: pulumi.Bool(true),
+//				AlertEnabled:           pulumi.Bool(true),
+//				BootSound:              pulumi.Bool(false),
+//				DebugToolsEnabled:      pulumi.Bool(true),
+//				DirectConnectEnabled:   pulumi.Bool(false),
+//				LedEnabled:             pulumi.Bool(true),
+//				OutdoorModeEnabled:     pulumi.Bool(false),
+//				UnifiIdpEnabled:        pulumi.Bool(false),
+//				WifimanEnabled:         pulumi.Bool(true),
+//				SshEnabled:             pulumi.Bool(true),
+//				SshAuthPasswordEnabled: pulumi.Bool(true),
+//				SshBindWildcard:        pulumi.Bool(false),
+//				SshUsername:            pulumi.String("admin"),
+//				SshKeys: setting.MgmtSshKeyArray{
+//					&setting.MgmtSshKeyArgs{
+//						Name:    pulumi.String("Admin Key"),
+//						Type:    pulumi.String("ssh-rsa"),
+//						Key:     pulumi.String("AAAAB3NzaC1yc2EAAAADAQABAAABAQCxxx..."),
+//						Comment: pulumi.String("admin@example.com"),
+//					},
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 type Mgmt struct {
 	pulumi.CustomResourceState
 

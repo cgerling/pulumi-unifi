@@ -521,9 +521,6 @@ export namespace setting {
         bgImageTile?: pulumi.Input<boolean>;
         /**
          * Type of portal background. Valid values are:
-         * * `color` - Solid color background
-         * * `image` - (not yet supported!) Custom image background
-         * * `gallery` - Image from Unsplash gallery
          */
         bgType?: pulumi.Input<string>;
         /**

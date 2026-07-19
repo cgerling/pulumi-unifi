@@ -194,7 +194,32 @@ class Group(pulumi.CustomResource):
                  type: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        Create a Group resource with the given unique name, props, and options.
+        The `firewall.Group` resource manages reusable groups of addresses or ports that can be referenced in firewall rules (`firewall.Rule`).
+
+        Firewall groups help organize and simplify firewall rule management by allowing you to:
+          * Create collections of IP addresses or networks
+          * Define sets of ports for specific services
+          * Group IPv6 addresses for IPv6-specific rules
+
+        Common use cases include:
+          * Creating groups of trusted IP addresses
+          * Defining port groups for specific applications
+          * Managing access control lists
+          * Simplifying rule maintenance by using groups instead of individual IPs/ports
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        config = pulumi.Config()
+        laptop_ips = config.require_object("laptopIps")
+        can_print = unifi.firewall.Group("canPrint",
+            type="address-group",
+            members=laptop_ips)
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] members: List of members in the group. The format depends on the group type:
@@ -215,7 +240,32 @@ class Group(pulumi.CustomResource):
                  args: GroupArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a Group resource with the given unique name, props, and options.
+        The `firewall.Group` resource manages reusable groups of addresses or ports that can be referenced in firewall rules (`firewall.Rule`).
+
+        Firewall groups help organize and simplify firewall rule management by allowing you to:
+          * Create collections of IP addresses or networks
+          * Define sets of ports for specific services
+          * Group IPv6 addresses for IPv6-specific rules
+
+        Common use cases include:
+          * Creating groups of trusted IP addresses
+          * Defining port groups for specific applications
+          * Managing access control lists
+          * Simplifying rule maintenance by using groups instead of individual IPs/ports
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        config = pulumi.Config()
+        laptop_ips = config.require_object("laptopIps")
+        can_print = unifi.firewall.Group("canPrint",
+            type="address-group",
+            members=laptop_ips)
+        ```
+
         :param str resource_name: The name of the resource.
         :param GroupArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

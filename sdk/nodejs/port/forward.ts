@@ -4,6 +4,16 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
+/**
+ * The `unifi.port.Forward` resource manages port forwarding rules on UniFi controllers.
+ *
+ * Port forwarding allows external traffic to reach services hosted on your internal network by mapping external ports to internal IP addresses and ports. This is commonly used for:
+ *   * Hosting web servers, game servers, or other services
+ *   * Remote access to internal services
+ *   * Application-specific requirements
+ *
+ * Each rule can be configured with source IP restrictions, protocol selection, and logging options for enhanced security and monitoring.
+ */
 export class Forward extends pulumi.CustomResource {
     /**
      * Get an existing Forward resource's state with the given name, ID, and optional extra

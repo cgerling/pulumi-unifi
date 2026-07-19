@@ -105,7 +105,17 @@ class SslInspection(pulumi.CustomResource):
                  state: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        Create a SslInspection resource with the given unique name, props, and options.
+        Manages SSL Inspection settings for a UniFi site. SSL inspection is a security feature that allows the UniFi Security Gateway (USG) to inspect encrypted traffic for security threats.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        example = unifi.setting.SslInspection("example", state="advanced")
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] site: The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
@@ -118,7 +128,17 @@ class SslInspection(pulumi.CustomResource):
                  args: SslInspectionArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a SslInspection resource with the given unique name, props, and options.
+        Manages SSL Inspection settings for a UniFi site. SSL inspection is a security feature that allows the UniFi Security Gateway (USG) to inspect encrypted traffic for security threats.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        example = unifi.setting.SslInspection("example", state="advanced")
+        ```
+
         :param str resource_name: The name of the resource.
         :param SslInspectionArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

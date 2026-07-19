@@ -6,6 +6,82 @@ import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 import * as utilities from "../utilities";
 
+/**
+ * The `unifi.firewall.ZonePolicy` resource manages firewall policies between zones in the UniFi controller. This resource allows you to create, update, and delete policies that define allowed or blocked traffic between zones.
+ *
+ * > This is experimental feature, that requires UniFi OS 9.0.0 or later and Zone Based Firewall feature enabled. Check [official documentation](https://help.ui.com/hc/en-us/articles/28223082254743-Migrating-to-Zone-Based-Firewalls-in-UniFi) how to migate to Zone-Based firewalls.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as unifi from "@pulumiverse/unifi";
+ *
+ * const network = new unifi.Network("network", {
+ *     purpose: "corporate",
+ *     subnet: "10.0.10.0/24",
+ *     vlanId: 400,
+ * });
+ * const src = new unifi.firewall.Zone("src", {networks: [network.id]});
+ * const dst = new unifi.firewall.Zone("dst", {});
+ * // Allow TCP/UDP traffic from any ip and port other than 192.168.1.1 and 443 in `src` zone to `dst` zone
+ * const policy = new unifi.firewall.ZonePolicy("policy", {
+ *     action: "ALLOW",
+ *     protocol: "tcp_udp",
+ *     source: {
+ *         zone_id: src.id,
+ *         ips: ["192.168.1.1"],
+ *         port: 443,
+ *         match_opposite_ips: true,
+ *         match_opposite_ports: true,
+ *     },
+ *     destination: {
+ *         zone_id: dst.id,
+ *     },
+ *     schedule: {
+ *         mode: "EVERY_DAY",
+ *         time_all_day: false,
+ *         time_from: "08:00",
+ *         time_to: "17:00",
+ *     },
+ * });
+ * const web_ports = new unifi.firewall.Group("web-ports", {
+ *     type: "port-group",
+ *     members: [
+ *         "80",
+ *         "443",
+ *     ],
+ * });
+ * // Block TCP/UDP traffic from any ip and port in `src` zone to `dst` zone ports 80 and 443 defined in port group
+ * const policy2 = new unifi.firewall.ZonePolicy("policy2", {
+ *     action: "BLOCK",
+ *     protocol: "tcp_udp",
+ *     source: {
+ *         zone_id: src.id,
+ *     },
+ *     destination: {
+ *         zone_id: dst.id,
+ *         port_group_id: web_ports.id,
+ *     },
+ * });
+ * ```
+ *
+ * ## Import
+ *
+ * The `pulumi import` command can be used, for example:
+ *
+ * import from provider configured site
+ *
+ * ```sh
+ * $ pulumi import unifi:firewall/zonePolicy:ZonePolicy mynetwork 5dc28e5e9106d105bdc87217
+ * ```
+ *
+ * import from another site
+ *
+ * ```sh
+ * $ pulumi import unifi:firewall/zonePolicy:ZonePolicy mynetwork zone:5dc28e5e9106d105bdc87217
+ * ```
+ */
 export class ZonePolicy extends pulumi.CustomResource {
     /**
      * Get an existing ZonePolicy resource's state with the given name, ID, and optional extra

@@ -203,7 +203,68 @@ class ZonePolicyOrder(pulumi.CustomResource):
                  source_zone_id: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        Create a ZonePolicyOrder resource with the given unique name, props, and options.
+        The `firewall.ZonePolicyOrder` resource controls the ordering of the custom `firewall.ZonePolicy` policies within a single source > destination zone pair.
+
+        This resource manages the relative order of ONLY the custom policies listed in `before_predefined_ids` and `after_predefined_ids` within the zone pair. Any other (unlisted) custom policies in the same zone pair are left untouched and ignored — they are neither reordered by this resource nor surfaced in its state.
+
+        Policies are evaluated top-to-bottom; the order within each list is significant. Policies listed in `before_predefined_ids` run BEFORE the controller's predefined (built-in) policies for the zone pair, and policies listed in `after_predefined_ids` run AFTER them. At least one of the two lists must be set; prefer OMITTING an unused list over setting it to an empty list (`[]`).
+
+        Because `index` on `firewall.ZonePolicy` is controller-assigned and read-only, this resource is the supported way to make per-zone-pair policy order deterministic. Use `depends_on` to ensure the referenced policies exist before this resource is applied.
+
+        > Deleting this resource does NOT change the order on the controller; it only stops Terraform from managing the ordering for the zone pair.
+
+        > This is experimental feature, that requires UniFi OS 9.0.0 or later and Zone Based Firewall feature enabled. Check [official documentation](https://help.ui.com/hc/en-us/articles/28223082254743-Migrating-to-Zone-Based-Firewalls-in-UniFi) how to migrate to Zone-Based firewalls.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        network = unifi.Network("network",
+            purpose="corporate",
+            subnet="10.0.10.0/24",
+            vlan_id=400)
+        src = unifi.firewall.Zone("src", networks=[network.id])
+        dst = unifi.firewall.Zone("dst")
+        allow_web = unifi.firewall.ZonePolicy("allowWeb",
+            action="ALLOW",
+            protocol="tcp_udp",
+            source={
+                "zone_id": src.id,
+            },
+            destination={
+                "zone_id": dst.id,
+            })
+        block_rest = unifi.firewall.ZonePolicy("blockRest",
+            action="BLOCK",
+            protocol="all",
+            source={
+                "zone_id": src.id,
+            },
+            destination={
+                "zone_id": dst.id,
+            })
+        # Control the evaluation order of the custom policies in the src -> dst zone pair.
+        # `allow_web` runs before the predefined policies; `block_rest` runs after them.
+        # Order within each list is significant.
+        order = unifi.firewall.ZonePolicyOrder("order",
+            source_zone_id=src.id,
+            destination_zone_id=dst.id,
+            before_predefined_ids=[allow_web.id],
+            after_predefined_ids=[block_rest.id])
+        ```
+
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        import the policy order for a zone pair: <site>:<source_zone_id>:<destination_zone_id>
+
+        ```sh
+        $ pulumi import unifi:firewall/zonePolicyOrder:ZonePolicyOrder order default:5dc28e5e9106d105bdc87217:5dc28e5e9106d105bdc87218
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[Sequence[pulumi.Input[_builtins.str]]] after_predefined_ids: Ordered IDs of custom `firewall.ZonePolicy` policies that run AFTER the predefined (built-in) policies for this zone pair. Order within the list is significant. Omit this attribute when it is unused rather than setting it to an empty list (`[]`).
@@ -219,7 +280,68 @@ class ZonePolicyOrder(pulumi.CustomResource):
                  args: ZonePolicyOrderArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a ZonePolicyOrder resource with the given unique name, props, and options.
+        The `firewall.ZonePolicyOrder` resource controls the ordering of the custom `firewall.ZonePolicy` policies within a single source > destination zone pair.
+
+        This resource manages the relative order of ONLY the custom policies listed in `before_predefined_ids` and `after_predefined_ids` within the zone pair. Any other (unlisted) custom policies in the same zone pair are left untouched and ignored — they are neither reordered by this resource nor surfaced in its state.
+
+        Policies are evaluated top-to-bottom; the order within each list is significant. Policies listed in `before_predefined_ids` run BEFORE the controller's predefined (built-in) policies for the zone pair, and policies listed in `after_predefined_ids` run AFTER them. At least one of the two lists must be set; prefer OMITTING an unused list over setting it to an empty list (`[]`).
+
+        Because `index` on `firewall.ZonePolicy` is controller-assigned and read-only, this resource is the supported way to make per-zone-pair policy order deterministic. Use `depends_on` to ensure the referenced policies exist before this resource is applied.
+
+        > Deleting this resource does NOT change the order on the controller; it only stops Terraform from managing the ordering for the zone pair.
+
+        > This is experimental feature, that requires UniFi OS 9.0.0 or later and Zone Based Firewall feature enabled. Check [official documentation](https://help.ui.com/hc/en-us/articles/28223082254743-Migrating-to-Zone-Based-Firewalls-in-UniFi) how to migrate to Zone-Based firewalls.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        network = unifi.Network("network",
+            purpose="corporate",
+            subnet="10.0.10.0/24",
+            vlan_id=400)
+        src = unifi.firewall.Zone("src", networks=[network.id])
+        dst = unifi.firewall.Zone("dst")
+        allow_web = unifi.firewall.ZonePolicy("allowWeb",
+            action="ALLOW",
+            protocol="tcp_udp",
+            source={
+                "zone_id": src.id,
+            },
+            destination={
+                "zone_id": dst.id,
+            })
+        block_rest = unifi.firewall.ZonePolicy("blockRest",
+            action="BLOCK",
+            protocol="all",
+            source={
+                "zone_id": src.id,
+            },
+            destination={
+                "zone_id": dst.id,
+            })
+        # Control the evaluation order of the custom policies in the src -> dst zone pair.
+        # `allow_web` runs before the predefined policies; `block_rest` runs after them.
+        # Order within each list is significant.
+        order = unifi.firewall.ZonePolicyOrder("order",
+            source_zone_id=src.id,
+            destination_zone_id=dst.id,
+            before_predefined_ids=[allow_web.id],
+            after_predefined_ids=[block_rest.id])
+        ```
+
+        ## Import
+
+        The `pulumi import` command can be used, for example:
+
+        import the policy order for a zone pair: <site>:<source_zone_id>:<destination_zone_id>
+
+        ```sh
+        $ pulumi import unifi:firewall/zonePolicyOrder:ZonePolicyOrder order default:5dc28e5e9106d105bdc87217:5dc28e5e9106d105bdc87218
+        ```
+
         :param str resource_name: The name of the resource.
         :param ZonePolicyOrderArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

@@ -1672,7 +1672,39 @@ class Profile(pulumi.CustomResource):
                  voice_networkconf_id: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        Create a Profile resource with the given unique name, props, and options.
+        The `port.Profile` resource manages port profiles that can be applied to UniFi switch ports.
+
+        Port profiles define a collection of settings that can be applied to one or more switch ports, including:
+          * Network and VLAN settings
+          * Port speed and duplex settings
+          * Security features like 802.1X authentication and port isolation
+          * Rate limiting and QoS settings
+          * Network protocols like LLDP and STP
+
+        Creating port profiles allows for consistent configuration across multiple switch ports and easier management of port settings.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        config = pulumi.Config()
+        vlan_id = config.get_int("vlanId")
+        if vlan_id is None:
+            vlan_id = 10
+        vlan = unifi.Network("vlan",
+            purpose="corporate",
+            subnet="10.0.0.1/24",
+            vlan_id=vlan_id,
+            dhcp_start="10.0.0.6",
+            dhcp_stop="10.0.0.254",
+            dhcp_enabled=True)
+        poe_disabled = unifi.port.Profile("poeDisabled",
+            native_networkconf_id=vlan.id,
+            poe_mode="off")
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] autoneg: Enable automatic negotiation of port speed and duplex settings. When enabled, this overrides manual speed and duplex settings. Recommended for most use cases.
@@ -1830,7 +1862,39 @@ class Profile(pulumi.CustomResource):
                  args: Optional[ProfileArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a Profile resource with the given unique name, props, and options.
+        The `port.Profile` resource manages port profiles that can be applied to UniFi switch ports.
+
+        Port profiles define a collection of settings that can be applied to one or more switch ports, including:
+          * Network and VLAN settings
+          * Port speed and duplex settings
+          * Security features like 802.1X authentication and port isolation
+          * Rate limiting and QoS settings
+          * Network protocols like LLDP and STP
+
+        Creating port profiles allows for consistent configuration across multiple switch ports and easier management of port settings.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        config = pulumi.Config()
+        vlan_id = config.get_int("vlanId")
+        if vlan_id is None:
+            vlan_id = 10
+        vlan = unifi.Network("vlan",
+            purpose="corporate",
+            subnet="10.0.0.1/24",
+            vlan_id=vlan_id,
+            dhcp_start="10.0.0.6",
+            dhcp_stop="10.0.0.254",
+            dhcp_enabled=True)
+        poe_disabled = unifi.port.Profile("poeDisabled",
+            native_networkconf_id=vlan.id,
+            poe_mode="off")
+        ```
+
         :param str resource_name: The name of the resource.
         :param ProfileArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

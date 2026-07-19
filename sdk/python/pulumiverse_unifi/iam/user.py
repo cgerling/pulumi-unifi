@@ -487,7 +487,38 @@ class User(pulumi.CustomResource):
                  user_group_id: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        Create a User resource with the given unique name, props, and options.
+        The `iam.User` resource manages network clients in the UniFi controller, which are identified by their unique MAC addresses.
+
+        This resource allows you to manage:
+          * Fixed IP assignments
+          * User groups and network access
+          * Network blocking and restrictions
+          * Local DNS records
+
+        Important Notes:
+          * Users are automatically created in the controller when devices connect to the network
+          * By default, this resource can take over management of existing users (controlled by `allow_existing`)
+          * Users can be 'forgotten' on destroy (controlled by `skip_forget_on_destroy`)
+
+        This resource is particularly useful for:
+          * Managing static IP assignments
+          * Implementing access control
+          * Setting up local DNS records
+          * Organizing devices into user groups
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        test = unifi.iam.User("test",
+            mac="01:23:45:67:89:AB",
+            note="my note",
+            fixed_ip="10.0.0.50",
+            network_id=unifi_network["my_vlan"]["id"])
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] allow_existing: Allow this resource to take over management of an existing user in the UniFi controller. When true:
@@ -515,7 +546,38 @@ class User(pulumi.CustomResource):
                  args: UserArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a User resource with the given unique name, props, and options.
+        The `iam.User` resource manages network clients in the UniFi controller, which are identified by their unique MAC addresses.
+
+        This resource allows you to manage:
+          * Fixed IP assignments
+          * User groups and network access
+          * Network blocking and restrictions
+          * Local DNS records
+
+        Important Notes:
+          * Users are automatically created in the controller when devices connect to the network
+          * By default, this resource can take over management of existing users (controlled by `allow_existing`)
+          * Users can be 'forgotten' on destroy (controlled by `skip_forget_on_destroy`)
+
+        This resource is particularly useful for:
+          * Managing static IP assignments
+          * Implementing access control
+          * Setting up local DNS records
+          * Organizing devices into user groups
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        test = unifi.iam.User("test",
+            mac="01:23:45:67:89:AB",
+            note="my note",
+            fixed_ip="10.0.0.50",
+            network_id=unifi_network["my_vlan"]["id"])
+        ```
+
         :param str resource_name: The name of the resource.
         :param UserArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

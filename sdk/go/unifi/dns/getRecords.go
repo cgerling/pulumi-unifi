@@ -11,6 +11,31 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
+// Retrieves information about a all DNS records.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/dns"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := dns.LookupRecords(ctx, &dns.LookupRecordsArgs{}, nil)
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 func LookupRecords(ctx *pulumi.Context, args *LookupRecordsArgs, opts ...pulumi.InvokeOption) (*LookupRecordsResult, error) {
 	opts = internal.PkgInvokeDefaultOpts(opts)
 	var rv LookupRecordsResult
@@ -23,15 +48,18 @@ func LookupRecords(ctx *pulumi.Context, args *LookupRecordsArgs, opts ...pulumi.
 
 // A collection of arguments for invoking getRecords.
 type LookupRecordsArgs struct {
+	// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
 	Site *string `pulumi:"site"`
 }
 
 // A collection of values returned by getRecords.
 type LookupRecordsResult struct {
 	// The provider-assigned unique ID for this managed resource.
-	Id      string             `pulumi:"id"`
+	Id string `pulumi:"id"`
+	// The list of DNS records.
 	Results []GetRecordsResult `pulumi:"results"`
-	Site    string             `pulumi:"site"`
+	// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
+	Site string `pulumi:"site"`
 }
 
 func LookupRecordsOutput(ctx *pulumi.Context, args LookupRecordsOutputArgs, opts ...pulumi.InvokeOption) LookupRecordsResultOutput {
@@ -45,6 +73,7 @@ func LookupRecordsOutput(ctx *pulumi.Context, args LookupRecordsOutputArgs, opts
 
 // A collection of arguments for invoking getRecords.
 type LookupRecordsOutputArgs struct {
+	// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
 	Site pulumi.StringPtrInput `pulumi:"site"`
 }
 
@@ -72,10 +101,12 @@ func (o LookupRecordsResultOutput) Id() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupRecordsResult) string { return v.Id }).(pulumi.StringOutput)
 }
 
+// The list of DNS records.
 func (o LookupRecordsResultOutput) Results() GetRecordsResultArrayOutput {
 	return o.ApplyT(func(v LookupRecordsResult) []GetRecordsResult { return v.Results }).(GetRecordsResultArrayOutput)
 }
 
+// The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
 func (o LookupRecordsResultOutput) Site() pulumi.StringOutput {
 	return o.ApplyT(func(v LookupRecordsResult) string { return v.Site }).(pulumi.StringOutput)
 }

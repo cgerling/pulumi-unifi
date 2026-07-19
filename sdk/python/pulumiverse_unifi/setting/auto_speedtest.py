@@ -138,7 +138,21 @@ class AutoSpeedtest(pulumi.CustomResource):
                  site: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        Create a AutoSpeedtest resource with the given unique name, props, and options.
+        The `setting.AutoSpeedtest` resource manages the automatic speedtest settings in the UniFi controller.Automatic speedtests can be scheduled to run at regular intervals to monitor the network performance.
+
+        **NOTE:** Automatic speedtests where not verified and tested on all UniFi controller versions due to limitations of controller used in acceptance testing.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        example = unifi.setting.AutoSpeedtest("example",
+            cron="0 0 * * *",
+            enabled=True)
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.str] cron: Cron expression defining the schedule for automatic speedtests.
@@ -152,7 +166,21 @@ class AutoSpeedtest(pulumi.CustomResource):
                  args: AutoSpeedtestArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a AutoSpeedtest resource with the given unique name, props, and options.
+        The `setting.AutoSpeedtest` resource manages the automatic speedtest settings in the UniFi controller.Automatic speedtests can be scheduled to run at regular intervals to monitor the network performance.
+
+        **NOTE:** Automatic speedtests where not verified and tested on all UniFi controller versions due to limitations of controller used in acceptance testing.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        example = unifi.setting.AutoSpeedtest("example",
+            cron="0 0 * * *",
+            enabled=True)
+        ```
+
         :param str resource_name: The name of the resource.
         :param AutoSpeedtestArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

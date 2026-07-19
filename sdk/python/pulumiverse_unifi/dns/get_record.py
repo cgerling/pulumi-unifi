@@ -61,51 +61,81 @@ class GetRecordResult:
     @_builtins.property
     @pulumi.getter
     def enabled(self) -> _builtins.bool:
+        """
+        Whether the DNS record is enabled.
+        """
         return pulumi.get(self, "enabled")
 
     @_builtins.property
     @pulumi.getter
     def id(self) -> _builtins.str:
+        """
+        The unique identifier of this resource.
+        """
         return pulumi.get(self, "id")
 
     @_builtins.property
     @pulumi.getter
     def name(self) -> _builtins.str:
+        """
+        DNS record name.
+        """
         return pulumi.get(self, "name")
 
     @_builtins.property
     @pulumi.getter
     def port(self) -> _builtins.int:
+        """
+        The port of the DNS record.
+        """
         return pulumi.get(self, "port")
 
     @_builtins.property
     @pulumi.getter
     def priority(self) -> _builtins.int:
+        """
+        Priority of the DNS records. Present only for MX and SRV records; unused by other record types.
+        """
         return pulumi.get(self, "priority")
 
     @_builtins.property
     @pulumi.getter
     def site(self) -> _builtins.str:
+        """
+        The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
+        """
         return pulumi.get(self, "site")
 
     @_builtins.property
     @pulumi.getter
     def ttl(self) -> _builtins.int:
+        """
+        Time To Live (TTL) of the DNS record in seconds. Setting to 0 means 'automatic'.
+        """
         return pulumi.get(self, "ttl")
 
     @_builtins.property
     @pulumi.getter
     def type(self) -> _builtins.str:
+        """
+        The type of the DNS record.
+        """
         return pulumi.get(self, "type")
 
     @_builtins.property
     @pulumi.getter
     def value(self) -> _builtins.str:
+        """
+        DNS record content.
+        """
         return pulumi.get(self, "value")
 
     @_builtins.property
     @pulumi.getter
     def weight(self) -> _builtins.int:
+        """
+        A numeric value indicating the relative weight of the record.
+        """
         return pulumi.get(self, "weight")
 
 
@@ -132,7 +162,22 @@ def get_record(name: Optional[_builtins.str] = None,
                value: Optional[_builtins.str] = None,
                opts: Optional[pulumi.InvokeOptions] = None) -> AwaitableGetRecordResult:
     """
-    Use this data source to access information about an existing resource.
+    Retrieves information about a specific DNS record configured in your UniFi network. This data source allows you to look up DNS records by either their name or record content. It's particularly useful for validating existing DNS configurations or referencing DNS records in other resources.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_unifi as unifi
+
+    by_name = unifi.dns.get_record(name="example.mydomain.com")
+    by_record = unifi.dns.get_record(value="192.168.0.1")
+    ```
+
+
+    :param _builtins.str name: DNS record name.
+    :param _builtins.str site: The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
+    :param _builtins.str value: DNS record content.
     """
     __args__ = dict()
     __args__['name'] = name
@@ -157,7 +202,22 @@ def get_record_output(name: Optional[pulumi.Input[Optional[_builtins.str]]] = No
                       value: Optional[pulumi.Input[Optional[_builtins.str]]] = None,
                       opts: Optional[Union[pulumi.InvokeOptions, pulumi.InvokeOutputOptions]] = None) -> pulumi.Output[GetRecordResult]:
     """
-    Use this data source to access information about an existing resource.
+    Retrieves information about a specific DNS record configured in your UniFi network. This data source allows you to look up DNS records by either their name or record content. It's particularly useful for validating existing DNS configurations or referencing DNS records in other resources.
+
+    ## Example Usage
+
+    ```python
+    import pulumi
+    import pulumi_unifi as unifi
+
+    by_name = unifi.dns.get_record(name="example.mydomain.com")
+    by_record = unifi.dns.get_record(value="192.168.0.1")
+    ```
+
+
+    :param _builtins.str name: DNS record name.
+    :param _builtins.str site: The name of the UniFi site where this resource should be applied. If not specified, the default site will be used.
+    :param _builtins.str value: DNS record content.
     """
     __args__ = dict()
     __args__['name'] = name

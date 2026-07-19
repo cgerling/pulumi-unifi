@@ -4,6 +4,34 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
+/**
+ * The `unifi.firewall.Group` resource manages reusable groups of addresses or ports that can be referenced in firewall rules (`unifi.firewall.Rule`).
+ *
+ * Firewall groups help organize and simplify firewall rule management by allowing you to:
+ *   * Create collections of IP addresses or networks
+ *   * Define sets of ports for specific services
+ *   * Group IPv6 addresses for IPv6-specific rules
+ *
+ * Common use cases include:
+ *   * Creating groups of trusted IP addresses
+ *   * Defining port groups for specific applications
+ *   * Managing access control lists
+ *   * Simplifying rule maintenance by using groups instead of individual IPs/ports
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as unifi from "@pulumiverse/unifi";
+ *
+ * const config = new pulumi.Config();
+ * const laptopIps = config.requireObject<Array<string>>("laptopIps");
+ * const canPrint = new unifi.firewall.Group("canPrint", {
+ *     type: "address-group",
+ *     members: laptopIps,
+ * });
+ * ```
+ */
 export class Group extends pulumi.CustomResource {
     /**
      * Get an existing Group resource's state with the given name, ID, and optional extra

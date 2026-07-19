@@ -6,6 +6,93 @@ import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 import * as utilities from "../utilities";
 
+/**
+ * The `unifi.setting.USG` resource manages advanced settings for UniFi Security Gateways (USG) and UniFi Dream Machines (UDM/UDM-Pro).
+ *
+ * This resource allows you to configure gateway-specific features including:
+ *   * Multicast DNS (mDNS) for cross-VLAN service discovery
+ *   * DHCP relay for forwarding DHCP requests to external servers
+ *   * Geo IP filtering for country-based traffic control
+ *   * UPNP/NAT-PMP for automatic port forwarding
+ *   * Protocol helpers for FTP, GRE, H323, PPTP, SIP, and TFTP
+ *   * TCP/UDP timeout settings for connection tracking
+ *   * Security features like SYN cookies and ICMP redirect controls
+ *   * MSS clamping for optimizing MTU issues
+ *
+ * Note: Some settings may not be available on all controller versions. For example, multicastDnsEnabled is not supported on UniFi OS v7+. Changes to certain attributes may not be reflected in the plan unless explicitly modified in the configuration.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as unifi from "@pulumiverse/unifi";
+ *
+ * const example = new unifi.setting.USG("example", {
+ *     arpCacheBaseReachable: 60,
+ *     arpCacheTimeout: "custom",
+ *     broadcastPing: true,
+ *     dhcpRelay: {
+ *         agents_packets: "forward",
+ *         hop_count: 5,
+ *     },
+ *     dhcpRelayServers: [
+ *         "10.1.2.3",
+ *         "10.1.2.4",
+ *     ],
+ *     dhcpdHostfileUpdate: true,
+ *     dhcpdUseDnsmasq: true,
+ *     dnsVerification: {
+ *         domain: "example.com",
+ *         primary_dns_server: "1.1.1.1",
+ *         secondary_dns_server: "1.0.0.1",
+ *         setting_preference: "manual",
+ *     },
+ *     dnsmasqAllServers: true,
+ *     echoServer: "echo.example.com",
+ *     ftpModule: true,
+ *     geoIpFiltering: {
+ *         block: "block",
+ *         countries: [
+ *             "UK",
+ *             "CN",
+ *             "AU",
+ *         ],
+ *         traffic_direction: "both",
+ *     },
+ *     greModule: true,
+ *     icmpTimeout: 20,
+ *     lldpEnableAll: true,
+ *     mssClamp: "auto",
+ *     mssClampMss: 1452,
+ *     offloadAccounting: true,
+ *     offloadL2Blocking: true,
+ *     offloadScheduling: false,
+ *     otherTimeout: 600,
+ *     receiveRedirects: false,
+ *     sendRedirects: true,
+ *     synCookies: true,
+ *     tcpTimeouts: {
+ *         close_timeout: 10,
+ *         close_wait_timeout: 20,
+ *         established_timeout: 3600,
+ *         fin_wait_timeout: 30,
+ *         last_ack_timeout: 30,
+ *         syn_recv_timeout: 60,
+ *         syn_sent_timeout: 120,
+ *         time_wait_timeout: 120,
+ *     },
+ *     tftpModule: true,
+ *     timeoutSettingPreference: "auto",
+ *     udpOtherTimeout: 30,
+ *     udpStreamTimeout: 120,
+ *     upnp: {
+ *         nat_pmp_enabled: true,
+ *         secure_mode: true,
+ *         wan_interface: "WAN",
+ *     },
+ * });
+ * ```
+ */
 export class USG extends pulumi.CustomResource {
     /**
      * Get an existing USG resource's state with the given name, ID, and optional extra

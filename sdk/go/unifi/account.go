@@ -12,6 +12,28 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
+// The `Account` resource manages RADIUS user accounts in the UniFi controller's built-in RADIUS server.
+//
+// This resource is used for:
+//   - WPA2/WPA3-Enterprise wireless authentication
+//   - 802.1X wired authentication
+//   - MAC-based device authentication
+//   - Dynamic VLAN assignment through RADIUS attributes (see the `vlan` attribute)
+//
+// Important Notes:
+// 1. For MAC-based authentication:
+//   - Use the device's MAC address as both username and password
+//   - Convert MAC address to uppercase with no separators (e.g., '00:11:22:33:44:55' becomes '001122334455')
+//
+// 2. VLAN Assignment:
+//   - Set the `vlan` attribute to the 802.1Q VLAN ID the controller should assign to authenticated clients
+//   - VLAN assignment is delivered using the standard RADIUS tunnel attributes (`tunnelType`/`tunnelMediumType`)
+//   - If no VLAN is specified, clients will use the network's untagged VLAN
+//
+// Limitations:
+//   - MAC-based authentication works only for wireless and wired clients
+//   - L2TP remote access VPN is not supported with MAC authentication
+//   - Accounts must be unique within a site
 type Account struct {
 	pulumi.CustomResourceState
 

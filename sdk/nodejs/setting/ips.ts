@@ -6,6 +6,53 @@ import * as inputs from "../types/input";
 import * as outputs from "../types/output";
 import * as utilities from "../utilities";
 
+/**
+ * The `unifi.setting.Ips` resource allows you to configure the Intrusion Prevention System (IPS) settings for your UniFi network. IPS provides network threat protection by monitoring, detecting, and preventing malicious traffic based on configured rules and policies. Requires controller version 7.4 or later
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as unifi from "@pulumiverse/unifi";
+ *
+ * const test = new unifi.Network("test", {
+ *     purpose: "corporate",
+ *     subnet: "192.168.1.0/24",
+ *     vlanId: 10,
+ * });
+ * const example = new unifi.setting.Ips("example", {
+ *     ipsMode: "ips",
+ *     enabledNetworks: [test.id],
+ *     advancedFilteringPreference: "manual",
+ *     enabledCategories: [
+ *         "emerging-dos",
+ *         "emerging-exploit",
+ *         "emerging-malware",
+ *     ],
+ *     adBlockedNetworks: [test.id],
+ *     honeypots: [{
+ *         ip_address: "192.168.1.10",
+ *         network_id: test.id,
+ *     }],
+ *     dnsFilters: [{
+ *         name: "Work Filter",
+ *         filter: "work",
+ *         description: "Block non-work related sites",
+ *         allowedSites: [
+ *             "example.com",
+ *             "company.com",
+ *         ],
+ *         blockedSites: [
+ *             "gaming.example.com",
+ *             "social.example.com",
+ *         ],
+ *         blockedTld: ["xyz"],
+ *     }],
+ * });
+ * // Specify the site (optional, defaults to site configured in provider, otherwise "default")
+ * // site = "default"
+ * ```
+ */
 export class Ips extends pulumi.CustomResource {
     /**
      * Get an existing Ips resource's state with the given name, ID, and optional extra

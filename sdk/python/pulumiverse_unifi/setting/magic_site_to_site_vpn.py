@@ -105,7 +105,17 @@ class MagicSiteToSiteVpn(pulumi.CustomResource):
                  site: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        Create a MagicSiteToSiteVpn resource with the given unique name, props, and options.
+        Manages Magic Site to Site VPN settings for a UniFi site.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        example = unifi.setting.MagicSiteToSiteVpn("example", enabled=True)
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] enabled: Whether the Magic Site to Site VPN is enabled.
@@ -118,7 +128,17 @@ class MagicSiteToSiteVpn(pulumi.CustomResource):
                  args: MagicSiteToSiteVpnArgs,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a MagicSiteToSiteVpn resource with the given unique name, props, and options.
+        Manages Magic Site to Site VPN settings for a UniFi site.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        example = unifi.setting.MagicSiteToSiteVpn("example", enabled=True)
+        ```
+
         :param str resource_name: The name of the resource.
         :param MagicSiteToSiteVpnArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

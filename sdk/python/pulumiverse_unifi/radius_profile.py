@@ -437,7 +437,19 @@ class RadiusProfile(pulumi.CustomResource):
                  vlan_wlan_mode: Optional[pulumi.Input[_builtins.str]] = None,
                  __props__=None):
         """
-        Create a RadiusProfile resource with the given unique name, props, and options.
+        The `RadiusProfile` resource manages RADIUS authentication profiles for UniFi networks.
+
+        RADIUS (Remote Authentication Dial-In User Service) profiles enable enterprise-grade authentication and authorization for:
+          * 802.1X network access control
+          * WPA2/WPA3-Enterprise wireless networks
+          * Dynamic VLAN assignment
+          * User activity accounting
+
+        Each profile can be configured with:
+          * Multiple authentication and accounting servers
+          * VLAN assignment settings
+          * Accounting update intervals
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.bool] accounting_enabled: Enable RADIUS accounting to track user sessions, including login/logout times and data usage. Useful for billing and audit purposes.
@@ -467,7 +479,19 @@ class RadiusProfile(pulumi.CustomResource):
                  args: Optional[RadiusProfileArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a RadiusProfile resource with the given unique name, props, and options.
+        The `RadiusProfile` resource manages RADIUS authentication profiles for UniFi networks.
+
+        RADIUS (Remote Authentication Dial-In User Service) profiles enable enterprise-grade authentication and authorization for:
+          * 802.1X network access control
+          * WPA2/WPA3-Enterprise wireless networks
+          * Dynamic VLAN assignment
+          * User activity accounting
+
+        Each profile can be configured with:
+          * Multiple authentication and accounting servers
+          * VLAN assignment settings
+          * Accounting update intervals
+
         :param str resource_name: The name of the resource.
         :param RadiusProfileArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

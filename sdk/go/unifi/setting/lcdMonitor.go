@@ -12,6 +12,7 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
+// Manages LCD Monitor (LCM) settings for UniFi devices with built-in displays, such as the UniFi Dream Machine Pro (UDM Pro) and UniFi Network Video Recorder (UNVR).
 type LcdMonitor struct {
 	pulumi.CustomResourceState
 

@@ -4,6 +4,31 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
+/**
+ * The `unifi.dns.Record` resource manages DNS records in the UniFi controller's DNS server.
+ *
+ * This resource allows you to configure various types of DNS records for local name resolution. Common use cases include:
+ *   * Creating A records for local servers and devices
+ *   * Setting up CNAME aliases for internal services
+ *   * Configuring MX records for local mail servers
+ *   * Adding TXT records for service verification
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as unifi from "@pulumiverse/unifi";
+ *
+ * const aRecord = new unifi.dns.Record("aRecord", {
+ *     value: "192.168.1.190",
+ *     type: "A",
+ * });
+ * const cnameRecord = new unifi.dns.Record("cnameRecord", {
+ *     value: "example.com",
+ *     type: "CNAME",
+ * });
+ * ```
+ */
 export class Record extends pulumi.CustomResource {
     /**
      * Get an existing Record resource's state with the given name, ID, and optional extra

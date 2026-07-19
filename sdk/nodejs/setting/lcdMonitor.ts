@@ -4,6 +4,9 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
+/**
+ * Manages LCD Monitor (LCM) settings for UniFi devices with built-in displays, such as the UniFi Dream Machine Pro (UDM Pro) and UniFi Network Video Recorder (UNVR).
+ */
 export class LcdMonitor extends pulumi.CustomResource {
     /**
      * Get an existing LcdMonitor resource's state with the given name, ID, and optional extra

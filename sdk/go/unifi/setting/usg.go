@@ -11,6 +11,106 @@ import (
 	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/internal"
 )
 
+// The `setting.USG` resource manages advanced settings for UniFi Security Gateways (USG) and UniFi Dream Machines (UDM/UDM-Pro).
+//
+// This resource allows you to configure gateway-specific features including:
+//   - Multicast DNS (mDNS) for cross-VLAN service discovery
+//   - DHCP relay for forwarding DHCP requests to external servers
+//   - Geo IP filtering for country-based traffic control
+//   - UPNP/NAT-PMP for automatic port forwarding
+//   - Protocol helpers for FTP, GRE, H323, PPTP, SIP, and TFTP
+//   - TCP/UDP timeout settings for connection tracking
+//   - Security features like SYN cookies and ICMP redirect controls
+//   - MSS clamping for optimizing MTU issues
+//
+// Note: Some settings may not be available on all controller versions. For example, multicastDnsEnabled is not supported on UniFi OS v7+. Changes to certain attributes may not be reflected in the plan unless explicitly modified in the configuration.
+//
+// ## Example Usage
+//
+// ```go
+// package main
+//
+// import (
+//
+//	"github.com/pulumi/pulumi/sdk/v3/go/pulumi"
+//	"github.com/pulumiverse/pulumi-unifi/sdk/go/unifi/setting"
+//
+// )
+//
+//	func main() {
+//		pulumi.Run(func(ctx *pulumi.Context) error {
+//			_, err := setting.NewUSG(ctx, "example", &setting.USGArgs{
+//				ArpCacheBaseReachable: pulumi.Int(60),
+//				ArpCacheTimeout:       pulumi.String("custom"),
+//				BroadcastPing:         pulumi.Bool(true),
+//				DhcpRelay: &setting.USGDhcpRelayArgs{
+//					Agents_packets: "forward",
+//					Hop_count:      5,
+//				},
+//				DhcpRelayServers: pulumi.StringArray{
+//					pulumi.String("10.1.2.3"),
+//					pulumi.String("10.1.2.4"),
+//				},
+//				DhcpdHostfileUpdate: pulumi.Bool(true),
+//				DhcpdUseDnsmasq:     pulumi.Bool(true),
+//				DnsVerification: &setting.USGDnsVerificationArgs{
+//					Domain:               pulumi.String("example.com"),
+//					Primary_dns_server:   "1.1.1.1",
+//					Secondary_dns_server: "1.0.0.1",
+//					Setting_preference:   "manual",
+//				},
+//				DnsmasqAllServers: pulumi.Bool(true),
+//				EchoServer:        pulumi.String("echo.example.com"),
+//				FtpModule:         pulumi.Bool(true),
+//				GeoIpFiltering: &setting.USGGeoIpFilteringArgs{
+//					Block: "block",
+//					Countries: pulumi.StringArray{
+//						pulumi.String("UK"),
+//						pulumi.String("CN"),
+//						pulumi.String("AU"),
+//					},
+//					Traffic_direction: "both",
+//				},
+//				GreModule:         pulumi.Bool(true),
+//				IcmpTimeout:       pulumi.Int(20),
+//				LldpEnableAll:     pulumi.Bool(true),
+//				MssClamp:          pulumi.String("auto"),
+//				MssClampMss:       pulumi.Int(1452),
+//				OffloadAccounting: pulumi.Bool(true),
+//				OffloadL2Blocking: pulumi.Bool(true),
+//				OffloadScheduling: false,
+//				OtherTimeout:      pulumi.Int(600),
+//				ReceiveRedirects:  pulumi.Bool(false),
+//				SendRedirects:     pulumi.Bool(true),
+//				SynCookies:        pulumi.Bool(true),
+//				TcpTimeouts: &setting.USGTcpTimeoutsArgs{
+//					Close_timeout:       10,
+//					Close_wait_timeout:  20,
+//					Established_timeout: 3600,
+//					Fin_wait_timeout:    30,
+//					Last_ack_timeout:    30,
+//					Syn_recv_timeout:    60,
+//					Syn_sent_timeout:    120,
+//					Time_wait_timeout:   120,
+//				},
+//				TftpModule:               pulumi.Bool(true),
+//				TimeoutSettingPreference: pulumi.String("auto"),
+//				UdpOtherTimeout:          pulumi.Int(30),
+//				UdpStreamTimeout:         pulumi.Int(120),
+//				Upnp: &setting.USGUpnpArgs{
+//					Nat_pmp_enabled: true,
+//					Secure_mode:     true,
+//					Wan_interface:   "WAN",
+//				},
+//			})
+//			if err != nil {
+//				return err
+//			}
+//			return nil
+//		})
+//	}
+//
+// ```
 type USG struct {
 	pulumi.CustomResourceState
 

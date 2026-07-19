@@ -4,6 +4,21 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
+/**
+ * Manages Teleport settings for a UniFi site. Teleport is a secure remote access technology that allows authorized users to connect to UniFi devices from anywhere.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as unifi from "@pulumiverse/unifi";
+ *
+ * const example = new unifi.setting.Teleport("example", {
+ *     enabled: true,
+ *     subnet: "192.168.100.0/24",
+ * });
+ * ```
+ */
 export class Teleport extends pulumi.CustomResource {
     /**
      * Get an existing Teleport resource's state with the given name, ID, and optional extra

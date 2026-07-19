@@ -4,6 +4,26 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "../utilities";
 
+/**
+ * The `unifi.setting.Ntp` resource allows you to configure Network Time Protocol (NTP) server settings for your UniFi network.
+ *
+ * NTP servers provide time synchronization for your network devices. This resource supports both automatic and manual NTP configuration modes.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as unifi from "@pulumiverse/unifi";
+ *
+ * const example = new unifi.setting.Ntp("example", {
+ *     mode: "manual",
+ *     ntpServer1: "time.cloudflare.com",
+ *     ntpServer2: "pool.ntp.org",
+ *     ntpServer3: "time.google.com",
+ *     ntpServer4: "0.pool.ntp.org",
+ * });
+ * ```
+ */
 export class Ntp extends pulumi.CustomResource {
     /**
      * Get an existing Ntp resource's state with the given name, ID, and optional extra
@@ -34,10 +54,6 @@ export class Ntp extends pulumi.CustomResource {
 
     /**
      * NTP server configuration mode. Valid values are:
-     * * `auto` - Use NTP servers configured on the controller
-     * * `manual` - Use custom NTP servers specified in this resource
-     *
-     * When set to `auto`, all NTP server fields will be cleared. When set to `manual`, at least one NTP server must be specified.
      */
     declare public readonly mode: pulumi.Output<string>;
     /**
@@ -100,10 +116,6 @@ export class Ntp extends pulumi.CustomResource {
 export interface NtpState {
     /**
      * NTP server configuration mode. Valid values are:
-     * * `auto` - Use NTP servers configured on the controller
-     * * `manual` - Use custom NTP servers specified in this resource
-     *
-     * When set to `auto`, all NTP server fields will be cleared. When set to `manual`, at least one NTP server must be specified.
      */
     mode?: pulumi.Input<string>;
     /**
@@ -134,10 +146,6 @@ export interface NtpState {
 export interface NtpArgs {
     /**
      * NTP server configuration mode. Valid values are:
-     * * `auto` - Use NTP servers configured on the controller
-     * * `manual` - Use custom NTP servers specified in this resource
-     *
-     * When set to `auto`, all NTP server fields will be cleared. When set to `manual`, at least one NTP server must be specified.
      */
     mode?: pulumi.Input<string>;
     /**

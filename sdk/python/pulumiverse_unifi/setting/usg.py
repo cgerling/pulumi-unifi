@@ -1326,7 +1326,91 @@ class USG(pulumi.CustomResource):
                  upnp: Optional[pulumi.Input[Union['USGUpnpArgs', 'USGUpnpArgsDict']]] = None,
                  __props__=None):
         """
-        Create a USG resource with the given unique name, props, and options.
+        The `setting.USG` resource manages advanced settings for UniFi Security Gateways (USG) and UniFi Dream Machines (UDM/UDM-Pro).
+
+        This resource allows you to configure gateway-specific features including:
+          * Multicast DNS (mDNS) for cross-VLAN service discovery
+          * DHCP relay for forwarding DHCP requests to external servers
+          * Geo IP filtering for country-based traffic control
+          * UPNP/NAT-PMP for automatic port forwarding
+          * Protocol helpers for FTP, GRE, H323, PPTP, SIP, and TFTP
+          * TCP/UDP timeout settings for connection tracking
+          * Security features like SYN cookies and ICMP redirect controls
+          * MSS clamping for optimizing MTU issues
+
+        Note: Some settings may not be available on all controller versions. For example, multicast_dns_enabled is not supported on UniFi OS v7+. Changes to certain attributes may not be reflected in the plan unless explicitly modified in the configuration.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        example = unifi.setting.USG("example",
+            arp_cache_base_reachable=60,
+            arp_cache_timeout="custom",
+            broadcast_ping=True,
+            dhcp_relay={
+                "agents_packets": "forward",
+                "hop_count": 5,
+            },
+            dhcp_relay_servers=[
+                "10.1.2.3",
+                "10.1.2.4",
+            ],
+            dhcpd_hostfile_update=True,
+            dhcpd_use_dnsmasq=True,
+            dns_verification={
+                "domain": "example.com",
+                "primary_dns_server": "1.1.1.1",
+                "secondary_dns_server": "1.0.0.1",
+                "setting_preference": "manual",
+            },
+            dnsmasq_all_servers=True,
+            echo_server="echo.example.com",
+            ftp_module=True,
+            geo_ip_filtering={
+                "block": "block",
+                "countries": [
+                    "UK",
+                    "CN",
+                    "AU",
+                ],
+                "traffic_direction": "both",
+            },
+            gre_module=True,
+            icmp_timeout=20,
+            lldp_enable_all=True,
+            mss_clamp="auto",
+            mss_clamp_mss=1452,
+            offload_accounting=True,
+            offload_l2_blocking=True,
+            offload_scheduling=False,
+            other_timeout=600,
+            receive_redirects=False,
+            send_redirects=True,
+            syn_cookies=True,
+            tcp_timeouts={
+                "close_timeout": 10,
+                "close_wait_timeout": 20,
+                "established_timeout": 3600,
+                "fin_wait_timeout": 30,
+                "last_ack_timeout": 30,
+                "syn_recv_timeout": 60,
+                "syn_sent_timeout": 120,
+                "time_wait_timeout": 120,
+            },
+            tftp_module=True,
+            timeout_setting_preference="auto",
+            udp_other_timeout=30,
+            udp_stream_timeout=120,
+            upnp={
+                "nat_pmp_enabled": True,
+                "secure_mode": True,
+                "wan_interface": "WAN",
+            })
+        ```
+
         :param str resource_name: The name of the resource.
         :param pulumi.ResourceOptions opts: Options for the resource.
         :param pulumi.Input[_builtins.int] arp_cache_base_reachable: The base reachable timeout (in seconds) for ARP cache entries. This controls how long the gateway considers a MAC-to-IP mapping valid without needing to refresh it. Higher values reduce network traffic but may cause stale entries if devices change IP addresses frequently.
@@ -1387,7 +1471,91 @@ class USG(pulumi.CustomResource):
                  args: Optional[USGArgs] = None,
                  opts: Optional[pulumi.ResourceOptions] = None):
         """
-        Create a USG resource with the given unique name, props, and options.
+        The `setting.USG` resource manages advanced settings for UniFi Security Gateways (USG) and UniFi Dream Machines (UDM/UDM-Pro).
+
+        This resource allows you to configure gateway-specific features including:
+          * Multicast DNS (mDNS) for cross-VLAN service discovery
+          * DHCP relay for forwarding DHCP requests to external servers
+          * Geo IP filtering for country-based traffic control
+          * UPNP/NAT-PMP for automatic port forwarding
+          * Protocol helpers for FTP, GRE, H323, PPTP, SIP, and TFTP
+          * TCP/UDP timeout settings for connection tracking
+          * Security features like SYN cookies and ICMP redirect controls
+          * MSS clamping for optimizing MTU issues
+
+        Note: Some settings may not be available on all controller versions. For example, multicast_dns_enabled is not supported on UniFi OS v7+. Changes to certain attributes may not be reflected in the plan unless explicitly modified in the configuration.
+
+        ## Example Usage
+
+        ```python
+        import pulumi
+        import pulumiverse_unifi as unifi
+
+        example = unifi.setting.USG("example",
+            arp_cache_base_reachable=60,
+            arp_cache_timeout="custom",
+            broadcast_ping=True,
+            dhcp_relay={
+                "agents_packets": "forward",
+                "hop_count": 5,
+            },
+            dhcp_relay_servers=[
+                "10.1.2.3",
+                "10.1.2.4",
+            ],
+            dhcpd_hostfile_update=True,
+            dhcpd_use_dnsmasq=True,
+            dns_verification={
+                "domain": "example.com",
+                "primary_dns_server": "1.1.1.1",
+                "secondary_dns_server": "1.0.0.1",
+                "setting_preference": "manual",
+            },
+            dnsmasq_all_servers=True,
+            echo_server="echo.example.com",
+            ftp_module=True,
+            geo_ip_filtering={
+                "block": "block",
+                "countries": [
+                    "UK",
+                    "CN",
+                    "AU",
+                ],
+                "traffic_direction": "both",
+            },
+            gre_module=True,
+            icmp_timeout=20,
+            lldp_enable_all=True,
+            mss_clamp="auto",
+            mss_clamp_mss=1452,
+            offload_accounting=True,
+            offload_l2_blocking=True,
+            offload_scheduling=False,
+            other_timeout=600,
+            receive_redirects=False,
+            send_redirects=True,
+            syn_cookies=True,
+            tcp_timeouts={
+                "close_timeout": 10,
+                "close_wait_timeout": 20,
+                "established_timeout": 3600,
+                "fin_wait_timeout": 30,
+                "last_ack_timeout": 30,
+                "syn_recv_timeout": 60,
+                "syn_sent_timeout": 120,
+                "time_wait_timeout": 120,
+            },
+            tftp_module=True,
+            timeout_setting_preference="auto",
+            udp_other_timeout=30,
+            udp_stream_timeout=120,
+            upnp={
+                "nat_pmp_enabled": True,
+                "secure_mode": True,
+                "wan_interface": "WAN",
+            })
+        ```
+
         :param str resource_name: The name of the resource.
         :param USGArgs args: The arguments to use to populate this resource's properties.
         :param pulumi.ResourceOptions opts: Options for the resource.

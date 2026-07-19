@@ -4,6 +4,42 @@
 import * as pulumi from "@pulumi/pulumi";
 import * as utilities from "./utilities";
 
+/**
+ * The `unifi.StaticRoute` resource manages static routes on UniFi Security Gateways (USG) and UniFi Dream Machines (UDM/UDM-Pro).
+ *
+ * Static routes allow you to manually configure routing paths for specific networks. This is useful for:
+ *   * Connecting to networks not directly connected to your UniFi gateway
+ *   * Creating backup routes for redundancy
+ *   * Implementing policy-based routing
+ *   * Blocking traffic to specific networks using blackhole routes
+ *
+ * Routes can be configured to use either a next-hop IP address, a specific interface, or as a blackhole route.
+ *
+ * ## Example Usage
+ *
+ * ```typescript
+ * import * as pulumi from "@pulumi/pulumi";
+ * import * as unifi from "@pulumiverse/unifi";
+ *
+ * const nexthop = new unifi.StaticRoute("nexthop", {
+ *     type: "nexthop-route",
+ *     network: "172.17.0.0/16",
+ *     distance: 1,
+ *     nextHop: "172.16.0.1",
+ * });
+ * const blackhole = new unifi.StaticRoute("blackhole", {
+ *     type: "blackhole",
+ *     network: _var.blackhole_cidr,
+ *     distance: 1,
+ * });
+ * const _interface = new unifi.StaticRoute("interface", {
+ *     type: "interface-route",
+ *     network: _var.wan2_cidr,
+ *     distance: 1,
+ *     "interface": "WAN2",
+ * });
+ * ```
+ */
 export class StaticRoute extends pulumi.CustomResource {
     /**
      * Get an existing StaticRoute resource's state with the given name, ID, and optional extra
