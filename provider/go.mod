@@ -259,4 +259,4 @@ require (
 	lukechampine.com/frand v1.5.1 // indirect
 )
 
-replace github.com/filipowm/terraform-provider-unifi => github.com/cgerling/terraform-provider-unifi v1.1.1-0.20260719201025-6d4d7ca23be4
+replace github.com/filipowm/terraform-provider-unifi => github.com/cgerling/terraform-provider-unifi v1.1.1-0.20260720003417-70cc40ccebfa
